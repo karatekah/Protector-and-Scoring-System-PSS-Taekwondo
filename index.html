@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PSS Taekwondo - Marcador</title>
+    <meta
+      name="description"
+      content="Prototipo web local de marcador y panel de operador para combate de Taekwondo."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="scoreboard" aria-label="Vista publica del marcador">
+        <header class="event-bar">
+          <div class="brand-cluster">
+            <span class="mark wt-mark" aria-hidden="true">WT</span>
+            <span class="mark pss-mark" aria-hidden="true">PSS</span>
+          </div>
+          <input id="eventName" class="event-input" value="Combate Taekwondo - M-58 kg" />
+          <div class="sensor-stack" aria-label="Estado de sensores">
+            <span class="sensor-dot is-on"></span>
+            <span>3</span>
+            <span class="sensor-dot is-low"></span>
+            <span>19</span>
+          </div>
+        </header>
+
+        <div class="score-grid">
+          <article class="fighter-panel blue-panel" aria-label="Chung marcador">
+            <div class="fighter-meta">
+              <input id="blueFlag" class="flag-input" value="PER" maxlength="3" />
+              <input id="blueName" class="name-input" value="Chung" />
+            </div>
+            <output id="blueScore" class="score-value">0</output>
+            <div class="panel-foot">
+              <span>GAM-JEOM</span>
+              <output id="blueGamjeom">0</output>
+            </div>
+          </article>
+
+          <section class="center-clock" aria-label="Tiempo y ronda">
+            <div id="timeState" class="time-state">Ready</div>
+            <output id="clock" class="clock-value">02:00</output>
+            <div class="round-block">
+              <span>ROUND</span>
+              <output id="roundNumber">1</output>
+            </div>
+          </section>
+
+          <article class="fighter-panel red-panel" aria-label="Hong marcador">
+            <div class="fighter-meta">
+              <input id="redName" class="name-input" value="Hong" />
+              <input id="redFlag" class="flag-input" value="KOR" maxlength="3" />
+            </div>
+            <output id="redScore" class="score-value">0</output>
+            <div class="panel-foot">
+              <span>GAM-JEOM</span>
+              <output id="redGamjeom">0</output>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="operator-area" aria-label="Panel del operador">
+        <div class="control-strip">
+          <button id="startPause" class="primary-action" type="button">Shijak</button>
+          <button id="timeout" type="button">Time out</button>
+          <button id="nextRound" type="button">Round +</button>
+          <button id="swapSides" type="button">Switch</button>
+          <button id="undo" class="danger-action" type="button" disabled>Deshacer</button>
+          <button id="resetMatch" type="button">Nuevo combate</button>
+        </div>
+
+        <div class="operator-layout">
+          <section class="judge-side blue-judge" aria-label="Controles Chung">
+            <header>
+              <span class="side-korean">&lt;청&gt;</span>
+              <strong>Chung</strong>
+            </header>
+            <div class="score-buttons" data-side="blue"></div>
+          </section>
+
+          <section class="log-panel" aria-label="Registro de acciones">
+            <header>
+              <strong>Registro</strong>
+              <span id="leaderLabel">Empate</span>
+            </header>
+            <ol id="historyList" class="history-list"></ol>
+          </section>
+
+          <section class="judge-side red-judge" aria-label="Controles Hong">
+            <header>
+              <span class="side-korean">&lt;홍&gt;</span>
+              <strong>Hong</strong>
+            </header>
+            <div class="score-buttons" data-side="red"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
