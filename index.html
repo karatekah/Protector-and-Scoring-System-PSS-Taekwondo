@@ -26,6 +26,7 @@
           <button class="tab-button" type="button" data-view-target="setup">Configuracion</button>
           <button class="tab-button" type="button" data-view-target="scoring">Puntaje</button>
           <button class="tab-button" type="button" data-view-target="public">Vista publica</button>
+          <button class="tab-button" type="button" data-open-public>Ventana publica</button>
         </nav>
       </header>
 
@@ -41,6 +42,8 @@
             <div class="home-actions">
               <button class="primary-action" type="button" data-view-target="setup">Configurar combate</button>
               <button type="button" data-view-target="scoring">Ir al panel de puntaje</button>
+              <button type="button" data-view-target="public">Vista publica</button>
+              <button type="button" data-open-public>Volver a pantalla grande</button>
             </div>
           </section>
 
@@ -51,7 +54,7 @@
             </div>
             <div>
               <span>Atletas</span>
-              <strong><span data-bind="blueName">Chung</span> vs <span data-bind="redName">Hong</span></strong>
+              <strong><span data-bind="blueName">Azul</span> vs <span data-bind="redName">Rojo</span></strong>
             </div>
             <div>
               <span>Formato</span>
@@ -60,6 +63,10 @@
             <div>
               <span>Registro</span>
               <strong><span data-bind="logCount">0</span> acciones guardadas</strong>
+            </div>
+            <div>
+              <span>Combates guardados</span>
+              <strong><span data-bind="savedMatchCount">0</span> registros historicos</strong>
             </div>
           </section>
         </div>
@@ -100,12 +107,12 @@
               <span class="form-step">02</span>
               <div>
                 <h2>Competidor azul</h2>
-                <p>Chung</p>
+                <p>Lado azul</p>
               </div>
             </header>
             <label>
               Nombre
-              <input id="setupBlueName" name="blueName" type="text" value="Chung" />
+              <input id="setupBlueName" name="blueName" type="text" value="Azul" />
             </label>
             <label>
               Pais
@@ -118,12 +125,12 @@
               <span class="form-step">03</span>
               <div>
                 <h2>Competidor rojo</h2>
-                <p>Hong</p>
+                <p>Lado rojo</p>
               </div>
             </header>
             <label>
               Nombre
-              <input id="setupRedName" name="redName" type="text" value="Hong" />
+              <input id="setupRedName" name="redName" type="text" value="Rojo" />
             </label>
             <label>
               Pais
@@ -133,10 +140,18 @@
 
           <section class="form-actions">
             <button class="primary-action" type="submit">Guardar configuracion</button>
+            <button type="button" data-view-target="public">Vista publica</button>
             <button type="button" id="clearLog">Limpiar log</button>
             <button type="button" id="exportLog">Exportar log</button>
           </section>
         </form>
+        <section class="saved-matches-panel" aria-label="Combates guardados">
+          <header>
+            <h2>Combates guardados</h2>
+            <span><span data-bind="savedMatchCount">0</span> registros</span>
+          </header>
+          <ol class="saved-match-list" data-saved-match-list></ol>
+        </section>
       </section>
 
       <section class="view-panel" data-view="scoring" aria-label="Modulo de puntaje con botones de arbitro">
@@ -156,7 +171,7 @@
             <article class="fighter-panel blue-panel">
               <div class="fighter-meta">
                 <strong data-bind="blueCountry">PER</strong>
-                <strong data-bind="blueName">Chung</strong>
+                <strong data-bind="blueName">Azul</strong>
               </div>
               <output class="score-value" data-bind="blueScore">0</output>
               <div class="panel-foot">
@@ -170,13 +185,15 @@
               <output class="clock-value" data-bind="clock">02:00</output>
               <div class="round-block">
                 <span>ROUND</span>
-                <output><span data-bind="round">1</span>/<span data-bind="totalRounds">3</span></output>
+                <output class="round-score">
+                  <span data-bind="round">1</span><span class="round-separator">/</span><span data-bind="totalRounds">3</span>
+                </output>
               </div>
             </section>
 
             <article class="fighter-panel red-panel">
               <div class="fighter-meta">
-                <strong data-bind="redName">Hong</strong>
+                <strong data-bind="redName">Rojo</strong>
                 <strong data-bind="redCountry">KOR</strong>
               </div>
               <output class="score-value" data-bind="redScore">0</output>
@@ -195,14 +212,16 @@
             <button id="nextRound" type="button">Round +</button>
             <button id="swapSides" type="button">Switch</button>
             <button id="undo" class="danger-action" type="button" disabled>Deshacer</button>
+            <button id="saveMatch" type="button">Guardar combate</button>
             <button id="resetMatch" type="button">Nuevo combate</button>
+            <button type="button" data-view-target="public">Volver a pantalla grande</button>
           </div>
 
           <div class="operator-layout">
-            <section class="judge-side blue-judge" aria-label="Controles Chung">
+            <section class="judge-side blue-judge" aria-label="Controles competidor azul">
               <header>
-                <span>&lt;Chung&gt;</span>
-                <strong data-bind="blueName">Chung</strong>
+                <span>Azul</span>
+                <strong data-bind="blueName">Azul</strong>
               </header>
               <div class="score-buttons" data-side="blue"></div>
             </section>
@@ -215,10 +234,10 @@
               <ol class="history-list" data-log-list></ol>
             </section>
 
-            <section class="judge-side red-judge" aria-label="Controles Hong">
+            <section class="judge-side red-judge" aria-label="Controles competidor rojo">
               <header>
-                <span>&lt;Hong&gt;</span>
-                <strong data-bind="redName">Hong</strong>
+                <span>Rojo</span>
+                <strong data-bind="redName">Rojo</strong>
               </header>
               <div class="score-buttons" data-side="red"></div>
             </section>
@@ -227,6 +246,10 @@
       </section>
 
       <section class="view-panel public-view" data-view="public" aria-label="Vista publica de puntajes">
+        <div class="public-toolbar">
+          <button type="button" data-view-target="scoring">Volver a puntaje</button>
+          <button type="button" data-fullscreen>Volver a pantalla grande</button>
+        </div>
         <section class="scoreboard public-board">
           <header class="event-bar">
             <div class="brand-cluster">
@@ -243,7 +266,7 @@
             <article class="fighter-panel blue-panel">
               <div class="fighter-meta">
                 <strong data-bind="blueCountry">PER</strong>
-                <strong data-bind="blueName">Chung</strong>
+                <strong data-bind="blueName">Azul</strong>
               </div>
               <output class="score-value" data-bind="blueScore">0</output>
               <div class="panel-foot">
@@ -257,13 +280,15 @@
               <output class="clock-value" data-bind="clock">02:00</output>
               <div class="round-block">
                 <span>ROUND</span>
-                <output><span data-bind="round">1</span>/<span data-bind="totalRounds">3</span></output>
+                <output class="round-score">
+                  <span data-bind="round">1</span><span class="round-separator">/</span><span data-bind="totalRounds">3</span>
+                </output>
               </div>
             </section>
 
             <article class="fighter-panel red-panel">
               <div class="fighter-meta">
-                <strong data-bind="redName">Hong</strong>
+                <strong data-bind="redName">Rojo</strong>
                 <strong data-bind="redCountry">KOR</strong>
               </div>
               <output class="score-value" data-bind="redScore">0</output>
