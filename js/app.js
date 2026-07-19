@@ -1,4 +1,11 @@
-const STORAGE_KEY = "pss-taekwondo-match-v2";
+const STORAGE_KEY = "pss-taekwondo-match-v3";
+const LEGACY_STORAGE_KEYS = ["pss-taekwondo-match-v2"];
+const SYNC_CHANNEL = "pss-taekwondo-match-sync";
+const CLIENT_ID =
+  window.crypto && window.crypto.randomUUID
+    ? window.crypto.randomUUID()
+    : `${Date.now()}-${Math.random()}`;
+const syncChannel = "BroadcastChannel" in window ? new BroadcastChannel(SYNC_CHANNEL) : null;
 
 const scoringActions = [
   {
@@ -59,9 +66,9 @@ const defaultState = {
     eventName: "Combate Taekwondo - M-58 kg",
     totalRounds: 3,
     roundDuration: 120,
-    blueName: "Chung",
+    blueName: "Azul",
     blueCountry: "PER",
-    redName: "Hong",
+    redName: "Rojo",
     redCountry: "KOR",
   },
   match: {
@@ -73,6 +80,8 @@ const defaultState = {
     status: "Ready",
     history: [],
   },
+  savedMatches: [],
+  updatedAt: Date.now(),
 };
 
 const state = loadState();
@@ -92,37 +101,89 @@ const els = {
   nextRound: document.querySelector("#nextRound"),
   swapSides: document.querySelector("#swapSides"),
   undo: document.querySelector("#undo"),
+  saveMatch: document.querySelector("#saveMatch"),
   resetMatch: document.querySelector("#resetMatch"),
   clearLog: document.querySelector("#clearLog"),
   exportLog: document.querySelector("#exportLog"),
 };
 
 let timerId = null;
+let applyingRemoteState = false;
+
+function safeClone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
 
 function loadState() {
   try {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (!stored) return structuredClone(defaultState);
-    const parsed = JSON.parse(stored);
-    return {
-      config: { ...defaultState.config, ...parsed.config },
-      match: {
-        ...defaultState.match,
-        ...parsed.match,
-        blue: { ...defaultState.match.blue, ...parsed.match?.blue },
-        red: { ...defaultState.match.red, ...parsed.match?.red },
-        running: false,
-      },
-    };
+    const stored =
+      window.localStorage.getItem(STORAGE_KEY) ||
+      LEGACY_STORAGE_KEYS.map((key) => window.localStorage.getItem(key)).find(Boolean);
+    if (!stored) return safeClone(defaultState);
+    return normalizeState(JSON.parse(stored));
   } catch (error) {
-    return structuredClone(defaultState);
+    return safeClone(defaultState);
   }
 }
 
-function saveState() {
-  const toStore = structuredClone(state);
-  toStore.match.running = false;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(toStore));
+function normalizeState(input) {
+  const isLive = Date.now() - Number(input?.updatedAt || 0) < 3000;
+  const config = { ...defaultState.config, ...input?.config };
+
+  if (config.blueName === "Chung") config.blueName = "Azul";
+  if (config.redName === "Hong") config.redName = "Rojo";
+
+  return {
+    config,
+    match: {
+      ...defaultState.match,
+      ...input?.match,
+      blue: { ...defaultState.match.blue, ...input?.match?.blue },
+      red: { ...defaultState.match.red, ...input?.match?.red },
+      history: Array.isArray(input?.match?.history) ? input.match.history : [],
+      running: isLive ? Boolean(input?.match?.running) : false,
+    },
+    savedMatches: Array.isArray(input?.savedMatches) ? input.savedMatches : [],
+    updatedAt: Number(input?.updatedAt || Date.now()),
+  };
+}
+
+function serializeState() {
+  return {
+    config: safeClone(state.config),
+    match: safeClone(state.match),
+    savedMatches: safeClone(state.savedMatches),
+    updatedAt: Date.now(),
+  };
+}
+
+function replaceState(nextState) {
+  state.config = nextState.config;
+  state.match = nextState.match;
+  state.savedMatches = nextState.savedMatches;
+  state.updatedAt = nextState.updatedAt;
+}
+
+function saveState({ broadcast = true } = {}) {
+  const payload = serializeState();
+  state.updatedAt = payload.updatedAt;
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+
+  if (broadcast && syncChannel && !applyingRemoteState) {
+    syncChannel.postMessage({
+      type: "state:update",
+      clientId: CLIENT_ID,
+      payload,
+    });
+  }
+}
+
+function applyRemoteState(payload) {
+  applyingRemoteState = true;
+  stopTimer({ sync: false });
+  replaceState(normalizeState(payload));
+  render({ persist: false });
+  applyingRemoteState = false;
 }
 
 function formatClock(totalSeconds) {
@@ -157,15 +218,17 @@ function opponentOf(side) {
 
 function snapshot() {
   return {
-    config: structuredClone(state.config),
-    match: structuredClone(state.match),
+    config: safeClone(state.config),
+    match: safeClone(state.match),
+    savedMatches: safeClone(state.savedMatches),
   };
 }
 
 function restore(previous) {
-  stopTimer();
+  stopTimer({ sync: false });
   state.config = previous.config;
   state.match = previous.match;
+  state.savedMatches = previous.savedMatches || state.savedMatches;
   state.match.running = false;
   render();
 }
@@ -211,23 +274,26 @@ function undoLast() {
   restore(last.before);
 }
 
-function stopTimer() {
+function stopTimer({ sync = false } = {}) {
   if (timerId) {
     window.clearInterval(timerId);
     timerId = null;
   }
   state.match.running = false;
+  if (sync) render();
 }
 
 function startTimer() {
   if (timerId || state.match.seconds <= 0) return;
   state.match.running = true;
   state.match.status = "Fight";
+  render();
+
   timerId = window.setInterval(() => {
     state.match.seconds = Math.max(0, state.match.seconds - 1);
     if (state.match.seconds === 0) {
       state.match.status = "End";
-      stopTimer();
+      stopTimer({ sync: false });
     }
     render();
   }, 1000);
@@ -235,30 +301,30 @@ function startTimer() {
 
 function toggleTimer() {
   if (state.match.running) {
-    stopTimer();
+    stopTimer({ sync: false });
     state.match.status = "Kal-lyeo";
+    render();
   } else {
     startTimer();
   }
-  render();
 }
 
 function setTimeoutState() {
-  stopTimer();
+  stopTimer({ sync: false });
   state.match.status = "Time out";
   render();
 }
 
 function nextRound() {
   if (state.match.round >= state.config.totalRounds) {
-    stopTimer();
+    stopTimer({ sync: false });
     state.match.status = "End";
     render();
     return;
   }
 
   const before = snapshot();
-  stopTimer();
+  stopTimer({ sync: false });
   state.match.round += 1;
   state.match.seconds = state.config.roundDuration;
   state.match.status = "Ready";
@@ -284,15 +350,77 @@ function swapSides() {
   state.config.redCountry = blueCountry;
 
   pushHistory({
-    summary: "Se invirtieron Chung y Hong.",
+    summary: "Se invirtieron los competidores azul y rojo.",
     detail: "Switch",
     before,
   });
   render();
 }
 
+function hasMatchActivity() {
+  return (
+    state.match.history.length > 0 ||
+    state.match.blue.score > 0 ||
+    state.match.red.score > 0 ||
+    state.match.blue.gamjeom > 0 ||
+    state.match.red.gamjeom > 0 ||
+    state.match.round > 1 ||
+    state.match.seconds !== state.config.roundDuration
+  );
+}
+
+function winnerText() {
+  if (state.match.blue.score === state.match.red.score) return "Empate";
+  return state.match.blue.score > state.match.red.score
+    ? state.config.blueName
+    : state.config.redName;
+}
+
+function archiveCurrentMatch(reason = "Guardado manual") {
+  if (!hasMatchActivity()) return false;
+
+  state.savedMatches.unshift({
+    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    savedAt: new Date().toISOString(),
+    reason,
+    eventName: state.config.eventName,
+    totalRounds: state.config.totalRounds,
+    roundDuration: state.config.roundDuration,
+    currentRound: state.match.round,
+    clock: formatClock(state.match.seconds),
+    status: state.match.status,
+    blue: {
+      name: state.config.blueName,
+      country: state.config.blueCountry,
+      ...state.match.blue,
+    },
+    red: {
+      name: state.config.redName,
+      country: state.config.redCountry,
+      ...state.match.red,
+    },
+    winner: winnerText(),
+    history: state.match.history.slice().reverse(),
+  });
+  state.savedMatches = state.savedMatches.slice(0, 80);
+  return true;
+}
+
+function saveCurrentMatch() {
+  const saved = archiveCurrentMatch("Guardado manual");
+  if (saved) {
+    pushHistory({
+      summary: "Combate guardado en el historial del sistema.",
+      detail: "Archivo local",
+      before: snapshot(),
+    });
+  }
+  render();
+}
+
 function resetMatch() {
-  stopTimer();
+  archiveCurrentMatch("Nuevo combate");
+  stopTimer({ sync: false });
   state.match.blue = { score: 0, gamjeom: 0, hits: 0 };
   state.match.red = { score: 0, gamjeom: 0, hits: 0 };
   state.match.round = 1;
@@ -312,9 +440,9 @@ function saveSetup(event) {
   state.config.eventName = els.setupEventName.value.trim() || defaultState.config.eventName;
   state.config.totalRounds = clampNumber(els.setupTotalRounds.value, 1, 5, 3);
   state.config.roundDuration = duration;
-  state.config.blueName = els.setupBlueName.value.trim() || "Chung";
+  state.config.blueName = els.setupBlueName.value.trim() || "Azul";
   state.config.blueCountry = normalizeCountry(els.setupBlueCountry.value, "PER");
-  state.config.redName = els.setupRedName.value.trim() || "Hong";
+  state.config.redName = els.setupRedName.value.trim() || "Rojo";
   state.config.redCountry = normalizeCountry(els.setupRedCountry.value, "KOR");
 
   if (state.match.round > state.config.totalRounds) {
@@ -340,21 +468,19 @@ function clearLog() {
 }
 
 function exportLog() {
-  const rows = state.match.history
-    .slice()
-    .reverse()
-    .map((entry) => ({
-      round: entry.round,
-      time: entry.displayTime,
-      action: entry.summary,
-      detail: entry.detail,
-      storedAt: entry.at,
-    }));
-  const blob = new Blob([JSON.stringify(rows, null, 2)], { type: "application/json" });
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    currentMatch: {
+      config: state.config,
+      match: state.match,
+    },
+    savedMatches: state.savedMatches,
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "taekwondo-match-log.json";
+  link.download = "taekwondo-match-records.json";
   link.click();
   URL.revokeObjectURL(url);
 }
@@ -395,6 +521,7 @@ function renderBindings() {
     status: state.match.status,
     leader: leaderText(),
     logCount: state.match.history.length,
+    savedMatchCount: state.savedMatches.length,
   };
 
   Object.entries(values).forEach(([key, value]) => {
@@ -409,7 +536,35 @@ function renderHistory() {
     list.innerHTML = "";
     state.match.history.forEach((item) => {
       const li = document.createElement("li");
-      li.innerHTML = `${item.summary}<span>${item.detail}</span>`;
+      li.append(document.createTextNode(item.summary));
+      const span = document.createElement("span");
+      span.textContent = item.detail;
+      li.append(span);
+      list.appendChild(li);
+    });
+  });
+}
+
+function renderSavedMatches() {
+  document.querySelectorAll("[data-saved-match-list]").forEach((list) => {
+    list.innerHTML = "";
+
+    if (state.savedMatches.length === 0) {
+      const empty = document.createElement("li");
+      empty.textContent = "Aun no hay combates guardados.";
+      list.appendChild(empty);
+      return;
+    }
+
+    state.savedMatches.forEach((match) => {
+      const li = document.createElement("li");
+      const title = document.createElement("strong");
+      title.textContent = `${match.blue.name} ${match.blue.score} - ${match.red.score} ${match.red.name}`;
+      const meta = document.createElement("span");
+      meta.textContent = `${match.eventName} | ${new Date(match.savedAt).toLocaleString()} | ${match.reason}`;
+      const detail = document.createElement("span");
+      detail.textContent = `Ganador: ${match.winner}. Acciones: ${match.history.length}. Ronda ${match.currentRound}/${match.totalRounds}.`;
+      li.append(title, meta, detail);
       list.appendChild(li);
     });
   });
@@ -423,11 +578,23 @@ function renderButtons() {
       const button = document.createElement("button");
       button.className = "score-action";
       button.type = "button";
-      button.innerHTML = `
-        <span class="action-icon ${action.type === "hit" ? "hit-icon" : ""}">${action.icon}</span>
-        <span><strong>${action.label}</strong><small>${action.detail}</small></span>
-        <span class="delta">${action.type === "gamjeom" ? "+1" : action.points ? `+${action.points}` : ""}</span>
-      `;
+
+      const icon = document.createElement("span");
+      icon.className = `action-icon ${action.type === "hit" ? "hit-icon" : ""}`;
+      icon.textContent = action.icon;
+
+      const text = document.createElement("span");
+      const strong = document.createElement("strong");
+      strong.textContent = action.label;
+      const small = document.createElement("small");
+      small.textContent = action.detail;
+      text.append(strong, small);
+
+      const delta = document.createElement("span");
+      delta.className = "delta";
+      delta.textContent = action.type === "gamjeom" ? "+1" : action.points ? `+${action.points}` : "";
+
+      button.append(icon, text, delta);
       button.addEventListener("click", () => applyAction(side, action));
       container.appendChild(button);
     });
@@ -440,12 +607,13 @@ function renderControls() {
   els.nextRound.disabled = state.match.round >= state.config.totalRounds && state.match.status === "End";
 }
 
-function render() {
+function render({ persist = true } = {}) {
   updateSetupForm();
   renderBindings();
   renderHistory();
+  renderSavedMatches();
   renderControls();
-  saveState();
+  if (persist) saveState();
 }
 
 function showView(viewName) {
@@ -457,9 +625,31 @@ function showView(viewName) {
   });
 }
 
+function openPublicWindow() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("view", "public");
+  window.open(url.toString(), "pss-public-scoreboard");
+}
+
+async function requestPublicFullscreen() {
+  showView("public");
+  const target = document.querySelector('[data-view="public"]') || document.documentElement;
+  if (!document.fullscreenElement && target.requestFullscreen) {
+    await target.requestFullscreen();
+  }
+}
+
 function bindEvents() {
   document.querySelectorAll("[data-view-target]").forEach((button) => {
     button.addEventListener("click", () => showView(button.dataset.viewTarget));
+  });
+
+  document.querySelectorAll("[data-open-public]").forEach((button) => {
+    button.addEventListener("click", openPublicWindow);
+  });
+
+  document.querySelectorAll("[data-fullscreen]").forEach((button) => {
+    button.addEventListener("click", requestPublicFullscreen);
   });
 
   els.setupForm.addEventListener("submit", saveSetup);
@@ -468,9 +658,22 @@ function bindEvents() {
   els.nextRound.addEventListener("click", nextRound);
   els.swapSides.addEventListener("click", swapSides);
   els.undo.addEventListener("click", undoLast);
+  els.saveMatch.addEventListener("click", saveCurrentMatch);
   els.resetMatch.addEventListener("click", resetMatch);
   els.clearLog.addEventListener("click", clearLog);
   els.exportLog.addEventListener("click", exportLog);
+
+  window.addEventListener("storage", (event) => {
+    if (event.key !== STORAGE_KEY || !event.newValue) return;
+    applyRemoteState(JSON.parse(event.newValue));
+  });
+
+  if (syncChannel) {
+    syncChannel.addEventListener("message", (event) => {
+      if (event.data?.type !== "state:update" || event.data.clientId === CLIENT_ID) return;
+      applyRemoteState(event.data.payload);
+    });
+  }
 }
 
 if (state.match.seconds <= 0 || state.match.seconds > state.config.roundDuration) {
@@ -480,3 +683,4 @@ if (state.match.seconds <= 0 || state.match.seconds > state.config.roundDuration
 renderButtons();
 bindEvents();
 render();
+showView(new URLSearchParams(window.location.search).get("view") || "home");
