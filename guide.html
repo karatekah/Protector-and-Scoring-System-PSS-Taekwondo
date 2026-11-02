@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Guía de PSS Taekwondo alpha: uso, alcance, tecnología y próximos hitos."
+    />
+    <title>Guía de la alpha · PSS Taekwondo</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/guide.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#guide-content">Saltar al contenido</a>
+    <div class="guide-shell">
+      <header class="app-header">
+        <a class="brand-lockup" href="./index.html"
+          ><span class="brand-chip" aria-hidden="true">PSS</span
+          ><span class="brand-copy"
+            ><strong>Taekwondo</strong><span>Guía de la alpha 0.1</span></span
+          ></a
+        >
+        <a class="guide-back" href="./index.html">Abrir el marcador →</a>
+      </header>
+      <main id="guide-content" tabindex="-1">
+        <section class="guide-hero">
+          <p class="eyebrow">PRIMERA ALPHA PÚBLICA · NOVIEMBRE 2026</p>
+          <h1>Un combate claro.<br />Una base para crecer.</h1>
+          <p>
+            Una mesa de control manual para entrenamiento y exhibición de
+            Taekwondo. Un PC, un operador y una pantalla externa en el mismo
+            navegador.
+          </p>
+          <div class="guide-tags">
+            <span>Puntos acumulados</span><span>Datos en tu navegador</span
+            ><span>Demo en Vercel</span>
+          </div>
+        </section>
+        <nav class="guide-nav" aria-label="En esta guía">
+          <a href="#start">Empezar</a><a href="#scope">Alcance</a
+          ><a href="#data">Tus datos</a><a href="#technology">Tecnología</a
+          ><a href="#roadmap">Plan</a>
+        </nav>
+        <section class="guide-section" id="start">
+          <div>
+            <p class="eyebrow">01 · PRIMER COMBATE</p>
+            <h2>De la configuración<br />a la segunda pantalla.</h2>
+          </div>
+          <ol class="guide-steps">
+            <li>
+              <strong>Prepara la sesión.</strong> Introduce el evento, los
+              competidores, de 1 a 5 rondas y una duración entre 00:10 y 09:59.
+              Guardar abre el control.
+            </li>
+            <li>
+              <strong>Abre la pantalla externa.</strong> Permite la ventana
+              emergente, muévela al segundo monitor y activa Pantalla completa.
+              Debe usar el mismo navegador y perfil que el control.
+            </li>
+            <li>
+              <strong>Dirige el combate.</strong> Inicia o pausa el reloj.
+              Registra de +1 a +6 puntos por decisión manual. Gam-jeom suma una
+              penalización al atleta y un punto al rival; Impacto registra sin
+              sumar puntos.
+            </li>
+            <li>
+              <strong>Continúa o corrige.</strong> Siguiente ronda conserva los
+              puntos acumulados. Deshacer revierte la última acción disponible y
+              pausa el reloj sin devolver el tiempo transcurrido.
+            </li>
+            <li>
+              <strong>Guarda y respalda.</strong> Guarda un resumen y exporta
+              JSON desde Preparar combate. Nuevo combate archiva el actual antes
+              de reiniciar.
+            </li>
+          </ol>
+        </section>
+        <section class="guide-section" id="scope">
+          <div>
+            <p class="eyebrow">02 · EXPECTATIVAS CLARAS</p>
+            <h2>Hecho para<br />entrenar y exhibir.</h2>
+          </div>
+          <div class="guide-prose">
+            <p>
+              La alpha ofrece puntuación manual, reloj, rondas, penalizaciones,
+              impactos, deshacer, resúmenes, respaldo JSON y una pantalla
+              externa de solo lectura.
+            </p>
+            <p>
+              El operador decide qué acción puntuar y cuándo terminar el
+              combate. Los valores +1 a +6 son incrementos manuales: no asignan
+              automáticamente una técnica ni representan una edición de un
+              reglamento.
+            </p>
+            <p>
+              No incluye sensores, homologación WT, victorias por asalto,
+              desempates, gestión de torneos, cuentas ni conexiones entre
+              dispositivos. Compartir el enlace en otro equipo abre una sesión
+              independiente.
+            </p>
+            <p>
+              La pestaña de control debe permanecer abierta. Al recargarla el
+              reloj queda pausado. Usa la segunda ventana en la misma sesión del
+              navegador; una ventana privada o un perfil distinto no comparte
+              los datos.
+            </p>
+          </div>
+        </section>
+        <section class="guide-section" id="data">
+          <div>
+            <p class="eyebrow">03 · RESPALDO Y RECUPERACIÓN</p>
+            <h2>El navegador guarda.<br />Tú conservas la copia.</h2>
+          </div>
+          <div class="guide-prose">
+            <p>
+              El combate, las últimas 120 acciones y hasta 80 resúmenes se
+              guardan en el almacenamiento local del sitio. Al alcanzar cada
+              límite, se retiran primero los registros más antiguos.
+            </p>
+            <p>
+              Exporta JSON antes de borrar datos del navegador, cambiar de
+              dominio o trasladarte a otro equipo. Importar JSON valida el
+              archivo y pide confirmar antes de reemplazar los datos actuales.
+              Solo acepta el formato de esta alpha y archivos de hasta 5 MB.
+            </p>
+            <p>
+              Los datos del prototipo v2/v3 se recuperan cuando son válidos: se
+              conservan el combate y los resúmenes compatibles. El deshacer y
+              los registros detallados del formato anterior no se migran; las
+              claves antiguas se mantienen en el navegador.
+            </p>
+            <p>
+              La aplicación no incorpora cuentas, analítica ni envío de los
+              combates a un servidor. Vercel recibe las solicitudes necesarias
+              para servir la demo. Cualquier persona con acceso a tu perfil del
+              navegador puede ver los datos locales.
+            </p>
+          </div>
+        </section>
+        <section class="guide-section" id="technology">
+          <div>
+            <p class="eyebrow">04 · FUNDAMENTOS</p>
+            <h2>El stack responde<br />al producto.</h2>
+          </div>
+          <div class="guide-prose">
+            <div class="tech-grid">
+              <div>
+                <strong>TypeScript estricto</strong
+                ><span>Lógica del combate tipada y separada de la vista.</span>
+              </div>
+              <div>
+                <strong>Vite + CSS</strong
+                ><span
+                  >Compilación estática, tokens visuales y componentes
+                  nativos.</span
+                >
+              </div>
+              <div>
+                <strong>Web Locks + canales locales</strong
+                ><span
+                  >Un operador por perfil del navegador. Pantalla externa de
+                  solo lectura.</span
+                >
+              </div>
+              <div>
+                <strong>Vitest + Playwright</strong
+                ><span
+                  >Reglas, respaldo, sincronización, navegador y accesibilidad
+                  automatizada.</span
+                >
+              </div>
+              <div>
+                <strong>GitHub Actions + Vercel</strong
+                ><span
+                  >Verificaciones reproducibles y despliegue en el proyecto
+                  existente.</span
+                >
+              </div>
+              <div>
+                <strong>Node 24 LTS + npm</strong
+                ><span
+                  >Herramientas de desarrollo con versiones fijadas en el
+                  repositorio.</span
+                >
+              </div>
+            </div>
+            <p>
+              Esta alpha no necesita base de datos ni backend. Una futura
+              conexión por red tendrá una autoridad de combate en el servidor;
+              los canales locales actuales no sustituyen ese diseño.
+            </p>
+          </div>
+        </section>
+        <section class="guide-section" id="roadmap">
+          <div>
+            <p class="eyebrow">05 · SIGUIENTES HITOS</p>
+            <h2>Crecer con evidencia,<br />no con promesas.</h2>
+          </div>
+          <ol class="guide-steps roadmap">
+            <li>
+              <strong>Alpha 0.1 · Base pública.</strong> Estandarizar el stack,
+              estabilizar reloj y sincronización, documentar alcance y validar
+              los flujos críticos.
+            </li>
+            <li>
+              <strong>Alpha 0.2 · Prueba en el dojang.</strong> Medir
+              legibilidad desde el público, manejo con teclado y comportamiento
+              en un PC con dos monitores. Ajustar con observaciones reales.
+            </li>
+            <li>
+              <strong>Beta · Reglas acordadas.</strong> Si se necesita torneo,
+              definir antes la edición del reglamento, decisiones arbitrales,
+              resultados por asalto y casos de empate.
+            </li>
+            <li>
+              <strong>Después · Red y sensores.</strong> Diseñar roles,
+              reconexión, autoridad del reloj y trazabilidad. Probar hardware y
+              calibración reales antes de anunciar integración PSS.
+            </li>
+          </ol>
+        </section>
+        <section class="guide-callout">
+          <h2>Haz una sesión corta de prueba.</h2>
+          <p>
+            Prepara dos atletas, puntúa, aplica una penalización, deshaz y
+            comprueba la pantalla externa. Exporta una copia al terminar.
+          </p>
+          <a href="./index.html">Abrir PSS Taekwondo →</a>
+        </section>
+      </main>
+      <footer class="app-footer">
+        <span>v0.1.0-alpha.1 · GPL v3</span
+        ><a
+          href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo"
+          >Código y documentación ↗</a
+        ><a
+          href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues"
+          >Reportar un problema ↗</a
+        >
+      </footer>
+    </div>
+  </body>
+</html>
