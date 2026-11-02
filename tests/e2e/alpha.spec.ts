@@ -1,0 +1,150 @@
+import { expect, test } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+
+test("operator, public window, clock, scores, undo, persistence and ownership", async ({
+  page,
+  context,
+}) => {
+  const fixedTime = new Date("2026-11-02T12:00:00Z");
+  await page.clock.install({ time: fixedTime });
+  await page.clock.pauseAt(new Date(fixedTime.getTime() + 1000));
+  await page.goto("/");
+  await expect(page.locator("#operatorState")).toContainText("Operador activo");
+  await page.getByRole("button", { name: "Preparar un combate" }).click();
+  await page
+    .getByLabel("Nombre del competidor azul", { exact: true })
+    .fill("Jordy");
+  await page.getByRole("button", { name: "Guardar y abrir control" }).click();
+  await page
+    .getByRole("button", { name: "+2 puntos · azul", exact: true })
+    .click();
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="blueScore"]'),
+  ).toHaveText("2");
+  const publicPage = await context.newPage();
+  await publicPage.goto("/?view=public");
+  await expect(
+    publicPage.locator('[data-view="public"] [data-bind="blueScore"]'),
+  ).toHaveText("2");
+  await page
+    .getByRole("button", { name: "Iniciar · Shijak", exact: true })
+    .click();
+  await page.clock.runFor(3100);
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="clock"]'),
+  ).toHaveText("01:57");
+  await expect(
+    publicPage.locator('[data-view="public"] [data-bind="clock"]'),
+  ).toHaveText("01:57");
+  await publicPage.reload();
+  await page.clock.runFor(1100);
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="clock"]'),
+  ).toHaveText("01:56");
+  await page
+    .getByRole("button", { name: "Pausar · Kal-lyeo", exact: true })
+    .click();
+  await page
+    .getByRole("button", {
+      name: "Gam-jeom +1 para el rival · rojo",
+      exact: true,
+    })
+    .click();
+  await expect(
+    publicPage.locator('[data-view="public"] [data-bind="blueScore"]'),
+  ).toHaveText("3");
+  await page.getByRole("button", { name: "Deshacer", exact: true }).click();
+  await expect(
+    publicPage.locator('[data-view="public"] [data-bind="blueScore"]'),
+  ).toHaveText("2");
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="clock"]'),
+  ).toHaveText("01:56");
+  await expect(
+    publicPage.getByRole("button", { name: "Iniciar · Shijak", exact: true }),
+  ).not.toBeVisible();
+  const duplicate = await context.newPage();
+  await duplicate.goto("/");
+  await expect(duplicate.locator("#warning")).toContainText("Otra pestaña");
+  await duplicate.getByRole("button", { name: "Control", exact: true }).click();
+  await expect(
+    duplicate.getByRole("button", { name: "+2 puntos · azul", exact: true }),
+  ).toBeDisabled();
+  await page.reload();
+  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="blueScore"]'),
+  ).toHaveText("2");
+  await expect(
+    page.getByRole("button", { name: "Iniciar · Shijak", exact: true }),
+  ).toBeEnabled();
+});
+
+test("JSON export, import validation, archive and recovery", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page
+    .getByRole("button", { name: "+3 puntos · rojo", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Guardar resumen", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Preparar combate", exact: true })
+    .click();
+  await expect(page.locator("[data-saved-match-list]")).toContainText("Rojo");
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Exportar JSON" }).click();
+  const file = await download;
+  expect(file.suggestedFilename()).toMatch(/pss-combates.*\.json/);
+  await page.locator("#importFile").setInputFiles({
+    name: "bad.json",
+    mimeType: "application/json",
+    buffer: Buffer.from('{"schemaVersion":99}'),
+  });
+  await expect(page.locator("#warning")).toContainText("No se pudo importar");
+  const path = await file.path();
+  if (!path) throw new Error("Missing downloaded backup");
+  page.once("dialog", (dialog) => dialog.accept());
+  await page.locator("#importFile").setInputFiles(path);
+  await expect(page.locator("#announcement")).toContainText("Copia restaurada");
+  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="redScore"]'),
+  ).toHaveText("3");
+});
+
+test("keyboard flow, reduced motion, reflow and automated accessibility", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+  await expect(
+    page.getByRole("link", { name: "Saltar al contenido" }),
+  ).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#content")).toBeFocused();
+  for (const view of ["home", "setup", "scoring", "public"]) {
+    if (view !== "home")
+      await page.locator(`.tab-button[data-view-target="${view}"]`).click();
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+      .analyze();
+    expect(results.violations).toEqual([]);
+    await page.setViewportSize({ width: 320, height: 800 });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    await page.setViewportSize({ width: 1440, height: 900 });
+  }
+  await page.goto("/guide.html");
+  expect(
+    (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze())
+      .violations,
+  ).toEqual([]);
+});

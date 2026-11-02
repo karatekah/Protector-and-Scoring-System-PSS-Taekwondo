@@ -3,305 +3,586 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PSS Taekwondo - Match Control</title>
+    <meta name="theme-color" content="#111827" />
     <meta
       name="description"
-      content="Aplicacion web local para configurar, puntuar y mostrar combates de Taekwondo."
+      content="Marcador manual de Taekwondo para entrenamiento y exhibición. Controla el combate y sincroniza una pantalla externa desde el mismo navegador."
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>PSS Taekwondo · Alpha</title>
   </head>
   <body>
-    <main class="app-shell">
+    <a class="skip-link" href="#content">Saltar al contenido</a>
+    <div class="app-shell">
       <header class="app-header">
-        <div class="brand-lockup">
-          <span class="brand-chip brand-wt">WT</span>
-          <span class="brand-chip brand-pss">PSS</span>
-          <div>
-            <strong>PSS Taekwondo</strong>
-            <span>Protector and Scoring System</span>
-          </div>
-        </div>
-        <nav class="view-tabs" aria-label="Modulos de la aplicacion">
-          <button class="tab-button is-active" type="button" data-view-target="home">Inicio</button>
-          <button class="tab-button" type="button" data-view-target="setup">Configuracion</button>
-          <button class="tab-button" type="button" data-view-target="scoring">Puntaje</button>
-          <button class="tab-button" type="button" data-view-target="public">Vista publica</button>
-          <button class="tab-button" type="button" data-open-public>Ventana publica</button>
+        <a
+          class="brand-lockup"
+          href="./index.html"
+          aria-label="PSS Taekwondo · Inicio"
+        >
+          <span class="brand-chip brand-pss" aria-hidden="true">PSS</span>
+          <span class="brand-copy"
+            ><strong>Taekwondo</strong
+            ><span>Match control · Alpha 0.1</span></span
+          >
+        </a>
+        <nav class="view-tabs" aria-label="Secciones">
+          <button
+            class="tab-button is-active"
+            type="button"
+            data-view-target="home"
+          >
+            Inicio
+          </button>
+          <button class="tab-button" type="button" data-view-target="setup">
+            Preparar combate
+          </button>
+          <button class="tab-button" type="button" data-view-target="scoring">
+            Control
+          </button>
+          <button class="tab-button" type="button" data-view-target="public">
+            Marcador
+          </button>
+          <a class="nav-link" href="./guide.html">Guía de la alpha ↗</a>
         </nav>
       </header>
-
-      <section class="view-panel is-active" data-view="home" aria-label="Pagina de inicio">
-        <div class="home-grid">
-          <section class="home-copy">
-            <p class="eyebrow">Control local de combate</p>
-            <h1>Sistema web para puntuar Taekwondo en tiempo real.</h1>
+      <div class="session-line">
+        <span id="operatorState">Cargando sesión…</span
+        ><span>Entrenamiento · Puntos acumulados</span>
+      </div>
+      <p id="warning" class="warning" role="alert" hidden></p>
+      <p
+        id="announcement"
+        class="announcement"
+        role="status"
+        aria-live="polite"
+      ></p>
+      <main id="content" tabindex="-1">
+        <section
+          class="view-panel"
+          data-view="home"
+          aria-label="Inicio"
+          tabindex="-1"
+        >
+          <div class="home-grid">
+            <section class="home-copy">
+              <p class="eyebrow">DEL DOJANG A LA PANTALLA</p>
+              <h1>Todo el combate.<br />Bajo tu control.</h1>
+              <p>
+                Prepara la sesión, registra los puntos y lleva el marcador a una
+                segunda pantalla. Tú diriges el combate.
+              </p>
+              <div class="home-actions">
+                <button
+                  class="primary-action"
+                  type="button"
+                  data-view-target="setup"
+                >
+                  Preparar un combate <span aria-hidden="true">→</span>
+                </button>
+                <button type="button" data-open-public>
+                  Abrir pantalla externa ↗
+                </button>
+              </div>
+              <p class="scope-note">
+                Alpha experimental para entrenamiento y exhibición. Puntuación
+                manual, sin sensores ni homologación deportiva.
+              </p>
+            </section>
+            <section class="status-board" aria-label="Sesión actual">
+              <div class="section-heading">
+                <span class="eyebrow">TU SESIÓN</span
+                ><span class="version-label">v0.1.0-alpha.1</span>
+              </div>
+              <div class="session-event">
+                <span>Evento</span
+                ><strong data-bind="eventName">Sesión de entrenamiento</strong>
+              </div>
+              <div class="athlete-preview">
+                <span
+                  ><span class="side-label blue-label">AZUL</span
+                  ><strong data-bind="blueName">Azul</strong></span
+                ><b aria-hidden="true">vs</b
+                ><span
+                  ><span class="side-label red-label">ROJO</span
+                  ><strong data-bind="redName">Rojo</strong></span
+                >
+              </div>
+              <div class="session-metrics">
+                <div>
+                  <span>Formato</span
+                  ><strong
+                    ><span data-bind="totalRounds">3</span> rondas</strong
+                  >
+                </div>
+                <div>
+                  <span>Por ronda</span
+                  ><strong data-bind="roundDuration">02:00</strong>
+                </div>
+              </div>
+              <p class="local-note">
+                Guardado en este navegador. Exporta JSON desde Preparar combate
+                para tener una copia externa.
+              </p>
+            </section>
+          </div>
+          <div class="workflow-strip" aria-label="Cómo empezar">
             <p>
-              Configura los atletas, define rondas y tiempo, registra acciones del arbitro y muestra
-              una vista publica sincronizada para el publico o una pantalla externa.
+              <b>01</b
+              ><span><strong>Prepara</strong>Atletas, rondas y duración.</span>
             </p>
-            <div class="home-actions">
-              <button class="primary-action" type="button" data-view-target="setup">Configurar combate</button>
-              <button type="button" data-view-target="scoring">Ir al panel de puntaje</button>
-              <button type="button" data-view-target="public">Vista publica</button>
-              <button type="button" data-open-public>Volver a pantalla grande</button>
-            </div>
-          </section>
-
-          <section class="status-board" aria-label="Resumen del combate">
+            <p>
+              <b>02</b
+              ><span
+                ><strong>Controla</strong>Puntos, pausas y penalizaciones.</span
+              >
+            </p>
+            <p>
+              <b>03</b
+              ><span
+                ><strong>Comparte la pantalla</strong>Mismo PC y mismo
+                navegador.</span
+              >
+            </p>
+          </div>
+        </section>
+        <section
+          class="view-panel"
+          data-view="setup"
+          aria-label="Preparar combate"
+          tabindex="-1"
+          hidden
+        >
+          <div class="view-heading">
             <div>
-              <span>Evento</span>
-              <strong data-bind="eventName">Combate Taekwondo - M-58 kg</strong>
+              <p class="eyebrow">ANTES DEL PRIMER ASALTO</p>
+              <h1>Prepara el combate</h1>
+              <p>
+                Guardar prepara una sesión nueva y archiva el resumen de la
+                anterior.
+              </p>
             </div>
-            <div>
-              <span>Atletas</span>
-              <strong><span data-bind="blueName">Azul</span> vs <span data-bind="redName">Rojo</span></strong>
-            </div>
-            <div>
-              <span>Formato</span>
-              <strong><span data-bind="totalRounds">3</span> rondas / <span data-bind="roundDuration">02:00</span></strong>
-            </div>
-            <div>
-              <span>Registro</span>
-              <strong><span data-bind="logCount">0</span> acciones guardadas</strong>
-            </div>
-            <div>
-              <span>Combates guardados</span>
-              <strong><span data-bind="savedMatchCount">0</span> registros historicos</strong>
-            </div>
-          </section>
-        </div>
-      </section>
-
-      <section class="view-panel" data-view="setup" aria-label="Modulo de configuracion">
-        <form id="matchSetupForm" class="setup-grid">
-          <section class="form-card">
+          </div>
+          <form id="matchSetupForm">
+            <fieldset id="setupFields" class="setup-grid" disabled>
+              <legend class="sr-only">Configuración del combate</legend>
+              <section class="form-card">
+                <header>
+                  <span class="form-step">01</span>
+                  <div>
+                    <h2>Formato de sesión</h2>
+                    <p>Puntos acumulados entre rondas.</p>
+                  </div>
+                </header>
+                <label
+                  >Nombre del evento<input
+                    id="setupEventName"
+                    name="eventName"
+                    type="text"
+                    maxlength="120"
+                    required
+                    value="Sesión de entrenamiento"
+                /></label>
+                <div class="field-row">
+                  <label
+                    >Rondas<input
+                      name="totalRounds"
+                      type="number"
+                      min="1"
+                      max="5"
+                      step="1"
+                      required
+                      value="3" /></label
+                  ><label
+                    >Minutos<input
+                      id="setupRoundMinutes"
+                      name="roundMinutes"
+                      type="number"
+                      min="0"
+                      max="9"
+                      step="1"
+                      required
+                      value="2" /></label
+                  ><label
+                    >Segundos<input
+                      id="setupRoundSeconds"
+                      name="roundSeconds"
+                      type="number"
+                      min="0"
+                      max="59"
+                      step="1"
+                      required
+                      value="0"
+                  /></label>
+                </div>
+                <p class="field-help">
+                  De 1 a 5 rondas · Entre 00:10 y 09:59 por ronda.
+                </p>
+              </section>
+              <section class="form-card blue-form">
+                <header>
+                  <span class="form-step">02</span>
+                  <div>
+                    <h2>Competidor azul</h2>
+                    <p>Identifica el lado azul.</p>
+                  </div>
+                </header>
+                <label
+                  >Nombre del competidor azul<input
+                    name="blueName"
+                    type="text"
+                    maxlength="80"
+                    required
+                    value="Azul"
+                    autocomplete="off"
+                /></label>
+                <label
+                  >País del competidor azul<input
+                    name="blueCountry"
+                    type="text"
+                    maxlength="3"
+                    minlength="3"
+                    pattern="[A-Za-z]{3}"
+                    required
+                    value="PER"
+                    aria-describedby="blueCountryHelp"
+                /></label>
+                <p id="blueCountryHelp" class="field-help">
+                  Código de tres letras, por ejemplo PER.
+                </p>
+              </section>
+              <section class="form-card red-form">
+                <header>
+                  <span class="form-step">03</span>
+                  <div>
+                    <h2>Competidor rojo</h2>
+                    <p>Identifica el lado rojo.</p>
+                  </div>
+                </header>
+                <label
+                  >Nombre del competidor rojo<input
+                    name="redName"
+                    type="text"
+                    maxlength="80"
+                    required
+                    value="Rojo"
+                    autocomplete="off"
+                /></label>
+                <label
+                  >País del competidor rojo<input
+                    name="redCountry"
+                    type="text"
+                    maxlength="3"
+                    minlength="3"
+                    pattern="[A-Za-z]{3}"
+                    required
+                    value="PER"
+                    aria-describedby="redCountryHelp"
+                /></label>
+                <p id="redCountryHelp" class="field-help">
+                  Código de tres letras, por ejemplo PER.
+                </p>
+              </section>
+              <div class="form-actions">
+                <button class="primary-action" type="submit">
+                  Guardar y abrir control →
+                </button>
+              </div>
+            </fieldset>
+          </form>
+          <section class="saved-matches-panel" aria-labelledby="archiveTitle">
             <header>
-              <span class="form-step">01</span>
               <div>
-                <h2>Datos del combate</h2>
-                <p>Estos datos se reflejan en el panel de puntaje y en la vista publica.</p>
+                <h2 id="archiveTitle">Resúmenes guardados</h2>
+                <p>
+                  <span data-bind="savedMatchCount">0</span> de hasta 80
+                  combates en este navegador.
+                </p>
+              </div>
+              <div class="backup-actions">
+                <button type="button" id="exportLog">Exportar JSON ↓</button
+                ><button type="button" id="importTrigger" data-mutation>
+                  Importar JSON ↑</button
+                ><input
+                  id="importFile"
+                  class="sr-only"
+                  type="file"
+                  accept=".json,application/json"
+                  aria-label="Archivo JSON para restaurar"
+                  tabindex="-1"
+                />
               </div>
             </header>
-            <label>
-              Nombre del evento
-              <input id="setupEventName" name="eventName" type="text" value="Combate Taekwondo - M-58 kg" />
-            </label>
-            <div class="field-row">
-              <label>
-                Cantidad de rondas
-                <input id="setupTotalRounds" name="totalRounds" type="number" min="1" max="5" value="3" />
-              </label>
-              <label>
-                Tiempo por ronda
-                <input id="setupRoundMinutes" name="roundMinutes" type="number" min="0" max="9" value="2" />
-              </label>
-              <label>
-                Segundos
-                <input id="setupRoundSeconds" name="roundSeconds" type="number" min="0" max="59" value="0" />
-              </label>
-            </div>
+            <ol class="saved-match-list" data-saved-match-list></ol>
           </section>
-
-          <section class="form-card blue-form">
-            <header>
-              <span class="form-step">02</span>
-              <div>
-                <h2>Competidor azul</h2>
-                <p>Lado azul</p>
-              </div>
+        </section>
+        <section
+          class="view-panel"
+          data-view="scoring"
+          aria-label="Control del combate"
+          tabindex="-1"
+          hidden
+        >
+          <div class="view-heading">
+            <div>
+              <p class="eyebrow">MESA DE CONTROL</p>
+              <h1>Tu decisión. Cada punto.</h1>
+            </div>
+            <button type="button" data-open-public>
+              Abrir pantalla externa ↗
+            </button>
+          </div>
+          <section
+            class="scoreboard compact-board"
+            aria-label="Marcador de control"
+          >
+            <header class="event-bar">
+              <span class="board-tag">ENTRENAMIENTO</span
+              ><strong data-bind="eventName">Sesión de entrenamiento</strong
+              ><span class="manual-label">Puntuación manual</span>
             </header>
-            <label>
-              Nombre
-              <input id="setupBlueName" name="blueName" type="text" value="Azul" />
-            </label>
-            <label>
-              Pais
-              <input id="setupBlueCountry" name="blueCountry" type="text" maxlength="3" value="PER" />
-            </label>
+            <div class="score-grid">
+              <article
+                class="fighter-panel blue-panel"
+                aria-label="Marcador azul"
+              >
+                <div class="fighter-meta">
+                  <span class="side-label"
+                    >AZUL <span data-bind="blueCountry">PER</span></span
+                  ><strong data-bind="blueName">Azul</strong>
+                </div>
+                <output
+                  class="score-value"
+                  data-bind="blueScore"
+                  aria-label="Puntos azul"
+                  aria-live="off"
+                  >0</output
+                >
+                <div class="panel-foot">
+                  <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span
+                  ><span>IMPACTOS <b data-bind="blueHits">0</b></span>
+                </div>
+              </article>
+              <section class="center-clock" aria-label="Tiempo y ronda">
+                <div class="time-state" data-bind="status">Preparado</div>
+                <output
+                  class="clock-value"
+                  data-bind="clock"
+                  aria-label="Tiempo restante"
+                  aria-live="off"
+                  >02:00</output
+                >
+                <div class="round-block">
+                  <span>RONDA</span
+                  ><strong
+                    ><span data-bind="round">1</span
+                    ><small>
+                      / <span data-bind="totalRounds">3</span></small
+                    ></strong
+                  >
+                </div>
+              </section>
+              <article
+                class="fighter-panel red-panel"
+                aria-label="Marcador rojo"
+              >
+                <div class="fighter-meta">
+                  <span class="side-label"
+                    >ROJO <span data-bind="redCountry">PER</span></span
+                  ><strong data-bind="redName">Rojo</strong>
+                </div>
+                <output
+                  class="score-value"
+                  data-bind="redScore"
+                  aria-label="Puntos rojo"
+                  aria-live="off"
+                  >0</output
+                >
+                <div class="panel-foot">
+                  <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span
+                  ><span>IMPACTOS <b data-bind="redHits">0</b></span>
+                </div>
+              </article>
+            </div>
           </section>
-
-          <section class="form-card red-form">
-            <header>
-              <span class="form-step">03</span>
+          <section class="operator-area" aria-label="Acciones del operador">
+            <div class="control-strip">
+              <button
+                id="startPause"
+                class="primary-action static-press"
+                type="button"
+                data-mutation
+              >
+                Iniciar · Shijak</button
+              ><button id="timeout" type="button" data-mutation>
+                Tiempo técnico</button
+              ><button id="nextRound" type="button" data-mutation>
+                Siguiente ronda</button
+              ><button id="undo" type="button" data-mutation disabled>
+                Deshacer
+              </button>
+            </div>
+            <div class="operator-layout">
+              <section
+                class="judge-side blue-judge"
+                aria-label="Puntuación azul"
+              >
+                <header>
+                  <span>AZUL</span><strong data-bind="blueName">Azul</strong>
+                </header>
+                <div class="score-buttons" data-side="blue"></div>
+              </section>
+              <section class="log-panel" aria-label="Registro de acciones">
+                <header>
+                  <strong>Registro</strong
+                  ><span><span data-bind="logCount">0</span> / 120</span>
+                </header>
+                <ol class="history-list" data-log-list></ol>
+                <div class="log-footer">
+                  <span data-bind="leader">Empate en puntos</span
+                  ><button id="clearLog" type="button" data-mutation>
+                    Borrar registro
+                  </button>
+                </div>
+              </section>
+              <section
+                class="judge-side red-judge"
+                aria-label="Puntuación roja"
+              >
+                <header>
+                  <span>ROJO</span><strong data-bind="redName">Rojo</strong>
+                </header>
+                <div class="score-buttons" data-side="red"></div>
+              </section>
+            </div>
+            <div class="secondary-controls">
+              <p>
+                Los botones +1 a +6 registran puntos decididos por el operador.
+                No aplican un reglamento automáticamente.
+              </p>
               <div>
-                <h2>Competidor rojo</h2>
-                <p>Lado rojo</p>
+                <button id="swapSides" type="button" data-mutation>
+                  Intercambiar lados</button
+                ><button id="saveMatch" type="button" data-mutation>
+                  Guardar resumen</button
+                ><button
+                  id="resetMatch"
+                  class="danger-action"
+                  type="button"
+                  data-mutation
+                >
+                  Nuevo combate
+                </button>
               </div>
+            </div>
+          </section>
+        </section>
+        <section
+          class="view-panel public-view"
+          data-view="public"
+          aria-label="Marcador para pantalla externa"
+          tabindex="-1"
+          hidden
+        >
+          <div class="public-toolbar">
+            <span>Marcador · Solo lectura en la ventana externa</span>
+            <div>
+              <button
+                class="operator-return"
+                type="button"
+                data-view-target="scoring"
+              >
+                Volver al control</button
+              ><button type="button" data-fullscreen>
+                Pantalla completa ⛶
+              </button>
+            </div>
+          </div>
+          <section
+            class="scoreboard public-board"
+            aria-label="Marcador público"
+          >
+            <header class="event-bar">
+              <span class="board-tag">PSS TAEKWONDO</span
+              ><strong data-bind="eventName">Sesión de entrenamiento</strong
+              ><span class="manual-label">Entrenamiento · Alpha</span>
             </header>
-            <label>
-              Nombre
-              <input id="setupRedName" name="redName" type="text" value="Rojo" />
-            </label>
-            <label>
-              Pais
-              <input id="setupRedCountry" name="redCountry" type="text" maxlength="3" value="KOR" />
-            </label>
+            <div class="score-grid">
+              <article
+                class="fighter-panel blue-panel"
+                aria-label="Marcador azul"
+              >
+                <div class="fighter-meta">
+                  <span class="side-label"
+                    >AZUL <span data-bind="blueCountry">PER</span></span
+                  ><strong data-bind="blueName">Azul</strong>
+                </div>
+                <output
+                  class="score-value"
+                  data-bind="blueScore"
+                  aria-label="Puntos azul"
+                  aria-live="off"
+                  >0</output
+                >
+                <div class="panel-foot">
+                  <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span
+                  ><span>IMPACTOS <b data-bind="blueHits">0</b></span>
+                </div>
+              </article>
+              <section class="center-clock" aria-label="Tiempo y ronda">
+                <div class="time-state" data-bind="status">Preparado</div>
+                <output
+                  class="clock-value"
+                  data-bind="clock"
+                  aria-label="Tiempo restante"
+                  aria-live="off"
+                  >02:00</output
+                >
+                <div class="round-block">
+                  <span>RONDA</span
+                  ><strong
+                    ><span data-bind="round">1</span
+                    ><small>
+                      / <span data-bind="totalRounds">3</span></small
+                    ></strong
+                  >
+                </div>
+              </section>
+              <article
+                class="fighter-panel red-panel"
+                aria-label="Marcador rojo"
+              >
+                <div class="fighter-meta">
+                  <span class="side-label"
+                    >ROJO <span data-bind="redCountry">PER</span></span
+                  ><strong data-bind="redName">Rojo</strong>
+                </div>
+                <output
+                  class="score-value"
+                  data-bind="redScore"
+                  aria-label="Puntos rojo"
+                  aria-live="off"
+                  >0</output
+                >
+                <div class="panel-foot">
+                  <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span
+                  ><span>IMPACTOS <b data-bind="redHits">0</b></span>
+                </div>
+              </article>
+            </div>
           </section>
-
-          <section class="form-actions">
-            <button class="primary-action" type="submit">Guardar configuracion</button>
-            <button type="button" data-view-target="public">Vista publica</button>
-            <button type="button" id="clearLog">Limpiar log</button>
-            <button type="button" id="exportLog">Exportar log</button>
-          </section>
-        </form>
-        <section class="saved-matches-panel" aria-label="Combates guardados">
-          <header>
-            <h2>Combates guardados</h2>
-            <span><span data-bind="savedMatchCount">0</span> registros</span>
-          </header>
-          <ol class="saved-match-list" data-saved-match-list></ol>
         </section>
-      </section>
-
-      <section class="view-panel" data-view="scoring" aria-label="Modulo de puntaje con botones de arbitro">
-        <section class="scoreboard compact-board" aria-label="Marcador del arbitro">
-          <header class="event-bar">
-            <div class="brand-cluster">
-              <span class="brand-chip brand-wt">WT</span>
-              <span class="brand-chip brand-pss">PSS</span>
-            </div>
-            <strong data-bind="eventName">Combate Taekwondo - M-58 kg</strong>
-            <div class="sensor-stack">
-              <span class="sensor-dot is-on"></span><span>3</span>
-              <span class="sensor-dot is-low"></span><span>19</span>
-            </div>
-          </header>
-          <div class="score-grid">
-            <article class="fighter-panel blue-panel">
-              <div class="fighter-meta">
-                <strong data-bind="blueCountry">PER</strong>
-                <strong data-bind="blueName">Azul</strong>
-              </div>
-              <output class="score-value" data-bind="blueScore">0</output>
-              <div class="panel-foot">
-                <span>GAM-JEOM</span>
-                <output data-bind="blueGamjeom">0</output>
-              </div>
-            </article>
-
-            <section class="center-clock">
-              <div class="time-state" data-bind="status">Ready</div>
-              <output class="clock-value" data-bind="clock">02:00</output>
-              <div class="round-block">
-                <span>ROUND</span>
-                <output class="round-score">
-                  <span data-bind="round">1</span><span class="round-separator">/</span><span data-bind="totalRounds">3</span>
-                </output>
-              </div>
-            </section>
-
-            <article class="fighter-panel red-panel">
-              <div class="fighter-meta">
-                <strong data-bind="redName">Rojo</strong>
-                <strong data-bind="redCountry">KOR</strong>
-              </div>
-              <output class="score-value" data-bind="redScore">0</output>
-              <div class="panel-foot">
-                <span>GAM-JEOM</span>
-                <output data-bind="redGamjeom">0</output>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="operator-area">
-          <div class="control-strip">
-            <button id="startPause" class="primary-action" type="button">Shijak</button>
-            <button id="timeout" type="button">Time out</button>
-            <button id="nextRound" type="button">Round +</button>
-            <button id="swapSides" type="button">Switch</button>
-            <button id="undo" class="danger-action" type="button" disabled>Deshacer</button>
-            <button id="saveMatch" type="button">Guardar combate</button>
-            <button id="resetMatch" type="button">Nuevo combate</button>
-            <button type="button" data-view-target="public">Volver a pantalla grande</button>
-          </div>
-
-          <div class="operator-layout">
-            <section class="judge-side blue-judge" aria-label="Controles competidor azul">
-              <header>
-                <span>Azul</span>
-                <strong data-bind="blueName">Azul</strong>
-              </header>
-              <div class="score-buttons" data-side="blue"></div>
-            </section>
-
-            <section class="log-panel" aria-label="Registro de acciones">
-              <header>
-                <strong>Registro de combate</strong>
-                <span data-bind="leader">Empate</span>
-              </header>
-              <ol class="history-list" data-log-list></ol>
-            </section>
-
-            <section class="judge-side red-judge" aria-label="Controles competidor rojo">
-              <header>
-                <span>Rojo</span>
-                <strong data-bind="redName">Rojo</strong>
-              </header>
-              <div class="score-buttons" data-side="red"></div>
-            </section>
-          </div>
-        </section>
-      </section>
-
-      <section class="view-panel public-view" data-view="public" aria-label="Vista publica de puntajes">
-        <div class="public-toolbar">
-          <button type="button" data-view-target="scoring">Volver a puntaje</button>
-          <button type="button" data-fullscreen>Volver a pantalla grande</button>
-        </div>
-        <section class="scoreboard public-board">
-          <header class="event-bar">
-            <div class="brand-cluster">
-              <span class="brand-chip brand-wt">WT</span>
-              <span class="brand-chip brand-pss">PSS</span>
-            </div>
-            <strong data-bind="eventName">Combate Taekwondo - M-58 kg</strong>
-            <div class="sensor-stack">
-              <span class="sensor-dot is-on"></span><span>3</span>
-              <span class="sensor-dot is-low"></span><span>19</span>
-            </div>
-          </header>
-          <div class="score-grid">
-            <article class="fighter-panel blue-panel">
-              <div class="fighter-meta">
-                <strong data-bind="blueCountry">PER</strong>
-                <strong data-bind="blueName">Azul</strong>
-              </div>
-              <output class="score-value" data-bind="blueScore">0</output>
-              <div class="panel-foot">
-                <span>GAM-JEOM</span>
-                <output data-bind="blueGamjeom">0</output>
-              </div>
-            </article>
-
-            <section class="center-clock">
-              <div class="time-state" data-bind="status">Ready</div>
-              <output class="clock-value" data-bind="clock">02:00</output>
-              <div class="round-block">
-                <span>ROUND</span>
-                <output class="round-score">
-                  <span data-bind="round">1</span><span class="round-separator">/</span><span data-bind="totalRounds">3</span>
-                </output>
-              </div>
-            </section>
-
-            <article class="fighter-panel red-panel">
-              <div class="fighter-meta">
-                <strong data-bind="redName">Rojo</strong>
-                <strong data-bind="redCountry">KOR</strong>
-              </div>
-              <output class="score-value" data-bind="redScore">0</output>
-              <div class="panel-foot">
-                <span>GAM-JEOM</span>
-                <output data-bind="redGamjeom">0</output>
-              </div>
-            </article>
-          </div>
-        </section>
-      </section>
-    </main>
-
-    <script src="js/app.js"></script>
+      </main>
+      <footer class="app-footer">
+        <span>PSS Taekwondo · Alpha 0.1</span
+        ><span>Un PC. Un operador. Dos pantallas.</span
+        ><a
+          href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues"
+          target="_blank"
+          rel="noreferrer"
+          >Reportar un problema ↗</a
+        >
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
