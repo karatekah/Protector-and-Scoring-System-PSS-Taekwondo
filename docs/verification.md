@@ -34,6 +34,9 @@ Se inspeccionaron capturas de inicio y control a 1440 px, control a 390 px y gu�
 | Blanco / rojo             | 5.92:1    |
 | Blanco / acción principal | 7.45:1    |
 | Borde de entrada / blanco | 3.64:1    |
+| Foco / blanco             | 4.19:1    |
+| Foco / fondo              | 3.71:1    |
+| Foco / superficie oscura  | 3.88:1    |
 
 Los resultados de axe y los contrastes no constituyen una auditoría completa WCAG ni sustituyen una prueba con lector de pantalla.
 
@@ -46,4 +49,8 @@ Los resultados de axe y los contrastes no constituyen una auditoría completa WC
 
 ## Publicación
 
+GitHub Actions aprobó el commit `6a8a021146b13a9c7f829895ff2eae45f0a0a81e` en Linux: instalación, tipos, formato, pruebas unitarias, build y los seis flujos de navegador. [Ejecución](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/runs/41549006931).
+
 La conexión original Vercel/GitHub está confirmada. El enlace homepage antiguo devolvió 404 y la URL histórica de despliegue redirigió a login. No confundir esos datos con evidencia de una demo nueva publicada. La comprobación del despliegue de esta actualización debe registrar su SHA y URL final.
+
+El primer despliegue del commit anterior falló en Vercel, bajo el equipo actual `karatekah`. Leer su log requiere iniciar sesión en Vercel; el estado de CI no prueba que producción esté disponible.
