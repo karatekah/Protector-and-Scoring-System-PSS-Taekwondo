@@ -1,5 +1,14 @@
 # Changelog
 
+## Sin publicar como nueva versión
+
+Reformulación de la arquitectura objetivo para software de torneos: varias áreas, operación en LAN sin Internet, propuestas de jueces y confirmación por mesa.
+
+- Stack objetivo React/TypeScript/Vite, servidor Go y SQLite local.
+- ADR 0002, contratos, autoridad, permisos, respaldo y recuperación.
+- Fases de migración con criterios de aceptación y documentación de lo implementado frente a lo previsto.
+- Guía pública actualizada con el plan. Esta revisión documental no incorpora React ni funciones LAN al marcador publicado.
+
 ## 0.1.0-alpha.1 · 2026-11-02
 
 Primera estandarización del prototipo para entrenamiento/exhibición y demo web existente en Vercel.

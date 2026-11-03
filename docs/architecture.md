@@ -1,5 +1,7 @@
 # Arquitectura
 
+Este documento describe la alpha 0.1 implementada. El producto objetivo de torneos utiliza una arquitectura distinta, definida en [stack](stack.md), [ADR 0002](adr/0002-tournament-lan.md) y [arquitectura LAN](tournament-architecture.md). React, Go y SQLite todavía no forman parte de este runtime.
+
 La alpha es una aplicación estática servida por Vercel. Cada navegador mantiene sus propios datos; el servidor de alojamiento no es una autoridad de combate.
 
 ```text

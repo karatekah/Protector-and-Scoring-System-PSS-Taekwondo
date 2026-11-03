@@ -2,12 +2,22 @@
 
 Proyecto personal de `karatekah`. Mantener el sistema global `git-profile`: perfil `personal`, nombre `karatekah`, correo `systems.mj1906@gmail.com`. Revisar con `git-profile current` y `git-profile check`; no cambiar credenciales, configuración global ni origin manualmente.
 
-## Alcance acordado
+## Alpha publicada
 
 - Alpha web para entrenamiento y exhibición: un PC, un operador, puntos acumulados y pantalla externa.
 - Mantener el proyecto existente de Vercel. No crear otro alojamiento ni preparar un ZIP local en esta entrega.
 - No anunciar sensores, homologación, sincronización entre dispositivos ni cumplimiento de un reglamento WT.
 - Si se pide torneo o red, resolver reglas y autoridad del combate antes de extender el dominio.
+
+## Producto objetivo confirmado
+
+- Software de torneos con varias áreas, jueces y pantallas; funcionamiento en la LAN del recinto sin Internet.
+- Los jueces envían propuestas; la mesa del área confirma los puntos. El servidor del recinto es la autoridad del reloj y los resultados.
+- Stack objetivo: React + TypeScript + Vite, React Router, CSS con tokens/CSS Modules; Go, SQLite local y API HTTPS/WebSocket.
+- La alpha 0.1 todavía utiliza DOM nativo, almacenamiento de navegador y ventanas locales. No afirmar que React, el servidor ni la LAN ya están implementados.
+- Seguir docs/stack.md, docs/adr/0002-tournament-lan.md y docs/migration.md al iniciar cada fase. Sensores, reglamento automático y distribución ZIP siguen pendientes.
+- SQLite solo se abre en el servidor local; nunca se comparte el archivo por red. Jueces y pantallas acceden por la API.
+- Mantener una sola autoridad de puntuación en modo torneo; los estados locales del cliente no confirman puntos.
 
 ## Implementación
 

@@ -4,6 +4,14 @@ Fecha: 2026-11-02. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
 
 ## Evidencia automatizada
 
+### Revisión de arquitectura posterior a la alpha
+
+Se documentó el stack objetivo y se actualizó la guía con su estado de implementación. Para ese cambio se comprobaron formato, tipos y build; los 14 documentos revisados no tenían enlaces locales rotos. Pasaron los dos flujos existentes de teclado, reflujo y accesibilidad de Chromium/Firefox, incluidos los controles automatizados sobre la guía.
+
+Esa evidencia valida la documentación y las vistas actuales. No valida React, Go, SQLite ni la comunicación LAN, que todavía no están implementados. Los escenarios de [arquitectura de torneos](tournament-architecture.md) son criterios de aceptación futuros.
+
+### Evidencia de la alpha publicada
+
 | Comprobación                                           | Resultado local                                           |
 | ------------------------------------------------------ | --------------------------------------------------------- |
 | TypeScript estricto                                    | Aprobado                                                  |
