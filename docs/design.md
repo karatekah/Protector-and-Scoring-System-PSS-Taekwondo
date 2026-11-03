@@ -4,7 +4,7 @@
 
 Dirección confirmada el 2026-11-03: marfil, carbón y rojo señal. El usuario pidió una renovación del diseño completo: colores, header, hero y secciones, con una identidad propia del Taekwondo y sin una cuadrícula de tarjetas genéricas. La mesa mantiene la prioridad de puntos y reloj.
 
-La señal principal de la portada es el nombre Taekwondo a todo el ancho, compuesto como un cartel deportivo. La explicación y la acción quedan en el margen de la fotografía; no se colorea una palabra de un titular para simular identidad. El encabezado usa navegación tipográfica y un subrayado rojo para la sección actual.
+La señal principal de la portada es el nombre Taekwondo a todo el ancho, compuesto como un cartel deportivo. La explicación y la acción acompañan una ilustración de equipamiento del deporte. El encabezado usa navegación segmentada con selección oscura y una superficie elevada.
 
 ## Paleta
 
@@ -21,8 +21,8 @@ El azul queda asociado al atleta. El rojo identifica también el lado rojo; las 
 
 ## Composición y componentes
 
-- Header con marca original carbón/rojo, navegación sin cápsulas y enlace a la guía.
-- Hero de cartel, fotografía sin tarjeta ni etiqueta superpuesta y acceso directo a preparar un combate.
+- Header con marca original carbón/rojo, navegación segmentada y enlace a la guía.
+- Hero de cartel en una superficie de papel; ilustración propia de hogu/cinturón, resumen del estado real y acceso directo a preparar un combate.
 - Franja de sesión conectada al estado real: evento, atletas, puntos, reloj y acceso al control.
 - Presentación de las dos vistas mediante una pantalla dibujada con CSS. Sus cifras reflejan el combate actual; no son métricas ni resultados de ejemplo inventados.
 - Inicio en tres pasos verticales. La numeración solo se utiliza donde hay una secuencia real.
@@ -32,7 +32,7 @@ El azul queda asociado al atleta. El rojo identifica también el lado rojo; las 
 
 Barlow Condensed 600/700 aporta la voz deportiva; Manrope variable sirve a la lectura y controles. Ambas familias se sirven localmente desde public/fonts, con sus licencias. Las cifras son tabulares. Se mantienen etiquetas visibles, foco por teclado, controles nativos y reflujo hasta 320 px.
 
-La puntuación no usa escala de pulsación. El resto de botones solo escala .96/150 ms cuando el sistema permite movimiento. No hay parallax, carruseles ni apariciones animadas de cada sección. Los espacios y formas agrupan antes que las sombras; la única sombra de presentación identifica el monitor de vista previa.
+La puntuación no usa escala de pulsación. El resto de botones solo escala .96/150 ms cuando el sistema permite movimiento. No hay parallax, carruseles ni apariciones animadas de cada sección. Los espacios y formas agrupan antes que las sombras. La profundidad diferencia navegación, controles y objetos de presentación; las teclas de puntuación no se desplazan al pulsarlas.
 
 ## Contrastes medidos
 
@@ -59,7 +59,7 @@ En la banda oscura y en pantalla completa se cambia el foco a claro. En las vist
 
 ## Recursos y proceso
 
-Se reutiliza public/assets/taekwondo-hero.jpg, imagen ilustrativa generada previamente para el proyecto; no se presenta como fotografía documental de un torneo. La tipografía, marca y fotografía se sirven localmente, sin peticiones a terceros durante el uso.
+El hero usa public/assets/taekwondo-kit.jpg: ilustración original de protectores de pecho azul/rojo y cinturón negro, generada con imagegen integrada. Exportación JPEG 82, 1536 × 1024, 197 833 bytes. Representa equipamiento tradicional del deporte, sin sensores ni afirmaciones de integración. La fotografía anterior se conserva en docs/assets/taekwondo-hero-previous.jpg. Todos los recursos publicados se sirven localmente.
 
 Se aplicaron better-ui y las skills better-* de accesibilidad, layout, tipografía, color y escritura. Se contrastó el plan antes de implementar con [frontend-design oficial de Anthropic](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md): una identidad vinculada al deporte, una decisión visual dominante y crítica del resultado renderizado. No se instaló ni se ejecutó una aplicación Claude o una skill Apple/Impeccable.
 
@@ -67,7 +67,30 @@ La entrevista se realizó con preguntas directas: grill-me local remite a Skill/
 
 La vista pública sigue siendo de solo lectura. Alcance funcional, arquitectura y migración se conservan en sus documentos. La revisión y límites reales se registran en [interface-review.md](interface-review.md) y [verification.md](verification.md).
 
-## Prompt final del recurso generado
+## Componentes y materialidad
+
+La revisión posterior toma como referencias las superficies táctiles de Slush y los catálogos propuestos por el usuario. Se mantienen marfil/carbón/rojo y las familias locales; Manrope gana protagonismo en el mensaje del hero y Barlow Condensed queda en el nombre del deporte y las cifras. La escala separa lectura, secundarios, controles y marcador.
+
+| Recurso inspeccionado                                                                                                                               | Decisión para PSS                                                                                                                              |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Slush](https://slush.app/)                                                                                                                         | Profundidad visual y recurso de marca protagonista, adaptados al equipamiento de Taekwondo                                                     |
+| [Kobra Button](https://kobra.systems/components/button)                                                                                             | Botones con estados de superficie y relieve; implementación nativa propia                                                                      |
+| [Rare UI Duration Picker](https://www.rareui.com/components/durationpicker)                                                                         | Se estudió la agrupación de duración; se implementaron presets propios 1:00/1:30/2:00 con entradas manuales, sin portar su código ni animación |
+| [EasyUI UnfoldAccordion](https://easyui.site/components/unfold-accordion)                                                                           | Desplegables nativos para explicar las dos vistas, con indicador que responde a la preferencia de movimiento                                   |
+| [Aceternity Floating Navbar](https://ui.aceternity.com/components/floating-navbar) y [3D Card](https://ui.aceternity.com/components/3d-card-effect) | Segmentos de navegación elevados y profundidad de la presentación; sin ocultar el menú ni mover los controles de puntuación                    |
+| [Pin UI](https://pinui.xyz/)                                                                                                                        | Se revisó el acabado de componentes renderizados y la separación de lectura/acción                                                             |
+
+No se incorpora código de los catálogos ni se instala React/Tailwind/Motion para esta iteración. css/components.css contiene los componentes propios de la alpha. El selector actualiza el formulario; la configuración solo se guarda al enviar. Los presets se deshabilitan para un segundo operador. Las teclas de puntuación conservan posición fija, respuesta inmediata y una sola autoridad.
+
+El componente de resumen sobre la ilustración muestra el reloj y puntos reales del combate. No contiene cifras de éxito ni estadísticas inventadas. Los bordes, radios e iluminación distinguen superficies de papel, controles y pantalla. No hay animaciones automáticas, parallax ni transformaciones continuas con el cursor.
+
+## Prompt de la ilustración actual
+
+Herramienta: imagegen integrada; generación nueva, fondo opaco. Archivo final: public/assets/taekwondo-kit.jpg. El original PNG se conserva en .design.local/taekwondo-kit-original.png y en el directorio de imágenes generadas del entorno. Prompt exacto:
+
+> Use case: product-mockup. Asset type: bespoke hero illustration for PSS Taekwondo, a manual scoring app. Create a beautifully art-directed premium 3D studio product composition of Taekwondo sparring equipment, two traditional NON-electronic padded chest protectors (hogu), one deep cobalt blue and one signal red, with white stitched binding, realistic curved torso shape, subtle quilted/foam material, white shoulder straps and lacing. A long traditional black martial-arts belt with clearly visible woven cotton texture sweeps in a loose flowing arc behind and beneath the two hogu, with a properly tied flat belt knot near the lower center. Equipment only, no people. Modern tactile sports editorial, striking and sculptural with believable manufactured materials, soft large-source lighting from upper left, gentle contact shadows and ambient occlusion. Background and floor are a seamless pale warm ivory (#f1efe7), softly lit, no scene or gym. Wide landscape 3:2 composition, objects fully visible and centered with generous clean breathing room, blue guard slightly higher on the left and red guard slightly lower on the right, each at a different elegant three-quarter angle, belt unifies composition. The image is an illustration of the sport, not hardware for the software. No electronics, sensors, screens, wireless symbols, brands, logos, letters, numbers, watermarks, glossy balloons, extraneous objects, busy background or fake interface. No text at all. Beautiful material detail, confident silhouettes, refined visual depth rather than chaotic decoration.
+
+## Prompt histórico de la fotografía anterior
 
 Herramienta: imagegen integrada, generación nueva, fondo opaco. Prompt:
 

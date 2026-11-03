@@ -4,6 +4,12 @@ Fecha: 2026-11-03. Alcance: header, hero, todas las secciones de inicio, prepara
 
 El usuario confirmó la dirección marfil/carbón/rojo señal. Se aplicaron better-ui y las skills better-* de accesibilidad, layout, escritura, tipografía y color, junto con la guía frontend-design oficial de Anthropic. Las decisiones estéticas responden al brief y se documentan en [diseño](design.md); no se presentan como errores de la versión anterior.
 
+## Revisión de componentes
+
+La actualización incorpora css/components.css y el selector de duración de src/main.ts. Se comprobaron presets y entrada manual con guardado al enviar; una pestaña secundaria no puede usar los presets para alterar la configuración. El teclado y los nombres accesibles se conservan con botones, inputs y details nativos. El estado de selección usa aria-pressed; el hover mantiene el contraste del segmento activo.
+
+Se corrigió un desbordamiento de 2 px del documento a 320 px reduciendo el espaciado de navegación móvil. Se alineó el campo de evento al inicio para que no se estirara con el selector de duración. La revisión visual posterior no encontró scroll horizontal en las cuatro vistas.
+
 ## Cobertura
 
 | Dominio       | Evidencia inspeccionada                                                                                                                        | Resultado                                                                                                        |
@@ -13,7 +19,7 @@ El usuario confirmó la dirección marfil/carbón/rojo señal. Se aplicaron bett
 | Escritura     | Hero, sesión, presentación de las dos vistas, pasos y alcance del plan; mensajes y formularios existentes                                      | Alpha manual y torneo futuro claramente diferenciados                                                            |
 | Tipografía    | Barlow Condensed/Manrope locales; título de cartel y lectura; nombres largos, 999 puntos y reloj a 320 px                                      | Texto completo y cifras dentro de su columna                                                                     |
 | Colores       | Fondos renderizados y tokens de texto, entradas, marcador y foco; pares en design.md                                                           | Pares de texto documentados por encima de 4.5:1; borde de entrada 4.13:1                                         |
-| UI            | Header sin cápsulas, estados activos, hoja de combate, monitor CSS, hover, disabled y foco; escala solo en botones de uso no repetido          | Composición coherente y estados visibles; no hay animación automática                                            |
+| UI            | Header segmentado, estados activos, hoja de combate, monitor CSS, hover, disabled y foco; escala solo en botones de uso no repetido            | Composición coherente y estados visibles; no hay animación automática                                            |
 
 ## Correcciones durante la revisión
 
@@ -27,10 +33,10 @@ Las mejoras de identidad —paleta, header, cartel, secuencia y hoja de combate�
 ## Verificación
 
 - Tipos, formato, cuatro pruebas unitarias y build de producción.
-- Seis flujos Playwright de Chromium/Firefox: puntuación, reloj, deshacer, ventana pública, propietario único, persistencia, archivo, importación/exportación, teclado, reflujo y axe.
+- Ocho flujos Playwright de Chromium/Firefox: puntuación, reloj, deshacer, ventana pública, propietario único, persistencia, archivo, importación/exportación, teclado, reflujo y axe.
 - Confirmación corta sin desplazar el botón de puntuación. Gestión abre/cierra mediante Enter.
 - Capturas de escritorio y móvil y medición del ancho de documento: 320, 390 y 1440 px, sin scroll horizontal. La vista previa de portada está enlazada al estado del combate; no introduce otra autoridad de puntuación.
-- Control por defecto: paneles de puntos hasta 759.69 px de alto en 1366 × 768. Los nombres largos pueden aumentar la altura.
+- Control por defecto: paneles de puntos hasta 763.69 px de alto en 1366 × 768. Los nombres largos pueden aumentar la altura.
 - A 320 px, los puntajes 999 ocupan 112 px sin exceder su columna; reloj 02:00 ocupa 70 px sin desbordar.
 
 No verificado: lector de pantalla NVDA/VoiceOver, zoom nativo al 200 %, espejo RTL, teléfono físico ni sesión física con dos monitores. Las pruebas de navegador no certifican el uso deportivo ni sustituyen una prueba de campo.

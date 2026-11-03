@@ -41,8 +41,13 @@
           >
             Inicio
           </button>
-          <button class="tab-button" type="button" data-view-target="setup">
-            Preparar combate
+          <button
+            class="tab-button"
+            type="button"
+            data-view-target="setup"
+            aria-label="Preparar combate"
+          >
+            Preparar<span class="nav-wide"> combate</span>
           </button>
           <button class="tab-button" type="button" data-view-target="scoring">
             Control
@@ -87,7 +92,7 @@
           <section class="poster-hero" aria-labelledby="hero-title">
             <div class="hero-title-row">
               <p>Marcador manual para entrenamiento y exhibición.</p>
-              <span>Alpha pública 0.1</span>
+              <span class="release-chip">Alpha pública 0.1</span>
             </div>
             <h1 id="hero-title">Taekwondo.</h1>
             <div class="hero-stage">
@@ -124,17 +129,33 @@
                 </p>
               </div>
               <figure class="hero-visual">
-                <img
-                  class="hero-image"
-                  src="/assets/taekwondo-hero.jpg"
-                  width="1448"
-                  height="1086"
-                  fetchpriority="high"
-                  alt="Dos atletas de Taekwondo con dobok blanco y protectores azul y rojo durante una práctica de combate."
-                />
+                <div class="equipment-stage">
+                  <img
+                    class="hero-image"
+                    src="/assets/taekwondo-kit.jpg"
+                    width="1536"
+                    height="1024"
+                    fetchpriority="high"
+                    alt="Ilustración de dos protectores de pecho de Taekwondo, azul y rojo, junto a un cinturón negro de tela."
+                  />
+                  <div
+                    class="match-capsule"
+                    aria-label="Resumen del combate actual"
+                  >
+                    <span class="capsule-label">Tu combate, a la vista</span>
+                    <div>
+                      <span class="blue-label"
+                        >Azul <b data-bind="blueScore">0</b></span
+                      ><strong data-bind="clock" aria-live="off">02:00</strong
+                      ><span class="red-label"
+                        >Rojo <b data-bind="redScore">0</b></span
+                      >
+                    </div>
+                  </div>
+                </div>
                 <figcaption>
-                  <strong>Cada decisión cuenta.</strong
-                  ><span>Imagen ilustrativa generada para PSS.</span>
+                  <strong>Equipamiento del deporte. Control manual.</strong
+                  ><span>Ilustración original para PSS.</span>
                 </figcaption>
               </figure>
             </div>
@@ -186,18 +207,21 @@
                 La mesa ve los controles. El público ve el combate. Dos vistas
                 del mismo marcador, sin perder de vista lo que importa.
               </p>
-              <dl class="story-details">
-                <div>
-                  <dt>En la mesa</dt>
-                  <dd>
+              <div class="feature-accordions">
+                <details class="feature-disclosure" open>
+                  <summary>En la mesa</summary>
+                  <p>
                     Puntos, pausas y correcciones por decisión del operador.
-                  </dd>
-                </div>
-                <div>
-                  <dt>En la pantalla</dt>
-                  <dd>Atletas, resultado y tiempo, a la vista del dojang.</dd>
-                </div>
-              </dl>
+                  </p>
+                </details>
+                <details class="feature-disclosure">
+                  <summary>En la pantalla</summary>
+                  <p>
+                    Atletas, resultado y tiempo, a la vista del dojang. Abre la
+                    ventana en el segundo monitor del mismo PC y navegador.
+                  </p>
+                </details>
+              </div>
               <button class="text-button" type="button" data-open-public>
                 Probar la pantalla externa <span aria-hidden="true">↗</span>
               </button>
@@ -344,7 +368,7 @@
                     required
                     value="Sesión de entrenamiento"
                 /></label>
-                <div class="field-row">
+                <div class="format-controls">
                   <label
                     >Rondas<input
                       name="totalRounds"
@@ -353,28 +377,70 @@
                       max="5"
                       step="1"
                       required
-                      value="3" /></label
-                  ><label
-                    >Minutos<input
-                      id="setupRoundMinutes"
-                      name="roundMinutes"
-                      type="number"
-                      min="0"
-                      max="9"
-                      step="1"
-                      required
-                      value="2" /></label
-                  ><label
-                    >Segundos<input
-                      id="setupRoundSeconds"
-                      name="roundSeconds"
-                      type="number"
-                      min="0"
-                      max="59"
-                      step="1"
-                      required
-                      value="0"
+                      value="3"
                   /></label>
+                  <div class="duration-control">
+                    <span class="duration-label" id="duration-label"
+                      >Duración por ronda</span
+                    >
+                    <div
+                      class="duration-presets"
+                      role="group"
+                      aria-labelledby="duration-label"
+                    >
+                      <button
+                        type="button"
+                        data-duration="60"
+                        data-mutation
+                        aria-pressed="false"
+                        aria-label="1:00 por ronda"
+                      >
+                        1:00
+                      </button>
+                      <button
+                        type="button"
+                        data-duration="90"
+                        data-mutation
+                        aria-pressed="false"
+                        aria-label="1:30 por ronda"
+                      >
+                        1:30
+                      </button>
+                      <button
+                        type="button"
+                        data-duration="120"
+                        data-mutation
+                        aria-pressed="true"
+                        aria-label="2:00 por ronda"
+                      >
+                        2:00
+                      </button>
+                    </div>
+                    <div class="duration-fields">
+                      <label
+                        >Minutos<input
+                          id="setupRoundMinutes"
+                          name="roundMinutes"
+                          type="number"
+                          min="0"
+                          max="9"
+                          step="1"
+                          required
+                          value="2" /></label
+                      ><span aria-hidden="true">:</span
+                      ><label
+                        >Segundos<input
+                          id="setupRoundSeconds"
+                          name="roundSeconds"
+                          type="number"
+                          min="0"
+                          max="59"
+                          step="1"
+                          required
+                          value="0"
+                      /></label>
+                    </div>
+                  </div>
                 </div>
                 <p class="field-help">
                   De 1 a 5 rondas · Entre 00:10 y 09:59 por ronda.
