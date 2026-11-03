@@ -41,7 +41,7 @@ Prepara gli atleti, gestisci il cronometro e registra ogni decisione. L'**alpha 
 1. [Apri la demo](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) con Chrome, Edge o Firefox aggiornato.
 2. Seleziona **Preparar combate**, inserisci gli atleti e il formato, quindi salva.
 3. In **Control**, seleziona **Abrir pantalla externa** e sposta la finestra sul secondo monitor.
-4. Avvia il cronometro e registra i punti. Salva un riepilogo ed esporta JSON al termine.
+4. Avvia il cronometro e registra i punti. Apri **Gestión del combate** per salvare un riepilogo, poi esporta JSON da **Preparar combate**.
 
 Le due finestre devono condividere **PC, origine del sito, browser e profilo**. Mantieni aperta la scheda di controllo; ricaricarla mette in pausa il cronometro. Un altro dispositivo o una sessione privata mantiene dati indipendenti.
 

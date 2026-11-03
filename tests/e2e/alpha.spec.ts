@@ -15,12 +15,18 @@ test("operator, public window, clock, scores, undo, persistence and ownership", 
     .getByLabel("Nombre del competidor azul", { exact: true })
     .fill("Atleta azul");
   await page.getByRole("button", { name: "Guardar y abrir control" }).click();
+  const scoreButton = page.getByRole("button", {
+    name: "+2 puntos · azul",
+    exact: true,
+  });
+  const initialPosition = await scoreButton.boundingBox();
   await page
     .getByRole("button", { name: "+2 puntos · azul", exact: true })
     .click();
   await expect(
     page.locator('[data-view="scoring"] [data-bind="blueScore"]'),
   ).toHaveText("2");
+  expect((await scoreButton.boundingBox())?.y).toBe(initialPosition?.y);
   const publicPage = await context.newPage();
   await publicPage.goto("/?view=public");
   await expect(
@@ -88,6 +94,7 @@ test("JSON export, import validation, archive and recovery", async ({
   await page
     .getByRole("button", { name: "+3 puntos · rojo", exact: true })
     .click();
+  await page.getByText("Gestión del combate", { exact: true }).click();
   await page
     .getByRole("button", { name: "Guardar resumen", exact: true })
     .click();
@@ -130,6 +137,17 @@ test("keyboard flow, reduced motion, reflow and automated accessibility", async 
   for (const view of ["home", "setup", "scoring", "public"]) {
     if (view !== "home")
       await page.locator(`.tab-button[data-view-target="${view}"]`).click();
+    if (view === "scoring") {
+      const management = page.locator(".match-management");
+      await management.locator("summary").focus();
+      await page.keyboard.press("Enter");
+      await expect(management).toHaveAttribute("open", "");
+      await expect(
+        page.getByRole("button", { name: "Guardar resumen", exact: true }),
+      ).toBeVisible();
+      await page.keyboard.press("Enter");
+      await expect(management).not.toHaveAttribute("open");
+    }
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
       .analyze();

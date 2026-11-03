@@ -41,7 +41,7 @@ Prepara los atletas, controla el reloj y registra cada decisión. La **alpha web
 1. [Abre la demo](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) en Chrome, Edge o Firefox actualizado.
 2. Selecciona **Preparar combate**, introduce atletas y formato, y guarda.
 3. En **Control**, selecciona **Abrir pantalla externa** y mueve esa ventana al segundo monitor.
-4. Inicia el reloj y registra puntos. Guarda un resumen y exporta JSON al terminar.
+4. Inicia el reloj y registra puntos. Abre **Gestión del combate** para guardar un resumen y exporta JSON desde **Preparar combate**.
 
 Ambas ventanas deben compartir **PC, origen del sitio, navegador y perfil**. Mantén abierta la pestaña de control; recargarla pausa el reloj. Otro dispositivo o una sesión privada mantiene datos independientes.
 

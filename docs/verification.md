@@ -1,8 +1,16 @@
 # Verificación de la alpha
 
-Fecha: 2026-11-02. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
+Última revisión: 2026-11-03. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
 
 ## Evidencia automatizada
+
+### Refinamiento de la aplicación completa
+
+`npm run check`, `npm run build` y `npm run test:e2e`: tipos, formato, cuatro pruebas unitarias y seis flujos de Chromium/Firefox aprobados. Se extendió el flujo de puntuación para comprobar que una confirmación corta conserva la posición vertical del botón; el flujo JSON abre Gestión del combate antes de guardar. La revisión de teclado comprueba el despliegue de Gestión con Enter.
+
+Se inspeccionaron las cuatro vistas a 1366 px y 390 px, y la ventana pública independiente a 1920 × 1080. Se midió el reflujo a 320, 390 y 768 px: ninguna vista excedió el ancho disponible. En la configuración por defecto, todos los controles de puntos caben dentro de 1366 × 768; los nombres largos pueden aumentar la altura. A 320 px se comprobaron nombres de atletas largos y puntajes de tres cifras sin desbordamiento de reloj ni cifras.
+
+La captura del README corresponde a la portada actual, renderizada desde la aplicación. Los pares medidos de la paleta están en [diseño](design.md), y la cobertura y límites de revisión en [revisión de interfaz](interface-review.md). Los resultados automatizados no equivalen a una auditoría completa de accesibilidad ni a una prueba física de dos monitores.
 
 ### Rediseño UI/UX deportivo
 
