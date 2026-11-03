@@ -6,7 +6,7 @@ Homepage histórico: <https://protector-and-scoring-system-pss-ta.vercel.app>. E
 
 ## Configuración versionada
 
-`vercel.json` especifica preset Vite, `npm ci`, compilación con comprobaciones y salida `dist/`. El proyecto no necesita variables de entorno, base de datos ni secretos. Usar Node 24.x; el desarrollo está fijado en 24.22.1.
+`vercel.json` especifica preset Vite, `npm ci`, `npm test && npm run build` y salida `dist/`. El build incluye tipos estrictos. El proyecto no necesita variables de entorno, base de datos ni secretos. Usar Node 24.x; el desarrollo está fijado en 24.22.1.
 
 Las cabeceras restringen scripts, estilos y conexiones al origen y deshabilitan cámara, micrófono y geolocalización. El CSP está pensado para producción estática; Vite dev utiliza su servidor habitual. Una herramienta de preview que inyecte scripts podría no ser compatible con el CSP de producción.
 
@@ -17,7 +17,7 @@ Las cabeceras restringen scripts, estilos y conexiones al origen y deshabilitan 
 3. Revisar el diff, notas de versión, alcance y pendientes.
 4. Enviar el commit a la rama conectada a Vercel. Comprobar el estado Vercel de ese SHA y abrir producción y `/guide.html`.
 
-GitHub Actions es un control separado. La integración de Vercel no espera necesariamente a que finalice Actions; el build de Vercel repite tipos, formato y pruebas unitarias, pero no instala navegadores. Por ello las pruebas de navegador deben aprobarse antes del envío, además de ejecutarse en CI.
+GitHub Actions es un control separado. La integración de Vercel no espera necesariamente a que finalice Actions; el build de Vercel repite tipos y pruebas unitarias, pero no instala navegadores. El formato se revisa en CI sobre el checkout original: el builder de Vercel introduce archivos en `.vercel` y su copia de `vercel.json` no pasó Prettier. Por ello las pruebas de navegador y el formato deben aprobarse antes del envío, además de ejecutarse en CI.
 
 ## Verificación y rollback
 
