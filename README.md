@@ -1,64 +1,104 @@
+<div align="center">
+
+<img src="docs/assets/pss-mark.svg" width="96" height="96" alt="PSS Taekwondo mark" />
+
 # PSS Taekwondo
 
-**Marcador manual para entrenamiento y exhibición. Un PC, un operador y una pantalla externa.**
+**English** · [Español](docs/es/README.md) · [Italiano](docs/it/README.md)
 
-Alpha experimental `0.1.0-alpha.1`. [Demo web](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) · [Guía](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Notas de la alpha](docs/releases/v0.1.0-alpha.1.md) · [Reportar un problema](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues).
+**Every point counts.**
 
-Prepara atletas, rondas y duración; registra puntos y penalizaciones; abre un marcador de solo lectura en el segundo monitor. Los puntos se acumulan entre rondas y el operador toma las decisiones.
+A manual Taekwondo scoreboard for training and exhibitions. One PC, one operator, a second screen.
 
-La alpha no integra protectores electrónicos ni está homologada por World Taekwondo. El nombre histórico del repositorio expresa la dirección del proyecto; la funcionalidad actual es un marcador manual. Esta actualización se distribuye como demo web en el proyecto de Vercel existente. El ZIP local queda fuera de esta entrega.
+[![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-1255cf?style=flat-square)](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/workflows/ci.yml) [![GPL-3.0 license](https://img.shields.io/badge/license-GPL--3.0-53606f?style=flat-square)](LICENSE) [![Web demo](https://img.shields.io/badge/demo-Vercel-c9253d?style=flat-square)](https://protector-and-scoring-system-pss-tkdrolando.vercel.app)
 
-## Probar la alpha
+[Try the alpha](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) · [User guide](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Documentation](#documentation) · [Roadmap](docs/roadmap.md) · [Report a bug](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues)
 
-1. Abre la demo en Chrome, Edge o Firefox actualizado.
-2. En **Preparar combate**, indica evento, competidores, de 1 a 5 rondas y de 00:10 a 09:59 por ronda.
-3. Guarda la configuración. En **Control**, abre la pantalla externa y muévela al segundo monitor.
-4. Inicia/pausa el reloj y registra incrementos manuales de +1 a +6. **Gam-jeom** penaliza al atleta y suma un punto al rival; **Impacto** no suma puntos.
-5. Guarda un resumen y exporta JSON desde **Preparar combate**.
+</div>
 
-Ambas ventanas deben usar el mismo equipo, origen, navegador y perfil. Enviar el enlace a otro equipo crea una sesión independiente. Mantén abierta la pestaña de control. Recargarla pausa el reloj; la segunda ventana no controla ni modifica el combate.
+---
 
-## Producto objetivo y stack
+Prepare the athletes, run the clock and record each decision. The **experimental web alpha** keeps scores across rounds and synchronizes a read-only scoreboard with another window in the same browser.
 
-El objetivo confirmado es un software de torneos con varias áreas, jueces y pantallas que funcione en la red local del recinto sin Internet. Los jueces envían propuestas y la mesa confirma los puntos.
+## What you can use today
 
-| Capa del producto objetivo | Elección                                                                            |
-| -------------------------- | ----------------------------------------------------------------------------------- |
-| Frontend                   | React + TypeScript + Vite, React Router y CSS con tokens/CSS Modules                |
-| Datos HTTP                 | TanStack Query y tipos de cliente derivados de OpenAPI                              |
-| Servidor del recinto       | Go, monolito modular que sirve interfaz, API y eventos                              |
-| Datos del evento           | SQLite local del servidor, migraciones SQL y respaldo consistente                   |
-| Comunicación               | HTTPS + WebSocket, revisiones e idempotencia por comando                            |
-| Acceso                     | Sesiones locales revocables, emparejamiento y permisos por evento/área              |
-| Calidad                    | Pruebas de dominio, contratos, concurrencia, recuperación, interfaz y accesibilidad |
-| Distribución               | Demo en Vercel; servidor local y empaquetado en una fase posterior                  |
+- **Match setup.** Event, two athletes, country codes, 1–5 rounds and 00:10–09:59 per round.
+- **Manual scoring.** Add 1–6 points; Gam-jeom adds a penalty and a point to the opponent. Record impacts without awarding points.
+- **Operator control.** Start, pause, technical timeout, next round, swap sides and undo the latest available action.
+- **Second-screen scoreboard.** Open a read-only window, move it to another monitor and use fullscreen. A browser lock keeps a single operator in control.
+- **Local records.** Keep match summaries and export or restore a validated JSON backup.
 
-Este es el **stack objetivo, pendiente de migración**. La alpha que puedes abrir hoy conserva el stack que se detalla debajo. [Decisiones y alternativas](docs/stack.md) · [ADR 0002](docs/adr/0002-tournament-lan.md) · [Arquitectura LAN](docs/tournament-architecture.md) · [Plan de migración](docs/migration.md).
+<div align="center">
 
-### Stack implementado en la alpha 0.1
+![PSS Taekwondo training alpha: project presentation and quick access to match setup](docs/assets/pss-preview.png)
 
-| Capa               | Decisión                                                       |
-| ------------------ | -------------------------------------------------------------- |
-| Aplicación         | TypeScript 7.0.2 estricto y módulos ES                         |
-| Interfaz           | HTML semántico y CSS con tokens, sin dependencias de ejecución |
-| Compilación        | Vite 8.3.5                                                     |
-| Herramientas       | Node 24.22.1 LTS, npm 11 y Prettier 3.9.10                     |
-| Estado             | Dominio tipado; reloj con tiempo monotónico transcurrido       |
-| Persistencia       | localStorage v4; exportación/importación JSON validada         |
-| Coordinación local | Web Locks, BroadcastChannel y eventos de almacenamiento        |
-| Verificación       | Vitest 5.1.0, Playwright 1.64.1 y axe-core 4.14.0              |
-| CI / publicación   | GitHub Actions y proyecto existente en Vercel                  |
+<sub>Preview of the public training alpha. The application interface is currently in Spanish.</sub>
 
-Las dependencias directas están fijadas en `package.json`; `package-lock.json` fija su resolución. La alpha publicada no incorpora backend, cuentas, base de datos ni analítica. [ADR 0001](docs/adr/0001-foundation.md) describe esa entrega; ADR 0002 define su evolución hacia torneos.
+</div>
 
-## Desarrollo
+## Try a match
+
+1. [Open the demo](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) in an up-to-date Chrome, Edge or Firefox.
+2. Select **Preparar combate**, enter the athletes and format, then save.
+3. In **Control**, select **Abrir pantalla externa** and move that window to the second monitor.
+4. Start the clock and record points. Save a summary and export JSON when finished.
+
+Both windows must share the **same PC, site origin, browser and profile**. Keep the control tab open; reloading it pauses the clock. Another device or a private browsing session has independent data.
+
+This alpha is for training and exhibitions. It does not connect electronic protectors, enforce an official WT ruleset or hold sporting certification. The repository's historical name describes its broader direction.
+
+## Architecture and stack
+
+| Component           | Implemented in the alpha                                                |
+| ------------------- | ----------------------------------------------------------------------- |
+| Application         | TypeScript 7.0.2, strict types and ES modules                           |
+| Interface           | Semantic HTML, CSS tokens and locally hosted Manrope / Barlow Condensed |
+| Build               | Vite 8.3.5; Node 24.22.1 LTS and npm 11 for development                 |
+| Match state         | Separate domain logic and an elapsed monotonic clock                    |
+| Storage             | Versioned localStorage and validated JSON import/export                 |
+| Window coordination | Web Locks, BroadcastChannel and storage events                          |
+| Verification        | Vitest, Playwright, axe and Prettier                                    |
+| Delivery            | GitHub Actions and the existing Vercel project                          |
+
+Direct dependencies and their resolution are pinned in package.json and package-lock.json. [Architecture](docs/architecture.md) describes the current runtime; [ADR 0001](docs/adr/0001-foundation.md) records its foundation.
+
+### Planned tournament architecture
+
+The next product is designed for **multiple areas, judges and displays on a venue LAN, without Internet**. Judges propose points; the area's desk confirms them, and a local server owns the clock and results.
+
+The selected target stack is React / TypeScript / Vite, React Router, TanStack Query, a modular Go server, local SQLite, HTTPS and WebSocket. **This migration is not implemented in alpha 0.1.** [Stack decisions](docs/stack.md), [ADR 0002](docs/adr/0002-tournament-lan.md) and the [migration plan](docs/migration.md) explain the choices and acceptance criteria. Sensors come in a later phase.
+
+## Records and limits
+
+- Up to **120 actions per match** and **80 saved summaries**; the oldest entries are removed first.
+- JSON imports accept the alpha's supported format, up to **5 MB**, and require confirmation before replacing current data.
+- Compatible v2/v3 match state and summaries are recovered; their detailed action history and undo snapshots are not migrated. Original storage keys remain.
+- Match data belongs to the current browser profile. Export a backup before clearing site data, switching profiles or changing domains; there is no cloud backup.
+
+## Documentation
+
+| Need                            | Guide                                                                                                                                             |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Use the scoreboard              | [Public user guide](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Alpha scope](docs/alpha.md)                     |
+| Understand the code             | [Current architecture](docs/architecture.md) · [Foundation decision](docs/adr/0001-foundation.md)                                                 |
+| Review the tournament direction | [Target stack](docs/stack.md) · [LAN architecture](docs/tournament-architecture.md) · [Migration](docs/migration.md) · [Roadmap](docs/roadmap.md) |
+| Inspect quality and design      | [Verification matrix](docs/verification.md) · [Interface review](docs/interface-review.md) · [Visual identity and assets](docs/design.md)         |
+| Run or publish changes          | [Contributing](CONTRIBUTING.md) · [Vercel deployment](docs/deployment.md)                                                                         |
+| Review releases and security    | [Alpha notes](docs/releases/v0.1.0-alpha.1.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)                                              |
+
+This overview is available in English, Spanish and Italian. The application and linked technical guides are currently in Spanish.
+
+## Development
+
+Use Node 24.22.1 and npm 11:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Abre la URL local indicada por Vite. Para verificar el resultado de producción:
+<details>
+<summary>Build and verify</summary>
 
 ```sh
 npm run check
@@ -68,30 +108,12 @@ npm run test:e2e
 npm run preview
 ```
 
-En Linux, CI instala los navegadores con `npx playwright install --with-deps chromium firefox`. El build genera `dist/`; abrir el HTML por `file://` no es un método de ejecución soportado.
+The production build goes to dist/. Serve it over HTTP; opening the HTML through file:// is not supported. Linux CI installs browser dependencies with `npx playwright install --with-deps chromium firefox`.
 
-## Datos y límites
+The [verification matrix](docs/verification.md) separates automated coverage from pending physical tests. A real PC with two monitors, viewing distance and screen-reader testing still need field validation.
 
-- Hasta 120 acciones con deshacer por combate y hasta 80 resúmenes. Se retira primero lo más antiguo.
-- Exporta JSON para conservar una copia fuera del navegador. Importar reemplaza los datos tras validación y confirmación; límite de archivo: 5 MB.
-- Los formatos antiguos v2/v3 conservan el combate y los resúmenes válidos, sin migrar deshacer ni registros detallados anteriores. Las claves originales se mantienen.
-- Borrar los datos del sitio, cambiar de dominio o usar otro perfil puede dejarte sin los registros locales. No hay respaldo en la nube.
+</details>
 
-## Documentación
+---
 
-[Identidad visual, paleta, fuentes y procedencia de recursos](docs/design.md).
-
-| Necesidad                      | Referencia                                                                              |
-| ------------------------------ | --------------------------------------------------------------------------------------- |
-| Usar el marcador               | [Guía pública](guide.html)                                                              |
-| Entender alcance y decisiones  | [Plan de alpha](docs/alpha.md) · [ADR](docs/adr/0001-foundation.md)                     |
-| Entender módulos y datos       | [Arquitectura](docs/architecture.md)                                                    |
-| Planificar el desarrollo       | [Roadmap](docs/roadmap.md)                                                              |
-| Revisar evidencia y pendientes | [Verificación](docs/verification.md) · [Revisión de interfaz](docs/interface-review.md) |
-| Publicar o revertir            | [Despliegue](docs/deployment.md)                                                        |
-| Colaborar o reportar problemas | [Contribuir](CONTRIBUTING.md) · [Seguridad](SECURITY.md)                                |
-| Ver cambios                    | [Changelog](CHANGELOG.md)                                                               |
-
-KARATTY sirve como referencia de dominio compartido, contratos, transacciones, decisiones documentadas y evidencia. PSS adopta Go en su arquitectura objetivo y elige SQLite para el servidor del recinto; los detalles y el coste frente a PostgreSQL se explican en la decisión de stack.
-
-Licencia: [GNU GPL v3](LICENSE), conservada del repositorio original.
+Code is licensed under [GNU GPL v3](LICENSE). Local font licenses are preserved in [public/fonts](public/fonts); the origin of the generated illustration and original mark is documented in [visual identity](docs/design.md).
