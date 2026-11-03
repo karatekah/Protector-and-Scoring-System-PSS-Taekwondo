@@ -4,6 +4,14 @@ Fecha: 2026-11-02. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
 
 ## Evidencia automatizada
 
+### Rediseño UI/UX deportivo
+
+Se verificaron tipos, formato, cuatro pruebas unitarias, build y seis flujos en Chromium/Firefox después del rediseño de portada, control, marcador y guía. Los flujos conservan puntuación, reloj, sincronización, persistencia, bloqueo de segundo operador y respaldo JSON. Axe no detectó infracciones en las vistas evaluadas.
+
+Se inspeccionaron capturas a 1440 px y 390 px. A 320 px se comprobó reflujo y que el reloj no excede su columna: 66 px de contenido y 66 px de scrollWidth. El registro desplegable muestra las acciones del combate. Los contrastes actuales y la procedencia de imagen, marca y fuentes se documentan en [diseño](design.md).
+
+La tabla de contraste de la revisión original más abajo es evidencia histórica. Los valores vigentes del rediseño están en docs/design.md. Continúan pendientes las verificaciones físicas y con lector de pantalla enumeradas en este documento.
+
 ### Revisión de arquitectura posterior a la alpha
 
 Se documentó el stack objetivo y se actualizó la guía con su estado de implementación. Para ese cambio se comprobaron formato, tipos y build; los 14 documentos revisados no tenían enlaces locales rotos. Pasaron los dos flujos existentes de teclado, reflujo y accesibilidad de Chromium/Firefox, incluidos los controles automatizados sobre la guía.
