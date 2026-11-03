@@ -254,6 +254,7 @@ function showView(requested: string, focus = true): void {
     : ["home", "setup", "scoring", "public"].includes(requested)
       ? requested
       : "home";
+  document.body.dataset.currentView = view;
   document.querySelectorAll<HTMLElement>("[data-view]").forEach((panel) => {
     panel.hidden = panel.dataset.view !== view;
     panel.classList.toggle("is-active", !panel.hidden);

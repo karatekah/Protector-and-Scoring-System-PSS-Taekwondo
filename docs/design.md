@@ -1,61 +1,68 @@
-# Identidad visual y experiencia de PSS
+# Dirección visual de PSS Taekwondo
 
-Dirección elegida con el usuario: deportivo claro, portada editorial y marcador oscuro. La portada presenta el proyecto brevemente y ofrece acceso rápido al combate.
+## Editorial de competición
 
-## Identidad
+Dirección confirmada el 2026-11-03: marfil, carbón y rojo señal. El usuario pidió una renovación del diseño completo: colores, header, hero y secciones, con una identidad propia del Taekwondo y sin una cuadrícula de tarjetas genéricas. La mesa mantiene la prioridad de puntos y reloj.
 
-El azul y el rojo identifican a los competidores. El blanco, el gris claro y el negro estructuran la interfaz. El reloj usa un amarillo cálido sobre fondo oscuro. La marca original combina dos trazos en movimiento; no utiliza logotipos de federaciones ni anuncia homologación.
+La señal principal de la portada es el nombre Taekwondo a todo el ancho, compuesto como un cartel deportivo. La explicación y la acción quedan en el margen de la fotografía; no se colorea una palabra de un titular para simular identidad. El encabezado usa navegación tipográfica y un subrayado rojo para la sección actual.
 
-La portada combina un titular, imagen de Taekwondo, acción principal y resumen real del combate guardado. La presentación diferencia la alpha disponible del objetivo de torneos todavía pendiente. El resumen oscuro anticipa la identidad del marcador; las tarjetas de preparación usan superficies claras azul y roja para reconocer al atleta antes de guardar.
+## Paleta
 
-## Refinamiento de la aplicación completa · 2026-11-03
+| Token     | Valor   | Papel                                  |
+| --------- | ------- | -------------------------------------- |
+| --bg      | #f1efe7 | Marfil de la página                    |
+| --surface | #fbfaf5 | Papel de formularios y controles       |
+| --ink     | #25251f | Carbón: texto, marca y marcador        |
+| --accent  | #b62d20 | Rojo señal: acción principal y acentos |
+| --muted   | #65665a | Piedra: texto secundario               |
+| --blue    | #215aa7 | Competidor azul                        |
 
-La entrevista confirmó dos decisiones: trabajar la aplicación completa y priorizar puntos/reloj con mínima distracción. La propuesta mantiene la dirección deportiva acordada y mejora la densidad del control.
+El azul queda asociado al atleta. El rojo identifica también el lado rojo; las acciones destructivas conservan tratamiento de contorno y confirmación explícita. Los estados tienen texto, además de cualquier cambio de color. En superficies oscuras se usan texto claro, fondos de competidor profundos y reloj marfil.
 
-- Marcador con superficies azul y roja profundas, cifras blancas, etiquetas de lado y reloj amarillo. El estado del reloj siempre tiene texto; «En combate» añade un borde amarillo estático, sin parpadeo.
-- Los seis incrementos de cada atleta caben en una fila cuando su contenedor tiene espacio. Los botones mantienen etiquetas de puntos y no se animan con escala, porque se usan repetidamente.
-- Registro y Gestión del combate son desplegables nativos. Deshacer sigue visible junto al reloj; guardar, intercambiar lados y nuevo combate quedan en Gestión.
-- El espacio reservado para mensajes evita el desplazamiento de los controles con las confirmaciones cortas en escritorio. Los mensajes largos pueden ocupar más líneas; no se truncan.
-- En la configuración por defecto, los dos paneles de puntos terminan dentro de una ventana de 1366 × 768. Los nombres largos conservan todo el texto y pueden aumentar la altura.
-- La ventana externa aprovecha el alto disponible. La marca también identifica la pestaña mediante un favicon SVG local.
+## Composición y componentes
 
-La entrevista se realizó con preguntas directas. Se revisaron accesibilidad, distribución, tipografía, color, escritura y acabado visual.
+- Header con marca original carbón/rojo, navegación sin cápsulas y enlace a la guía.
+- Hero de cartel, fotografía sin tarjeta ni etiqueta superpuesta y acceso directo a preparar un combate.
+- Franja de sesión conectada al estado real: evento, atletas, puntos, reloj y acceso al control.
+- Presentación de las dos vistas mediante una pantalla dibujada con CSS. Sus cifras reflejan el combate actual; no son métricas ni resultados de ejemplo inventados.
+- Inicio en tres pasos verticales. La numeración solo se utiliza donde hay una secuencia real.
+- Una banda de proyecto distingue la alpha disponible de los torneos/LAN pendientes.
+- Preparación como una hoja de combate: formato arriba, atletas juntos y acción de guardar al final. Sin tres tarjetas flotantes ni sombras.
+- Control y pantalla pública conservan su estructura operativa, adaptados al nuevo carbón, marfil y colores de competidor. La guía usa filas de información para el stack, en lugar de tarjetas repetidas.
 
-## Tipografía y recursos locales
+Barlow Condensed 600/700 aporta la voz deportiva; Manrope variable sirve a la lectura y controles. Ambas familias se sirven localmente desde public/fonts, con sus licencias. Las cifras son tabulares. Se mantienen etiquetas visibles, foco por teclado, controles nativos y reflujo hasta 320 px.
 
-- Manrope variable para interfaz y lectura; Barlow Condensed 600/700 para titulares, cifras y marcador.
-- Fuentes obtenidas de @fontsource-variable/manrope y @fontsource/barlow-condensed 5.3.0. Se alojan en public/fonts junto con sus licencias originales.
-- Marca original: public/assets/pss-mark.svg.
-- Imagen final: public/assets/taekwondo-hero.jpg, 198 515 bytes. Formato JPEG para su entrega web.
-- La imagen se identifica como ilustrativa; no representa un torneo real documentado. No hay peticiones de fuentes ni imágenes a terceros durante el uso.
+La puntuación no usa escala de pulsación. El resto de botones solo escala .96/150 ms cuando el sistema permite movimiento. No hay parallax, carruseles ni apariciones animadas de cada sección. Los espacios y formas agrupan antes que las sombras; la única sombra de presentación identifica el monitor de vista previa.
 
-## Paleta y contrastes medidos
+## Contrastes medidos
 
-| Uso                        | Colores           | Contraste |
-| -------------------------- | ----------------- | --------- |
-| Texto principal / fondo    | #141b25 / #f6f7f9 | 16.15:1   |
-| Texto secundario / fondo   | #53606f / #f6f7f9 | 5.99:1    |
-| Texto secundario / blanco  | #53606f / #ffffff | 6.42:1    |
-| Blanco / marcador azul     | #ffffff / #112442 | 15.50:1   |
-| Blanco / marcador rojo     | #ffffff / #371b29 | 15.54:1   |
-| Etiqueta / marcador azul   | #a6c7ff / #112442 | 9.03:1    |
-| Etiqueta / marcador rojo   | #ffb1bd / #371b29 | 9.08:1    |
-| Secundario / marcador azul | #b8c4d5 / #112442 | 8.78:1    |
-| Secundario / marcador rojo | #b8c4d5 / #371b29 | 8.80:1    |
-| Puntos / superficie azul   | #0d3d93 / #edf3ff | 8.96:1    |
-| Puntos / superficie roja   | #98182e / #fff0f2 | 7.58:1    |
-| Texto azul / blanco        | #0d3d93 / #ffffff | 9.97:1    |
-| Texto rojo / blanco        | #98182e / #ffffff | 8.38:1    |
-| Reloj / fondo del marcador | #ffe177 / #0c1119 | 14.68:1   |
-| Foco / fondo claro         | #a57200 / #f6f7f9 | 3.91:1    |
-| Foco / blanco              | #a57200 / #ffffff | 4.19:1    |
-| Foco / marcador oscuro     | #a57200 / #0c1119 | 4.51:1    |
-| Borde de entrada / blanco  | #7a8696 / #ffffff | 3.70:1    |
+Luminancia relativa sRGB, calculada sobre estos pares de colores sólidos:
 
-Los tokens están definidos en css/styles.css. Los números de reloj y puntaje utilizan cifras tabulares. El reloj se adapta al ancho de su contenedor para conservar los cinco caracteres en pantallas estrechas.
+| Uso                      | Par               | Contraste |
+| ------------------------ | ----------------- | --------- |
+| Texto / marfil           | #25251f / #f1efe7 | 13.38:1   |
+| Secundario / marfil      | #65665a / #f1efe7 | 5.06:1    |
+| Secundario / papel       | #65665a / #fbfaf5 | 5.58:1    |
+| Papel / rojo señal       | #fbfaf5 / #b62d20 | 5.94:1    |
+| Rojo señal / marfil      | #b62d20 / #f1efe7 | 5.39:1    |
+| Borde de entrada / papel | #797b6d / #fbfaf5 | 4.13:1    |
+| Reloj / carbón           | #f4edce / #25251f | 13.10:1   |
+| Texto / marcador azul    | #fbfaf5 / #17344b | 12.33:1   |
+| Texto / marcador rojo    | #fbfaf5 / #4a281f | 12.45:1   |
+| Secundario / carbón      | #c6c5b9 / #25251f | 8.87:1    |
+| Puntos / superficie azul | #17477f / #edf2f7 | 8.31:1    |
+| Puntos / superficie roja | #922217 / #f8ece7 | 7.37:1    |
+| Foco / marfil            | #25251f / #f1efe7 | 13.38:1   |
+| Foco claro / carbón      | #fbfaf5 / #25251f | 14.74:1   |
 
-## Comportamiento y accesibilidad
+En la banda oscura y en pantalla completa se cambia el foco a claro. En las vistas claras se mantiene carbón. La marca usa dos trazos originales; no se utilizan logotipos de federaciones ni se anuncia homologación.
 
-Controles nativos, foco visible y enlace para saltar al contenido. Cambiar de sección mueve el foco al panel y vuelve al inicio de la página. El registro conserva control por teclado mediante details/summary. No hay carruseles ni movimiento automático. La escala de pulsación .96/150 ms solo se aplica con prefers-reduced-motion: no-preference; los estados de hover solo aparecen en punteros compatibles.
+## Recursos y proceso
 
-La interfaz usa etiquetas además de color para identificar competidores y estados. Los nombres se pueden envolver con interlineado 1.4; no se ocultan con puntos suspensivos. La vista pública mantiene solo lectura. Las verificaciones realizadas y los pendientes físicos o con lector de pantalla se registran en docs/verification.md.
+Se reutiliza public/assets/taekwondo-hero.jpg, imagen ilustrativa generada previamente para el proyecto; no se presenta como fotografía documental de un torneo. La tipografía, marca y fotografía se sirven localmente, sin peticiones a terceros durante el uso.
+
+Se revisaron accesibilidad, distribución, tipografía, color y escritura. La dirección visual prioriza una identidad vinculada al deporte, una decisión visual dominante y la revisión del resultado renderizado.
+
+La entrevista se realizó con preguntas directas. El plan descartó repetir el titular lateral más tres tarjetas; la implementación se revisó con capturas de las cuatro vistas en escritorio y móvil.
+
+La vista pública sigue siendo de solo lectura. Alcance funcional, arquitectura y migración se conservan en sus documentos. La revisión y límites reales se registran en [interface-review.md](interface-review.md) y [verification.md](verification.md).
