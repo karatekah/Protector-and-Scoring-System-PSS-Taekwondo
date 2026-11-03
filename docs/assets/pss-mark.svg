@@ -11,17 +11,17 @@
     y="1"
     width="94"
     height="94"
-    rx="23"
-    fill="#0c1119"
-    stroke="#293443"
+    rx="16"
+    fill="#25251f"
+    stroke="#25251f"
   />
   <g transform="translate(16 16) scale(1.333333)">
     <path
-      fill="#5599ff"
+      fill="#f1efe7"
       d="M7 28C7 16 18 6 34 5c-2 8-7 13-15 15-4 1-7 4-8 8l-1 7c-2-2-3-4-3-7Z"
     />
     <path
-      fill="#ff5770"
+      fill="#de5e48"
       d="M41 20c0 12-11 22-27 23 2-8 7-13 15-15 4-1 7-4 8-8l1-7c2 2 3 4 3 7Z"
     />
   </g>

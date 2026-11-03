@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#111827" />
+    <meta name="theme-color" content="#f1efe7" />
     <link rel="icon" href="/assets/pss-mark.svg" type="image/svg+xml" />
     <meta
       name="description"
@@ -23,14 +23,14 @@
           <img
             class="brand-symbol"
             src="/assets/pss-mark.svg"
-            width="42"
-            height="42"
+            width="40"
+            height="40"
             alt=""
             aria-hidden="true"
           />
           <span class="brand-copy"
             ><strong>PSS <span>Taekwondo</span></strong
-            ><span>Protector and Scoring System</span></span
+            ><span>La mesa del combate.</span></span
           >
         </a>
         <nav class="view-tabs" aria-label="Secciones">
@@ -50,9 +50,20 @@
           <button class="tab-button" type="button" data-view-target="public">
             Marcador
           </button>
-          <a class="nav-link" href="./guide.html" aria-label="Guía de la alpha"
-            >Guía ↗</a
-          >
+          <a class="nav-link" href="./guide.html" aria-label="Guía del proyecto"
+            >Guía
+            <svg
+              class="ui-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M7 17 17 7M7 7h10v10" /></svg
+          ></a>
         </nav>
       </header>
       <div class="session-line">
@@ -68,44 +79,51 @@
       ></p>
       <main id="content" tabindex="-1">
         <section
-          class="view-panel"
+          class="view-panel home-view"
           data-view="home"
           aria-label="Inicio"
           tabindex="-1"
         >
-          <div class="home-grid hero-grid">
-            <section class="home-copy">
-              <p class="eyebrow">
-                <span class="duo-mark" aria-hidden="true"></span> Taekwondo.
-                Bajo tu control.
-              </p>
-              <h1>
-                Cada punto.<br />
-                <span>Cuenta.</span>
-              </h1>
-              <p class="hero-description">
-                Del dojang a la pantalla. Prepara a los atletas, dirige el reloj
-                y registra cada decisión desde una sola mesa de control.
-              </p>
-              <div class="home-actions">
+          <section class="poster-hero" aria-labelledby="hero-title">
+            <div class="hero-title-row">
+              <p>Marcador manual para entrenamiento y exhibición.</p>
+              <span>Alpha pública 0.1</span>
+            </div>
+            <h1 id="hero-title">Taekwondo.</h1>
+            <div class="hero-stage">
+              <div class="hero-copy">
+                <h2>Tu mesa.<br />Tu combate.</h2>
+                <p>
+                  El reloj, los puntos y cada decisión. Todo en tus manos, desde
+                  el primer saludo hasta el último segundo.
+                </p>
                 <button
-                  class="primary-action"
+                  class="primary-action hero-start"
                   type="button"
                   data-view-target="setup"
                 >
-                  Preparar un combate <span aria-hidden="true">→</span>
+                  Preparar un combate
+                  <svg
+                    class="ui-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M4 12h16m-6-6 6 6-6 6" />
+                  </svg>
                 </button>
                 <a class="text-action" href="#project-focus"
-                  >Conocer el proyecto <span aria-hidden="true">↘</span></a
+                  >Conoce la herramienta</a
                 >
+                <p class="hero-scope">
+                  Un PC. Un operador.<br />El dojang en la pantalla.
+                </p>
               </div>
-              <p class="scope-note">
-                <span class="alpha-badge">Alpha 0.1</span>
-                Puntuación manual para entrenamiento y exhibición.
-              </p>
-            </section>
-            <figure class="hero-visual">
-              <div class="hero-image-wrap">
+              <figure class="hero-visual">
                 <img
                   class="hero-image"
                   src="/assets/taekwondo-hero.jpg"
@@ -114,20 +132,16 @@
                   fetchpriority="high"
                   alt="Dos atletas de Taekwondo con dobok blanco y protectores azul y rojo durante una práctica de combate."
                 />
-                <span class="image-label"
-                  ><span class="duo-mark" aria-hidden="true"></span> Disciplina
-                  en movimiento</span
-                >
-              </div>
-              <figcaption>
-                <span>01 / El combate en el centro.</span
-                ><small>Imagen ilustrativa generada para PSS.</small>
-              </figcaption>
-            </figure>
-          </div>
+                <figcaption>
+                  <strong>Cada decisión cuenta.</strong
+                  ><span>Imagen ilustrativa generada para PSS.</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
           <section class="session-summary" aria-label="Sesión actual">
             <div class="session-event">
-              <span class="eyebrow">Combate actual</span
+              <span>En la mesa</span
               ><strong data-bind="eventName">Sesión de entrenamiento</strong>
             </div>
             <div class="athlete-preview">
@@ -146,89 +160,153 @@
             </div>
             <div class="session-time">
               <strong data-bind="clock" aria-live="off">02:00</strong
-              ><span><span data-bind="totalRounds">3</span> rondas</span>
+              ><span
+                >Ronda <span data-bind="round">1</span> /
+                <span data-bind="totalRounds">3</span></span
+              >
             </div>
             <button
               class="session-resume"
               type="button"
               data-view-target="scoring"
             >
-              Ir al control <span aria-hidden="true">→</span>
+              Ir al control <span aria-hidden="true">↗</span>
             </button>
           </section>
           <section
-            class="project-intro"
+            class="product-story"
             id="project-focus"
             aria-labelledby="project-title"
           >
-            <div class="project-heading">
-              <p class="eyebrow">El proyecto</p>
-              <h2>Hecho para entrenar.<br />Pensado para avanzar.</h2>
+            <div class="story-copy">
+              <h2 id="project-title">
+                Un lado para dirigir.<br />Otro para seguirlo.
+              </h2>
               <p>
-                Una herramienta de puntuación con el ritmo y la claridad que
-                necesita el Taekwondo. Empieza con la alpha y conoce hacia dónde
-                evoluciona PSS.
+                La mesa ve los controles. El público ve el combate. Dos vistas
+                del mismo marcador, sin perder de vista lo que importa.
               </p>
-              <a class="text-action" href="./guide.html"
-                >Explorar la guía del proyecto
-                <span aria-hidden="true">↗</span></a
-              >
+              <dl class="story-details">
+                <div>
+                  <dt>En la mesa</dt>
+                  <dd>
+                    Puntos, pausas y correcciones por decisión del operador.
+                  </dd>
+                </div>
+                <div>
+                  <dt>En la pantalla</dt>
+                  <dd>Atletas, resultado y tiempo, a la vista del dojang.</dd>
+                </div>
+              </dl>
+              <button class="text-button" type="button" data-open-public>
+                Probar la pantalla externa <span aria-hidden="true">↗</span>
+              </button>
             </div>
-            <div class="project-stages">
-              <article>
-                <div class="stage-heading">
-                  <span class="stage-number">01</span
-                  ><span class="stage-status">Disponible en la alpha</span>
+            <figure class="display-demo">
+              <div
+                class="demo-screen"
+                aria-label="Vista previa del combate actual"
+              >
+                <div class="demo-event">
+                  <img
+                    src="/assets/pss-mark.svg"
+                    width="24"
+                    height="24"
+                    alt=""
+                    aria-hidden="true"
+                  /><span data-bind="eventName">Sesión de entrenamiento</span
+                  ><span>Manual</span>
                 </div>
-                <h3>Control del combate</h3>
-                <p>
-                  Atletas, reloj, puntos y penalizaciones. Una mesa de control y
-                  un marcador para el segundo monitor del mismo PC.
-                </p>
-                <ul>
-                  <li>Puntuación manual</li>
-                  <li>Pantalla externa</li>
-                  <li>Respaldo JSON</li>
-                </ul>
-              </article>
-              <article>
-                <div class="stage-heading">
-                  <span class="stage-number">02</span
-                  ><span class="stage-status stage-planned"
-                    >En el plan · Aún no disponible</span
-                  >
+                <div class="demo-match">
+                  <div class="demo-athlete demo-blue">
+                    <span>Azul</span><strong data-bind="blueName">Azul</strong
+                    ><b data-bind="blueScore">0</b>
+                  </div>
+                  <div class="demo-clock">
+                    <span data-bind="status">Preparado</span
+                    ><strong data-bind="clock" aria-live="off">02:00</strong
+                    ><span
+                      >Ronda <b data-bind="round">1</b> /
+                      <b data-bind="totalRounds">3</b></span
+                    >
+                  </div>
+                  <div class="demo-athlete demo-red">
+                    <span>Rojo</span><strong data-bind="redName">Rojo</strong
+                    ><b data-bind="redScore">0</b>
+                  </div>
                 </div>
-                <h3>El camino al torneo</h3>
-                <p>
-                  Un servidor en el recinto, varias áreas y jueces que proponen.
-                  La mesa confirma los puntos, sin depender de Internet.
-                </p>
-                <a href="./guide.html#target-stack"
-                  >Consultar el plan de torneos
-                  <span aria-hidden="true">↗</span></a
-                >
-              </article>
+              </div>
+              <div class="demo-stand" aria-hidden="true"></div>
+              <figcaption>
+                Una ventana de solo lectura en el segundo monitor del mismo PC y
+                navegador.
+              </figcaption>
+            </figure>
+          </section>
+          <section class="getting-started" aria-labelledby="start-title">
+            <div>
+              <h2 id="start-title">Del saludo<br />al último punto.</h2>
+              <p>Una sesión de entrenamiento, en tres pasos.</p>
+            </div>
+            <ol class="workflow-list">
+              <li>
+                <span class="workflow-number" aria-hidden="true">1</span>
+                <div>
+                  <h3>Prepara a los atletas.</h3>
+                  <p>
+                    Nombres, países, rondas y duración. La mesa empieza aquí.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="workflow-number" aria-hidden="true">2</span>
+                <div>
+                  <h3>Dirige el combate.</h3>
+                  <p>
+                    Inicia el reloj, registra puntos y usa Deshacer para
+                    corregir.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="workflow-number" aria-hidden="true">3</span>
+                <div>
+                  <h3>Llévalo a la pantalla.</h3>
+                  <p>
+                    Abre el marcador, muévelo al segundo monitor y activa la
+                    pantalla completa.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </section>
+          <section class="project-horizon" aria-labelledby="horizon-title">
+            <div>
+              <span class="horizon-label">El siguiente paso de PSS</span>
+              <h2 id="horizon-title">
+                Hoy, entrenamiento.<br />Después, torneos.
+              </h2>
+            </div>
+            <div class="horizon-copy">
+              <p>
+                Esta alpha ya permite preparar, puntuar y guardar un combate
+                manual. El plan de torneos contempla varias áreas y jueces en la
+                red local del recinto.
+              </p>
+              <p class="planned-note">
+                Las funciones de torneo y LAN aún no están implementadas.
+              </p>
+              <a class="text-action" href="./guide.html#target-stack"
+                >Conocer el plan de torneos</a
+              >
             </div>
           </section>
-          <div class="workflow-strip" aria-label="Cómo empezar">
-            <p>
-              <b>01</b
-              ><span><strong>Prepara</strong>Atletas, rondas y duración.</span>
-            </p>
-            <p>
-              <b>02</b
-              ><span
-                ><strong>Controla</strong>Puntos, pausas y penalizaciones.</span
-              >
-            </p>
-            <p>
-              <b>03</b
-              ><span
-                ><strong>Comparte la pantalla</strong>Mismo PC y mismo
-                navegador.</span
-              >
-            </p>
-          </div>
+          <section class="closing-invitation" aria-label="Empezar una sesión">
+            <p>Prepara el siguiente<br />combate.</p>
+            <button type="button" data-view-target="setup">
+              Empezar entrenamiento <span aria-hidden="true">↗</span>
+            </button>
+          </section>
         </section>
         <section
           class="view-panel"
@@ -239,7 +317,7 @@
         >
           <div class="view-heading">
             <div>
-              <p class="eyebrow">01 / Preparación</p>
+              <p class="section-label">La preparación</p>
               <h1>Prepara el combate</h1>
               <p>
                 Guardar prepara una sesión nueva y archiva el resumen de la
@@ -252,7 +330,6 @@
               <legend class="sr-only">Configuración del combate</legend>
               <section class="form-card">
                 <header>
-                  <span class="form-step">01</span>
                   <div>
                     <h2>Formato de sesión</h2>
                     <p>Puntos acumulados entre rondas.</p>
@@ -305,7 +382,6 @@
               </section>
               <section class="form-card blue-form">
                 <header>
-                  <span class="form-step">02</span>
                   <div>
                     <h2>Competidor azul</h2>
                     <p>Identifica el lado azul.</p>
@@ -337,7 +413,6 @@
               </section>
               <section class="form-card red-form">
                 <header>
-                  <span class="form-step">03</span>
                   <div>
                     <h2>Competidor rojo</h2>
                     <p>Identifica el lado rojo.</p>
@@ -374,7 +449,7 @@
                   >
                 </p>
                 <button class="primary-action" type="submit">
-                  Guardar y abrir control →
+                  Guardar y abrir control
                 </button>
               </div>
             </fieldset>
@@ -414,7 +489,7 @@
         >
           <div class="view-heading">
             <div>
-              <p class="eyebrow">02 / Mesa de control</p>
+              <p class="section-label">Mesa de control</p>
               <h1>Control del combate</h1>
             </div>
             <button class="display-action" type="button" data-open-public>
@@ -688,7 +763,8 @@
         </section>
       </main>
       <footer class="app-footer">
-        <span>PSS Taekwondo · Alpha 0.1</span
+        <span class="footer-signature"
+          ><strong>PSS</strong> Taekwondo / Alpha 0.1</span
         ><span>Un PC. Un operador. Dos pantallas.</span
         ><a
           href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues"

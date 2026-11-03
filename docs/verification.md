@@ -4,6 +4,16 @@
 
 ## Evidencia automatizada
 
+### Rediseño editorial de competición
+
+Dirección confirmada: marfil, carbón y rojo señal. Header y hero reconstruidos, secciones de inicio con composiciones distintas, hoja de combate en preparación y guía sin cuadrícula de tarjetas de stack. La captura de README muestra el nuevo hero y la franja de sesión real.
+
+Se comprobaron tipos, formato, cuatro pruebas unitarias, build y seis flujos de Chromium/Firefox. La ejecución local completa se realizó con un worker para no competir con capturas visuales. Una ejecución inicial concurrente agotó el límite de 30 segundos del flujo largo de Firefox; el mismo flujo pasó aislado sin modificar aserciones ni aumentar el timeout. La comprobación de CI se ejecuta de nuevo al publicar.
+
+Se inspeccionaron las cuatro vistas a 1440 y 390 px y se midió reflujo a 320 px. No hubo scroll horizontal de documento. Se revisó la guía y una ventana pública a 1920 × 1080. El control predeterminado conserva todos los botones de puntos en 1366 × 768 (borde inferior 759.69 px). Nombres largos y 999 puntos a 320 px no excedieron las columnas; reloj de 70 px sin desbordamiento. Los pares de contraste actuales están en [diseño](design.md).
+
+Las secciones siguientes conservan evidencia histórica de las iteraciones previas; la paleta vigente y el alcance inspeccionado están en design.md e interface-review.md.
+
 ### Refinamiento de la aplicación completa
 
 `npm run check`, `npm run build` y `npm run test:e2e`: tipos, formato, cuatro pruebas unitarias y seis flujos de Chromium/Firefox aprobados. Se extendió el flujo de puntuación para comprobar que una confirmación corta conserva la posición vertical del botón; el flujo JSON abre Gestión del combate antes de guardar. La revisión de teclado comprueba el despliegue de Gestión con Enter.
