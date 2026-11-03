@@ -1,8 +1,8 @@
 # Publicación en Vercel
 
-Se conserva el repositorio personal y el proyecto que GitHub identifica como `protector-and-scoring-system-pss-taekwondo`. Los despliegues históricos estaban bajo `tekah`; el nuevo estado de la integración apunta al equipo actual `karatekah`.
+Se conserva el repositorio personal y el proyecto `protector-and-scoring-system-pss-taekwondo`, bajo el equipo actual `karatekah`.
 
-Homepage histórico: <https://protector-and-scoring-system-pss-ta.vercel.app>. Ese alias devolvió 404 al verificarlo el 2026-11-02; debe confirmarse el dominio activo desde el proyecto de Vercel antes de anunciar disponibilidad.
+Producción: <https://protector-and-scoring-system-pss-tkdrolando.vercel.app>. Dominio confirmado mediante la API del proyecto y probado sin autenticación. El homepage anterior de GitHub apuntaba a un alias retirado; se actualizó al dominio activo.
 
 ## Configuración versionada
 
