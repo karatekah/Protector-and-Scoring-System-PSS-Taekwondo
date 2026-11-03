@@ -2,6 +2,8 @@
 
 ## Sin publicar como nueva versión
 
+Componentes táctiles e ilustración de equipamiento Taekwondo propia: navegación segmentada, botones con relieve, desplegables, duración por presets con edición manual y tipografía diferenciada por función. Los presets respetan el modo de solo lectura; ocho flujos E2E cubren también su selección y persistencia. Sin nuevas dependencias de interfaz.
+
 Nueva dirección editorial de competición: marfil, carbón y rojo señal; header tipográfico, hero de cartel, fotografía amplia, sesión real en una franja y presentación del marcador en uso. Se sustituyen tarjetas repetidas por secciones con funciones y composiciones distintas, y la preparación pasa a una hoja de combate. Marca, guía y captura del README alineadas con la nueva identidad.
 
 Refinamiento de la aplicación completa: marcador de contraste alto con fondos azul/rojo profundos, puntuación compacta, gestión del combate bajo demanda y avisos con espacio reservado. Los controles de puntos no se desplazan con las confirmaciones cortas ni usan escala de pulsación. Preparación, portada y pantalla externa comparten la identidad deportiva; captura e instrucciones de los tres README actualizadas.

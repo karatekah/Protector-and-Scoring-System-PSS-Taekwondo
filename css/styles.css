@@ -49,9 +49,14 @@
   --competitor-red-label: #ffd0c0;
   --competitor-blue-soft: var(--blue-50);
   --competitor-red-soft: var(--red-50);
+  --shadow-surface: 0 1px 2px #25251f0a, 0 8px 24px #25251f08;
+  --shadow-floating: 0 2px 4px #25251f0d, 0 16px 36px #25251f16;
+  --text-small: 0.8125rem;
+  --text-body: 1rem;
   --font-body: Manrope, "Segoe UI", system-ui, sans-serif;
   --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
   font-family: var(--font-body);
+  font-weight: 450;
   color: var(--ink);
   background: var(--bg);
   font-synthesis-weight: none;
@@ -73,13 +78,16 @@ button {
   min-height: 46px;
   padding: 11px 18px;
   border: 1px solid var(--input-line);
-  border-radius: 4px;
+  border-radius: 9px;
   background: var(--surface);
   color: var(--ink);
   font-size: 0.875rem;
   font-weight: 650;
   line-height: 1.5;
   cursor: pointer;
+  box-shadow:
+    0 1px 0 #ffffffa6 inset,
+    0 2px 3px #25251f0c;
   -webkit-tap-highlight-color: transparent;
   transition:
     background-color 120ms ease-out,
@@ -192,9 +200,8 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 28px;
-  min-height: 96px;
-  padding-block: 22px;
-  border-bottom: 1px solid var(--ink);
+  min-height: 88px;
+  padding-block: 16px;
 }
 .brand-lockup {
   display: flex;
@@ -230,23 +237,31 @@ p {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow:
+    var(--shadow-surface),
+    0 0 0 1px #25251f0c;
 }
 .tab-button {
   min-height: 44px;
   border: 0;
-  border-radius: 0;
-  padding: 10px 4px;
+  border-radius: 999px;
+  padding: 10px 14px;
   background: transparent;
   color: var(--muted);
   font-size: 0.8125rem;
+  box-shadow: none;
 }
-.tab-button.is-active {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 10px;
+.view-tabs .tab-button.is-active {
+  color: var(--surface);
+  background: var(--ink);
+  box-shadow:
+    0 1px 1px #ffffff26 inset,
+    0 2px 3px #25251f14;
 }
 .nav-link {
   display: inline-flex;
@@ -256,6 +271,7 @@ p {
   font-size: 0.8125rem;
   font-weight: 650;
   text-decoration: none;
+  padding-inline: 12px;
 }
 [data-current-view="scoring"] .app-header {
   min-height: 76px;
@@ -313,6 +329,10 @@ p {
   color: var(--surface);
   background: var(--accent);
   border-color: transparent;
+  box-shadow:
+    0 1px 0 #ffffff40 inset,
+    0 3px 0 var(--accent-hover),
+    0 5px 8px #b62d2014;
 }
 .text-action,
 .text-button {
@@ -349,7 +369,12 @@ p {
 }
 /* A competition poster, with the sport itself as the title. */
 .poster-hero {
-  padding-block: 28px 40px;
+  padding: 28px 32px 36px;
+  margin-block: 16px 32px;
+  border: 1px solid transparent;
+  border-radius: 32px;
+  background: var(--surface);
+  box-shadow: var(--shadow-surface);
   container-type: inline-size;
 }
 .hero-title-row {
@@ -377,9 +402,9 @@ p {
 }
 .hero-stage {
   display: grid;
-  grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr);
-  align-items: start;
-  gap: 48px;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  align-items: center;
+  gap: 32px;
 }
 .hero-copy {
   display: grid;
@@ -387,23 +412,17 @@ p {
   gap: 24px;
   padding-top: 18px;
 }
-.hero-copy::before {
-  content: "";
-  width: 52px;
-  height: 6px;
-  background: var(--accent);
-}
 .hero-copy h2 {
-  font-family: var(--font-display);
-  font-size: clamp(2.75rem, 4.4vw, 4rem);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+  font-family: var(--font-body);
+  font-size: clamp(2.25rem, 3.6vw, 3.5rem);
+  font-weight: 750;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
 }
 .hero-copy > p:not(.hero-scope) {
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   color: var(--muted);
-  max-width: 28ch;
+  max-width: 34ch;
 }
 .hero-start {
   display: flex;
@@ -413,8 +432,8 @@ p {
   min-height: 54px;
   max-width: 288px;
   padding-inline: 18px;
-  border-radius: 3px;
-  font-size: 0.8125rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
 }
 .hero-copy .text-action {
   justify-self: start;
@@ -423,7 +442,7 @@ p {
 .hero-scope {
   padding-top: 8px;
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   line-height: 1.6;
 }
 .hero-visual {
@@ -433,9 +452,10 @@ p {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1.58;
+  aspect-ratio: 1.5;
   object-fit: cover;
-  object-position: 50% 38%;
+  object-position: center;
+  border-radius: 24px;
   outline: 1px solid #0000001a;
   outline-offset: -1px;
 }
@@ -444,8 +464,8 @@ p {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 6px 16px;
-  padding-top: 12px;
-  font-size: 0.75rem;
+  padding-top: 16px;
+  font-size: var(--text-small);
   line-height: 1.5;
 }
 .hero-visual figcaption strong {
@@ -459,8 +479,9 @@ p {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) auto auto;
   align-items: center;
   gap: 32px;
-  padding-block: 24px;
-  border-block: 2px solid var(--ink);
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
 }
 .session-event {
   display: grid;
@@ -542,7 +563,7 @@ p {
   align-items: center;
   gap: 24px;
   border-color: var(--ink);
-  background: transparent;
+  background: var(--surface);
   font-size: 0.8125rem;
 }
 .product-story {
@@ -568,38 +589,18 @@ p {
   font-size: 0.9375rem;
   margin-top: 24px;
 }
-.story-details {
-  display: grid;
-  gap: 18px;
-  margin-block: 28px 22px;
-}
-.story-details > div {
-  display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
-  gap: 18px;
-}
-.story-details dt {
-  font-size: 0.8125rem;
-  font-weight: 750;
-  line-height: 1.6;
-}
-.story-details dd {
-  margin: 0;
-  max-width: 32ch;
-  color: var(--muted);
-  font-size: 0.8125rem;
-  line-height: 1.65;
-}
+
 .display-demo {
   min-width: 0;
 }
 .demo-screen {
-  padding: 10px;
+  padding: 12px;
   background: var(--board);
   border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: 25px;
   box-shadow:
-    0 18px 28px #25251f14,
+    0 2px 0 #ffffff26 inset,
+    0 24px 40px #25251f1f,
     0 3px 5px #25251f12;
   color: var(--surface);
 }
@@ -628,6 +629,8 @@ p {
 .demo-match {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1fr);
+  border-radius: 12px;
+  overflow: hidden;
 }
 .demo-athlete {
   container-type: inline-size;
@@ -840,6 +843,8 @@ fieldset {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border-top: 2px solid var(--ink);
   background: var(--surface);
+  border-radius: 20px;
+  overflow: hidden;
 }
 .form-card {
   display: grid;
@@ -884,11 +889,6 @@ fieldset {
 }
 .red-form h2 {
   color: var(--red-dark);
-}
-.field-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
 }
 .field-help {
   color: var(--muted);
@@ -976,7 +976,7 @@ fieldset {
 .scoreboard {
   overflow: hidden;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 14px;
   color: var(--surface);
   background: var(--board);
 }
@@ -1200,7 +1200,7 @@ fieldset {
   min-width: 0;
   background: var(--surface);
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 14px;
   box-shadow: none;
   overflow: hidden;
 }
@@ -1243,6 +1243,10 @@ fieldset {
   border-color: transparent;
   background: var(--surface-soft);
   min-width: 0;
+  border-radius: 8px;
+  box-shadow:
+    0 1px 0 #ffffffb3 inset,
+    0 2px 0 #25251f14;
 }
 .score-action strong {
   font-family: var(--font-display);
@@ -1307,7 +1311,7 @@ fieldset {
 .log-panel {
   grid-column: 1 / -1;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 12px;
   background: var(--surface);
   overflow: hidden;
 }
@@ -1495,7 +1499,7 @@ fieldset {
     background-color: var(--accent-hover);
     border-color: transparent;
   }
-  .tab-button:not(:disabled):hover {
+  .tab-button:not(:disabled):not(.is-active):hover {
     background: transparent;
     color: var(--ink);
   }
@@ -1637,9 +1641,6 @@ fieldset {
     gap: 16px 24px;
     padding-top: 0;
   }
-  .hero-copy::before {
-    grid-column: 1/-1;
-  }
   .hero-copy h2 {
     font-size: 3rem;
   }
@@ -1689,9 +1690,6 @@ fieldset {
   }
   .story-copy > p {
     max-width: 48ch;
-  }
-  .story-details {
-    gap: 14px;
   }
   .display-demo {
     max-width: 580px;
@@ -1907,10 +1905,6 @@ fieldset {
   .session-score {
     font-size: 2.5rem;
   }
-  .story-details > div {
-    grid-template-columns: 86px minmax(0, 1fr);
-    gap: 16px;
-  }
   .demo-event {
     font-size: 0.75rem;
   }
@@ -1929,9 +1923,6 @@ fieldset {
   .project-horizon {
     margin-inline: -16px;
     padding-inline: 16px;
-  }
-  .field-row {
-    gap: 10px;
   }
   .form-card,
   .form-actions {

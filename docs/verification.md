@@ -4,6 +4,12 @@
 
 ## Evidencia automatizada
 
+### Componentes y recursos de Taekwondo
+
+Se comprobaron tipos, formato, cuatro pruebas unitarias, build y ocho flujos Playwright en Chromium/Firefox. El flujo nuevo comprueba presets de duración, entrada manual, regreso a la configuración guardada y bloqueo de los presets en una segunda pestaña de solo lectura. Se conservaron las aserciones del reloj, puntuación, archivo, respaldo y autoridad única.
+
+Se inspeccionaron las cuatro vistas a 1440 y 390 px y el reflujo a 320 px, sin scroll horizontal de documento. El control por defecto termina en 763.69 px dentro de una ventana de 1366 × 768; nombres largos pueden aumentar la altura. El recurso nuevo se exportó a JPEG de 197 833 bytes y se sirve desde el mismo sitio. La ilustración no representa sensores conectados a la alpha. La captura de README refleja el diseño actual.
+
 ### Rediseño editorial de competición
 
 Dirección confirmada: marfil, carbón y rojo señal. Header y hero reconstruidos, secciones de inicio con composiciones distintas, hoja de combate en preparación y guía sin cuadrícula de tarjetas de stack. La captura de README muestra el nuevo hero y la franja de sesión real.

@@ -166,3 +166,41 @@ test("keyboard flow, reduced motion, reflow and automated accessibility", async 
       .violations,
   ).toEqual([]);
 });
+
+test("duration presets, manual entry, saved configuration and read-only session", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "Preparar un combate", exact: true })
+    .click();
+  const preset = page.getByRole("button", {
+    name: "1:30 por ronda",
+    exact: true,
+  });
+  await preset.click();
+  await expect(page.locator("#setupRoundMinutes")).toHaveValue("1");
+  await expect(page.locator("#setupRoundSeconds")).toHaveValue("30");
+  await page.locator("#setupRoundSeconds").fill("45");
+  await expect(preset).toHaveAttribute("aria-pressed", "false");
+  await preset.click();
+  await page
+    .getByRole("button", { name: "Guardar y abrir control", exact: true })
+    .click();
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="clock"]'),
+  ).toHaveText("01:30");
+  await page
+    .getByRole("button", { name: "Preparar combate", exact: true })
+    .click();
+  await expect(preset).toHaveAttribute("aria-pressed", "true");
+  const observer = await context.newPage();
+  await observer.goto("/");
+  await observer
+    .getByRole("button", { name: "Preparar combate", exact: true })
+    .click();
+  await expect(
+    observer.getByRole("button", { name: "1:30 por ronda", exact: true }),
+  ).toBeDisabled();
+});

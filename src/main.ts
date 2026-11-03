@@ -1,4 +1,5 @@
 import "../css/styles.css";
+import "../css/components.css";
 import {
   applyAction,
   archive,
@@ -235,6 +236,19 @@ function render(): void {
     saved.append(li);
   }
 }
+function updateDurationPresets(): void {
+  const seconds =
+    Number(element<HTMLInputElement>("#setupRoundMinutes").value) * 60 +
+    Number(element<HTMLInputElement>("#setupRoundSeconds").value);
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-duration]")
+    .forEach((button) => {
+      button.setAttribute(
+        "aria-pressed",
+        String(seconds === Number(button.dataset.duration)),
+      );
+    });
+}
 function setupForm(): void {
   const form = element<HTMLFormElement>("#matchSetupForm");
   for (const [key, value] of Object.entries(state.config)) {
@@ -247,6 +261,7 @@ function setupForm(): void {
   element<HTMLInputElement>("#setupRoundSeconds").value = String(
     state.config.roundDuration % 60,
   );
+  updateDurationPresets();
 }
 function showView(requested: string, focus = true): void {
   const view = publicOnly
@@ -299,6 +314,22 @@ function exportData(): void {
   );
 }
 function bind(): void {
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-duration]")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!operator) return;
+        const seconds = Number(button.dataset.duration);
+        element<HTMLInputElement>("#setupRoundMinutes").value = String(
+          Math.floor(seconds / 60),
+        );
+        element<HTMLInputElement>("#setupRoundSeconds").value = String(
+          seconds % 60,
+        );
+        element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity("");
+        updateDurationPresets();
+      });
+    });
   document
     .querySelectorAll<HTMLElement>("[data-view-target]")
     .forEach((button) => {
@@ -487,12 +518,14 @@ function bind(): void {
       showView("scoring");
     },
   );
-  element("#setupRoundSeconds").addEventListener("input", () =>
-    element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity(""),
-  );
-  element("#setupRoundMinutes").addEventListener("input", () =>
-    element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity(""),
-  );
+  element("#setupRoundSeconds").addEventListener("input", () => {
+    element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity("");
+    updateDurationPresets();
+  });
+  element("#setupRoundMinutes").addEventListener("input", () => {
+    element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity("");
+    updateDurationPresets();
+  });
   const receive = (input: unknown) => {
     if (operator) return;
     try {
