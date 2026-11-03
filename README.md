@@ -2,7 +2,7 @@
 
 **Marcador manual para entrenamiento y exhibición. Un PC, un operador y una pantalla externa.**
 
-Alpha experimental `0.1.0-alpha.1`. [Demo web](https://protector-and-scoring-system-pss-ta.vercel.app) · [Guía](https://protector-and-scoring-system-pss-ta.vercel.app/guide.html) · [Reportar un problema](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues).
+Alpha experimental `0.1.0-alpha.1`. [Demo web](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) · [Guía](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Notas de la alpha](docs/releases/v0.1.0-alpha.1.md) · [Reportar un problema](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues).
 
 Prepara atletas, rondas y duración; registra puntos y penalizaciones; abre un marcador de solo lectura en el segundo monitor. Los puntos se acumulan entre rondas y el operador toma las decisiones.
 
