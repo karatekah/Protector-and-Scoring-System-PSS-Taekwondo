@@ -148,6 +148,7 @@ function toggleClock(): void {
 function renderBindings(): void {
   const m = state.match,
     c = state.config;
+  document.body.dataset.matchStatus = m.status;
   const values: Record<string, string | number> = {
     ...c,
     roundDuration: formatClock(c.roundDuration * 1000),
@@ -219,7 +220,9 @@ function render(): void {
   saved.replaceChildren();
   if (!state.savedMatches.length) {
     const li = document.createElement("li");
-    li.textContent = "Todavía no has guardado un combate.";
+    li.className = "empty-archive";
+    li.textContent =
+      "Aún no hay resúmenes. Guarda uno desde Gestión del combate, en el panel de control.";
     saved.append(li);
   }
   for (const match of state.savedMatches) {
@@ -551,7 +554,7 @@ function createButtons(): void {
           title = document.createElement("strong"),
           small = document.createElement("small");
         button.type = "button";
-        button.className = "score-action";
+        button.className = "score-action static-press";
         button.dataset.mutation = "";
         button.setAttribute(
           "aria-label",

@@ -41,7 +41,7 @@ Prepare the athletes, run the clock and record each decision. The **experimental
 1. [Open the demo](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) in an up-to-date Chrome, Edge or Firefox.
 2. Select **Preparar combate**, enter the athletes and format, then save.
 3. In **Control**, select **Abrir pantalla externa** and move that window to the second monitor.
-4. Start the clock and record points. Save a summary and export JSON when finished.
+4. Start the clock and record points. Open **Gestión del combate** to save a summary, then export JSON from **Preparar combate**.
 
 Both windows must share the **same PC, site origin, browser and profile**. Keep the control tab open; reloading it pauses the clock. Another device or a private browsing session has independent data.
 
