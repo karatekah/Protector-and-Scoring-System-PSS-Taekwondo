@@ -2,6 +2,8 @@
 
 Estado: aceptada. Fecha: 2026-11-02.
 
+Vigencia: describe la alpha 0.1 publicada. La dirección del producto se amplió después a torneos en LAN en [ADR 0002](0002-tournament-lan.md), con React, servidor Go y SQLite. La decisión original sobre cuatro vistas locales no excluye esa evolución.
+
 ## Contexto
 
 El repositorio contenía un prototipo en HTML, CSS y un único archivo JavaScript, sin manifiesto, README, pruebas ni CI. Existía una demo desplegada por la integración de GitHub con Vercel.

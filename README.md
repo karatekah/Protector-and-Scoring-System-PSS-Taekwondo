@@ -18,7 +18,24 @@ La alpha no integra protectores electrónicos ni está homologada por World Taek
 
 Ambas ventanas deben usar el mismo equipo, origen, navegador y perfil. Enviar el enlace a otro equipo crea una sesión independiente. Mantén abierta la pestaña de control. Recargarla pausa el reloj; la segunda ventana no controla ni modifica el combate.
 
-## Stack
+## Producto objetivo y stack
+
+El objetivo confirmado es un software de torneos con varias áreas, jueces y pantallas que funcione en la red local del recinto sin Internet. Los jueces envían propuestas y la mesa confirma los puntos.
+
+| Capa del producto objetivo | Elección                                                                            |
+| -------------------------- | ----------------------------------------------------------------------------------- |
+| Frontend                   | React + TypeScript + Vite, React Router y CSS con tokens/CSS Modules                |
+| Datos HTTP                 | TanStack Query y tipos de cliente derivados de OpenAPI                              |
+| Servidor del recinto       | Go, monolito modular que sirve interfaz, API y eventos                              |
+| Datos del evento           | SQLite local del servidor, migraciones SQL y respaldo consistente                   |
+| Comunicación               | HTTPS + WebSocket, revisiones e idempotencia por comando                            |
+| Acceso                     | Sesiones locales revocables, emparejamiento y permisos por evento/área              |
+| Calidad                    | Pruebas de dominio, contratos, concurrencia, recuperación, interfaz y accesibilidad |
+| Distribución               | Demo en Vercel; servidor local y empaquetado en una fase posterior                  |
+
+Este es el **stack objetivo, pendiente de migración**. La alpha que puedes abrir hoy conserva el stack que se detalla debajo. [Decisiones y alternativas](docs/stack.md) · [ADR 0002](docs/adr/0002-tournament-lan.md) · [Arquitectura LAN](docs/tournament-architecture.md) · [Plan de migración](docs/migration.md).
+
+### Stack implementado en la alpha 0.1
 
 | Capa               | Decisión                                                       |
 | ------------------ | -------------------------------------------------------------- |
@@ -32,7 +49,7 @@ Ambas ventanas deben usar el mismo equipo, origen, navegador y perfil. Enviar el
 | Verificación       | Vitest 5.1.0, Playwright 1.64.1 y axe-core 4.14.0              |
 | CI / publicación   | GitHub Actions y proyecto existente en Vercel                  |
 
-Las dependencias directas están fijadas en `package.json`; `package-lock.json` fija su resolución. No se incorporan backend, cuentas, base de datos ni analítica. [ADR 0001](docs/adr/0001-foundation.md) explica el alcance.
+Las dependencias directas están fijadas en `package.json`; `package-lock.json` fija su resolución. La alpha publicada no incorpora backend, cuentas, base de datos ni analítica. [ADR 0001](docs/adr/0001-foundation.md) describe esa entrega; ADR 0002 define su evolución hacia torneos.
 
 ## Desarrollo
 
@@ -73,6 +90,6 @@ En Linux, CI instala los navegadores con `npx playwright install --with-deps chr
 | Colaborar o reportar problemas | [Contribuir](CONTRIBUTING.md) · [Seguridad](SECURITY.md)                                |
 | Ver cambios                    | [Changelog](CHANGELOG.md)                                                               |
 
-La documentación de KARATTY se usó como referencia de estructura, decisiones y evidencia. El stack y las reglas de PSS se eligieron para este producto.
+KARATTY sirve como referencia de dominio compartido, contratos, transacciones, decisiones documentadas y evidencia. PSS adopta Go en su arquitectura objetivo y elige SQLite para el servidor del recinto; los detalles y el coste frente a PostgreSQL se explican en la decisión de stack.
 
 Licencia: [GNU GPL v3](LICENSE), conservada del repositorio original.

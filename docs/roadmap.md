@@ -1,19 +1,25 @@
 # Roadmap
 
-Los hitos tienen condiciones de salida; no representan fechas prometidas.
+El objetivo confirmado es software de torneos con varias áreas, jueces y pantallas en LAN, sin depender de Internet. Los jueces proponen y la mesa confirma. Sensores después.
 
-| Hito                      | Trabajo                                                                                       | Condición de salida                                                 |
-| ------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Alpha 0.1 · Fundación     | Stack, dominio, reloj, ventanas, respaldo, UI, documentación y Vercel                         | Comprobaciones automáticas aprobadas y demo verificada              |
-| Alpha 0.2 · Dojang        | Probar dos monitores, legibilidad a distancia, teclado, suspensión del PC y recuperación      | Sesión real documentada y defectos críticos corregidos              |
-| Beta · Reglas explícitas  | Solo si se elige torneo: edición de reglamento, victorias por asalto, desempates y decisiones | Matriz de casos revisada por un árbitro/responsable                 |
-| Red · Alcance por decidir | Autoridad del combate, roles, idempotencia, reconexión y auditoría                            | Pruebas con varios dispositivos y fallos de conexión                |
-| Hardware · Investigación  | Protocolo real, sensores, latencia y calibración                                              | Evidencia con equipos físicos; no afirmar homologación sin sustento |
+| Hito                               | Trabajo                                                                                          | Condición de salida                                                        |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| Alpha 0.1 · Publicada              | Marcador de entrenamiento, un PC y ventana externa; stack y CI del prototipo estabilizados       | Demo Vercel y pruebas registradas en verificación                          |
+| Reformulación · Documentada        | Stack objetivo, autoridad local, datos, permisos, protocolo, respaldo y ruta de migración        | Decisiones y límites explícitos; no anunciar LAN como implementada         |
+| Frontend React                     | Componentes, rutas, formularios, suscripciones y pruebas; conservar entrenamiento y respaldos v4 | Flujos existentes y accesibilidad aprobados                                |
+| Servidor local                     | Go, SQLite, contratos, revisiones, comandos idempotentes y recuperación                          | Operación transaccional completa y copia/restauración probada              |
+| Alpha LAN · Un área                | Dispositivos de mesa, jueces y público; TLS, roles y propuestas confirmadas por mesa             | Desconexiones, duplicados y revocación verificados en varios dispositivos  |
+| Alpha LAN · Varias áreas           | Aislamiento, cola de combates y objetivo de carga inicial                                        | Presupuesto de cuatro áreas/21 sesiones medido y prueba física del recinto |
+| Beta de torneo                     | Reglamento identificado, resultados, decisiones arbitrales y operación completa                  | Matriz revisada por responsable deportivo y sesión real documentada        |
+| Hardware · Investigación posterior | Protocolo, adaptador y calibración                                                               | Evidencia con equipos físicos; homologación solo con sustento              |
 
-## Próximas preguntas de producto
+El [plan de migración](migration.md) detalla el backlog y la conservación de datos. No hay fechas prometidas ni capacidades certificadas por este roadmap.
 
-1. ¿A qué distancia se observará el marcador y qué monitor se usará?
-2. ¿Cuántas sesiones y combates reales necesitan conservarse antes de exportar?
-3. ¿Se utilizará principalmente ratón, teclado o un mando físico?
+## Decisiones que faltan para la primera prueba de torneo
 
-Esas respuestas priorizan la alpha 0.2. No bloquean la demo de entrenamiento acordada.
+- Cantidad real de áreas, jueces y dispositivos; cuatro áreas/21 sesiones es una hipótesis técnica de validación.
+- Edición y perfil de reglamento, correcciones, cierre de combate y desempates.
+- PC, router, monitores, alimentación y preparación de certificados del recinto.
+- Retención de datos de participantes y responsable de los respaldos.
+
+Estas decisiones se cierran antes de las fases que dependen de ellas. La reformulación no exige generar un ZIP ni añadir servicios de nube.

@@ -2,6 +2,8 @@
 
 Fecha de definición: 2026-11-02. Distribución acordada: demo web en el Vercel existente; ZIP local pospuesto.
 
+Este contrato se conserva para la versión publicada. El objetivo posterior de torneos en LAN está confirmado y se planifica en [la migración del stack](migration.md); no convierte las funciones previstas en funciones de la alpha 0.1.
+
 ## Usuario y resultado
 
 Una persona controla un combate de entrenamiento o exhibición desde un PC. El público ve una segunda ventana, en un monitor conectado al mismo PC. Los puntos se acumulan durante todas las rondas.

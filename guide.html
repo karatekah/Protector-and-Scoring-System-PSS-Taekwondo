@@ -39,8 +39,8 @@
         </section>
         <nav class="guide-nav" aria-label="En esta guía">
           <a href="#start">Empezar</a><a href="#scope">Alcance</a
-          ><a href="#data">Tus datos</a><a href="#technology">Tecnología</a
-          ><a href="#roadmap">Plan</a>
+          ><a href="#data">Tus datos</a><a href="#technology">Alpha actual</a
+          ><a href="#target-stack">Stack objetivo</a><a href="#roadmap">Plan</a>
         </nav>
         <section class="guide-section" id="start">
           <div>
@@ -141,7 +141,7 @@
         <section class="guide-section" id="technology">
           <div>
             <p class="eyebrow">04 · FUNDAMENTOS</p>
-            <h2>El stack responde<br />al producto.</h2>
+            <h2>La tecnología<br />de la alpha actual.</h2>
           </div>
           <div class="guide-prose">
             <div class="tech-grid">
@@ -186,37 +186,151 @@
               </div>
             </div>
             <p>
-              Esta alpha no necesita base de datos ni backend. Una futura
-              conexión por red tendrá una autoridad de combate en el servidor;
-              los canales locales actuales no sustituyen ese diseño.
+              La alpha 0.1 publicada funciona en un navegador y todavía no
+              utiliza React, Go ni una base de datos. El diseño objetivo
+              siguiente amplía PSS a torneos; sus funciones aún requieren
+              implementación y pruebas.
+            </p>
+          </div>
+        </section>
+        <section class="guide-section" id="target-stack">
+          <div>
+            <p class="eyebrow">05 · ARQUITECTURA OBJETIVO</p>
+            <h2>Un torneo completo.<br />Dentro del recinto.</h2>
+            <p class="planned-label">
+              Diseño definido · Implementación pendiente
+            </p>
+          </div>
+          <div class="guide-prose">
+            <p>
+              El producto al que evolucionará PSS tendrá varias áreas, jueces y
+              pantallas conectados a la red local. Podrá operar sin Internet:
+              los jueces propondrán puntos y la mesa de cada área los
+              confirmará.
+            </p>
+            <ol
+              class="architecture-flow"
+              aria-label="Flujo previsto de puntuación"
+            >
+              <li>
+                <strong>Jueces</strong
+                ><span>Envían propuestas del combate asignado.</span>
+              </li>
+              <li>
+                <strong>Mesa del área</strong
+                ><span>Confirma o rechaza cada propuesta.</span>
+              </li>
+              <li>
+                <strong>Servidor del recinto</strong
+                ><span>Valida, guarda y publica el estado oficial.</span>
+              </li>
+              <li>
+                <strong>Pantallas</strong
+                ><span>Muestran el resultado confirmado.</span>
+              </li>
+            </ol>
+            <div class="tech-grid">
+              <div>
+                <strong>React + TypeScript + Vite</strong
+                ><span
+                  >Interfaz por roles, componentes compartidos y rutas con React
+                  Router.</span
+                >
+              </div>
+              <div>
+                <strong>CSS con tokens + CSS Modules</strong
+                ><span
+                  >Diseño consistente, componentes accesibles y estilos
+                  acotados.</span
+                >
+              </div>
+              <div>
+                <strong>Go</strong
+                ><span
+                  >Un servidor local para la interfaz, la API, los permisos y el
+                  reloj oficial.</span
+                >
+              </div>
+              <div>
+                <strong>SQLite</strong
+                ><span
+                  >Archivo transaccional del evento en la PC del servidor. Los
+                  clientes acceden por la API.</span
+                >
+              </div>
+              <div>
+                <strong>HTTPS + WebSocket</strong
+                ><span
+                  >Contratos, revisiones, confirmaciones y recuperación de
+                  conexión por área.</span
+                >
+              </div>
+              <div>
+                <strong>Pruebas y operación</strong
+                ><span
+                  >Concurrencia, duplicados, revocación, respaldo, restauración
+                  y pruebas físicas.</span
+                >
+              </div>
+            </div>
+            <p>
+              Vercel seguirá alojando la demo pública. El servidor local servirá
+              todos los recursos del torneo, con sesiones y permisos propios; el
+              archivo SQLite nunca se compartirá por una carpeta de red.
+            </p>
+            <p>
+              El primer presupuesto técnico de validación será de cuatro áreas y
+              21 sesiones. Es una hipótesis para medir, no una capacidad ya
+              demostrada. Sensores, reglamentos automáticos y distribución local
+              corresponden a fases posteriores.
+            </p>
+            <p>
+              <a
+                href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/blob/main/docs/stack.md"
+                >Leer las decisiones de stack ↗</a
+              >
+              ·
+              <a
+                href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/blob/main/docs/migration.md"
+                >Ver el plan de migración ↗</a
+              >
             </p>
           </div>
         </section>
         <section class="guide-section" id="roadmap">
           <div>
-            <p class="eyebrow">05 · SIGUIENTES HITOS</p>
+            <p class="eyebrow">06 · SIGUIENTES HITOS</p>
             <h2>Crecer con evidencia,<br />no con promesas.</h2>
           </div>
           <ol class="guide-steps roadmap">
             <li>
-              <strong>Alpha 0.1 · Base pública.</strong> Estandarizar el stack,
-              estabilizar reloj y sincronización, documentar alcance y validar
-              los flujos críticos.
+              <strong>Alpha 0.1 · Publicada.</strong> Marcador de entrenamiento,
+              control desde un PC y pantalla externa. Mantener esta demo
+              mientras evoluciona el producto.
             </li>
             <li>
-              <strong>Alpha 0.2 · Prueba en el dojang.</strong> Medir
-              legibilidad desde el público, manejo con teclado y comportamiento
-              en un PC con dos monitores. Ajustar con observaciones reales.
+              <strong>Frontend React · Planificado.</strong> Migrar vistas y
+              componentes, conservar los respaldos y comprobar los flujos y la
+              accesibilidad.
             </li>
             <li>
-              <strong>Beta · Reglas acordadas.</strong> Si se necesita torneo,
-              definir antes la edición del reglamento, decisiones arbitrales,
-              resultados por asalto y casos de empate.
+              <strong>Servidor y un área LAN · Planificados.</strong> Go,
+              SQLite, contratos, sesiones y flujo de propuestas confirmadas por
+              la mesa. Probar desconexiones y restauración.
             </li>
             <li>
-              <strong>Después · Red y sensores.</strong> Diseñar roles,
-              reconexión, autoridad del reloj y trazabilidad. Probar hardware y
-              calibración reales antes de anunciar integración PSS.
+              <strong>Varias áreas · Planificadas.</strong> Aislar combates,
+              asignaciones y colas. Medir la carga y operar con dispositivos
+              físicos en el recinto.
+            </li>
+            <li>
+              <strong>Beta de torneo · Pendiente.</strong> Acordar la edición
+              del reglamento, probar decisiones y resultados, y documentar una
+              sesión completa.
+            </li>
+            <li>
+              <strong>Sensores · Después.</strong> Investigar protocolo y
+              calibración con hardware real antes de anunciar integración PSS.
             </li>
           </ol>
         </section>

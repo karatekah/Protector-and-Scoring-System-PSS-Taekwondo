@@ -123,6 +123,37 @@
   color: white;
   border-radius: 12px;
 }
+.planned-label {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 10px;
+  border: 1px solid var(--input-line);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+.architecture-flow {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding-left: 24px;
+}
+.architecture-flow li {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--line);
+}
+.architecture-flow strong {
+  display: block;
+  color: var(--ink);
+  font-size: 0.85rem;
+}
+.architecture-flow span {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
 .guide-callout h2 {
   font-size: 1.5rem;
 }
