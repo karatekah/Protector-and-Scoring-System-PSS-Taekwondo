@@ -79,6 +79,8 @@ En Linux, CI instala los navegadores con `npx playwright install --with-deps chr
 
 ## Documentación
 
+[Identidad visual, paleta, fuentes y procedencia de recursos](docs/design.md).
+
 | Necesidad                      | Referencia                                                                              |
 | ------------------------------ | --------------------------------------------------------------------------------------- |
 | Usar el marcador               | [Guía pública](guide.html)                                                              |

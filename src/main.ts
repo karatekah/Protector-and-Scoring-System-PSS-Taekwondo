@@ -265,7 +265,12 @@ function showView(requested: string, focus = true): void {
     });
   document.title = `${{ home: "Inicio", setup: "Preparar combate", scoring: "Control", public: "Marcador" }[view]} · PSS Taekwondo`;
   if (view === "setup") setupForm();
-  if (focus) element<HTMLElement>(`[data-view="${view}"]`).focus();
+  if (focus) {
+    element<HTMLElement>(`[data-view="${view}"]`).focus({
+      preventScroll: true,
+    });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }
 }
 function exportData(): void {
   settleClock();

@@ -1,16 +1,16 @@
-# Revisión de interfaz
+# Revisión UI/UX del rediseño deportivo
 
-Skills aplicadas: better-ui, better-accessibility y better-colors. Alcance: las cuatro vistas de la aplicación y la guía pública.
+Skills: better-ui, better-colors, better-typography, better-layout, better-writing y better-accessibility. Dirección elegida mediante entrevista: deportivo claro, presentación breve y acceso rápido al combate.
 
-| Severidad original | Lugar                        | Antes                                                        | Después                                                                  | Principio e impacto                                             |
-| ------------------ | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------ | --------------------------------------------------------------- |
-| Alta               | src/main.ts, ventana pública | La carga del marcador podía persistir sobre el estado activo | Solo lectura y un operador con Web Locks                                 | Interacción: abrir la segunda pantalla no interrumpe el control |
-| Alta               | css/styles.css, botones      | Hover con movimiento sin respetar reducción de movimiento    | Hover solo en punteros compatibles, escala .96/150 ms bajo no-preference | Movimiento reducido y uso táctil                                |
-| Media              | index.html, navegación       | Cambio visual de sección sin foco ni estado de navegación    | Foco en la vista, título de documento y aria-current                     | WCAG 2.4.3 y navegación comprensible                            |
-| Media              | index.html, marcadores       | Sensores simulados y marca WT sin integración                | Puntuación manual y alcance de entrenamiento explícitos                  | Estado veraz y expectativas de producto                         |
-| Media              | css/styles.css, formularios  | Bordes poco contrastados y estilo inconsistente              | Tokens y bordes de entrada de 3.64:1 contra blanco                       | WCAG 1.4.11                                                     |
-| Baja               | css/styles.css, superficies  | Tarjetas y espaciados inconsistentes                         | Radios, sombras, separación y números tabulares consistentes             | Jerarquía y legibilidad                                         |
+| Severidad original              | Lugar                          | Antes                                                         | Después                                                                   | Principio e impacto                                            |
+| ------------------------------- | ------------------------------ | ------------------------------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Media                           | index.html, portada            | Presentación genérica y sin recurso visual de Taekwondo       | Marca original, imagen ilustrativa, titular editorial y acceso al combate | Identidad y jerarquía: reconocer el deporte y la función       |
+| Media                           | css/styles.css, tipografía     | Fuente declarada sin archivo local y escala poco diferenciada | Manrope/Barlow locales, pesos disponibles y cifras tabulares              | Consistencia tipográfica y recursos independientes de terceros |
+| Media                           | index.html, controles          | Registro entre los competidores                               | Controles azul/rojo juntos y registro en details/summary                  | Agrupar por tarea y mostrar el registro bajo demanda           |
+| Media                           | src/main.ts, navegación        | El foco podía desplazar el encabezado fuera de vista          | Foco en panel con preventScroll y retorno al inicio                       | Navegación comprensible y posición predecible                  |
+| Alta corregida durante revisión | css/styles.css, reloj a 320 px | El ancho de los dígitos superaba la columna del reloj         | Tamaño basado en el contenedor, sin desbordamiento                        | Reflujo y legibilidad: WCAG 1.4.10                             |
+| Baja                            | guide.html y css/guide.css     | Identidad de la guía distinta de la nueva portada             | Marca, tipografía, acciones y superficies compartidas                     | Consistencia entre presentación, aplicación y documentación    |
 
-Verificación: axe automatizado, navegación inicial por teclado, inspección visual de capturas, reflujo a 320 px, movimiento reducido y medición de los pares documentados. No se ejecutó un recorrido con lector de pantalla ni la sesión física de dos monitores. Consultar [la matriz de verificación](verification.md).
+Approve para la cobertura inspeccionada. Tipos, formato, pruebas unitarias, build y seis flujos de navegador aprobados. Axe no detectó infracciones en las vistas evaluadas. Se inspeccionaron capturas de escritorio y móvil y se midieron los contrastes de [la paleta](design.md).
 
-Approve para la cobertura inspeccionada; los pendientes manuales siguen abiertos.
+No verificado: lectura con NVDA/VoiceOver, zoom nativo del navegador al 200 %, móvil físico y legibilidad desde el público en dos monitores reales. Las pruebas de navegador no sustituyen esas pruebas de campo.

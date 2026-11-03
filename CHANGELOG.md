@@ -2,6 +2,8 @@
 
 ## Sin publicar como nueva versión
 
+Rediseño UI/UX deportivo: portada editorial, marca e imagen originales, tipografía local, paleta azul/rojo, marcador oscuro, reloj adaptable y controles agrupados. El registro pasa a un desplegable nativo y la navegación conserva el foco y vuelve al inicio.
+
 Reformulación de la arquitectura objetivo para software de torneos: varias áreas, operación en LAN sin Internet, propuestas de jueces y confirmación por mesa.
 
 - Stack objetivo React/TypeScript/Vite, servidor Go y SQLite local.
