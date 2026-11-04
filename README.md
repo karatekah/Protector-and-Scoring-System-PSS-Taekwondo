@@ -49,16 +49,16 @@ This alpha is for training and exhibitions. It does not connect electronic prote
 
 ## Architecture and stack
 
-| Component           | Implemented in the alpha                                                |
-| ------------------- | ----------------------------------------------------------------------- |
-| Application         | TypeScript 7.0.2, strict types and ES modules                           |
-| Interface           | Semantic HTML, CSS tokens and locally hosted Manrope / Barlow Condensed |
-| Build               | Vite 8.3.5; Node 24.22.1 LTS and npm 11 for development                 |
-| Match state         | Separate domain logic and an elapsed monotonic clock                    |
-| Storage             | Versioned localStorage and validated JSON import/export                 |
-| Window coordination | Web Locks, BroadcastChannel and storage events                          |
-| Verification        | Vitest, Playwright, axe and Prettier                                    |
-| Delivery            | GitHub Actions and the existing Vercel project                          |
+| Component           | Implemented in the alpha                                                        |
+| ------------------- | ------------------------------------------------------------------------------- |
+| Application         | TypeScript 7.0.2, strict types and ES modules                                   |
+| Interface           | Semantic HTML, CSS tokens and locally hosted Anton / Manrope / Barlow Condensed |
+| Build               | Vite 8.3.5; Node 24.22.1 LTS and npm 11 for development                         |
+| Match state         | Separate domain logic and an elapsed monotonic clock                            |
+| Storage             | Versioned localStorage and validated JSON import/export                         |
+| Window coordination | Web Locks, BroadcastChannel and storage events                                  |
+| Verification        | Vitest, Playwright, axe and Prettier                                            |
+| Delivery            | GitHub Actions and the existing Vercel project                                  |
 
 Direct dependencies and their resolution are pinned in package.json and package-lock.json. [Architecture](docs/architecture.md) describes the current runtime; [ADR 0001](docs/adr/0001-foundation.md) records its foundation.
 
@@ -116,4 +116,4 @@ The [verification matrix](docs/verification.md) separates automated coverage fro
 
 ---
 
-Code is licensed under [GNU GPL v3](LICENSE). Local font licenses are preserved in [public/fonts](public/fonts); the origin of the generated illustration and original mark is documented in [visual identity](docs/design.md).
+Code is licensed under [GNU GPL v3](LICENSE). Local font licenses are preserved in [public/fonts](public/fonts); the origin of the generated illustration and original mark is documented in [visual identity](docs/design-preview.md).

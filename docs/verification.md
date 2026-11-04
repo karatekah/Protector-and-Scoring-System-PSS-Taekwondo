@@ -4,6 +4,18 @@
 
 ## Evidencia automatizada
 
+### PSS Arena y pantalla completa
+
+Diseño revisado por el usuario y aprobado para subir a GitHub. Las comprobaciones siguientes se realizaron antes de publicar. La captura del README se actualizó con el hero aprobado. La nueva dirección, colores y recursos se documentan en [PSS Arena](design-preview.md).
+
+Se comprobaron TypeScript, formato, cuatro pruebas unitarias y build de producción. Diez flujos Playwright en Chromium/Firefox cubren los comportamientos anteriores y la regresión de pantalla completa: desde Control se presenta el elemento público a todo el ancho y alto, sin navegación; salir devuelve a Control. Desde Marcador se conserva esa vista al salir. La ventana externa también presenta sin márgenes y mantiene ocultos los controles de mutación. No se sustituyó la Fullscreen API por un mock.
+
+La primera ejecución concurrente del flujo nuevo agotó el límite total de 30 segundos en Firefox; pasó aislado en 15.1 segundos. Se asignaron 60 segundos al flujo que realiza tres entradas/salidas nativas y la ejecución completa posterior pasó. Las aserciones de resultado no se modificaron.
+
+Se inspeccionaron capturas de portada, preparación, control y guía en escritorio, las cuatro vistas a 390 px y el marcador a pantalla completa desde Control. Se midió el ancho de las cuatro vistas a 320, 390 y 768 px. La revisión detectó inicialmente desbordamiento de navegación a 768 px; tras permitir su ajuste, los doce casos mantienen el ancho del documento igual al viewport. No se detectaron errores JavaScript durante el recorrido visual. Axe no detectó infracciones en las cuatro vistas y la guía dentro de sus criterios evaluados.
+
+Esta evidencia es de navegador automatizado. No equivale a una prueba física con dos monitores, una auditoría completa de accesibilidad ni una comprobación de los paneles del contenedor que incrusta la aplicación. Si el contenedor deniega pantalla completa, se debe abrir la aplicación en su propia pestaña.
+
 ### Componentes y recursos de Taekwondo
 
 Se comprobaron tipos, formato, cuatro pruebas unitarias, build y ocho flujos Playwright en Chromium/Firefox. El flujo nuevo comprueba presets de duración, entrada manual, regreso a la configuración guardada y bloqueo de los presets en una segunda pestaña de solo lectura. Se conservaron las aserciones del reloj, puntuación, archivo, respaldo y autoridad única.

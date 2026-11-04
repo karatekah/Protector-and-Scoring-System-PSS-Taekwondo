@@ -1,79 +1,5 @@
 ﻿/* Small native components shared by the landing and setup. */
-.release-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: var(--red-50);
-  font-size: var(--text-small);
-}
-.release-chip::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-.hero-start .ui-icon {
-  width: 30px;
-  height: 30px;
-  padding: 6px;
-  color: var(--accent);
-  background: var(--surface);
-  border-radius: 50%;
-}
-.equipment-stage {
-  position: relative;
-  border: 1px solid transparent;
-  border-radius: 25px;
-  background: var(--bg);
-  box-shadow:
-    0 1px 2px #25251f0a inset,
-    0 10px 24px #25251f08;
-}
-.match-capsule {
-  position: absolute;
-  inset-inline-start: -20px;
-  inset-block-end: 18px;
-  width: 280px;
-  max-width: calc(100% - 24px);
-  padding: 14px 18px;
-  border: 1px solid transparent;
-  border-radius: 18px;
-  background: var(--surface);
-  box-shadow: var(--shadow-floating);
-}
-.capsule-label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--muted);
-  font-size: var(--text-small);
-}
-.match-capsule > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.match-capsule > div > span {
-  display: grid;
-  gap: 3px;
-  font-size: 0.75rem;
-}
-.match-capsule b {
-  font-size: 1.25rem;
-  font-weight: 750;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-}
-.match-capsule strong {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  line-height: 1;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
+
 .feature-accordions {
   display: grid;
   gap: 10px;
@@ -206,10 +132,7 @@
   .nav-link {
     padding-inline: 10px;
   }
-  .poster-hero {
-    padding: 24px;
-    border-radius: 28px;
-  }
+
   .format-controls {
     grid-template-columns: 80px minmax(0, 1fr);
     gap: 14px;
@@ -224,39 +147,7 @@
   .tab-button {
     padding-inline: 8px;
   }
-  .poster-hero {
-    padding: 20px;
-    border-radius: 24px;
-  }
-  .hero-stage {
-    gap: 28px;
-  }
-  .hero-copy {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .hero-copy h2 {
-    font-size: 2.5rem;
-  }
-  .hero-copy > p:not(.hero-scope) {
-    font-size: 1rem;
-    max-width: 42ch;
-  }
-  .hero-copy .hero-start {
-    max-width: 320px;
-  }
-  .hero-copy .text-action {
-    margin-top: -6px;
-  }
-  .match-capsule {
-    position: relative;
-    inset: auto;
-    margin: -24px auto 0;
-    width: 280px;
-  }
-  .hero-image {
-    aspect-ratio: 1.5;
-  }
+
   .demo-screen {
     padding: 12px;
     border-radius: 25px;
@@ -281,29 +172,7 @@
     padding-inline: 5px;
     font-size: 0.75rem;
   }
-  .poster-hero {
-    padding: 16px;
-    border-radius: 22px;
-    margin-top: 8px;
-  }
-  .hero-title-row {
-    gap: 8px;
-  }
-  .hero-copy h2 {
-    font-size: 2.25rem;
-  }
-  .hero-copy h2 br {
-    display: block;
-  }
-  .hero-scope br {
-    display: none;
-  }
-  .hero-visual figcaption {
-    font-size: 0.75rem;
-  }
-  .capsule-label {
-    font-size: 0.75rem;
-  }
+
   .format-controls {
     grid-template-columns: 1fr;
   }

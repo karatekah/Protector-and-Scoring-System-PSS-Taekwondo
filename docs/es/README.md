@@ -49,16 +49,16 @@ Esta alpha es para entrenamiento y exhibición. No conecta protectores electrón
 
 ## Arquitectura y stack
 
-| Componente               | Implementado en la alpha                                                    |
-| ------------------------ | --------------------------------------------------------------------------- |
-| Aplicación               | TypeScript 7.0.2, tipos estrictos y módulos ES                              |
-| Interfaz                 | HTML semántico, tokens CSS y Manrope / Barlow Condensed alojadas localmente |
-| Compilación              | Vite 8.3.5; Node 24.22.1 LTS y npm 11 para desarrollo                       |
-| Estado del combate       | Dominio separado y reloj monotónico por tiempo transcurrido                 |
-| Almacenamiento           | localStorage versionado e importación/exportación JSON validada             |
-| Coordinación de ventanas | Web Locks, BroadcastChannel y eventos de almacenamiento                     |
-| Verificación             | Vitest, Playwright, axe y Prettier                                          |
-| Distribución             | GitHub Actions y el proyecto existente de Vercel                            |
+| Componente               | Implementado en la alpha                                                            |
+| ------------------------ | ----------------------------------------------------------------------------------- |
+| Aplicación               | TypeScript 7.0.2, tipos estrictos y módulos ES                                      |
+| Interfaz                 | HTML semántico, tokens CSS y Anton / Manrope / Barlow Condensed alojadas localmente |
+| Compilación              | Vite 8.3.5; Node 24.22.1 LTS y npm 11 para desarrollo                               |
+| Estado del combate       | Dominio separado y reloj monotónico por tiempo transcurrido                         |
+| Almacenamiento           | localStorage versionado e importación/exportación JSON validada                     |
+| Coordinación de ventanas | Web Locks, BroadcastChannel y eventos de almacenamiento                             |
+| Verificación             | Vitest, Playwright, axe y Prettier                                                  |
+| Distribución             | GitHub Actions y el proyecto existente de Vercel                                    |
 
 Las dependencias directas y su resolución están fijadas en package.json y package-lock.json. [Arquitectura](../architecture.md) describe el runtime actual; [ADR 0001](../adr/0001-foundation.md) registra su base.
 
@@ -116,4 +116,4 @@ La [matriz de verificación](../verification.md) distingue pruebas automatizadas
 
 ---
 
-El código utiliza [GNU GPL v3](../../LICENSE). Las licencias de las fuentes locales se conservan en [public/fonts](../../public/fonts); el origen de la ilustración generada y de la marca original está documentado en [identidad visual](../design.md).
+El código utiliza [GNU GPL v3](../../LICENSE). Las licencias de las fuentes locales se conservan en [public/fonts](../../public/fonts); el origen de la ilustración generada y de la marca original está documentado en [identidad visual](../design-preview.md).

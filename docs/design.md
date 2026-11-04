@@ -1,5 +1,7 @@
 # Dirección visual de PSS Taekwondo
 
+Este documento conserva la dirección visual anterior. El [diseño PSS Arena inspirado en Slush](design-preview.md) fue revisado por el usuario y aprobado para subir a GitHub.
+
 ## Editorial de competición
 
 Dirección confirmada el 2026-11-03: marfil, carbón y rojo señal. El usuario pidió una renovación del diseño completo: colores, header, hero y secciones, con una identidad propia del Taekwondo y sin una cuadrícula de tarjetas genéricas. La mesa mantiene la prioridad de puntos y reloj.
@@ -59,7 +61,7 @@ En la banda oscura y en pantalla completa se cambia el foco a claro. En las vist
 
 ## Recursos y proceso
 
-El hero usa public/assets/taekwondo-kit.jpg: ilustración original de protectores de pecho azul/rojo y cinturón negro. Exportación JPEG 82, 1536 × 1024, 197 833 bytes. Representa equipamiento tradicional del deporte, sin sensores ni afirmaciones de integración. La fotografía anterior se conserva en docs/assets/taekwondo-hero-previous.jpg. Todos los recursos publicados se sirven localmente.
+El hero anterior usaba una ilustración original de protectores de pecho azul/rojo y cinturón negro. Se conserva en docs/assets/taekwondo-kit-previous.jpg. Exportación JPEG 82, 1536 × 1024, 197 833 bytes. Representa equipamiento tradicional del deporte, sin sensores ni afirmaciones de integración. La fotografía anterior se conserva en docs/assets/taekwondo-hero-previous.jpg. Todos los recursos publicados se sirven localmente.
 
 Se revisaron accesibilidad, distribución, tipografía, color y escritura. La dirección visual prioriza una identidad vinculada al deporte, una decisión visual dominante y la revisión del resultado renderizado.
 

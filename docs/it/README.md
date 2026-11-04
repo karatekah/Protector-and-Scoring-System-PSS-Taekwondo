@@ -49,16 +49,16 @@ Questa alpha è destinata ad allenamenti ed esibizioni. Non collega protezioni e
 
 ## Architettura e stack
 
-| Componente                   | Implementato nell'alpha                                                     |
-| ---------------------------- | --------------------------------------------------------------------------- |
-| Applicazione                 | TypeScript 7.0.2, tipi rigorosi e moduli ES                                 |
-| Interfaccia                  | HTML semantico, token CSS e Manrope / Barlow Condensed ospitati localmente  |
-| Build                        | Vite 8.3.5; Node 24.22.1 LTS e npm 11 per lo sviluppo                       |
-| Stato dell'incontro          | Dominio separato e cronometro basato sul tempo monotono trascorso           |
-| Archiviazione                | localStorage con versionamento e importazione/esportazione JSON convalidata |
-| Coordinamento delle finestre | Web Locks, BroadcastChannel ed eventi di archiviazione                      |
-| Verifica                     | Vitest, Playwright, axe e Prettier                                          |
-| Distribuzione                | GitHub Actions e il progetto Vercel esistente                               |
+| Componente                   | Implementato nell'alpha                                                            |
+| ---------------------------- | ---------------------------------------------------------------------------------- |
+| Applicazione                 | TypeScript 7.0.2, tipi rigorosi e moduli ES                                        |
+| Interfaccia                  | HTML semantico, token CSS e Anton / Manrope / Barlow Condensed ospitati localmente |
+| Build                        | Vite 8.3.5; Node 24.22.1 LTS e npm 11 per lo sviluppo                              |
+| Stato dell'incontro          | Dominio separato e cronometro basato sul tempo monotono trascorso                  |
+| Archiviazione                | localStorage con versionamento e importazione/esportazione JSON convalidata        |
+| Coordinamento delle finestre | Web Locks, BroadcastChannel ed eventi di archiviazione                             |
+| Verifica                     | Vitest, Playwright, axe e Prettier                                                 |
+| Distribuzione                | GitHub Actions e il progetto Vercel esistente                                      |
 
 Le dipendenze dirette e la loro risoluzione sono fissate in package.json e package-lock.json. [Architettura](../architecture.md) descrive il runtime attuale; [ADR 0001](../adr/0001-foundation.md) ne documenta le basi.
 
@@ -116,4 +116,4 @@ La [matrice di verifica](../verification.md) distingue la copertura automatizzat
 
 ---
 
-Il codice usa [GNU GPL v3](../../LICENSE). Le licenze dei font locali sono conservate in [public/fonts](../../public/fonts); l'origine dell'illustrazione generata e del marchio originale è documentata nell'[identità visiva](../design.md).
+Il codice usa [GNU GPL v3](../../LICENSE). Le licenze dei font locali sono conservate in [public/fonts](../../public/fonts); l'origine dell'illustrazione generata e del marchio originale è documentata nell'[identità visiva](../design-preview.md).
