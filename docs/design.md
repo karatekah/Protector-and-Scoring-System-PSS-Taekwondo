@@ -1,5 +1,7 @@
 # Dirección visual de PSS Taekwondo
 
+Este documento conserva la dirección visual anterior. El [diseño PSS Arena inspirado en Slush](design-preview.md) fue revisado por el usuario y aprobado para subir a GitHub.
+
 ## Editorial de competición
 
 Dirección confirmada el 2026-11-03: marfil, carbón y rojo señal. El usuario pidió una renovación del diseño completo: colores, header, hero y secciones, con una identidad propia del Taekwondo y sin una cuadrícula de tarjetas genéricas. La mesa mantiene la prioridad de puntos y reloj.
@@ -59,7 +61,7 @@ En la banda oscura y en pantalla completa se cambia el foco a claro. En las vist
 
 ## Recursos y proceso
 
-El hero usa public/assets/taekwondo-kit.jpg: ilustración original de protectores de pecho azul/rojo y cinturón negro, generada con imagegen integrada. Exportación JPEG 82, 1536 × 1024, 197 833 bytes. Representa equipamiento tradicional del deporte, sin sensores ni afirmaciones de integración. La fotografía anterior se conserva en docs/assets/taekwondo-hero-previous.jpg. Todos los recursos publicados se sirven localmente.
+El hero anterior usaba una ilustración original de protectores de pecho azul/rojo y cinturón negro, generada con imagegen integrada. Se conserva en docs/assets/taekwondo-kit-previous.jpg. Exportación JPEG 82, 1536 × 1024, 197 833 bytes. Representa equipamiento tradicional del deporte, sin sensores ni afirmaciones de integración. La fotografía anterior se conserva en docs/assets/taekwondo-hero-previous.jpg. Todos los recursos publicados se sirven localmente.
 
 Se aplicaron better-ui y las skills better-* de accesibilidad, layout, tipografía, color y escritura. Se contrastó el plan antes de implementar con [frontend-design oficial de Anthropic](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md): una identidad vinculada al deporte, una decisión visual dominante y crítica del resultado renderizado. No se instaló ni se ejecutó una aplicación Claude o una skill Apple/Impeccable.
 
@@ -84,9 +86,9 @@ No se incorpora código de los catálogos ni se instala React/Tailwind/Motion pa
 
 El componente de resumen sobre la ilustración muestra el reloj y puntos reales del combate. No contiene cifras de éxito ni estadísticas inventadas. Los bordes, radios e iluminación distinguen superficies de papel, controles y pantalla. No hay animaciones automáticas, parallax ni transformaciones continuas con el cursor.
 
-## Prompt de la ilustración actual
+## Prompt de la ilustración de equipamiento anterior
 
-Herramienta: imagegen integrada; generación nueva, fondo opaco. Archivo final: public/assets/taekwondo-kit.jpg. El original PNG se conserva en .design.local/taekwondo-kit-original.png y en el directorio de imágenes generadas del entorno. Prompt exacto:
+Herramienta: imagegen integrada; generación nueva, fondo opaco. Archivo conservado: docs/assets/taekwondo-kit-previous.jpg. El original PNG se conserva en .design.local/taekwondo-kit-original.png y en el directorio de imágenes generadas del entorno. Prompt exacto:
 
 > Use case: product-mockup. Asset type: bespoke hero illustration for PSS Taekwondo, a manual scoring app. Create a beautifully art-directed premium 3D studio product composition of Taekwondo sparring equipment, two traditional NON-electronic padded chest protectors (hogu), one deep cobalt blue and one signal red, with white stitched binding, realistic curved torso shape, subtle quilted/foam material, white shoulder straps and lacing. A long traditional black martial-arts belt with clearly visible woven cotton texture sweeps in a loose flowing arc behind and beneath the two hogu, with a properly tied flat belt knot near the lower center. Equipment only, no people. Modern tactile sports editorial, striking and sculptural with believable manufactured materials, soft large-source lighting from upper left, gentle contact shadows and ambient occlusion. Background and floor are a seamless pale warm ivory (#f1efe7), softly lit, no scene or gym. Wide landscape 3:2 composition, objects fully visible and centered with generous clean breathing room, blue guard slightly higher on the left and red guard slightly lower on the right, each at a different elegant three-quarter angle, belt unifies composition. The image is an illustration of the sport, not hardware for the software. No electronics, sensors, screens, wireless symbols, brands, logos, letters, numbers, watermarks, glossy balloons, extraneous objects, busy background or fake interface. No text at all. Beautiful material detail, confident silhouettes, refined visual depth rather than chaotic decoration.
 

@@ -2,6 +2,10 @@
 
 ## Sin publicar como nueva versión
 
+PSS Arena: hero envolvente con cinturón azul original, gran cartel PSS con Anton, navegación en cápsulas, paleta azul hielo/negro/lila/coral y secciones renovadas. Preparación, control, guía y captura de README comparten la dirección aprobada. Sin nuevas dependencias.
+
+Control incorpora «Marcador a pantalla completa» con la misma Fullscreen API que Marcador y regreso a Control al salir. La ventana externa sigue siendo de solo lectura. Diez flujos E2E en Chromium/Firefox cubren también las tres rutas de presentación; se corrigió el reflujo de navegación a 768 px.
+
 Componentes táctiles e ilustración de equipamiento Taekwondo propia: navegación segmentada, botones con relieve, desplegables, duración por presets con edición manual y tipografía diferenciada por función. Los presets respetan el modo de solo lectura; ocho flujos E2E cubren también su selección y persistencia. Sin nuevas dependencias de interfaz.
 
 Nueva dirección editorial de competición: marfil, carbón y rojo señal; header tipográfico, hero de cartel, fotografía amplia, sesión real en una franja y presentación del marcador en uso. Se sustituyen tarjetas repetidas por secciones con funciones y composiciones distintas, y la preparación pasa a una hoja de combate. Marca, guía y captura del README alineadas con la nueva identidad.

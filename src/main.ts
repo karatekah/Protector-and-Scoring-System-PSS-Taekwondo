@@ -1,5 +1,6 @@
 import "../css/styles.css";
 import "../css/components.css";
+import "../css/arena.css";
 import {
   applyAction,
   archive,
@@ -40,6 +41,7 @@ let lastSecond = -1;
 let storageError = false;
 let lastReceived = performance.now();
 let staleDisplay = false;
+let returnToControl = false;
 
 function element<T extends HTMLElement = HTMLElement>(selector: string): T {
   const result = document.querySelector<T>(selector);
@@ -291,6 +293,25 @@ function showView(requested: string, focus = true): void {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }
 }
+async function togglePublicFullscreen(): Promise<void> {
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+      return;
+    }
+    returnToControl = document.body.dataset.currentView === "scoring";
+    showView("public");
+    await element('[data-view="public"]').requestFullscreen();
+  } catch {
+    if (!document.fullscreenElement) {
+      if (returnToControl) showView("scoring");
+      returnToControl = false;
+    }
+    warning(
+      "No se pudo abrir la pantalla completa. Usa Marcador y vuelve a intentarlo, o pulsa F11.",
+    );
+  }
+}
 function exportData(): void {
   settleClock();
   const blob = new Blob(
@@ -347,18 +368,27 @@ function bind(): void {
         );
     }),
   );
-  document.querySelectorAll("[data-fullscreen]").forEach((button) =>
-    button.addEventListener("click", async () => {
-      try {
-        if (document.fullscreenElement) await document.exitFullscreen();
-        else await element('[data-view="public"]').requestFullscreen();
-      } catch {
-        warning(
-          "No se pudo abrir la pantalla completa. Puedes usar F11 o ampliar la ventana del marcador.",
-        );
-      }
-    }),
-  );
+  document
+    .querySelectorAll("[data-fullscreen]")
+    .forEach((button) =>
+      button.addEventListener("click", () => void togglePublicFullscreen()),
+    );
+  document.addEventListener("fullscreenchange", () => {
+    const presenting =
+      document.fullscreenElement === element('[data-view="public"]');
+    document.body.classList.toggle("is-presenting", presenting);
+    document
+      .querySelectorAll<HTMLElement>("[data-fullscreen-label]")
+      .forEach((label) => {
+        label.textContent = presenting
+          ? "Salir de pantalla completa"
+          : "Pantalla completa";
+      });
+    if (!document.fullscreenElement && returnToControl) {
+      returnToControl = false;
+      showView("scoring");
+    }
+  });
   element("#startPause").addEventListener("click", toggleClock);
   element("#timeout").addEventListener("click", () =>
     change(() => {

@@ -1,6 +1,75 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+test("Control and Marcador share fullscreen without navigation, including the external display", async ({
+  page,
+  context,
+}) => {
+  test.setTimeout(60000);
+  await page.goto("/");
+  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Marcador a pantalla completa", exact: true })
+    .click();
+
+  async function expectFullDisplay() {
+    await expect(page.locator("body")).toHaveClass(/is-presenting/);
+    await expect(page.locator(".app-header")).toBeHidden();
+    expect(
+      await page.evaluate(() => {
+        const panel = document.fullscreenElement;
+        const bounds = panel?.getBoundingClientRect();
+        return (
+          panel?.getAttribute("data-view") === "public" &&
+          bounds?.width === innerWidth &&
+          bounds?.height === innerHeight
+        );
+      }),
+    ).toBe(true);
+  }
+
+  await expectFullDisplay();
+  await page
+    .getByRole("button", { name: "Salir de pantalla completa" })
+    .click();
+  await expect(page.locator("body")).toHaveAttribute(
+    "data-current-view",
+    "scoring",
+  );
+  await expect(page.locator(".app-header")).toBeVisible();
+
+  await page.getByRole("button", { name: "Marcador", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Pantalla completa", exact: true })
+    .click();
+  await expectFullDisplay();
+  await page
+    .getByRole("button", { name: "Salir de pantalla completa" })
+    .click();
+  await expect(page.locator("body")).toHaveAttribute(
+    "data-current-view",
+    "public",
+  );
+  await expect(page.locator("body")).not.toHaveClass(/is-presenting/);
+
+  const external = await context.newPage();
+  await external.goto("/?view=public");
+  await external
+    .getByRole("button", { name: "Pantalla completa", exact: true })
+    .click();
+  await expect(external.locator("body")).toHaveClass(/is-presenting/);
+  await expect(external.locator("[data-mutation]:visible")).toHaveCount(0);
+  expect(
+    await external
+      .locator('[data-view="public"]')
+      .evaluate((panel) => getComputedStyle(panel).padding),
+  ).toBe("0px");
+  await external
+    .getByRole("button", { name: "Salir de pantalla completa" })
+    .click();
+  await expect(external.locator("body")).not.toHaveClass(/is-presenting/);
+});
+
 test("operator, public window, clock, scores, undo, persistence and ownership", async ({
   page,
   context,

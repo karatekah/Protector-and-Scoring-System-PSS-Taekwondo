@@ -1,5 +1,9 @@
 ﻿# Revisión del rediseño editorial de competición
 
+La siguiente revisión conserva evidencia del diseño anterior. Para PSS Arena, aprobado por el usuario para subir a GitHub, consultar [dirección visual](design-preview.md) y [verificación](verification.md).
+
+La revisión local posterior comprobó el hero con cinturón azul, el cartel PSS, los SVG propios y los estados de navegación; preparación y control mantienen la agrupación funcional. Se corrigieron el reflujo de navegación a 768 px y el color del foco sobre el marco negro. El acceso desde Control usa ahora la misma presentación nativa que Marcador; una prueba real de Fullscreen API verifica las tres rutas en Chromium/Firefox. No se añadieron dependencias. El recurso principal pesa 200 306 bytes y la nueva fuente Anton 18 612 bytes. El alcance de producto sigue siendo la alpha manual, con torneos/LAN pendientes.
+
 Fecha: 2026-11-03. Alcance: header, hero, todas las secciones de inicio, preparación, control, marcador público, ventana externa y guía. Stack inspeccionado: HTML semántico, TypeScript con DOM nativo y CSS con tokens. Sin dependencias nuevas. Convenciones consultadas: AGENTS.md, CONTRIBUTING.md y docs/design.md.
 
 El usuario confirmó la dirección marfil/carbón/rojo señal. Se aplicaron better-ui y las skills better-* de accesibilidad, layout, escritura, tipografía y color, junto con la guía frontend-design oficial de Anthropic. Las decisiones estéticas responden al brief y se documentan en [diseño](design.md); no se presentan como errores de la versión anterior.
