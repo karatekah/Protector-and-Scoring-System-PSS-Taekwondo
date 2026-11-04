@@ -4,6 +4,42 @@
 
 ## Evidencia automatizada
 
+### Demo acotada y resaltado de sesión
+
+Tipos, formato, cuatro pruebas unitarias, build y 14 flujos E2E en Chromium/Firefox aprobados. La prueba de demo fuerza premios máximos hacia un lado con azar controlado y registra los estados renderizados durante un ciclo. Verifica que se alcanza 16 y nunca se sale de 0–16; comprueba una resta de −1 sin cambio del rival y un ajuste simultáneo de −1/+1, junto con sus etiquetas. Conserva la verificación de reinicio cada minuto, ausencia de controles, movimiento reducido, independencia del reloj real y ausencia de cambios en localStorage.
+
+Se inspeccionaron capturas a 1440 y 390 px, con Azul y Rojo cerca del resultado y fondo amarillo. Las cuatro vistas mantienen el ancho del documento en los 16 casos de 320/390/768/1440 px. Axe no detectó infracciones en los criterios automatizados evaluados y no hubo errores JavaScript. El botón de control sigue fuera del panel de color.
+
+better-colors: fondo renderizado #fff08a; contrastes sRGB calculados de 17.15:1 para el texto principal, 7.16:1 para Azul y 7.10:1 para Rojo. El tope de 16 y los ajustes pertenecen a la demostración; no se modificó el dominio de combate. Las comprobaciones no equivalen a una prueba de campo ni a una auditoría completa de accesibilidad.
+
+### Corrección: fondo solo para datos y reproducción automática
+
+Se comprobaron tipos, formato, cuatro pruebas unitarias, build y los 14 flujos E2E de Chromium/Firefox con un worker. La demo recorre ciclos de 60 segundos, reinicia reloj y puntos automáticamente y no tiene controles de reproducción o reinicio; el ribbon tampoco contiene botones. La prueba comprueba el límite exacto del ciclo, ciclos posteriores, pausa fuera de la portada, movimiento reducido y reanudación automática al cambiar esa preferencia. La sesión real y su almacenamiento permanecen intactos.
+
+Se verificó que «Ir al control» es hermano del panel azul y que este solo contiene atletas, resultado, reloj y ronda. Se inspeccionaron capturas a 1440 y 390 px; las cuatro vistas no desbordaron en los 16 casos de 320/390/768/1440 px. Axe no detectó infracciones dentro de sus comprobaciones automatizadas sobre la portada. Estos controles no equivalen a una auditoría completa de accesibilidad. No se detectaron errores JavaScript y el botón de pantalla externa conserva su apertura real.
+
+Las secciones siguientes conservan la evidencia histórica de las propuestas con botones, retirados por solicitud del usuario. El comportamiento actual está en [diseño](design-preview.md). Siguen pendientes móvil físico, NVDA/VoiceOver y dos monitores.
+
+### Sesión y demostración del marcador · 2026-11-04
+
+Se comprobaron tipos, formato, cuatro pruebas unitarias, build y 14 flujos E2E de Chromium/Firefox con `npm run test:e2e -- --workers=1`. El flujo nuevo verifica reloj de demo, puntos simulados, pausa, reinicio, fin en 00:00 y repetición, salida a Control, pausa global y reproducción explícita con movimiento reducido. Comprueba también que la franja y Control mantienen sus puntos/reloj reales y que el contenido de localStorage no cambia al ejecutar la demo.
+
+La revisión detectó y corrigió una pausa de visibilidad al pulsar los controles: se observa el bloque completo del monitor y sus controles. También se corrigió la transición del estado inicial de los bloques: solo la entrada revelada tiene transición, de modo que no hay un desvanecimiento inicial hacia oculto. La prueba de foco del ribbon se acotó a ese control porque ahora existe una segunda acción contextual para reanudar animaciones; no se eliminaron sus aserciones.
+
+Se inspeccionaron capturas a 1440 y 390 px, hover del botón y apertura de la pantalla pública real. Las cuatro vistas se midieron a 320, 390, 768 y 1440 px: ninguno de los 16 casos desborda el documento. Axe no detectó infracciones en la portada evaluada y la suite conserva la auditoría de las cuatro vistas y guía. No se detectaron errores JavaScript en el recorrido. La insignia Demo permanece visible también en móvil.
+
+El estado del monitor es efímero y no modifica puntuación, resúmenes, archivo, reloj ni comunicaciones del combate. No se añadieron dependencias. Ver [revisión de interfaz](interface-review.md) y [dirección visual](design-preview.md). No verificado: móvil físico, NVDA/VoiceOver ni sesión física de dos monitores.
+
+### Movimiento de portada · 2026-11-04
+
+Se comprobaron tipos, formato, cuatro pruebas unitarias y build. Los 12 flujos de Chromium/Firefox pasaron con `npm run test:e2e -- --workers=1`. El flujo nuevo comprueba avance real del ribbon, continuidad de los grupos a menos de 1 px del límite del ciclo, pausa/reanudación por teclado, entrada única al desplazarse, pausa fuera del hero, cambio de prefers-reduced-motion con la página abierta, carga inicial con movimiento reducido y ausencia del módulo en la pantalla pública. Se usan animaciones reales del navegador, sin mocks.
+
+La ejecución inicial con cuatro workers produjo errores de renderizador/protocolo de Firefox y agotó el tiempo de dos flujos. La repetición secuencial pasó sin cambiar las aserciones, los timeouts ni la configuración de Playwright. Los resultados de esa ejecución concurrente no se consideran una validación aprobada.
+
+Las decisiones y límites de la revisión están en [motion-review.md](motion-review.md). Las preferencias de presentación no se guardan en los datos del combate ni cambian su puntuación o reloj. La verificación física con dos monitores, NVDA/VoiceOver y teléfono real sigue pendiente.
+
+Se inspeccionaron capturas del hero en dos fases y de las entradas al 10 % de velocidad. La portada se comprobó con movimiento normal y en pausa. Axe sobre la portada con el nuevo control visible no detectó infracciones en sus criterios evaluados; la suite conserva su revisión de las cuatro vistas y guía con movimiento reducido. El foco de teclado sobre la acción final revela el bloque inmediatamente, con opacidad 1 y sin desenfoque. Se midieron las cuatro vistas a 320, 390, 768 y 1800 px: los 16 casos mantienen el ancho del documento igual al viewport. El recorrido visual no produjo errores JavaScript.
+
 ### PSS Arena y pantalla completa
 
 Diseño revisado por el usuario y aprobado para subir a GitHub. Las comprobaciones siguientes se realizaron antes de publicar. La captura del README se actualizó con el hero aprobado. La nueva dirección, colores y recursos se documentan en [PSS Arena](design-preview.md).

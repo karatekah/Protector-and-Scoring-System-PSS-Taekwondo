@@ -17,11 +17,21 @@
       <span class="sr-only"
         >Alpha manual para entrenamiento y exhibición de Taekwondo.</span
       >
-      <div aria-hidden="true">
-        <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span
-        ><span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span
-        ><span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span
-        ><span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+      <div class="ribbon-window" aria-hidden="true">
+        <div class="ribbon-track">
+          <div class="ribbon-group">
+            <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+            <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+            <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+            <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+          </div>
+          <div class="ribbon-group">
+            <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+            <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+            <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+            <span>TAEKWONDO / ALPHA MANUAL / ENTRENAMIENTO Y EXHIBICIÓN</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="app-shell">
@@ -198,31 +208,42 @@
               </p>
             </div>
           </section>
-          <section class="session-summary" aria-label="Sesión actual">
+          <section
+            class="session-summary"
+            aria-label="Sesión actual"
+            data-reveal
+          >
             <div class="session-event">
               <span>En la mesa</span
               ><strong data-bind="eventName">Sesión de entrenamiento</strong>
             </div>
-            <div class="athlete-preview">
-              <span class="blue-label"
-                ><span class="side-label">Azul</span
-                ><strong data-bind="blueName">Azul</strong></span
-              >
-              <span class="session-score" aria-label="Puntos actuales"
-                ><b data-bind="blueScore">0</b><span aria-hidden="true">:</span
-                ><b data-bind="redScore">0</b></span
-              >
-              <span class="red-label"
-                ><span class="side-label">Rojo</span
-                ><strong data-bind="redName">Rojo</strong></span
-              >
-            </div>
-            <div class="session-time">
-              <strong data-bind="clock" aria-live="off">02:00</strong
-              ><span
-                >Ronda <span data-bind="round">1</span> /
-                <span data-bind="totalRounds">3</span></span
-              >
+            <div
+              class="session-match"
+              role="group"
+              aria-label="Marcador de tu sesión"
+            >
+              <div class="athlete-preview">
+                <span class="blue-label"
+                  ><span class="side-label">Azul</span
+                  ><strong data-bind="blueName">Azul</strong></span
+                >
+                <span class="session-score" aria-label="Puntos actuales"
+                  ><b data-bind="blueScore">0</b
+                  ><span aria-hidden="true">:</span
+                  ><b data-bind="redScore">0</b></span
+                >
+                <span class="red-label"
+                  ><span class="side-label">Rojo</span
+                  ><strong data-bind="redName">Rojo</strong></span
+                >
+              </div>
+              <div class="session-time">
+                <strong data-bind="clock" aria-live="off">02:00</strong
+                ><span
+                  >Ronda <span data-bind="round">1</span> /
+                  <span data-bind="totalRounds">3</span></span
+                >
+              </div>
             </div>
             <button
               class="session-resume"
@@ -237,7 +258,7 @@
             id="project-focus"
             aria-labelledby="project-title"
           >
-            <div class="story-copy">
+            <div class="story-copy" data-reveal>
               <h2 id="project-title">
                 Un lado para dirigir.<br />Otro para seguirlo.
               </h2>
@@ -260,14 +281,34 @@
                   </p>
                 </details>
               </div>
-              <button class="text-button" type="button" data-open-public>
-                Probar la pantalla externa <span aria-hidden="true">↗</span>
+              <button
+                class="external-demo-button"
+                type="button"
+                data-open-public
+              >
+                <svg
+                  class="ui-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="3" width="18" height="13" rx="2" />
+                  <path d="M8 21h8m-4-5v5" />
+                </svg>
+                Probar la pantalla externa
+                <span class="external-arrow" aria-hidden="true">↗</span>
               </button>
             </div>
-            <figure class="display-demo">
+            <figure class="display-demo" data-reveal data-reveal-delay="1">
               <div
                 class="demo-screen"
-                aria-label="Vista previa del combate actual"
+                role="group"
+                aria-label="Demostración del marcador, independiente de tu combate"
+                aria-live="off"
               >
                 <div class="demo-event">
                   <img
@@ -276,42 +317,41 @@
                     height="24"
                     alt=""
                     aria-hidden="true"
-                  /><span data-bind="eventName">Sesión de entrenamiento</span
-                  ><span>Manual</span>
+                  /><span>Combate de muestra</span
+                  ><span class="demo-badge">Demo</span>
                 </div>
                 <div class="demo-match">
                   <div class="demo-athlete demo-blue">
-                    <span>Azul</span><strong data-bind="blueName">Azul</strong
-                    ><b data-bind="blueScore">0</b>
+                    <span>Lado azul</span><strong>Azul</strong
+                    ><b data-demo="blueScore">0</b>
+                    <small data-demo="blueAction">&nbsp;</small>
                   </div>
                   <div class="demo-clock">
-                    <span data-bind="status">Preparado</span
-                    ><strong data-bind="clock" aria-live="off">02:00</strong
-                    ><span
-                      >Ronda <b data-bind="round">1</b> /
-                      <b data-bind="totalRounds">3</b></span
-                    >
+                    <span data-demo="status">Preparado</span
+                    ><strong data-demo="clock">01:00</strong
+                    ><span>Ronda <b>1</b> / <b>3</b></span>
                   </div>
                   <div class="demo-athlete demo-red">
-                    <span>Rojo</span><strong data-bind="redName">Rojo</strong
-                    ><b data-bind="redScore">0</b>
+                    <span>Lado rojo</span><strong>Rojo</strong
+                    ><b data-demo="redScore">0</b>
+                    <small data-demo="redAction">&nbsp;</small>
                   </div>
                 </div>
               </div>
               <div class="demo-stand" aria-hidden="true"></div>
               <figcaption>
-                Una ventana de solo lectura en el segundo monitor del mismo PC y
-                navegador.
+                Demostración con puntos simulados. Tu combate real se controla
+                desde la mesa.
               </figcaption>
             </figure>
           </section>
           <section class="getting-started" aria-labelledby="start-title">
-            <div>
+            <div data-reveal>
               <h2 id="start-title">Del saludo<br />al último punto.</h2>
               <p>Una sesión de entrenamiento, en tres pasos.</p>
             </div>
             <ol class="workflow-list">
-              <li>
+              <li data-reveal>
                 <span class="workflow-number" aria-hidden="true">1</span>
                 <div>
                   <h3>Prepara a los atletas.</h3>
@@ -320,7 +360,7 @@
                   </p>
                 </div>
               </li>
-              <li>
+              <li data-reveal data-reveal-delay="1">
                 <span class="workflow-number" aria-hidden="true">2</span>
                 <div>
                   <h3>Dirige el combate.</h3>
@@ -330,7 +370,7 @@
                   </p>
                 </div>
               </li>
-              <li>
+              <li data-reveal data-reveal-delay="2">
                 <span class="workflow-number" aria-hidden="true">3</span>
                 <div>
                   <h3>Llévalo a la pantalla.</h3>
@@ -343,13 +383,13 @@
             </ol>
           </section>
           <section class="project-horizon" aria-labelledby="horizon-title">
-            <div>
+            <div data-reveal>
               <span class="horizon-label">El siguiente paso de PSS</span>
               <h2 id="horizon-title">
                 Hoy, entrenamiento.<br />Después, torneos.
               </h2>
             </div>
-            <div class="horizon-copy">
+            <div class="horizon-copy" data-reveal data-reveal-delay="1">
               <p>
                 Esta alpha ya permite preparar, puntuar y guardar un combate
                 manual. El plan de torneos contempla varias áreas y jueces en la
@@ -363,7 +403,11 @@
               >
             </div>
           </section>
-          <section class="closing-invitation" aria-label="Empezar una sesión">
+          <section
+            class="closing-invitation"
+            aria-label="Empezar una sesión"
+            data-reveal
+          >
             <p>Prepara el siguiente<br />combate.</p>
             <button type="button" data-view-target="setup">
               Empezar entrenamiento <span aria-hidden="true">↗</span>

@@ -1,5 +1,25 @@
 ﻿# Revisión del rediseño editorial de competición
 
+## Sesión y monitor de demostración · 2026-11-04
+
+Revisión posterior: fondo de resaltado amarillo #fff08a y nombres alineados hacia el resultado en un grupo de hasta 360 px. La demo mantiene 0–16 por lado y muestra las dos correcciones solicitadas, sin modificar la sesión real. Los pares medidos y la evidencia están en [verificación](verification.md). La revisión de escritorio/móvil no dejó hallazgos accionables en esa cobertura. La tabla siguiente conserva las propuestas anteriores.
+
+Alcance: franja de sesión, botón de pantalla externa, monitor ilustrativo, pasos de inicio y enlace al plan. Se revisaron el HTML, TypeScript y CSS existentes, sin dependencias nuevas. Corrección solicitada después: el fondo azul solo cubre los datos; «Ir al control» queda fuera. La demo repite ciclos de un minuto y se retiraron sus botones y el de pausa del ribbon. La tabla siguiente conserva la revisión de la propuesta inicial; el comportamiento vigente está en [diseño](design-preview.md).
+
+| Severidad | Lugar                                | Antes                                            | Después                                                                  | Motivo                                                    |
+| --------- | ------------------------------------ | ------------------------------------------------ | ------------------------------------------------------------------------ | --------------------------------------------------------- |
+| LOW       | css/arena.css:412                    | Datos de sesión sobre una superficie uniforme    | Panel azul hielo con superficies para resultado y reloj, y acción negra  | La agrupación hace reconocible el resumen del combate     |
+| LOW       | css/arena.css:473                    | Acción de pantalla externa como texto            | Botón de contorno con monitor, flecha y estados de hover/foco            | Dar una señal visual acorde con su función                |
+| LOW       | index.html, src/scoreboard-demo.ts:1 | El monitor repetía los datos reales de la sesión | Demo etiquetada, reloj independiente, puntos simulados, pausa y reinicio | Cumplir la demostración solicitada sin alterar el combate |
+| LOW       | css/arena.css:585                    | Numeración tipográfica simple                    | Números en círculos en una secuencia vertical                            | Reforzar la jerarquía de los pasos                        |
+| LOW       | css/arena.css:624                    | Enlace y nota futura como texto                  | Enlace con contorno y nota con fondo y borde lila                        | Distinguir la navegación del estado de implementación     |
+
+Se revisaron capturas a 1440 y 390 px, reflujo de las cuatro vistas a 320/390/768/1440 px, hover y apertura real de la pantalla externa. Axe no detectó infracciones en la portada inspeccionada. Se conserva el movimiento reducido, la pausa global y el foco nativo. El reloj de demo usa tiempo monotónico y solo se refresca cuando el bloque del monitor y sus controles se ve; no usa almacenamiento ni el dominio.
+
+Las decisiones de identidad y tipografía del hero y del cierre coral se mantuvieron: no necesitaban otra superficie ni decoración. No se añadieron bibliotecas de componentes ni imágenes. No quedan hallazgos accionables de UI-polish dentro de la cobertura inspeccionada. **Approve**; no verificado en móvil físico, lector de pantalla ni dos monitores.
+
+## Historial de la revisión anterior
+
 La siguiente revisión conserva evidencia del diseño anterior. Para PSS Arena, aprobado por el usuario para subir a GitHub, consultar [dirección visual](design-preview.md) y [verificación](verification.md).
 
 La revisión local posterior comprobó el hero con cinturón azul, el cartel PSS, los SVG propios y los estados de navegación; preparación y control mantienen la agrupación funcional. Se corrigieron el reflujo de navegación a 768 px y el color del foco sobre el marco negro. El acceso desde Control usa ahora la misma presentación nativa que Marcador; una prueba real de Fullscreen API verifica las tres rutas en Chromium/Firefox. No se añadieron dependencias. El recurso principal pesa 200 306 bytes y la nueva fuente Anton 18 612 bytes. El alcance de producto sigue siendo la alpha manual, con torneos/LAN pendientes.

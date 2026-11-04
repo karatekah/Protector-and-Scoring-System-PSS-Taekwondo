@@ -1,6 +1,8 @@
 import "../css/styles.css";
 import "../css/components.css";
 import "../css/arena.css";
+import { initLandingMotion } from "./landing-motion";
+import { initScoreboardDemo } from "./scoreboard-demo";
 import {
   applyAction,
   archive,
@@ -644,6 +646,10 @@ createButtons();
 bind();
 render();
 showView(publicOnly ? "public" : "home", false);
+if (!publicOnly) {
+  initLandingMotion();
+  initScoreboardDemo();
+}
 if (!publicOnly) {
   if (!navigator.locks)
     warning(
