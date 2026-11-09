@@ -4,6 +4,8 @@ Fecha: 2026-11-03. Diseño revisado por el usuario y aprobado para subir a GitHu
 
 ## Dirección
 
+La misma identidad se extiende a Preparar combate, Control, Marcador y Guía. La composición y revisión de esas vistas están en [workspace-design.md](workspace-design.md).
+
 La referencia solicitada es [Slush](https://slush.app/): un hero envolvente, título de gran escala, navegación superpuesta en cápsulas y materialidad protagonista. Se adopta esa composición con identidad de Taekwondo: un cinturón de algodón azul, dobok y peto ilustrados. No se reutilizan imágenes, logotipo, tipografía propietaria ni código de Slush.
 
 La idea dominante es un cartel PSS dentro del recorrido del cinturón. El resto de la portada organiza la sesión actual, la presentación de mesa y pantalla, tres pasos de uso y el estado del proyecto. Las secciones son bandas amplias con composiciones distintas. La franja de sesión conserva los datos reales; el monitor de presentación es una simulación etiquetada como Demo e independiente del combate.

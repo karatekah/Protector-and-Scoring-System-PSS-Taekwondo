@@ -1,8 +1,18 @@
 # Verificación de la alpha
 
-Última revisión: 2026-11-03. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
+Última revisión: 2026-11-08. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
 
 ## Evidencia automatizada
+
+### PSS Arena en Preparación, Control, Marcador y Guía
+
+Se comprobaron tipos, formato, cuatro pruebas unitarias, build y 14 flujos E2E en Chromium/Firefox con un worker. Se extendió el flujo de la guía para seguir sus enlaces nativos a Control y Preparación y comprobar la vista inicial. Se conservaron las aserciones de puntuación, reloj, deshacer sin devolver tiempo, posición de las teclas, archivo, respaldo, operador único, lectura pública y las tres entradas/salidas de Fullscreen API.
+
+Se inspeccionaron capturas de las cinco vistas a 1440 y 390 px. Los 20 casos de 320/390/768/1440 px no desbordan horizontalmente. La ampliación del texto al 200 % mediante CSS a 320 px detectó desbordamientos en la marca, datos y palabras largas; tras corregirlos, las cuatro vistas internas mantienen el ancho de documento en 320 px. Esa prueba no es zoom nativo del navegador.
+
+En Control por defecto a 1366×768, el borde inferior de los grupos de puntuación está en 765.58 px; nombres largos pueden aumentar la altura. La primera revisión mostró botones de presentación demasiado altos en columna móvil; se corrigió su flex-basis. La ventana pública se comprobó a 1920×1080 con Fullscreen API: ancho/alto completos, padding 0, cabecera oculta y ningún control de mutación habilitado. El recorrido visual no produjo errores JavaScript. Axe no detectó infracciones dentro de su cobertura automatizada en las cuatro vistas y guía.
+
+La dirección y límites se detallan en [workspace-design.md](workspace-design.md). No se incorporaron dependencias, imágenes nuevas, React, servidor ni funciones LAN. La prueba física de dos monitores, NVDA/VoiceOver, zoom nativo al 200 % y móvil físico siguen pendientes.
 
 ### Demo acotada y resaltado de sesión
 

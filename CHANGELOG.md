@@ -2,6 +2,8 @@
 
 ## Sin publicar como nueva versión
 
+PSS Arena en las vistas internas: cabecera y navegación comunes, hoja de preparación con campos/presets renovados, consola de control lila con teclas definidas y acción amarilla, marcador oscuro con herramientas de presentación en cápsulas y guía editorial con la imagen del cinturón. La guía enlaza directamente con Preparación y Control. Sin dependencias nuevas ni cambios del dominio.
+
 Demo con marcadores entre 0 y 16 y ejemplos de corrección de −1 y ajuste de −1/+1 entre lados. Las etiquetas muestran el cambio efectivo y se conserva el reinicio de un minuto. Azul y Rojo se acercan al resultado y el fondo de la sesión pasa a amarillo cítrico. El dominio del combate no cambia.
 
 Corrección de la franja: fondo azul solo bajo los datos, con «Ir al control» fuera. Demo automática en ciclos de un minuto con reinicio de reloj y puntos, sin botones de reproducción o reinicio. Retirado el control de pausa del ribbon por indicación del usuario; se conserva la preferencia de movimiento reducido.

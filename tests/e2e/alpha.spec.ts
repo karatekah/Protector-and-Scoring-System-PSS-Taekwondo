@@ -234,6 +234,21 @@ test("keyboard flow, reduced motion, reflow and automated accessibility", async 
     (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze())
       .violations,
   ).toEqual([]);
+  await page.getByRole("link", { name: "Control", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute(
+    "data-current-view",
+    "scoring",
+  );
+  await page
+    .getByRole("link", { name: "Guía del proyecto", exact: true })
+    .click();
+  await page
+    .getByRole("link", { name: "Preparar combate", exact: true })
+    .click();
+  await expect(page.locator("body")).toHaveAttribute(
+    "data-current-view",
+    "setup",
+  );
 });
 
 test("duration presets, manual entry, saved configuration and read-only session", async ({

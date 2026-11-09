@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="/css/components.css" />
     <link rel="stylesheet" href="/css/guide.css" />
     <link rel="stylesheet" href="/css/arena.css" />
+    <link rel="stylesheet" href="/css/workspace.css" />
   </head>
-  <body>
+  <body class="guide-page">
     <a class="skip-link" href="#guide-content">Saltar al contenido</a>
     <div class="guide-shell">
       <header class="app-header">
@@ -33,17 +34,22 @@
             ><span>Guía del proyecto · Alpha 0.1</span></span
           ></a
         >
-        <a class="guide-back" href="./index.html">Abrir el marcador →</a>
+        <nav class="view-tabs" aria-label="Secciones">
+          <a class="nav-link" href="./index.html">Inicio</a>
+          <a class="nav-link" href="./index.html?view=setup"
+            >Preparar combate</a
+          >
+          <a class="nav-link" href="./index.html?view=scoring">Control</a>
+          <a class="nav-link" href="./index.html?view=public">Marcador</a>
+          <a class="nav-link is-active" href="./guide.html" aria-current="page"
+            >Guía</a
+          >
+        </nav>
       </header>
       <main id="guide-content" tabindex="-1">
         <section class="guide-hero">
-          <p class="eyebrow">
-            <span class="duo-mark" aria-hidden="true"></span> La guía de PSS
-          </p>
-          <h1>
-            Entra al combate.<br />
-            Conoce la herramienta.
-          </h1>
+          <h1>LA GUÍA</h1>
+          <p class="guide-lead">Tu mesa, de principio a fin.</p>
           <p>
             Una mesa de control manual para entrenamiento y exhibición de
             Taekwondo. Un PC, un operador y una pantalla externa en el mismo
@@ -57,7 +63,6 @@
         </nav>
         <section class="guide-section" id="start">
           <div>
-            <p class="eyebrow">01 · PRIMER COMBATE</p>
             <h2>
               De la configuración<br />
               a la segunda pantalla.
@@ -98,7 +103,6 @@
         </section>
         <section class="guide-section" id="scope">
           <div>
-            <p class="eyebrow">02 · EXPECTATIVAS CLARAS</p>
             <h2>
               Hecho para<br />
               entrenar y exhibir.
@@ -132,7 +136,6 @@
         </section>
         <section class="guide-section" id="data">
           <div>
-            <p class="eyebrow">03 · RESPALDO Y RECUPERACIÓN</p>
             <h2>
               El navegador guarda.<br />
               Tú conservas la copia.
@@ -166,7 +169,6 @@
         </section>
         <section class="guide-section" id="technology">
           <div>
-            <p class="eyebrow">04 · FUNDAMENTOS</p>
             <h2>
               La tecnología<br />
               de la alpha actual.
@@ -224,7 +226,6 @@
         </section>
         <section class="guide-section" id="target-stack">
           <div>
-            <p class="eyebrow">05 · ARQUITECTURA OBJETIVO</p>
             <h2>
               Un torneo completo.<br />
               Dentro del recinto.
@@ -331,7 +332,6 @@
         </section>
         <section class="guide-section" id="roadmap">
           <div>
-            <p class="eyebrow">06 · SIGUIENTES HITOS</p>
             <h2>
               Crecer con evidencia,<br />
               no con promesas.
@@ -375,7 +375,9 @@
             Prepara dos atletas, puntúa, aplica una penalización, deshaz y
             comprueba la pantalla externa. Exporta una copia al terminar.
           </p>
-          <a href="./index.html">Abrir PSS Taekwondo →</a>
+          <a href="./index.html?view=setup"
+            >Preparar un combate <span aria-hidden="true">↗</span></a
+          >
         </section>
       </main>
       <footer class="app-footer">

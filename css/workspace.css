@@ -1,0 +1,699 @@
+/* PSS Arena: shared visual language for the operational views and guide. */
+body:not([data-current-view="home"]):not(.public-window) .app-header {
+  --focus: var(--ink);
+  margin-block: 16px 10px;
+  padding: 14px 24px;
+  min-height: 80px;
+  color: var(--ink);
+  background: var(--ice);
+  border-radius: 32px;
+}
+body:not([data-current-view="home"]) .brand-copy > span {
+  color: var(--muted);
+}
+body:not([data-current-view="home"]) .brand-lockup {
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 100%;
+}
+body:not([data-current-view="home"]) .brand-symbol {
+  flex-shrink: 0;
+}
+body:not([data-current-view="home"]) .brand-copy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.guide-page .view-tabs .nav-link.is-active {
+  color: #fff;
+  background: var(--ink);
+}
+body:not([data-current-view="home"]) .session-line {
+  padding-inline: 24px;
+}
+.workspace-heading {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 0 0 24px;
+  padding: 36px 40px;
+  background: var(--ice);
+  border-radius: 24px;
+}
+.workspace-heading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(#dbeeffc9, #dbeeffc9),
+    url("/assets/taekwondo-belt-sky.jpg") center / cover;
+}
+.workspace-heading h1 {
+  overflow-wrap: anywhere;
+  max-width: 12ch;
+  font-family: var(--font-poster);
+  font-size: clamp(3.5rem, 5.6vw, 6rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+.workspace-heading .section-label {
+  color: var(--ink);
+  font-weight: 750;
+}
+.workspace-heading p:last-child:not(.section-label) {
+  color: var(--ink);
+}
+.workspace-stamp {
+  display: grid;
+  place-content: center;
+  flex: none;
+  width: 126px;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-poster);
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  rotate: -8deg;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.workspace-stamp small {
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 800;
+}
+[data-view="setup"].view-panel {
+  padding: 20px;
+  background: #fff;
+  border-radius: 32px;
+}
+[data-view="setup"] .setup-grid {
+  gap: 0;
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+  background: #fff;
+}
+[data-view="setup"] .form-card {
+  padding: 28px;
+}
+[data-view="setup"] .form-card:first-of-type {
+  border-bottom: 2px solid var(--ink);
+  background: var(--lilac);
+}
+[data-view="setup"] input {
+  min-height: 48px;
+  border: 1px solid var(--ink);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  font-size: 1rem;
+}
+[data-view="setup"] .blue-form {
+  background: #edf5ff;
+  border-top-width: 5px;
+}
+[data-view="setup"] .red-form {
+  background: #fff0f2;
+  border-top-width: 5px;
+  border-inline-start: 2px solid var(--ink);
+}
+[data-view="setup"] .form-card h2 {
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+[data-view="setup"] .duration-presets {
+  gap: 6px;
+  padding: 0;
+  background: transparent;
+}
+[data-view="setup"] .duration-presets button {
+  min-height: 44px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+}
+[data-view="setup"] .duration-presets button[aria-pressed="true"] {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: none;
+}
+[data-view="setup"] .form-actions {
+  border-top: 2px solid var(--ink);
+  background: var(--highlight-surface);
+}
+[data-view="setup"] .form-actions .primary-action,
+.backup-actions button {
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font-weight: 750;
+  box-shadow: none;
+}
+.saved-matches-panel {
+  margin-top: 28px;
+  padding: 28px;
+  border: 0;
+  border-radius: 24px;
+  background: var(--ice);
+}
+.saved-matches-panel h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+.saved-match-list li {
+  border: 1px solid var(--ink);
+  border-radius: 16px;
+  background: #fff;
+}
+.saved-match-list .empty-archive {
+  border: 1px dashed #718096;
+  border-radius: 16px;
+  padding: 20px;
+}
+[data-view="scoring"].view-panel {
+  padding: 18px;
+  border-radius: 32px;
+  background: var(--lilac);
+}
+body[data-current-view="scoring"]:not(.public-window) .app-header {
+  min-height: 60px;
+  padding-block: 8px;
+  margin-block: 8px 0;
+}
+[data-view="scoring"] .view-heading {
+  gap: 16px;
+  padding: 0 4px;
+  margin-bottom: 16px;
+}
+[data-view="scoring"] .section-label {
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-size: 0.75rem;
+}
+[data-view="scoring"] .view-heading h1 {
+  font-size: 2rem;
+  letter-spacing: -0.05em;
+}
+.presentation-actions > button,
+.public-toolbar button {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 10px 16px;
+  box-shadow: none;
+  font-weight: 700;
+}
+.scoreboard {
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+}
+.scoreboard .score-grid {
+  gap: 8px;
+  padding: 8px;
+}
+.scoreboard .fighter-panel {
+  border-radius: 16px;
+  overflow: hidden;
+}
+.scoreboard :is(.fighter-meta, .panel-foot, .score-value) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.scoreboard .clock-value {
+  font-size: min(40cqw, 9rem);
+}
+.compact-board .clock-value {
+  font-size: min(40cqw, 5rem);
+}
+.scoreboard .fighter-meta .side-label {
+  font-weight: 750;
+}
+.scoreboard .time-state {
+  border-radius: 999px;
+}
+.compact-board .fighter-meta {
+  padding: 10px 18px 0;
+}
+.compact-board .center-clock {
+  padding-block: 10px;
+}
+.compact-board .panel-foot {
+  padding-block: 7px;
+}
+.control-strip {
+  gap: 10px;
+}
+.control-strip > button {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  min-height: 48px;
+  padding: 10px 14px;
+  font-weight: 750;
+  box-shadow: none;
+}
+.control-strip #startPause {
+  color: var(--ink);
+  background: var(--highlight-surface);
+}
+.operator-layout {
+  gap: 12px;
+}
+.judge-side {
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+}
+.judge-side > header {
+  min-height: 38px;
+  border: 0;
+  padding: 7px 14px;
+  color: #fff;
+}
+.blue-judge > header {
+  background: var(--blue);
+}
+.red-judge > header {
+  background: var(--red);
+}
+.score-buttons {
+  padding: 10px;
+}
+.judge-side .score-action {
+  border: 1px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: none;
+}
+.score-action strong {
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: 1.75rem;
+}
+.score-action:nth-last-child(-n + 2) {
+  min-height: 44px;
+}
+.log-panel {
+  border: 1px solid var(--ink);
+  border-radius: 18px;
+}
+.log-panel > summary {
+  position: relative;
+  min-height: 48px;
+  padding: 14px 52px 14px 18px;
+  list-style: none;
+}
+.log-panel > summary::-webkit-details-marker {
+  display: none;
+}
+.log-panel > summary::after {
+  content: "+";
+  position: absolute;
+  inset-inline-end: 16px;
+  inset-block-start: 11px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.log-panel[open] > summary::after {
+  content: "−";
+}
+.secondary-controls button,
+.log-footer button {
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  padding: 10px 16px;
+  box-shadow: none;
+}
+[data-view="public"].view-panel {
+  --focus: #fff;
+  padding: 12px;
+  border-radius: 32px;
+  color: #fff;
+  background: var(--board);
+}
+.public-toolbar {
+  padding: 8px 8px 16px;
+  color: var(--board-muted);
+}
+.public-toolbar button {
+  min-height: 44px;
+  color: var(--ink);
+  background: #fff;
+}
+.public-board .board-tag {
+  font-family: var(--font-poster);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #fff;
+}
+.public-window [data-view="public"],
+.public-view:fullscreen {
+  border-radius: 0;
+}
+.public-view:fullscreen,
+.public-window .public-view:fullscreen {
+  padding: 0;
+}
+.guide-page .guide-shell {
+  width: min(1800px, calc(100% - 32px));
+  padding: 0;
+  margin-block: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.guide-page .app-header {
+  min-height: 80px;
+}
+.guide-page .brand-copy > span {
+  color: var(--muted);
+}
+.guide-page .guide-hero {
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  max-width: none;
+  margin-top: 16px;
+  padding: 48px 40px;
+  border-radius: 36px;
+  text-align: center;
+  background: var(--ice);
+}
+.guide-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(#dbeeffad, #dbeeffad),
+    url("/assets/taekwondo-belt-sky.jpg") center / cover;
+}
+.guide-page .guide-hero h1 {
+  overflow-wrap: anywhere;
+  font-family: var(--font-poster);
+  font-size: clamp(6rem, 14vw, 13rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.guide-page .guide-hero .guide-lead {
+  margin-top: 24px;
+  font-size: clamp(1.75rem, 3vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+.guide-page .guide-hero > p:last-child {
+  max-width: 64ch;
+  margin: 20px auto 0;
+  padding: 10px 16px;
+  border-radius: 18px;
+  background: var(--ice);
+  color: var(--ink);
+}
+.guide-page .guide-nav {
+  gap: 8px;
+  padding: 16px 0;
+  border: 0;
+}
+.guide-page .guide-nav a {
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 750;
+}
+.guide-page .guide-section {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 64px;
+  margin-bottom: 16px;
+  padding: 56px 64px;
+  border: 0;
+  border-radius: 32px;
+  background: #fff;
+}
+.guide-page #scope,
+.guide-page #target-stack {
+  background: #efdefd;
+}
+.guide-page #data {
+  background: var(--ice);
+}
+.guide-page .guide-section h2 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 3.4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.guide-page .guide-prose,
+.guide-page .guide-steps {
+  font-size: 1rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.guide-page .guide-steps,
+.guide-page .architecture-flow {
+  list-style: none;
+  counter-reset: guide-step;
+  padding: 0;
+}
+.guide-page .guide-steps li,
+.guide-page .architecture-flow li {
+  position: relative;
+  counter-increment: guide-step;
+  padding-inline-start: 56px;
+}
+.guide-page .guide-steps li::before,
+.guide-page .architecture-flow li::before {
+  content: counter(guide-step);
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-poster);
+  font-size: 1.25rem;
+}
+.guide-page .architecture-flow li {
+  border: 0;
+  padding-block: 0 20px;
+}
+.guide-page .guide-prose a {
+  color: var(--ink);
+  font-weight: 700;
+}
+.guide-page .tech-grid {
+  padding: 4px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  background: #fff;
+}
+.guide-page .tech-grid > div:last-child {
+  border-bottom: 0;
+}
+.guide-page .planned-label {
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--highlight-surface);
+}
+.guide-page .guide-callout {
+  margin-block: 16px;
+  padding: 48px 64px;
+  border-radius: 32px;
+  color: var(--ink);
+  background: var(--coral);
+}
+.guide-page .guide-callout::before {
+  display: none;
+}
+.guide-page .guide-callout h2 {
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 3.4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+.guide-page .guide-callout p {
+  color: var(--ink);
+}
+.guide-page .guide-callout a {
+  gap: 24px;
+  padding: 14px 22px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  text-decoration: none;
+}
+.guide-page .app-footer,
+.guide-page .app-footer a {
+  color: #c2cad4;
+  --focus: #fff;
+}
+@media (hover: hover) {
+  .control-strip #startPause:not(:disabled):hover {
+    background: #ffe567;
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+  .judge-side .score-action:not(:disabled):hover {
+    border-color: var(--ink);
+    background: #fff;
+  }
+  .guide-page .guide-nav a:hover {
+    color: #fff;
+    background: var(--ink);
+    text-decoration: none;
+  }
+}
+@media (max-width: 1120px) {
+  .guide-page .guide-section {
+    padding: 40px;
+    gap: 40px;
+  }
+  .guide-page .brand-copy {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  body:not([data-current-view="home"]):not(.public-window) .app-header {
+    padding: 14px 16px;
+    border-radius: 24px;
+  }
+  [data-view="setup"].view-panel,
+  [data-view="scoring"].view-panel {
+    padding: 12px;
+    border-radius: 28px;
+  }
+  .workspace-heading {
+    padding: 28px 24px;
+  }
+  .workspace-heading h1 {
+    font-size: 3.75rem;
+  }
+  .workspace-stamp {
+    width: 80px;
+    font-size: 2rem;
+  }
+  .workspace-stamp small {
+    font-size: 0.4375rem;
+  }
+  [data-view="setup"] .form-card {
+    padding: 24px 20px;
+  }
+  [data-view="setup"] .red-form {
+    border-inline-start: 0;
+  }
+  [data-view="setup"] .form-actions {
+    padding: 24px 20px;
+  }
+  .saved-matches-panel {
+    padding: 24px 20px;
+  }
+  [data-view="scoring"] .view-heading {
+    padding: 4px;
+  }
+  .presentation-actions > button {
+    flex: 1 1 auto;
+    font-size: 0.75rem;
+  }
+  .scoreboard .score-grid {
+    gap: 4px;
+    padding: 4px;
+  }
+  .scoreboard .fighter-panel {
+    border-radius: 12px;
+  }
+  .compact-board .fighter-meta {
+    padding-inline: 12px;
+  }
+  .control-strip {
+    gap: 8px;
+  }
+  .control-strip > button {
+    padding-inline: 10px;
+    font-size: 0.8125rem;
+  }
+  .guide-page .guide-shell {
+    width: calc(100% - 20px);
+  }
+  .guide-page .guide-hero {
+    padding: 40px 20px;
+    border-radius: 28px;
+  }
+  .guide-page .guide-section {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 32px 24px;
+    gap: 28px;
+    border-radius: 28px;
+  }
+  .guide-page .guide-nav a {
+    min-height: 44px;
+    padding: 8px 16px;
+  }
+  .guide-page .guide-callout {
+    padding: 32px 24px;
+    border-radius: 28px;
+  }
+  .public-toolbar > div {
+    width: 100%;
+  }
+  .public-toolbar button {
+    flex: 1;
+  }
+}
+@media (max-width: 480px) {
+  .workspace-heading {
+    padding: 24px 20px;
+  }
+  .workspace-heading h1 {
+    font-size: 3rem;
+  }
+  .workspace-stamp {
+    display: none;
+  }
+  [data-view="scoring"] .view-heading h1 {
+    font-size: 1.75rem;
+  }
+  .control-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .guide-page .guide-hero h1 {
+    font-size: clamp(4.75rem, 24vw, 7rem);
+  }
+  .guide-page .guide-steps li,
+  .guide-page .architecture-flow li {
+    padding-inline-start: 48px;
+  }
+  .guide-page .tech-grid {
+    padding-inline: 14px;
+  }
+}
