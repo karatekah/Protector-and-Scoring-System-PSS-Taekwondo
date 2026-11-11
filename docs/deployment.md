@@ -1,8 +1,10 @@
 # Publicación en Vercel
 
-Se conserva el repositorio personal y el proyecto `protector-and-scoring-system-pss-taekwondo`, bajo el equipo actual `karatekah`.
+Se conserva el repositorio personal y el mismo proyecto Vercel, renombrado como `octajang`, bajo el equipo actual `karatekah`.
 
-Producción: <https://protector-and-scoring-system-pss-tkdrolando.vercel.app>. Dominio confirmado mediante la API del proyecto y probado sin autenticación. El homepage anterior de GitHub apuntaba a un alias retirado; se actualizó al dominio activo.
+Producción: <https://octajang.vercel.app>. La dirección anterior <https://protector-and-scoring-system-pss-tkdrolando.vercel.app> se mantiene sin redirección para permitir la exportación de sus datos locales.
+
+La marca y el repositorio se presentan como **Octajang** (`karatekah/octajang`). El despliegue automático continúa en el proyecto existente; su enlace Git identifica el mismo repositorio renombrado. Consultar [identidad y compatibilidad](branding.md).
 
 ## Configuración versionada
 

@@ -40,6 +40,8 @@ BroadcastChannel acelera las actualizaciones. El evento `storage` sirve como can
 
 `pss-taekwondo-match-v4` guarda configuración, combate, 120 acciones y hasta 80 resúmenes. Cada acción reversible captura solo configuración y combate. Cada resumen guarda registros sin snapshots anteriores.
 
+Octajang conserva los identificadores de almacenamiento, canal, lock y ventana de la alpha para mantener compatibilidad en el mismo origen. El nombre del archivo exportado cambia a `octajang-combates-AAAA-MM-DD.json`; su esquema v4 sigue siendo compatible. Un dominio distinto tiene su propio almacenamiento: exportar desde la dirección anterior e importar en la nueva, sin mezclar ventanas de orígenes distintos.
+
 JSON se valida estructuralmente y por límites numéricos antes de restaurar. La importación admite hasta 5 MB. La escritura puede fallar por cuota o política del navegador; se muestra un aviso y se ofrece exportación. Los datos del navegador no son secretos cifrados.
 
 v2/v3 se leen sin borrar sus claves. Se preservan configuración, puntos y resúmenes compatibles. Los antiguos registros anidados de acciones se omiten. Un resumen antiguo dañado se omite sin descartar un combate activo válido.

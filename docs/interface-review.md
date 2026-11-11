@@ -20,9 +20,9 @@ Las decisiones de identidad y tipografía del hero y del cierre coral se mantuvi
 
 ## Historial de la revisión anterior
 
-La siguiente revisión conserva evidencia del diseño anterior. Para PSS Arena, aprobado por el usuario para subir a GitHub, consultar [dirección visual](design-preview.md) y [verificación](verification.md).
+La siguiente revisión conserva evidencia del diseño anterior. Para Octajang Arena, aprobado por el usuario para subir a GitHub, consultar [dirección visual](design-preview.md) y [verificación](verification.md).
 
-La revisión local posterior comprobó el hero con cinturón azul, el cartel PSS, los SVG propios y los estados de navegación; preparación y control mantienen la agrupación funcional. Se corrigieron el reflujo de navegación a 768 px y el color del foco sobre el marco negro. El acceso desde Control usa ahora la misma presentación nativa que Marcador; una prueba real de Fullscreen API verifica las tres rutas en Chromium/Firefox. No se añadieron dependencias. El recurso principal pesa 200 306 bytes y la nueva fuente Anton 18 612 bytes. El alcance de producto sigue siendo la alpha manual, con torneos/LAN pendientes.
+La revisión local posterior comprobó el hero con cinturón azul, el cartel Octajang, los SVG propios y los estados de navegación; preparación y control mantienen la agrupación funcional. Se corrigieron el reflujo de navegación a 768 px y el color del foco sobre el marco negro. El acceso desde Control usa ahora la misma presentación nativa que Marcador; una prueba real de Fullscreen API verifica las tres rutas en Chromium/Firefox. No se añadieron dependencias. El recurso principal pesa 200 306 bytes y la nueva fuente Anton 18 612 bytes. El alcance de producto sigue siendo la alpha manual, con torneos/LAN pendientes.
 
 Fecha: 2026-11-03. Alcance: header, hero, todas las secciones de inicio, preparación, control, marcador público, ventana externa y guía. Stack inspeccionado: HTML semántico, TypeScript con DOM nativo y CSS con tokens. Sin dependencias nuevas. Convenciones consultadas: CONTRIBUTING.md y docs/design.md.
 

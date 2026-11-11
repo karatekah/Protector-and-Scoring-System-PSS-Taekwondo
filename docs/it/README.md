@@ -1,18 +1,18 @@
 <div align="center">
 
-<img src="../assets/pss-mark.svg" width="96" height="96" alt="Marchio PSS Taekwondo" />
+<img src="../assets/octajang-mark.svg" width="96" height="96" alt="Marchio Octajang" />
 
-# PSS Taekwondo
+# Octajang
 
 [English](../../README.md) · [Español](../es/README.md) · **Italiano**
 
-**Ogni punto conta.**
+**Ogni incontro, sotto controllo.**
 
 Un tabellone manuale di Taekwondo per allenamenti ed esibizioni. Un PC, un operatore, un secondo schermo.
 
-[![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/workflows/ci.yml) [![Licenza GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](../../LICENSE) [![Demo web](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://protector-and-scoring-system-pss-tkdrolando.vercel.app)
+[![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/octajang/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/octajang/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/octajang/actions/workflows/ci.yml) [![Licenza GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](../../LICENSE) [![Demo web](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://octajang.vercel.app)
 
-[Prova l'alpha](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) · [Guida all'uso](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Documentazione](#documentazione) · [Roadmap](../roadmap.md) · [Segnala un problema](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues)
+[Prova l'alpha](https://octajang.vercel.app) · [Guida all'uso](https://octajang.vercel.app/guide.html) · [Documentazione](#documentazione) · [Roadmap](../roadmap.md) · [Segnala un problema](https://github.com/karatekah/octajang/issues)
 
 </div>
 
@@ -30,7 +30,7 @@ Prepara gli atleti, gestisci il cronometro e registra ogni decisione. L'**alpha 
 
 <div align="center">
 
-![Alpha di allenamento PSS Taekwondo: presentazione e accesso rapido alla configurazione di un incontro](../assets/pss-preview.png)
+![Alpha di allenamento Octajang: presentazione e accesso rapido alla configurazione di un incontro](../assets/octajang-preview.jpg)
 
 <sub>Anteprima dell'alpha pubblica per allenamenti. L'interfaccia dell'applicazione è attualmente in spagnolo.</sub>
 
@@ -38,14 +38,14 @@ Prepara gli atleti, gestisci il cronometro e registra ogni decisione. L'**alpha 
 
 ## Prova un incontro
 
-1. [Apri la demo](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) con Chrome, Edge o Firefox aggiornato.
+1. [Apri la demo](https://octajang.vercel.app) con Chrome, Edge o Firefox aggiornato.
 2. Seleziona **Preparar combate**, inserisci gli atleti e il formato, quindi salva.
 3. In **Control**, seleziona **Abrir pantalla externa** e sposta la finestra sul secondo monitor.
 4. Avvia il cronometro e registra i punti. Apri **Gestión del combate** per salvare un riepilogo, poi esporta JSON da **Preparar combate**.
 
 Le due finestre devono condividere **PC, origine del sito, browser e profilo**. Mantieni aperta la scheda di controllo; ricaricarla mette in pausa il cronometro. Un altro dispositivo o una sessione privata mantiene dati indipendenti.
 
-Questa alpha è destinata ad allenamenti ed esibizioni. Non collega protezioni elettroniche, non applica un regolamento WT ufficiale e non dispone di omologazione sportiva. Il nome storico del repository esprime la direzione più ampia del progetto.
+Questa alpha è destinata ad allenamenti ed esibizioni. Non collega protezioni elettroniche, non applica un regolamento WT ufficiale e non dispone di omologazione sportiva.
 
 ## Architettura e stack
 
@@ -77,14 +77,14 @@ Lo stack scelto comprende React / TypeScript / Vite, React Router, TanStack Quer
 
 ## Documentazione
 
-| Esigenza                          | Guida                                                                                                                                         |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Usare il tabellone                | [Guida pubblica](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Ambito dell'alpha](../alpha.md)                |
-| Comprendere il codice             | [Architettura attuale](../architecture.md) · [Decisione iniziale](../adr/0001-foundation.md)                                                  |
-| Esaminare la direzione dei tornei | [Stack obiettivo](../stack.md) · [Architettura LAN](../tournament-architecture.md) · [Migrazione](../migration.md) · [Roadmap](../roadmap.md) |
-| Verificare qualità e design       | [Matrice di verifica](../verification.md) · [Revisione dell'interfaccia](../interface-review.md) · [Identità visiva e risorse](../design.md)  |
-| Eseguire o pubblicare modifiche   | [Contribuire](../../CONTRIBUTING.md) · [Deployment Vercel](../deployment.md)                                                                  |
-| Consultare versioni e sicurezza   | [Note dell'alpha](../releases/v0.1.0-alpha.1.md) · [Changelog](../../CHANGELOG.md) · [Sicurezza](../../SECURITY.md)                           |
+| Esigenza                          | Guida                                                                                                                                          |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Usare il tabellone                | [Guida pubblica](https://octajang.vercel.app/guide.html) · [Ambito dell'alpha](../alpha.md)                                                    |
+| Comprendere il codice             | [Architettura attuale](../architecture.md) · [Decisione iniziale](../adr/0001-foundation.md)                                                   |
+| Esaminare la direzione dei tornei | [Stack obiettivo](../stack.md) · [Architettura LAN](../tournament-architecture.md) · [Migrazione](../migration.md) · [Roadmap](../roadmap.md)  |
+| Verificare qualità e design       | [Matrice di verifica](../verification.md) · [Revisione dell'interfaccia](../interface-review.md) · [Identità visiva e risorse](../branding.md) |
+| Eseguire o pubblicare modifiche   | [Contribuire](../../CONTRIBUTING.md) · [Deployment Vercel](../deployment.md)                                                                   |
+| Consultare versioni e sicurezza   | [Note dell'alpha](../releases/v0.1.0-alpha.1.md) · [Changelog](../../CHANGELOG.md) · [Sicurezza](../../SECURITY.md)                            |
 
 Questa presentazione è disponibile in inglese, spagnolo e italiano. L'applicazione e le guide tecniche collegate sono attualmente in spagnolo.
 

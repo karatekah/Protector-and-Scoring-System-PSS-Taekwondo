@@ -2,6 +2,10 @@
 
 ## Sin publicar como nueva versión
 
+Octajang es la nueva marca: símbolo octogonal azul/rojo, cartel y cabeceras adaptados, guía, tres README y recursos de presentación actualizados. Metadatos de enlaces, URL canónica y sitemap para la dirección de producción. Los respaldos v4 y los identificadores internos conservan su compatibilidad. Se mantiene el mismo proyecto de Vercel y se conserva el acceso a la dirección anterior para exportar datos.
+
+La importación de respaldos actualiza ahora los campos de preparación con los datos restaurados. El pie de página admite el nombre largo con texto ampliado. Se incorpora una prueba de recuperación v4 y traslado por JSON entre orígenes.
+
 PSS Arena en las vistas internas: cabecera y navegación comunes, hoja de preparación con campos/presets renovados, consola de control lila con teclas definidas y acción amarilla, marcador oscuro con herramientas de presentación en cápsulas y guía editorial con la imagen del cinturón. La guía enlaza directamente con Preparación y Control. Sin dependencias nuevas ni cambios del dominio.
 
 Demo con marcadores entre 0 y 16 y ejemplos de corrección de −1 y ajuste de −1/+1 entre lados. Las etiquetas muestran el cambio efectivo y se conserva el reinicio de un minuto. Azul y Rojo se acercan al resultado y el fondo de la sesión pasa a amarillo cítrico. El dominio del combate no cambia.

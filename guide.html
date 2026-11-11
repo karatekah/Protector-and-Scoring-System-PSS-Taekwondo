@@ -4,12 +4,48 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#08090b" />
-    <link rel="icon" href="/assets/pss-mark.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/octajang-mark.svg" type="image/svg+xml" />
     <meta
       name="description"
-      content="Guía de PSS Taekwondo alpha: uso, alcance, tecnología y próximos hitos."
+      content="Aprende a preparar un combate de taekwondo, controlar puntos y reloj, usar la pantalla externa y conservar tus respaldos con Octajang."
     />
-    <title>Guía de la alpha · PSS Taekwondo</title>
+    <title>Guía de Octajang · Preparación, control y marcador</title>
+    <meta name="application-name" content="Octajang" />
+    <link rel="canonical" href="https://octajang.vercel.app/guide.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Octajang" />
+    <meta
+      property="og:title"
+      content="Guía de Octajang · Preparación, control y marcador"
+    />
+    <meta
+      property="og:description"
+      content="Aprende a preparar un combate de taekwondo, controlar puntos y reloj, usar la pantalla externa y conservar tus respaldos con Octajang."
+    />
+    <meta property="og:url" content="https://octajang.vercel.app/guide.html" />
+    <meta
+      property="og:image"
+      content="https://octajang.vercel.app/assets/octajang-social.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Octajang. Cada combate, bajo control. Marcador de taekwondo para entrenamiento y exhibición."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Guía de Octajang · Preparación, control y marcador"
+    />
+    <meta
+      name="twitter:description"
+      content="Aprende a preparar un combate de taekwondo, controlar puntos y reloj, usar la pantalla externa y conservar tus respaldos con Octajang."
+    />
+    <meta
+      name="twitter:image"
+      content="https://octajang.vercel.app/assets/octajang-social.jpg"
+    />
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/components.css" />
     <link rel="stylesheet" href="/css/guide.css" />
@@ -23,14 +59,14 @@
         <a class="brand-lockup" href="./index.html"
           ><img
             class="brand-symbol"
-            src="/assets/pss-mark.svg"
+            src="/assets/octajang-mark.svg"
             width="42"
             height="42"
             alt=""
             aria-hidden="true"
           />
           <span class="brand-copy"
-            ><strong>PSS <span>Taekwondo</span></strong
+            ><strong>Octajang</strong
             ><span>Guía del proyecto · Alpha 0.1</span></span
           ></a
         >
@@ -154,6 +190,20 @@
               Solo acepta el formato de esta alpha y archivos de hasta 5 MB.
             </p>
             <p>
+              Cada dirección guarda sus propios datos. Si cambias de dirección,
+              exporta primero tu copia JSON desde la que utilizabas e impórtala
+              después en la nueva. Mantén Control y Marcador en la misma
+              dirección para que compartan el combate.
+            </p>
+            <p>
+              ¿Utilizabas la dirección anterior?
+              <a
+                href="https://protector-and-scoring-system-pss-tkdrolando.vercel.app/?view=setup"
+                >Ábrela para exportar tu copia JSON</a
+              >
+              antes de trasladar el combate a esta dirección.
+            </p>
+            <p>
               Los datos del prototipo v2/v3 se recuperan cuando son válidos: se
               conservan el combate y los resúmenes compatibles. El deshacer y
               los registros detallados del formato anterior no se migran; las
@@ -219,7 +269,7 @@
             <p>
               La alpha 0.1 publicada funciona en un navegador y todavía no
               utiliza React, Go ni una base de datos. El diseño objetivo
-              siguiente amplía PSS a torneos; sus funciones aún requieren
+              siguiente amplía Octajang a torneos; sus funciones aún requieren
               implementación y pruebas.
             </p>
           </div>
@@ -236,9 +286,9 @@
           </div>
           <div class="guide-prose">
             <p>
-              El producto al que evolucionará PSS tendrá varias áreas, jueces y
-              pantallas conectados a la red local. Podrá operar sin Internet:
-              los jueces propondrán puntos y la mesa de cada área los
+              El producto al que evolucionará Octajang tendrá varias áreas,
+              jueces y pantallas conectados a la red local. Podrá operar sin
+              Internet: los jueces propondrán puntos y la mesa de cada área los
               confirmará.
             </p>
             <ol
@@ -319,12 +369,12 @@
             </p>
             <p>
               <a
-                href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/blob/main/docs/stack.md"
+                href="https://github.com/karatekah/octajang/blob/main/docs/stack.md"
                 >Leer las decisiones de stack ↗</a
               >
               ·
               <a
-                href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/blob/main/docs/migration.md"
+                href="https://github.com/karatekah/octajang/blob/main/docs/migration.md"
                 >Ver el plan de migración ↗</a
               >
             </p>
@@ -382,11 +432,9 @@
       </main>
       <footer class="app-footer">
         <span>v0.1.0-alpha.1 · GPL v3</span
-        ><a
-          href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo"
+        ><a href="https://github.com/karatekah/octajang"
           >Código y documentación ↗</a
-        ><a
-          href="https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues"
+        ><a href="https://github.com/karatekah/octajang/issues"
           >Reportar un problema ↗</a
         >
       </footer>

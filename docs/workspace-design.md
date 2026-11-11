@@ -1,4 +1,4 @@
-# PSS Arena · Vistas internas
+# Octajang Arena · Vistas internas
 
 Fecha: 2026-11-08. Alcance: Preparar combate, Control, Marcador, ventana pública y Guía. Se extiende la dirección visual aprobada de la portada, sin cambiar el dominio ni el stack.
 
@@ -14,7 +14,7 @@ Tinta #08090b, blanco, azul hielo #dbeeff, lila #e9d2ff, amarillo #fff08a y cora
 
 ## Revisión del plan
 
-Se descartó repetir el hero gigante en Control y se conservaron superficies sólidas detrás de reloj y puntos. No se convirtió la documentación en una cuadrícula de tarjetas. El sello PSS de Preparación y la cabecera de la Guía llevan la personalidad de la portada; la mesa mantiene la densidad necesaria para operar.
+Se descartó repetir el hero gigante en Control y se conservaron superficies sólidas detrás de reloj y puntos. No se convirtió la documentación en una cuadrícula de tarjetas. El sello Octajang de Preparación y la cabecera de la Guía llevan la personalidad de la portada; la mesa mantiene la densidad necesaria para operar.
 
 ## Hallazgos y correcciones
 

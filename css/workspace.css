@@ -1,4 +1,4 @@
-/* PSS Arena: shared visual language for the operational views and guide. */
+/* Octajang Arena: shared visual language for the operational views and guide. */
 body:not([data-current-view="home"]):not(.public-window) .app-header {
   --focus: var(--ink);
   margin-block: 16px 10px;
@@ -76,7 +76,7 @@ body:not([data-current-view="home"]) .session-line {
   background: #fff;
   color: var(--ink);
   font-family: var(--font-poster);
-  font-size: 3rem;
+  font-size: 1.5rem;
   font-weight: 400;
   line-height: 1;
   text-align: center;
@@ -88,6 +88,9 @@ body:not([data-current-view="home"]) .session-line {
   font-family: var(--font-body);
   font-size: 0.625rem;
   font-weight: 800;
+}
+.workspace-stamp img {
+  justify-self: center;
 }
 [data-view="setup"].view-panel {
   padding: 20px;

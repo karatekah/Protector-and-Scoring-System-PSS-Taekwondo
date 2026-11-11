@@ -1,18 +1,18 @@
 <div align="center">
 
-<img src="../assets/pss-mark.svg" width="96" height="96" alt="Marca de PSS Taekwondo" />
+<img src="../assets/octajang-mark.svg" width="96" height="96" alt="Marca de Octajang" />
 
-# PSS Taekwondo
+# Octajang
 
 [English](../../README.md) · **Español** · [Italiano](../it/README.md)
 
-**Cada punto cuenta.**
+**Cada combate, bajo control.**
 
 Un marcador manual de Taekwondo para entrenamiento y exhibición. Un PC, un operador y una segunda pantalla.
 
-[![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/workflows/ci.yml) [![Licencia GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](../../LICENSE) [![Demo web](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://protector-and-scoring-system-pss-tkdrolando.vercel.app)
+[![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/octajang/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/octajang/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/octajang/actions/workflows/ci.yml) [![Licencia GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](../../LICENSE) [![Demo web](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://octajang.vercel.app)
 
-[Probar la alpha](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) · [Guía de uso](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Documentación](#documentación) · [Roadmap](../roadmap.md) · [Reportar un problema](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues)
+[Probar la alpha](https://octajang.vercel.app) · [Guía de uso](https://octajang.vercel.app/guide.html) · [Documentación](#documentación) · [Roadmap](../roadmap.md) · [Reportar un problema](https://github.com/karatekah/octajang/issues)
 
 </div>
 
@@ -30,7 +30,7 @@ Prepara los atletas, controla el reloj y registra cada decisión. La **alpha web
 
 <div align="center">
 
-![Alpha de entrenamiento de PSS Taekwondo: presentación y acceso rápido a preparar un combate](../assets/pss-preview.png)
+![Alpha de entrenamiento de Octajang: presentación y acceso rápido a preparar un combate](../assets/octajang-preview.jpg)
 
 <sub>Vista previa de la alpha pública de entrenamiento. La interfaz está en español.</sub>
 
@@ -38,14 +38,14 @@ Prepara los atletas, controla el reloj y registra cada decisión. La **alpha web
 
 ## Probar un combate
 
-1. [Abre la demo](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) en Chrome, Edge o Firefox actualizado.
+1. [Abre la demo](https://octajang.vercel.app) en Chrome, Edge o Firefox actualizado.
 2. Selecciona **Preparar combate**, introduce atletas y formato, y guarda.
 3. En **Control**, selecciona **Abrir pantalla externa** y mueve esa ventana al segundo monitor.
 4. Inicia el reloj y registra puntos. Abre **Gestión del combate** para guardar un resumen y exporta JSON desde **Preparar combate**.
 
 Ambas ventanas deben compartir **PC, origen del sitio, navegador y perfil**. Mantén abierta la pestaña de control; recargarla pausa el reloj. Otro dispositivo o una sesión privada mantiene datos independientes.
 
-Esta alpha es para entrenamiento y exhibición. No conecta protectores electrónicos ni aplica un reglamento WT oficial; tampoco cuenta con homologación deportiva. El nombre histórico del repositorio expresa la dirección más amplia del proyecto.
+Esta alpha es para entrenamiento y exhibición. No conecta protectores electrónicos ni aplica un reglamento WT oficial; tampoco cuenta con homologación deportiva.
 
 ## Arquitectura y stack
 
@@ -79,10 +79,10 @@ El stack objetivo es React / TypeScript / Vite, React Router, TanStack Query, un
 
 | Necesidad                       | Guía                                                                                                                                        |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Usar el marcador                | [Guía pública](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Alcance de la alpha](../alpha.md)              |
+| Usar el marcador                | [Guía pública](https://octajang.vercel.app/guide.html) · [Alcance de la alpha](../alpha.md)                                                 |
 | Entender el código              | [Arquitectura actual](../architecture.md) · [Decisión inicial](../adr/0001-foundation.md)                                                   |
 | Revisar la dirección de torneos | [Stack objetivo](../stack.md) · [Arquitectura LAN](../tournament-architecture.md) · [Migración](../migration.md) · [Roadmap](../roadmap.md) |
-| Revisar calidad y diseño        | [Verificación](../verification.md) · [Revisión de interfaz](../interface-review.md) · [Identidad visual y recursos](../design.md)           |
+| Revisar calidad y diseño        | [Verificación](../verification.md) · [Revisión de interfaz](../interface-review.md) · [Identidad visual y recursos](../branding.md)         |
 | Ejecutar o publicar cambios     | [Contribuir](../../CONTRIBUTING.md) · [Despliegue Vercel](../deployment.md)                                                                 |
 | Revisar versiones y seguridad   | [Notas de la alpha](../releases/v0.1.0-alpha.1.md) · [Changelog](../../CHANGELOG.md) · [Seguridad](../../SECURITY.md)                       |
 

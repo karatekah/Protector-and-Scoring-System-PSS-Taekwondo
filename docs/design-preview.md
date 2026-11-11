@@ -1,6 +1,8 @@
-# Diseño aprobado · PSS Arena
+# Diseño aprobado · Octajang Arena
 
-Fecha: 2026-11-03. Diseño revisado por el usuario y aprobado para subir a GitHub. Sustituye la dirección editorial anterior con el cartel PSS, el cinturón azul y las secciones de presentación renovadas. [Historial de la dirección visual](design.md).
+La identidad actual de Octajang, el símbolo, los recursos de presentación y la compatibilidad del cambio de marca están documentados en [branding.md](branding.md). Este documento conserva la composición visual y sus revisiones.
+
+Fecha: 2026-11-03. Diseño revisado por el usuario y aprobado para subir a GitHub. Sustituye la dirección editorial anterior con el cartel Octajang, el cinturón azul y las secciones de presentación renovadas. [Historial de la dirección visual](design.md).
 
 ## Dirección
 
@@ -8,7 +10,7 @@ La misma identidad se extiende a Preparar combate, Control, Marcador y Guía. La
 
 La referencia solicitada es [Slush](https://slush.app/): un hero envolvente, título de gran escala, navegación superpuesta en cápsulas y materialidad protagonista. Se adopta esa composición con identidad de Taekwondo: un cinturón de algodón azul, dobok y peto ilustrados. No se reutilizan imágenes, logotipo, tipografía propietaria ni código de Slush.
 
-La idea dominante es un cartel PSS dentro del recorrido del cinturón. El resto de la portada organiza la sesión actual, la presentación de mesa y pantalla, tres pasos de uso y el estado del proyecto. Las secciones son bandas amplias con composiciones distintas. La franja de sesión conserva los datos reales; el monitor de presentación es una simulación etiquetada como Demo e independiente del combate.
+La idea dominante es un cartel Octajang dentro del recorrido del cinturón. El resto de la portada organiza la sesión actual, la presentación de mesa y pantalla, tres pasos de uso y el estado del proyecto. Las secciones son bandas amplias con composiciones distintas. La franja de sesión conserva los datos reales; el monitor de presentación es una simulación etiquetada como Demo e independiente del combate.
 
 ## Sistema visual
 
@@ -22,7 +24,7 @@ La idea dominante es un cartel PSS dentro del recorrido del cinturón. El resto 
 | Resaltado de sesión   | #fff08a           | Fondo de resultado, atletas y reloj de la sesión                        |
 | Azul / rojo de atleta | #1265d0 / #c92c3f | Identificación de los dos lados del combate                             |
 
-Anton se utiliza exclusivamente en el gran PSS y numeración de cartel. Manrope mantiene la lectura y los controles; Barlow Condensed conserva las cifras del marcador. Las tres familias se sirven localmente. Anton procede de [Google Fonts](https://fonts.google.com/specimen/Anton); su licencia [SIL OFL](https://raw.githubusercontent.com/google/fonts/main/ofl/anton/OFL.txt) se conserva en public/fonts/anton-LICENSE.txt.
+Anton se utiliza exclusivamente en el gran Octajang y numeración de cartel. Manrope mantiene la lectura y los controles; Barlow Condensed conserva las cifras del marcador. Las tres familias se sirven localmente. Anton procede de [Google Fonts](https://fonts.google.com/specimen/Anton); su licencia [SIL OFL](https://raw.githubusercontent.com/google/fonts/main/ofl/anton/OFL.txt) se conserva en public/fonts/anton-LICENSE.txt.
 
 La navegación utiliza cápsulas blancas con borde negro de 2 px y selección oscura. El hero tiene radio de 52 px en escritorio y 30 px en móvil; las secciones usan 28–36 px y los controles operativos 8–18 px. Los campos mantienen etiquetas visibles. Los puntos no se desplazan ni escalan al pulsarlos.
 

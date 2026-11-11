@@ -1,4 +1,4 @@
-# Stack objetivo de PSS
+# Stack objetivo de Octajang
 
 Estado: definido como dirección técnica; la implementación LAN está pendiente.
 
@@ -102,4 +102,4 @@ Las copias, restauración, revocación, duplicados, desconexiones y caída del p
 - [Driver modernc.org/sqlite](https://pkg.go.dev/modernc.org/sqlite).
 - [Respaldo consistente de SQLite](https://sqlite.org/backup.html).
 
-La recomendación de arquitectura es una decisión del proyecto basada en los requisitos confirmados; las fuentes describen las capacidades y límites de las tecnologías, no certifican PSS.
+La recomendación de arquitectura es una decisión del proyecto basada en los requisitos confirmados; las fuentes describen las capacidades y límites de las tecnologías, no certifican Octajang.

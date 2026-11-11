@@ -1,6 +1,88 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+test("Octajang restores existing v4 data and transfers a backup to a new origin", async ({
+  page,
+  context,
+}) => {
+  const existing = {
+    schemaVersion: 4,
+    config: {
+      eventName: "Entrenamiento del club",
+      totalRounds: 3,
+      roundDuration: 120,
+      blueName: "Ana",
+      blueCountry: "PER",
+      redName: "Leo",
+      redCountry: "ITA",
+    },
+    match: {
+      blue: { score: 7, gamjeom: 0, hits: 1 },
+      red: { score: 3, gamjeom: 1, hits: 0 },
+      round: 2,
+      remainingMs: 85000,
+      running: false,
+      status: "paused",
+    },
+    history: [],
+    savedMatches: [],
+  };
+  await page.addInitScript(
+    (value) =>
+      localStorage.setItem("pss-taekwondo-match-v4", JSON.stringify(value)),
+    existing,
+  );
+  await page.goto("/?view=scoring");
+  await expect(page).toHaveTitle("Control · Octajang");
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="blueScore"]'),
+  ).toHaveText("7");
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="clock"]'),
+  ).toHaveText("01:25");
+  await page
+    .getByRole("button", { name: "Preparar combate", exact: true })
+    .click();
+  const downloading = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Exportar JSON" }).click();
+  const backup = await downloading;
+  expect(backup.suggestedFilename()).toMatch(/^octajang-combates-.*\.json$/);
+  const backupPath = await backup.path();
+  if (!backupPath) throw new Error("Missing downloaded backup");
+  const destination = await context.newPage();
+  await destination.goto("http://localhost:4173/?view=setup");
+  await expect(
+    destination.getByRole("textbox", {
+      name: "Nombre del competidor azul",
+      exact: true,
+    }),
+  ).toHaveValue("Azul");
+  destination.once("dialog", (dialog) => dialog.accept());
+  await destination.locator("#importFile").setInputFiles(backupPath);
+  await expect(destination.locator("#announcement")).toContainText(
+    "Copia restaurada",
+  );
+  await expect(
+    destination.getByRole("textbox", {
+      name: "Nombre del competidor azul",
+      exact: true,
+    }),
+  ).toHaveValue("Ana");
+  await destination
+    .getByRole("button", { name: "Control", exact: true })
+    .click();
+  await expect(
+    destination.locator('[data-view="scoring"] [data-bind="blueScore"]'),
+  ).toHaveText("7");
+  await expect(
+    destination.locator('[data-view="scoring"] [data-bind="redScore"]'),
+  ).toHaveText("3");
+  await expect(
+    destination.locator('[data-view="scoring"] [data-bind="clock"]'),
+  ).toHaveText("01:25");
+  await destination.close();
+});
+
 test("Control and Marcador share fullscreen without navigation, including the external display", async ({
   page,
   context,
@@ -174,7 +256,7 @@ test("JSON export, import validation, archive and recovery", async ({
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Exportar JSON" }).click();
   const file = await download;
-  expect(file.suggestedFilename()).toMatch(/pss-combates.*\.json/);
+  expect(file.suggestedFilename()).toMatch(/octajang-combates.*\.json/);
   await page.locator("#importFile").setInputFiles({
     name: "bad.json",
     mimeType: "application/json",

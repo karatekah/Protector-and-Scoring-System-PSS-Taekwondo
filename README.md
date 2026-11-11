@@ -1,18 +1,18 @@
 <div align="center">
 
-<img src="docs/assets/pss-mark.svg" width="96" height="96" alt="PSS Taekwondo mark" />
+<img src="docs/assets/octajang-mark.svg" width="96" height="96" alt="Octajang mark" />
 
-# PSS Taekwondo
+# Octajang
 
 **English** · [Español](docs/es/README.md) · [Italiano](docs/it/README.md)
 
-**Every point counts.**
+**Every match, under control.**
 
 A manual Taekwondo scoreboard for training and exhibitions. One PC, one operator, a second screen.
 
-[![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/workflows/ci.yml) [![GPL-3.0 license](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](LICENSE) [![Web demo](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://protector-and-scoring-system-pss-tkdrolando.vercel.app)
+[![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/octajang/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/octajang/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/octajang/actions/workflows/ci.yml) [![GPL-3.0 license](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](LICENSE) [![Web demo](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://octajang.vercel.app)
 
-[Try the alpha](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) · [User guide](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Documentation](#documentation) · [Roadmap](docs/roadmap.md) · [Report a bug](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/issues)
+[Try the alpha](https://octajang.vercel.app) · [User guide](https://octajang.vercel.app/guide.html) · [Documentation](#documentation) · [Roadmap](docs/roadmap.md) · [Report a bug](https://github.com/karatekah/octajang/issues)
 
 </div>
 
@@ -30,7 +30,7 @@ Prepare the athletes, run the clock and record each decision. The **experimental
 
 <div align="center">
 
-![PSS Taekwondo training alpha: project presentation and quick access to match setup](docs/assets/pss-preview.png)
+![Octajang training alpha: project presentation and quick access to match setup](docs/assets/octajang-preview.jpg)
 
 <sub>Preview of the public training alpha. The application interface is currently in Spanish.</sub>
 
@@ -38,14 +38,14 @@ Prepare the athletes, run the clock and record each decision. The **experimental
 
 ## Try a match
 
-1. [Open the demo](https://protector-and-scoring-system-pss-tkdrolando.vercel.app) in an up-to-date Chrome, Edge or Firefox.
+1. [Open the demo](https://octajang.vercel.app) in an up-to-date Chrome, Edge or Firefox.
 2. Select **Preparar combate**, enter the athletes and format, then save.
 3. In **Control**, select **Abrir pantalla externa** and move that window to the second monitor.
 4. Start the clock and record points. Open **Gestión del combate** to save a summary, then export JSON from **Preparar combate**.
 
 Both windows must share the **same PC, site origin, browser and profile**. Keep the control tab open; reloading it pauses the clock. Another device or a private browsing session has independent data.
 
-This alpha is for training and exhibitions. It does not connect electronic protectors, enforce an official WT ruleset or hold sporting certification. The repository's historical name describes its broader direction.
+This alpha is for training and exhibitions. It does not connect electronic protectors, enforce an official WT ruleset or hold sporting certification.
 
 ## Architecture and stack
 
@@ -79,10 +79,10 @@ The selected target stack is React / TypeScript / Vite, React Router, TanStack Q
 
 | Need                            | Guide                                                                                                                                             |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Use the scoreboard              | [Public user guide](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) · [Alpha scope](docs/alpha.md)                     |
+| Use the scoreboard              | [Public user guide](https://octajang.vercel.app/guide.html) · [Alpha scope](docs/alpha.md)                                                        |
 | Understand the code             | [Current architecture](docs/architecture.md) · [Foundation decision](docs/adr/0001-foundation.md)                                                 |
 | Review the tournament direction | [Target stack](docs/stack.md) · [LAN architecture](docs/tournament-architecture.md) · [Migration](docs/migration.md) · [Roadmap](docs/roadmap.md) |
-| Inspect quality and design      | [Verification matrix](docs/verification.md) · [Interface review](docs/interface-review.md) · [Visual identity and assets](docs/design.md)         |
+| Inspect quality and design      | [Verification matrix](docs/verification.md) · [Interface review](docs/interface-review.md) · [Visual identity and assets](docs/branding.md)       |
 | Run or publish changes          | [Contributing](CONTRIBUTING.md) · [Vercel deployment](docs/deployment.md)                                                                         |
 | Review releases and security    | [Alpha notes](docs/releases/v0.1.0-alpha.1.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)                                              |
 

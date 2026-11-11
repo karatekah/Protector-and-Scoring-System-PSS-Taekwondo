@@ -287,7 +287,10 @@ function showView(requested: string, focus = true): void {
         button.setAttribute("aria-current", "page");
       else button.removeAttribute("aria-current");
     });
-  document.title = `${{ home: "Inicio", setup: "Preparar combate", scoring: "Control", public: "Marcador" }[view]} · PSS Taekwondo`;
+  document.title =
+    view === "home"
+      ? "Octajang · Marcador de taekwondo y control de combates"
+      : `${{ setup: "Preparar combate", scoring: "Control", public: "Marcador" }[view]} · Octajang`;
   if (view === "setup") setupForm();
   if (focus) {
     element<HTMLElement>(`[data-view="${view}"]`).focus({
@@ -330,7 +333,7 @@ function exportData(): void {
   const url = URL.createObjectURL(blob),
     link = document.createElement("a");
   link.href = url;
-  link.download = `pss-combates-${new Date().toISOString().slice(0, 10)}.json`;
+  link.download = `octajang-combates-${new Date().toISOString().slice(0, 10)}.json`;
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   notify(
@@ -491,10 +494,11 @@ function bind(): void {
           state = imported;
           pauseLoadedState();
         }, "Copia restaurada. El reloj está pausado.");
+        setupForm();
         warning("");
       } catch {
         warning(
-          "No se pudo importar el archivo. Usa una copia JSON de PSS alpha 0.1 de hasta 5 MB. Los datos actuales se conservaron.",
+          "No se pudo importar el archivo. Usa una copia JSON de Octajang alpha 0.1 de hasta 5 MB. Los datos actuales se conservaron.",
         );
       } finally {
         input.value = "";

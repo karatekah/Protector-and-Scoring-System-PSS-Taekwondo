@@ -1,6 +1,6 @@
-# Dirección visual de PSS Taekwondo
+# Dirección visual de Octajang
 
-Este documento conserva la dirección visual anterior. El [diseño PSS Arena inspirado en Slush](design-preview.md) fue revisado por el usuario y aprobado para subir a GitHub.
+Este documento conserva la dirección visual anterior. El [diseño Octajang Arena inspirado en Slush](design-preview.md) fue revisado por el usuario y aprobado para subir a GitHub.
 
 ## Editorial de competición
 
@@ -73,7 +73,7 @@ La vista pública sigue siendo de solo lectura. Alcance funcional, arquitectura 
 
 La revisión posterior toma como referencias las superficies táctiles de Slush y los catálogos propuestos por el usuario. Se mantienen marfil/carbón/rojo y las familias locales; Manrope gana protagonismo en el mensaje del hero y Barlow Condensed queda en el nombre del deporte y las cifras. La escala separa lectura, secundarios, controles y marcador.
 
-| Recurso inspeccionado                                                                                                                               | Decisión para PSS                                                                                                                              |
+| Recurso inspeccionado                                                                                                                               | Decisión para Octajang                                                                                                                         |
 | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Slush](https://slush.app/)                                                                                                                         | Profundidad visual y recurso de marca protagonista, adaptados al equipamiento de Taekwondo                                                     |
 | [Kobra Button](https://kobra.systems/components/button)                                                                                             | Botones con estados de superficie y relieve; implementación nativa propia                                                                      |

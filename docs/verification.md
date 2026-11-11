@@ -1,10 +1,20 @@
 # Verificación de la alpha
 
-Última revisión: 2026-11-08. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
+Última revisión: 2026-11-11. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
 
 ## Evidencia automatizada
 
-### PSS Arena en Preparación, Control, Marcador y Guía
+### Identidad Octajang y compatibilidad
+
+Tipos, formato, cuatro pruebas unitarias y build aprobados. Los 16 flujos E2E de Chromium/Firefox pasaron con un worker. El nuevo flujo parte de datos v4 bajo la clave original, conserva nombres, puntos y reloj, exporta un archivo `octajang-combates-…json` y lo importa en otro origen con almacenamiento inicialmente vacío. La prueba detectó que los campos de preparación no se refrescaban al importar; se corrigió la actualización del formulario tras la restauración validada. El dominio y el esquema v4 permanecen intactos.
+
+Se revisaron portada, preparación, control, marcador y guía a 320/390/768/1440 px: los 20 casos no desbordan horizontalmente. La revisión con texto al 200 % a 320 px detectó un desbordamiento del nombre largo en el pie; se corrigió su reflujo y las cuatro vistas internas mantienen ancho 320 px. Es ampliación de texto por CSS, no zoom nativo del navegador. Los grupos de puntos mantienen su borde inferior en 765.58 px para la configuración por defecto a 1366×768.
+
+Un servidor de prueba con las cabeceras exactas de vercel.json comprobó carga de aplicación, JSON-LD, marca, canonical, robots, sitemap, imagen social y puntuación sin errores de script ni de CSP. Las pruebas de Fullscreen API y ventana de solo lectura siguen pasando; también se inspeccionó la presentación de 1920×1080 con padding cero y navegación oculta. Las capturas de README y enlaces compartidos se renderizaron desde los recursos locales del proyecto. Se revisaron los avisos de estructura y estilos contra el resultado renderizado y la dirección visual aprobada.
+
+Identidad y traslado entre direcciones: [branding.md](branding.md). La prueba física de dos monitores, móvil físico, NVDA/VoiceOver y zoom nativo al 200 % continúan pendientes. Estas comprobaciones no certifican funciones LAN, sensores ni reglamentos deportivos.
+
+### Octajang Arena en Preparación, Control, Marcador y Guía
 
 Se comprobaron tipos, formato, cuatro pruebas unitarias, build y 14 flujos E2E en Chromium/Firefox con un worker. Se extendió el flujo de la guía para seguir sus enlaces nativos a Control y Preparación y comprobar la vista inicial. Se conservaron las aserciones de puntuación, reloj, deshacer sin devolver tiempo, posición de las teclas, archivo, respaldo, operador único, lectura pública y las tres entradas/salidas de Fullscreen API.
 
@@ -20,7 +30,7 @@ Tipos, formato, cuatro pruebas unitarias, build y 14 flujos E2E en Chromium/Fire
 
 Se inspeccionaron capturas a 1440 y 390 px, con Azul y Rojo cerca del resultado y fondo amarillo. Las cuatro vistas mantienen el ancho del documento en los 16 casos de 320/390/768/1440 px. Axe no detectó infracciones en los criterios automatizados evaluados y no hubo errores JavaScript. El botón de control sigue fuera del panel de color.
 
-better-colors: fondo renderizado #fff08a; contrastes sRGB calculados de 17.15:1 para el texto principal, 7.16:1 para Azul y 7.10:1 para Rojo. El tope de 16 y los ajustes pertenecen a la demostración; no se modificó el dominio de combate. Las comprobaciones no equivalen a una prueba de campo ni a una auditoría completa de accesibilidad.
+Colores: fondo renderizado #fff08a; contrastes sRGB calculados de 17.15:1 para el texto principal, 7.16:1 para Azul y 7.10:1 para Rojo. El tope de 16 y los ajustes pertenecen a la demostración; no se modificó el dominio de combate. Las comprobaciones no equivalen a una prueba de campo ni a una auditoría completa de accesibilidad.
 
 ### Corrección: fondo solo para datos y reproducción automática
 
@@ -50,9 +60,9 @@ Las decisiones y límites de la revisión están en [motion-review.md](motion-re
 
 Se inspeccionaron capturas del hero en dos fases y de las entradas al 10 % de velocidad. La portada se comprobó con movimiento normal y en pausa. Axe sobre la portada con el nuevo control visible no detectó infracciones en sus criterios evaluados; la suite conserva su revisión de las cuatro vistas y guía con movimiento reducido. El foco de teclado sobre la acción final revela el bloque inmediatamente, con opacidad 1 y sin desenfoque. Se midieron las cuatro vistas a 320, 390, 768 y 1800 px: los 16 casos mantienen el ancho del documento igual al viewport. El recorrido visual no produjo errores JavaScript.
 
-### PSS Arena y pantalla completa
+### Octajang Arena y pantalla completa
 
-Diseño revisado por el usuario y aprobado para subir a GitHub. Las comprobaciones siguientes se realizaron antes de publicar. La captura del README se actualizó con el hero aprobado. La nueva dirección, colores y recursos se documentan en [PSS Arena](design-preview.md).
+Diseño revisado por el usuario y aprobado para subir a GitHub. Las comprobaciones siguientes se realizaron antes de publicar. La captura del README se actualizó con el hero aprobado. La nueva dirección, colores y recursos se documentan en [Octajang Arena](design-preview.md).
 
 Se comprobaron TypeScript, formato, cuatro pruebas unitarias y build de producción. Diez flujos Playwright en Chromium/Firefox cubren los comportamientos anteriores y la regresión de pantalla completa: desde Control se presenta el elemento público a todo el ancho y alto, sin navegación; salir devuelve a Control. Desde Marcador se conserva esa vista al salir. La ventana externa también presenta sin márgenes y mantiene ocultos los controles de mutación. No se sustituyó la Fullscreen API por un mock.
 
@@ -147,7 +157,7 @@ Los resultados de axe y los contrastes no constituyen una auditoría completa WC
 
 ## Publicación
 
-GitHub Actions aprobó el commit `6a8a021146b13a9c7f829895ff2eae45f0a0a81e` en Linux: instalación, tipos, formato, pruebas unitarias, build y los seis flujos de navegador. [Ejecución](https://github.com/karatekah/Protector-and-Scoring-System-PSS-Taekwondo/actions/runs/41549006931).
+GitHub Actions aprobó el commit `6a8a021146b13a9c7f829895ff2eae45f0a0a81e` en Linux: instalación, tipos, formato, pruebas unitarias, build y los seis flujos de navegador. [Ejecución](https://github.com/karatekah/octajang/actions/runs/41549006931).
 
 Vercel marcó Ready el despliegue `dpl_2KfE9DhFZGEGhpKy9rjrTjWLSz3f` del commit `70e8788bce3144086ee366125778d51b5d620b1e`. [Producción](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/) y [guía](https://protector-and-scoring-system-pss-tkdrolando.vercel.app/guide.html) respondieron HTTP 200 sin autenticación, con las cabeceras previstas.
 

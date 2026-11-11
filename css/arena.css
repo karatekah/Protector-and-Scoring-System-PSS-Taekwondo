@@ -282,12 +282,13 @@ body:not([data-current-view="home"]) .arena-ribbon {
 }
 .arena-title-wrap {
   position: relative;
-  width: min(100%, 1040px);
+  width: min(100%, 1280px);
+  padding-block: 132px 92px;
 }
 .arena-title-wrap h1 {
   margin: 0;
   font-family: var(--font-poster);
-  font-size: clamp(14rem, min(44cqw, 52svh), 36rem);
+  font-size: min(18.4cqw, 29svh, 17rem);
   font-weight: 400;
   line-height: 0.88;
   letter-spacing: -0.025em;
@@ -301,18 +302,18 @@ body:not([data-current-view="home"]) .arena-ribbon {
   pointer-events: none;
 }
 .sticker-dobok {
-  inset-inline-start: 4%;
-  inset-block-start: 2%;
+  inset-inline-start: 12%;
+  inset-block-start: 0;
   rotate: -15deg;
 }
 .sticker-hogu {
   inset-inline-end: 0;
-  inset-block-start: 44%;
+  inset-block-start: 52%;
   rotate: 17deg;
 }
 .sticker-screen {
-  inset-inline-start: 1%;
-  inset-block-end: 2%;
+  inset-inline-start: 4%;
+  inset-block-end: 0;
   display: grid;
   place-content: center;
   width: clamp(90px, 9vw, 138px);
@@ -631,6 +632,15 @@ body:not([data-current-view="home"]) .arena-ribbon {
 .footer-signature > strong {
   color: #fff;
 }
+.app-footer > span,
+.footer-signature > strong {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.footer-signature {
+  flex-wrap: wrap;
+}
 .footer-signature > strong {
   font-family: var(--font-poster);
   font-weight: 400;
@@ -924,26 +934,30 @@ button.primary-action {
     gap: 18px;
   }
   .arena-title-wrap h1 {
-    font-size: clamp(10rem, 58cqw, 21rem);
+    font-size: 19cqw;
+  }
+  .arena-title-wrap {
+    padding-block: 78px 80px;
   }
   .arena-sticker {
-    width: 84px;
+    width: 64px;
   }
   .sticker-dobok {
-    inset-inline-start: 0;
-    inset-block-start: -16px;
+    inset-inline-start: 10%;
+    inset-block-start: 0;
   }
   .sticker-hogu {
-    inset-inline-end: 0;
-    inset-block-start: 30%;
+    inset-inline-end: 14%;
+    inset-block-start: auto;
+    inset-block-end: 0;
   }
   .sticker-screen {
-    width: 86px;
-    inset-inline-start: 0;
-    inset-block-end: -16px;
+    width: 64px;
+    inset-inline-start: 15%;
+    inset-block-end: 4px;
   }
   .sticker-screen > b {
-    font-size: 2.75rem;
+    font-size: 2rem;
   }
   .sticker-screen > span {
     font-size: 0.625rem;
@@ -1080,26 +1094,27 @@ button.primary-action {
     min-height: 760px;
   }
   .arena-title-wrap h1 {
-    font-size: 58cqw;
+    font-size: 19cqw;
   }
   .arena-title-wrap {
     margin-top: 8px;
   }
   .arena-sticker {
-    width: 70px;
+    width: 64px;
   }
   .sticker-dobok {
-    inset-block-start: -28px;
-    inset-inline-start: -2px;
+    inset-block-start: 0;
+    inset-inline-start: 10%;
   }
   .sticker-hogu {
-    inset-block-start: 28%;
-    inset-inline-end: -2px;
+    inset-block-start: auto;
+    inset-block-end: 0;
+    inset-inline-end: 14%;
   }
   .sticker-screen {
-    width: 72px;
-    inset-block-end: -22px;
-    inset-inline-start: 0;
+    width: 64px;
+    inset-block-end: 4px;
+    inset-inline-start: 15%;
   }
   .sticker-screen > b {
     font-size: 2.125rem;
