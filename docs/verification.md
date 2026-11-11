@@ -14,6 +14,8 @@ Un servidor de prueba con las cabeceras exactas de vercel.json comprobó carga d
 
 Identidad y traslado entre direcciones: [branding.md](branding.md). La prueba física de dos monitores, móvil físico, NVDA/VoiceOver y zoom nativo al 200 % continúan pendientes. Estas comprobaciones no certifican funciones LAN, sensores ni reglamentos deportivos.
 
+Publicación comprobada el 2026-11-11: [GitHub Actions](https://github.com/karatekah/octajang/actions/runs/43073872395) aprobó el commit `10deb5c46097fed7ebff75c698e3285a8ebd335a`; Vercel marcó correcto su despliegue en el proyecto existente `octajang`. [Producción](https://octajang.vercel.app/) y la dirección anterior respondieron HTTP 200 sin redirección. Una sesión nueva de Chromium verificó marca, canonical, guía, recursos de identidad, robots y sitemap; puntuó y comprobó una ventana pública de solo lectura. Exportó desde el origen anterior e importó en el nuevo, conservando atletas y puntos; no hubo errores de JavaScript en la página controlada. Los datos utilizados fueron de prueba y la sesión de navegador fue independiente. El mismo proyecto Vercel conserva ambos dominios y su conexión al repositorio renombrado.
+
 ### Octajang Arena en Preparación, Control, Marcador y Guía
 
 Se comprobaron tipos, formato, cuatro pruebas unitarias, build y 14 flujos E2E en Chromium/Firefox con un worker. Se extendió el flujo de la guía para seguir sus enlaces nativos a Control y Preparación y comprobar la vista inicial. Se conservaron las aserciones de puntuación, reloj, deshacer sin devolver tiempo, posición de las teclas, archivo, respaldo, operador único, lectura pública y las tres entradas/salidas de Fullscreen API.
