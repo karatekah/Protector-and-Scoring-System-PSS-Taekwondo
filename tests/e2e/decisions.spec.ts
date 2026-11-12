@@ -54,6 +54,8 @@ test("minus one and confirmed KO preserve ownership, time, undo and the external
   });
   await ko.click();
   await expect(result).toContainText("Ganador por KO: Azul");
+  await expect(result).toBeFocused();
+  await expect(page.locator(".skip-link")).not.toBeFocused();
   await expect(external.locator("[data-result]:visible")).toContainText(
     "Ganador por KO: Azul",
   );

@@ -712,6 +712,10 @@ function createButtons(): void {
               ? `Combate finalizado. Ganador por KO: ${name}.`
               : `${side === "blue" ? "Azul" : "Rojo"}: ${label}. ${detail}.`,
           );
+          if (action.type === "ko")
+            element('[data-view="scoring"] [data-result]').focus({
+              preventScroll: true,
+            });
         });
         if (action.type === "points") container.append(button);
         else adjustments.append(button);
