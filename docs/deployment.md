@@ -21,6 +21,29 @@ Las cabeceras restringen scripts, estilos y conexiones al origen y deshabilitan 
 
 GitHub Actions es un control separado. La integración de Vercel no espera necesariamente a que finalice Actions; el build de Vercel repite tipos y pruebas unitarias, pero no instala navegadores. El formato se revisa en CI sobre el checkout original: el builder de Vercel introduce archivos en `.vercel` y su copia de `vercel.json` no pasó Prettier. Por ello las pruebas de navegador y el formato deben aprobarse antes del envío, además de ejecutarse en CI.
 
+## Protección frente a abuso
+
+La mitigación automática de DDoS de Vercel protege el alojamiento. La política adicional [ops/vercel-firewall-rule.json](../ops/vercel-firewall-rule.json) contiene una única regla del WAF para el proyecto existente:
+
+| Campo        | Valor                                                              |
+| ------------ | ------------------------------------------------------------------ |
+| Nombre       | `octajang-request-limit`                                           |
+| Solicitudes  | Todas las rutas que empiezan por `/`, incluidos recursos estáticos |
+| Conteo       | IP de origen, compartida por las personas que usen esa IP pública  |
+| Ventana      | Fija, 60 segundos                                                  |
+| Límite       | 300 solicitudes por IP y región de Vercel                          |
+| Al excederlo | HTTP 429 hasta el siguiente periodo de conteo                      |
+
+La regla es del proyecto, sin una condición que la restrinja a un hostname. Comprende la dirección actual y los alias del mismo proyecto. No se añade middleware, una función ni una base de datos a la aplicación estática.
+
+El archivo es la política prevista y usa el formato de regla de la CLI. Editarlo o desplegar `vercel.json` no actualiza el WAF. Aplicar la regla existente desde Firewall o desde `vercel firewall rules`, revisar el borrador con `vercel firewall diff` y publicar los efectos revisados mediante `vercel firewall publish`. No publicar si aparecen cambios pendientes de otra operación. Conservar los controles existentes al actualizar una regla y comprobar después el estado activo, el límite y la ausencia de borradores pendientes.
+
+Mantener la mitigación automática del proveedor activa. Attack Mode desafía a todos los visitantes y se reserva para responder a un incidente; no es necesario activarlo permanentemente. Evitar reglas de bypass generales. Ante falsos positivos del límite, revisar el tráfico y ajustar la regla; para retirar únicamente esta protección, deshabilitarla y publicar el cambio revisado, sin pausar las mitigaciones del proveedor.
+
+Las comprobaciones deben ser acotadas: verificar acceso normal y, al comprobar un 429, detener las solicitudes al observarlo. No realizar pruebas distribuidas ni de saturación. La validación funcional del límite no certifica resistencia ante un DDoS real.
+
+Referencias: [mitigación de DDoS](https://vercel.com/docs/vercel-firewall/ddos-mitigation), [rate limiting del WAF](https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting) y [CLI del firewall](https://vercel.com/docs/cli/firewall).
+
 ## Verificación y rollback
 
 Comprobar que producción muestra `v0.1.0-alpha.1`, carga recursos sin errores, configura un combate y sincroniza la ventana pública. No usar el estado de un despliegue anterior como prueba del commit nuevo.

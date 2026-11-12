@@ -1,8 +1,18 @@
 # Verificación de la alpha
 
-Última revisión: 2026-11-11. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
+Última revisión: 2026-11-12. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
 
 ## Evidencia automatizada
+
+### Política del firewall del alojamiento
+
+Revisión del 2026-11-12 sobre el proyecto existente de Vercel, en plan Hobby. Se publicó la regla de 300 solicitudes por IP y región en ventanas fijas de 60 segundos, con respuesta 429. El estado activo muestra el WAF habilitado, una regla válida y ningún borrador pendiente; las protecciones del sistema siguen activas. La regla leída desde Vercel coincide con la política versionada.
+
+Producción, guía, robots, sitemap y la dirección anterior respondieron HTTP 200. Una sesión independiente de Chromium puntuó 3:1, comprobó el resultado en la franja de sesión y en la pantalla externa, y verificó que la demo sigue siendo independiente, sin errores de JavaScript.
+
+La comprobación acotada envió 570 solicitudes HEAD a un recurso estático, con un máximo de cuatro conexiones concurrentes y detención al primer 429: 566 respuestas 200 y cuatro 429, incluidas las solicitudes que ya estaban en curso. El tráfico pasó por una sola región; el total enviado puede abarcar más de una ventana fija de conteo. El acceso normal volvió a responder 200 en la segunda comprobación, 30 segundos después del bloqueo observado.
+
+Tipos, formato, diez pruebas unitarias, build y 133 enlaces locales aprobados. No se repitió localmente la suite E2E completa para este cambio de infraestructura y documentación. La configuración y el procedimiento de operación están en [publicación](deployment.md#protección-frente-a-abuso). Esta prueba funcional no certifica resistencia ante un ataque distribuido o de saturación.
 
 ### Sesión compacta y respuesta de la demo
 
