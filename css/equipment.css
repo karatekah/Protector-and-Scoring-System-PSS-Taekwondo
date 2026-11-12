@@ -1,0 +1,122 @@
+.arena-title-wrap {
+  padding-block: 132px;
+}
+.sticker-dobok {
+  width: clamp(72px, 7.3vw, 104px);
+  inset-inline-start: 8%;
+  inset-block-start: -12px;
+}
+.sticker-hogu {
+  width: clamp(66px, 5.7vw, 82px);
+  inset-inline-end: 6%;
+  inset-block-start: 18px;
+  inset-block-end: auto;
+}
+.sticker-screen {
+  width: clamp(76px, 6.7vw, 96px);
+  inset-inline-start: 8%;
+  inset-block-end: 0;
+}
+.sticker-screen > b {
+  font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+}
+.sticker-screen > span {
+  font-size: 0.625rem;
+}
+.sticker-headguard {
+  --drift-x: 3px;
+  --drift-y: -8px;
+  --drift-angle: 3deg;
+  width: clamp(70px, 6.2vw, 88px);
+  inset-inline-start: 61%;
+  inset-block-start: -2px;
+  rotate: 12deg;
+  animation-duration: 9.5s;
+  animation-delay: -3.5s;
+}
+.sticker-footguards {
+  --drift-x: -3px;
+  --drift-y: -10px;
+  --drift-angle: -3deg;
+  width: clamp(86px, 8vw, 114px);
+  inset-inline-start: 34%;
+  inset-block-start: 0;
+  rotate: -8deg;
+  animation-duration: 10s;
+  animation-delay: -6s;
+}
+.sticker-hogu-blue {
+  --drift-x: -4px;
+  --drift-y: -10px;
+  --drift-angle: -3deg;
+  width: clamp(68px, 5.7vw, 82px);
+  inset-inline-end: 8%;
+  inset-block-end: 0;
+  color: #3689ea;
+  rotate: -12deg;
+  animation-duration: 9.3s;
+  animation-delay: -4s;
+}
+.sticker-octagon {
+  --drift-x: 2px;
+  --drift-y: -8px;
+  --drift-angle: 3deg;
+  width: clamp(76px, 6.7vw, 96px);
+  inset-inline-start: calc(50% - clamp(38px, 3.35vw, 48px));
+  inset-block-end: 0;
+  rotate: 8deg;
+  animation-duration: 11s;
+  animation-delay: -1.8s;
+}
+@media (max-width: 760px) {
+  .arena-title-wrap {
+    padding-block: 78px 86px;
+  }
+  .arena-sticker {
+    --drift-x: 1px;
+    --drift-y: -5px;
+    --drift-angle: 2deg;
+  }
+  .sticker-dobok {
+    width: 46px;
+    inset-inline-start: 0;
+    inset-block-start: 4px;
+  }
+  .sticker-footguards {
+    width: 54px;
+    inset-inline-start: 26%;
+    inset-block-start: 6px;
+  }
+  .sticker-headguard {
+    width: 46px;
+    inset-inline-start: 56%;
+    inset-block-start: 3px;
+  }
+  .sticker-hogu {
+    width: 44px;
+    inset-inline-end: 0;
+    inset-block-start: 5px;
+    inset-block-end: auto;
+  }
+  .sticker-screen {
+    width: 54px;
+    inset-inline-start: 3%;
+    inset-block-end: 0;
+  }
+  .sticker-screen > b {
+    font-size: 1.75rem;
+  }
+  .sticker-screen > span {
+    font-size: 0.5rem;
+  }
+  .sticker-octagon {
+    width: 58px;
+    inset-inline-start: calc(50% - 29px);
+    inset-block-end: 0;
+  }
+  .sticker-hogu-blue {
+    width: 48px;
+    inset-inline-end: 3%;
+    inset-block-end: 0;
+  }
+}

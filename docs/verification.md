@@ -4,6 +4,12 @@
 
 ## Evidencia automatizada
 
+### Equipamiento animado en la portada
+
+Revisión del 2026-11-12: casco de combate, empeineras, peto azul y octógono se incorporan a los tres gráficos existentes. Comparten contornos y colores, entrada escalonada y flotación. Los tamaños y recorridos se reducen en móvil; los adornos no reciben foco ni interceptan pulsaciones, y se detienen con movimiento reducido o al ocultar la portada.
+
+Tipos, formato, build y catorce pruebas unitarias aprobados en Free; once en la base local ampliada. Pasaron diez casos E2E de movimiento, navegación, teclado, reflujo y accesibilidad en Chromium/Firefox en cada base. La revisión visual adicional cubrió 42 combinaciones de Free, la base ampliada y el paquete autónomo entre 320 y 1920 px. Se midieron cuatro fases de la animación, carga de los SVG y separación respecto a título, lema, menú y acciones: sin solapamientos, recursos faltantes, desbordamiento ni errores de script. Se inspeccionaron capturas a 390 y 1440 px. No se repitió localmente la suite funcional completa para esta incorporación visual; no se realizaron pruebas nuevas en móvil físico ni con dos monitores.
+
 ### Demo de portada alineada con el marcador actual
 
 Revisión del 2026-11-12: la pantalla de muestra utiliza los estilos del marcador actual, con rojo a la izquierda, azul a la derecha, banderas locales, nombres centrados, reloj central y líder amarillo. Se retiró el texto inferior y los estilos de la maqueta anterior. Conserva el ciclo automático de un minuto, límite de 16 puntos, correcciones, impacto y movimiento reducido. Los campos de la demo siguen separados del estado y del almacenamiento del combate.

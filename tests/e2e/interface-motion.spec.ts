@@ -28,7 +28,7 @@ test("hero arrives as a sequence and buttons respond to hover and press", async 
           ).length,
       ),
     )
-    .toBe(3);
+    .toBe(7);
   const title = await page.evaluate(() => {
     const animation = (window as MotionWindow).recordedMotion.find(
       (a) => a.id === "hero-unveil",

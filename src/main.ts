@@ -6,6 +6,7 @@ import "../css/workspace.css";
 import "../css/motion.css";
 import "../css/countries.css";
 import "../css/scoreboard.css";
+import "../css/equipment.css";
 import { renderCountryFlags, setupCountryFields } from "./country-fields";
 import { all, find, mountView, pageUrl } from "./pages";
 import { paths, viewFromUrl } from "./routes";

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="headguard" viewBox="0 0 120 140" fill="none" stroke="#08090b" stroke-width="3" stroke-linejoin="round">
+    <path fill="#fff" d="M60 7C34 7 20 24 20 48v6L9 59v29l11 6 10 25 15 12h30l15-12 10-25 11-6V59l-11-5v-6C100 24 86 7 60 7Z"/>
+    <path fill="#ed4a38" d="M60 15c-21 0-32 15-32 35v11l-11 4v19l10 6 10 24 11 9h24l11-9 10-24 10-6V65l-11-4V50c0-20-11-35-32-35Z"/>
+    <path fill="#fff" d="M38 44q22-15 44 0v27L71 83v17H49V83L38 71Z"/>
+    <path fill="#08090b" d="M42 111h36v8H42Z"/>
+    <path d="M57 111h10v8H57Z" fill="#fff" stroke-width="2"/>
+    <path d="M24 68v13m72-13v13" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="43" cy="30" r="3" fill="#08090b" stroke="none"/>
+    <circle cx="60" cy="25" r="3" fill="#08090b" stroke="none"/>
+    <circle cx="77" cy="30" r="3" fill="#08090b" stroke="none"/>
+  </symbol>
+  <symbol id="footguards" viewBox="0 0 160 140" fill="none" stroke="#08090b" stroke-width="3" stroke-linejoin="round">
+    <g transform="rotate(-9 43 70)">
+      <path fill="#fff" d="M25 9h34l1 39 13 43c4 14-3 27-18 29l-26 3c-15 1-24-10-20-25l13-48Z"/>
+      <path fill="#3689ea" d="m29 51 24-2 10 39-42 5Z"/>
+      <path fill="#08090b" d="M24 28h35v11H24Z"/>
+      <path d="m29 69 27-3m-32 16 35-4" stroke="#fff" stroke-width="4"/>
+      <path d="m19 103 43-5m-35 7 1 11m10-12 1 11m10-12 1 10" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(79 10) rotate(9 35 65)">
+      <path fill="#fff" d="M20 7h33l2 40 12 40c4 14-3 27-18 29l-25 3c-15 1-24-10-20-25l13-48Z"/>
+      <path fill="#3689ea" d="m24 48 24-2 10 39-42 5Z"/>
+      <path fill="#08090b" d="M19 26h35v11H19Z"/>
+      <path d="m24 66 27-3m-32 16 35-4" stroke="#fff" stroke-width="4"/>
+      <path d="m14 100 43-5m-35 7 1 11m10-12 1 11m10-12 1 10" stroke-linecap="round"/>
+    </g>
+  </symbol>
+  <symbol id="octagon" viewBox="0 0 140 140" fill="none" stroke="#08090b" stroke-width="3" stroke-linejoin="round">
+    <path fill="#fff" d="M44 5h52l39 39v52l-39 39H44L5 96V44Z"/>
+    <path fill="#ed4a38" d="M47 13h46l34 34v46l-34 34H47L13 93V47Z"/>
+    <path fill="#3689ea" d="M51 33h38l18 18v38l-18 18H51L33 89V51Z"/>
+    <path d="M61 60v20m18-20v20" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  </symbol>
+</svg>

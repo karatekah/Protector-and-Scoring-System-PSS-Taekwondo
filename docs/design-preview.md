@@ -8,7 +8,7 @@ Fecha: 2026-11-03. Diseño revisado por el usuario y aprobado para subir a GitHu
 
 La misma identidad se extiende a Preparar combate, Control, Marcador y Guía. La composición y revisión de esas vistas están en [workspace-design.md](workspace-design.md).
 
-La referencia solicitada es [Slush](https://slush.app/): un hero envolvente, título de gran escala, navegación superpuesta en cápsulas y materialidad protagonista. Se adopta esa composición con identidad de Taekwondo: un cinturón de algodón azul, dobok y peto ilustrados. No se reutilizan imágenes, logotipo, tipografía propietaria ni código de Slush.
+La referencia solicitada es [Slush](https://slush.app/): un hero envolvente, título de gran escala, navegación superpuesta en cápsulas y materialidad protagonista. Se adopta esa composición con identidad de Taekwondo: un cinturón de algodón azul y gráficos de equipamiento deportivo. No se reutilizan imágenes, logotipo, tipografía propietaria ni código de Slush.
 
 La idea dominante es un cartel Octajang dentro del recorrido del cinturón. El resto de la portada organiza la sesión actual, la presentación de mesa y pantalla, tres pasos de uso y el estado del proyecto. Las secciones son bandas amplias con composiciones distintas. La franja de sesión conserva los datos reales; el monitor de presentación es una simulación etiquetada como Demo e independiente del combate.
 
@@ -33,7 +33,7 @@ La navegación utiliza cápsulas blancas con borde negro de 2 px y selección os
 Por solicitud posterior del usuario, la portada incorpora movimiento inspirado en [Slush](https://slush.app/). No se agregaron dependencias ni se modificó el dominio del combate.
 
 - Ribbon con dos grupos idénticos y un recorrido lineal de 42 segundos hasta −50 % del track. El segundo grupo ocupa la posición inicial al terminar cada ciclo; el ancho mínimo de cada grupo cubre el viewport.
-- Dobok, peto y sello de dos pantallas con flotación independiente: 8, 9 y 7.5 segundos, recorridos de 10–18 px y giro de 3–5 grados alrededor de la inclinación original.
+- Siete gráficos alrededor del cartel: dobok, petos rojo y azul, casco, empeineras, octógono y sello de dos pantallas. Sus ciclos independientes duran entre 7.5 y 11 segundos, con recorridos verticales de 8–18 px en escritorio. En móvil se reducen a 5 px y 2 grados de giro.
 - Entradas al desplazarse mediante IntersectionObserver. Se prepara el contenido inicialmente bajo el viewport. Los bloques entran una sola vez, con opacidad, 12 px de desplazamiento y desenfoque de 4 px durante 450 ms, separados por 140 ms donde hay una secuencia.
 - Por indicación del usuario, el ribbon y los gráficos funcionan automáticamente sin botón de pausa.
 - Con prefers-reduced-motion, no se ejecutan desplazamientos ni ciclos y todos los contenidos son visibles. La preferencia también se respeta si cambia con la página abierta.
@@ -43,7 +43,7 @@ Los bloques se revelan inmediatamente al recibir foco. Sin JavaScript, sin Inter
 
 ## Movimiento compartido
 
-El título OCTAJANG se descubre de izquierda a derecha durante 1100 ms, conservando su texto y tipografía. Los tres gráficos llegan con opacidad, escala de 0.76 a 1 y 16 px de desplazamiento durante 900 ms; sus entradas se separan 120 ms y continúan con la flotación existente. La cabecera, el lema y las acciones tienen entradas de 420 ms con desenfoque de 2 px y desplazamiento de 8 px.
+El título OCTAJANG se descubre de izquierda a derecha durante 1100 ms, conservando su texto y tipografía. Los siete gráficos llegan con opacidad, escala de 0.76 a 1 y 16 px de desplazamiento durante 900 ms; sus entradas se separan 120 ms y continúan con la flotación existente. La cabecera, el lema y las acciones tienen entradas de 420 ms con desenfoque de 2 px y desplazamiento de 8 px.
 
 Preparación incorpora la misma entrada en títulos, sello y grupos del formulario. Control y Marcador usan únicamente una entrada de opacidad de 140 ms para sus grupos, una vez por vista durante la sesión de navegación. Los cambios de puntos y reloj mantienen su respuesta inmediata y sus teclas conservan la posición. Abrir un desplegable revela su contenido con opacidad durante 140 ms.
 
@@ -99,6 +99,6 @@ La presentación solicita pantalla completa sobre el elemento del marcador, que 
 
 ## Recursos originales
 
-El dobok y el peto del hero son SVG propios en src/views/home.html. El peto reutilizable de la sesión está en public/assets/hogu.svg. El fondo es una imagen original del cinturón azul sobre fondo opaco. Archivo final: public/assets/taekwondo-belt-sky.jpg, JPEG calidad 80, 1536 × 1024, 200 306 bytes. La ilustración anterior se conserva en docs/assets/taekwondo-kit-previous.jpg.
+El dobok y el peto rojo del hero son SVG propios en src/views/home.html. El peto azul reutiliza public/assets/hogu.svg, también utilizado en la sesión. El casco, las empeineras y el octógono comparten el recurso public/assets/equipment.svg. Sus tamaños, posiciones y variantes móviles se definen en css/equipment.css. El fondo es una imagen original del cinturón azul sobre fondo opaco. Archivo final: public/assets/taekwondo-belt-sky.jpg, JPEG calidad 80, 1536 × 1024, 200 306 bytes. La ilustración anterior se conserva en docs/assets/taekwondo-kit-previous.jpg.
 
 Se revisaron color, tipografía, distribución, escritura y accesibilidad. No se añadieron dependencias. Las comprobaciones y sus límites se registran en [verificación](verification.md).
