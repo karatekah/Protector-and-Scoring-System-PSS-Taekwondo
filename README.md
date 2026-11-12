@@ -12,7 +12,7 @@ A manual Taekwondo scoreboard for training and exhibitions. One PC, one operator
 
 [![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/octajang/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/octajang/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/octajang/actions/workflows/ci.yml) [![GPL-3.0 license](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](LICENSE) [![Web demo](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://octajang.vercel.app)
 
-[Try the alpha](https://octajang.vercel.app) · [User guide](https://octajang.vercel.app/guide.html) · [Documentation](#documentation) · [Roadmap](docs/roadmap.md) · [Report a bug](https://github.com/karatekah/octajang/issues)
+[Try the alpha](https://octajang.vercel.app) · [User guide](https://octajang.vercel.app/guia) · [Documentation](#documentation) · [Roadmap](docs/roadmap.md) · [Report a bug](https://github.com/karatekah/octajang/issues)
 
 </div>
 
@@ -82,7 +82,7 @@ The selected target stack is React / TypeScript / Vite, React Router, TanStack Q
 
 | Need                            | Guide                                                                                                                                             |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Use the scoreboard              | [Public user guide](https://octajang.vercel.app/guide.html) · [Alpha scope](docs/alpha.md)                                                        |
+| Use the scoreboard              | [Public user guide](https://octajang.vercel.app/guia) · [Alpha scope](docs/alpha.md)                                                              |
 | Understand the code             | [Current architecture](docs/architecture.md) · [Foundation decision](docs/adr/0001-foundation.md)                                                 |
 | Review the tournament direction | [Target stack](docs/stack.md) · [LAN architecture](docs/tournament-architecture.md) · [Migration](docs/migration.md) · [Roadmap](docs/roadmap.md) |
 | Inspect quality and design      | [Verification matrix](docs/verification.md) · [Interface review](docs/interface-review.md) · [Visual identity and assets](docs/branding.md)       |

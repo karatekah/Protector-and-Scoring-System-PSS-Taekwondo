@@ -4,6 +4,16 @@
 
 ## Evidencia automatizada
 
+### Páginas independientes y movimiento más pausado
+
+Revisión del 2026-11-12: tipos, formato, doce pruebas unitarias, build y 38 casos E2E en Chromium/Firefox aprobados. Cada ruta (`/`, `/preparar`, `/control`, `/marcador` y `/guia`) devuelve su propio HTML con un único módulo inicial. Se comprobaron entrada directa, recarga, enlaces anteriores con `?view=...`, marcadores de la guía y rechazo de nombres de vista heredados del prototipo de objetos.
+
+El reloj continúa durante la navegación interna a la Guía y con Atrás/Adelante. La ventana externa recibe los cambios; recargar el operador conserva la pausa de seguridad y los puntos. Abrir directamente Guía o Marcador no escribe datos ni reserva el lock de operador. La cobertura previa de Free, KO, deshacer, JSON, recuperación y pantalla completa sigue pasando.
+
+Se midieron las cinco páginas a 320/390/768/1440 px en Chromium y Firefox: 40 casos sin desbordamiento horizontal. Axe no detectó infracciones dentro de su cobertura en las cinco páginas con movimiento normal. Se inspeccionaron capturas de escritorio y móvil. Un paquete autónomo adicional pasó diez recorridos a 320/1440 px, con enlaces `.html` bajo una subcarpeta, navegación y sincronización de la pantalla externa. No hubo errores de JavaScript ni recursos fallidos.
+
+El título entra durante 1100 ms, los gráficos durante 900 ms y los grupos no operativos durante 420 ms. Ribbon y flotación usan ciclos más largos. Las teclas de puntuación, reloj, movimiento reducido y foco mantienen su respuesta anterior. Estas comprobaciones no sustituyen móvil físico, lector de pantalla, zoom nativo ni una sesión física de dos monitores.
+
 ### Movimiento compartido de la interfaz
 
 Revisión del 2026-11-12: tipos, formato, diez pruebas unitarias, build y 30 casos E2E en Chromium/Firefox aprobados. Se comprueban la entrada del título y los tres gráficos, la reacción al hover y la pulsación, la entrada única de cada vista, la estabilidad de las teclas de puntuación, la pantalla pública y las secciones de la Guía. Con movimiento reducido, las entradas no incluyen desplazamiento, escala, desenfoque ni recorte.

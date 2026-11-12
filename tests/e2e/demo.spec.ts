@@ -125,19 +125,19 @@ test("demo loops every minute without controls and leaves the real match unchang
     await page.evaluate(() => localStorage.getItem("pss-taekwondo-match-v4")),
   ).toBe(stored);
 
-  await page.getByRole("button", { name: "Control", exact: true }).click();
-  await expect(status).toHaveText("Demo");
+  await page.getByRole("link", { name: "Control", exact: true }).click();
+  await expect(demo).toHaveCount(0);
   await page.clock.runFor(4000);
-  await expect(clock).toHaveText("00:55");
   await expect(
     page.locator('[data-view="scoring"] [data-bind="blueScore"]'),
   ).toHaveText("0");
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
   ).toHaveText("02:00");
-  await page.getByRole("button", { name: "Inicio", exact: true }).click();
+  await page.getByRole("link", { name: "Inicio", exact: true }).click();
   await demo.scrollIntoViewIfNeeded();
   await expect(status).toHaveText("En juego");
+  await expect(clock).toHaveText("00:55");
   await page.clock.runFor(54000);
   await expect(clock).toHaveText("00:01");
   const samples = await page.evaluate(

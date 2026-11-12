@@ -43,7 +43,7 @@ test("Octajang restores existing v4 data and transfers a backup to a new origin"
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
   ).toHaveText("01:25");
   await page
-    .getByRole("button", { name: "Preparar combate", exact: true })
+    .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
   const downloading = page.waitForEvent("download");
   await page.getByRole("button", { name: "Exportar JSON" }).click();
@@ -70,9 +70,7 @@ test("Octajang restores existing v4 data and transfers a backup to a new origin"
       exact: true,
     }),
   ).toHaveValue("Ana");
-  await destination
-    .getByRole("button", { name: "Control", exact: true })
-    .click();
+  await destination.getByRole("link", { name: "Control", exact: true }).click();
   await expect(
     destination.locator('[data-view="scoring"] [data-bind="blueScore"]'),
   ).toHaveText("7");
@@ -91,7 +89,7 @@ test("Control and Marcador share fullscreen without navigation, including the ex
 }) => {
   test.setTimeout(60000);
   await page.goto("/");
-  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page.getByRole("link", { name: "Control", exact: true }).click();
   await page
     .getByRole("button", { name: "Marcador a pantalla completa", exact: true })
     .click();
@@ -122,7 +120,7 @@ test("Control and Marcador share fullscreen without navigation, including the ex
   );
   await expect(page.locator(".app-header")).toBeVisible();
 
-  await page.getByRole("button", { name: "Marcador", exact: true }).click();
+  await page.getByRole("link", { name: "Marcador", exact: true }).click();
   await page
     .getByRole("button", { name: "Pantalla completa", exact: true })
     .click();
@@ -225,12 +223,12 @@ test("operator, public window, clock, scores, undo, persistence and ownership", 
   const duplicate = await context.newPage();
   await duplicate.goto("/");
   await expect(duplicate.locator("#warning")).toContainText("Otra pestaña");
-  await duplicate.getByRole("button", { name: "Control", exact: true }).click();
+  await duplicate.getByRole("link", { name: "Control", exact: true }).click();
   await expect(
     duplicate.getByRole("button", { name: "+2 puntos · azul", exact: true }),
   ).toBeDisabled();
   await page.reload();
-  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page.getByRole("link", { name: "Control", exact: true }).click();
   await expect(
     page.locator('[data-view="scoring"] [data-bind="blueScore"]'),
   ).toHaveText("2");
@@ -243,7 +241,7 @@ test("JSON export, import validation, archive and recovery", async ({
   page,
 }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page.getByRole("link", { name: "Control", exact: true }).click();
   await page
     .getByRole("button", { name: "+3 puntos · rojo", exact: true })
     .click();
@@ -252,7 +250,7 @@ test("JSON export, import validation, archive and recovery", async ({
     .getByRole("button", { name: "Guardar resumen", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Preparar combate", exact: true })
+    .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
   await expect(page.locator("[data-saved-match-list]")).toContainText("Rojo");
   const download = page.waitForEvent("download");
@@ -270,7 +268,7 @@ test("JSON export, import validation, archive and recovery", async ({
   page.once("dialog", (dialog) => dialog.accept());
   await page.locator("#importFile").setInputFiles(path);
   await expect(page.locator("#announcement")).toContainText("Copia restaurada");
-  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page.getByRole("link", { name: "Control", exact: true }).click();
   await expect(
     page.locator('[data-view="scoring"] [data-bind="redScore"]'),
   ).toHaveText("3");
@@ -313,7 +311,7 @@ test("keyboard flow, reduced motion, reflow and automated accessibility", async 
     ).toBe(true);
     await page.setViewportSize({ width: 1440, height: 900 });
   }
-  await page.goto("/guide.html");
+  await page.goto("/guia");
   expect(
     (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze())
       .violations,
@@ -371,7 +369,7 @@ test("Free presets, saved configuration and read-only session", async ({
   ).toHaveText("03:00");
   await expect(page.getByRole("button", { name: /Impacto/ })).toHaveCount(0);
   await page
-    .getByRole("button", { name: "Preparar combate", exact: true })
+    .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
   await expect(preset).toHaveAttribute("aria-pressed", "true");
   await expect(
@@ -380,7 +378,7 @@ test("Free presets, saved configuration and read-only session", async ({
   const observer = await context.newPage();
   await observer.goto("/");
   await observer
-    .getByRole("button", { name: "Preparar combate", exact: true })
+    .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
   await expect(
     observer.getByRole("button", { name: "3:00 por ronda", exact: true }),
@@ -444,7 +442,7 @@ test("final result follows all rounds and corrections in control, display and JS
     .getByRole("button", { name: "Guardar resumen", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Preparar combate", exact: true })
+    .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
   await expect(page.locator("[data-saved-match-list]")).toContainText(
     "Ganador: Rojo",
@@ -456,7 +454,7 @@ test("final result follows all rounds and corrections in control, display and JS
   if (!file) throw new Error("Missing backup");
   page.once("dialog", (dialog) => dialog.accept());
   await page.locator("#importFile").setInputFiles(file);
-  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page.getByRole("link", { name: "Control", exact: true }).click();
   await expect(result).toContainText("Ganador: Rojo");
   await page.reload();
   await expect(result).toContainText("Ganador: Rojo");
@@ -556,7 +554,7 @@ test("Free preserves oversized legacy backups and requires an explicit deletion 
     "historial de Free está lleno",
   );
   await page
-    .getByRole("button", { name: "Preparar combate", exact: true })
+    .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
   await expect(page.locator("[data-saved-match-list] > li")).toHaveCount(10);
 });

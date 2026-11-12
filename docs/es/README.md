@@ -12,7 +12,7 @@ Un marcador manual de Taekwondo para entrenamiento y exhibición. Un PC, un oper
 
 [![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/octajang/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/octajang/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/octajang/actions/workflows/ci.yml) [![Licencia GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](../../LICENSE) [![Demo web](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://octajang.vercel.app)
 
-[Probar la alpha](https://octajang.vercel.app) · [Guía de uso](https://octajang.vercel.app/guide.html) · [Documentación](#documentación) · [Roadmap](../roadmap.md) · [Reportar un problema](https://github.com/karatekah/octajang/issues)
+[Probar la alpha](https://octajang.vercel.app) · [Guía de uso](https://octajang.vercel.app/guia) · [Documentación](#documentación) · [Roadmap](../roadmap.md) · [Reportar un problema](https://github.com/karatekah/octajang/issues)
 
 </div>
 
@@ -82,7 +82,7 @@ El stack objetivo es React / TypeScript / Vite, React Router, TanStack Query, un
 
 | Necesidad                       | Guía                                                                                                                                        |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Usar el marcador                | [Guía pública](https://octajang.vercel.app/guide.html) · [Alcance de la alpha](../alpha.md)                                                 |
+| Usar el marcador                | [Guía pública](https://octajang.vercel.app/guia) · [Alcance de la alpha](../alpha.md)                                                       |
 | Entender el código              | [Arquitectura actual](../architecture.md) · [Decisión inicial](../adr/0001-foundation.md)                                                   |
 | Revisar la dirección de torneos | [Stack objetivo](../stack.md) · [Arquitectura LAN](../tournament-architecture.md) · [Migración](../migration.md) · [Roadmap](../roadmap.md) |
 | Revisar calidad y diseño        | [Verificación](../verification.md) · [Revisión de interfaz](../interface-review.md) · [Identidad visual y recursos](../branding.md)         |

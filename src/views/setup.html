@@ -1,0 +1,199 @@
+<section
+  class="view-panel is-active"
+  data-view="setup"
+  aria-label="Preparar combate"
+  tabindex="-1"
+>
+  <div class="view-heading workspace-heading">
+    <div>
+      <p class="section-label">La preparación</p>
+      <h1>Prepara el combate</h1>
+      <p>
+        Guardar prepara una sesión nueva y archiva el resumen de la anterior.
+      </p>
+    </div>
+    <span class="workspace-stamp" aria-hidden="true"
+      ><img
+        src="./assets/octajang-mark.svg"
+        width="64"
+        height="64"
+        alt=""
+      /><small>OCTAJANG</small></span
+    >
+  </div>
+  <form id="matchSetupForm">
+    <fieldset id="setupFields" class="setup-grid" disabled="">
+      <legend class="sr-only">Configuración del combate</legend>
+      <section class="form-card">
+        <header>
+          <div>
+            <h2>Formato de sesión</h2>
+            <p>Puntos acumulados entre rondas.</p>
+          </div>
+        </header>
+        <label
+          >Nombre del evento<input
+            id="setupEventName"
+            name="eventName"
+            type="text"
+            maxlength="120"
+            required=""
+            value="Sesión de entrenamiento"
+        /></label>
+        <div class="format-controls">
+          <label
+            >Rondas<select name="totalRounds" required="">
+              <option value="1">1</option>
+              <option value="3" selected="">3</option>
+            </select></label
+          >
+          <div class="duration-control">
+            <span class="duration-label" id="duration-label"
+              >Duración por ronda</span
+            >
+            <div
+              class="duration-presets"
+              role="group"
+              aria-labelledby="duration-label"
+            >
+              <button
+                type="button"
+                data-duration="60"
+                data-mutation=""
+                aria-pressed="false"
+                aria-label="1:00 por ronda"
+              >
+                1:00
+              </button>
+              <button
+                type="button"
+                data-duration="120"
+                data-mutation=""
+                aria-pressed="true"
+                aria-label="2:00 por ronda"
+              >
+                2:00
+              </button>
+              <button
+                type="button"
+                data-duration="180"
+                data-mutation=""
+                aria-pressed="false"
+                aria-label="3:00 por ronda"
+              >
+                3:00
+              </button>
+            </div>
+            <input
+              id="setupRoundDuration"
+              name="roundDuration"
+              type="hidden"
+              value="120"
+            />
+          </div>
+        </div>
+        <p class="field-help">Free · 1 o 3 rondas de 1, 2 o 3 minutos.</p>
+        <p id="legacyConfigNote" class="field-help" hidden="">
+          Tu combate anterior conserva su formato. Estos ajustes se aplicarán al
+          preparar uno nuevo.
+        </p>
+      </section>
+      <section class="form-card blue-form">
+        <header>
+          <div>
+            <h2>Competidor azul</h2>
+            <p>Identifica el lado azul.</p>
+          </div>
+        </header>
+        <label
+          >Nombre del competidor azul<input
+            name="blueName"
+            type="text"
+            maxlength="80"
+            required=""
+            value="Azul"
+            autocomplete="off"
+        /></label>
+        <label
+          >País del competidor azul<input
+            name="blueCountry"
+            type="text"
+            maxlength="3"
+            minlength="3"
+            pattern="[A-Za-z]{3}"
+            required=""
+            value="USA"
+            aria-describedby="blueCountryHelp"
+        /></label>
+        <p id="blueCountryHelp" class="field-help">
+          Código de tres letras, por ejemplo USA.
+        </p>
+      </section>
+      <section class="form-card red-form">
+        <header>
+          <div>
+            <h2>Competidor rojo</h2>
+            <p>Identifica el lado rojo.</p>
+          </div>
+        </header>
+        <label
+          >Nombre del competidor rojo<input
+            name="redName"
+            type="text"
+            maxlength="80"
+            required=""
+            value="Rojo"
+            autocomplete="off"
+        /></label>
+        <label
+          >País del competidor rojo<input
+            name="redCountry"
+            type="text"
+            maxlength="3"
+            minlength="3"
+            pattern="[A-Za-z]{3}"
+            required=""
+            value="USA"
+            aria-describedby="redCountryHelp"
+        /></label>
+        <p id="redCountryHelp" class="field-help">
+          Código de tres letras, por ejemplo USA.
+        </p>
+      </section>
+      <div class="form-actions">
+        <p>
+          <span>Podrás corregir los puntos con Deshacer.</span>
+        </p>
+        <button class="primary-action" type="submit">
+          Guardar y abrir control
+        </button>
+      </div>
+    </fieldset>
+  </form>
+  <section class="saved-matches-panel" aria-labelledby="archiveTitle">
+    <header>
+      <div>
+        <h2 id="archiveTitle">Resúmenes guardados</h2>
+        <p data-bind="archiveInfo">0 de 10 resúmenes en este navegador.</p>
+        <p class="field-help">
+          Al llenarse, exporta el JSON y elimina los resúmenes que elijas para
+          liberar espacio.
+        </p>
+      </div>
+      <div class="backup-actions">
+        <button type="button" id="exportLog">Exportar JSON ↓</button
+        ><button type="button" id="importTrigger" data-mutation="">
+          Importar JSON ↑</button
+        ><input
+          id="importFile"
+          class="sr-only"
+          type="file"
+          accept=".json,application/json"
+          aria-label="Archivo JSON para restaurar"
+          tabindex="-1"
+        />
+      </div>
+    </header>
+    <ol class="saved-match-list" data-saved-match-list=""></ol>
+  </section>
+</section>

@@ -91,7 +91,7 @@ test("minus one and confirmed KO preserve ownership, time, undo and the external
     .getByRole("button", { name: "Guardar resumen", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Preparar combate", exact: true })
+    .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
   await expect(page.locator("[data-saved-match-list]")).toContainText(
     "Ganador por KO: Azul",
@@ -106,7 +106,7 @@ test("minus one and confirmed KO preserve ownership, time, undo and the external
   expect(backup.savedMatches[0].match.koWinner).toBe("blue");
   page.once("dialog", (dialog) => dialog.accept());
   await page.locator("#importFile").setInputFiles(path);
-  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page.getByRole("link", { name: "Control", exact: true }).click();
   await page.reload();
   await expect(result).toContainText("Ganador por KO: Azul");
   await page.getByText("Gestión del combate", { exact: true }).click();

@@ -32,7 +32,7 @@ export function initScoreboardDemo(): void {
     impacts.push(
       fields[`${side}Score`].animate(
         [{ scale: "1" }, { scale: "1.08", offset: 0.25 }, { scale: "1" }],
-        { duration: 420, easing: "cubic-bezier(0.2, 0, 0, 1)" },
+        { duration: 550, easing: "cubic-bezier(0.2, 0, 0, 1)" },
       ),
       burst.animate(
         [
@@ -40,7 +40,7 @@ export function initScoreboardDemo(): void {
           { opacity: 1, scale: "0.85", offset: 0.2 },
           { opacity: 0, scale: "1.15" },
         ],
-        { duration: 420, easing: "ease-out" },
+        { duration: 550, easing: "ease-out" },
       ),
     );
   }

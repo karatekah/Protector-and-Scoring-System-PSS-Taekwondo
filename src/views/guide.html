@@ -1,0 +1,357 @@
+<section
+  class="guide-view is-active"
+  data-view="guide"
+  id="guide-content"
+  tabindex="-1"
+  aria-label="Guía de Octajang"
+>
+  <section class="guide-hero">
+    <h1>LA GUÍA</h1>
+    <p class="guide-lead">Tu mesa, de principio a fin.</p>
+    <p>
+      Una mesa de control manual para entrenamiento y exhibición de Taekwondo.
+      Un PC, un operador y una pantalla externa en el mismo navegador.
+    </p>
+  </section>
+  <nav class="guide-nav" aria-label="En esta guía">
+    <a href="#start">Empezar</a><a href="#scope">Alcance</a
+    ><a href="#data">Tus datos</a><a href="#technology">Alpha actual</a
+    ><a href="#target-stack">Stack objetivo</a><a href="#roadmap">Plan</a>
+  </nav>
+  <section class="guide-section" id="start">
+    <div>
+      <h2>
+        De la configuración<br />
+        a la segunda pantalla.
+      </h2>
+    </div>
+    <ol class="guide-steps">
+      <li>
+        <strong>Prepara la sesión.</strong> Introduce el evento, los
+        competidores, 1 o 3 rondas y una duración de 1, 2 o 3 minutos. Guardar
+        abre el control.
+      </li>
+      <li>
+        <strong>Abre la pantalla externa.</strong> Permite la ventana emergente,
+        muévela al segundo monitor y activa Pantalla completa. Debe usar el
+        mismo navegador y perfil que el control. Para presentar en este monitor,
+        usa Marcador a pantalla completa desde Control. Al salir vuelves al
+        control; también puedes abrir Marcador y activar Pantalla completa desde
+        allí.
+      </li>
+      <li>
+        <strong>Dirige el combate.</strong> Inicia o pausa el reloj. Registra de
+        +1 a +6 puntos por decisión manual. Gam-jeom suma una penalización al
+        atleta y un punto al rival. −1 corrige un punto del atleta seleccionado,
+        sin bajar de cero ni cambiar al rival. «KO · Gana por KO» declara
+        ganador a ese atleta tras confirmar, detiene el reloj y cierra el
+        combate. Deshacer permite corregir un KO marcado por error y deja el
+        reloj pausado.
+      </li>
+      <li>
+        <strong>Continúa o corrige.</strong> Siguiente ronda conserva los puntos
+        acumulados. Deshacer revierte la última acción disponible y pausa el
+        reloj sin devolver el tiempo transcurrido. Al agotarse la última ronda,
+        Control y Marcador muestran al ganador por puntos acumulados o un
+        empate. Las correcciones posteriores actualizan ese resultado.
+      </li>
+      <li>
+        <strong>Guarda y respalda.</strong> Abre Gestión del combate para
+        guardar un resumen, intercambiar lados o preparar un combate nuevo.
+        Exporta JSON desde Preparar combate para conservar una copia externa.
+        Nuevo combate archiva el actual antes de reiniciar.
+      </li>
+    </ol>
+  </section>
+  <section class="guide-section" id="scope">
+    <div>
+      <h2>
+        Hecho para<br />
+        entrenar y exhibir.
+      </h2>
+    </div>
+    <div class="guide-prose">
+      <p>
+        La alpha ofrece puntuación manual, reloj, rondas, penalizaciones,
+        resultado final por puntos acumulados, deshacer, resúmenes, respaldo
+        JSON y una pantalla externa de solo lectura.
+      </p>
+      <p>
+        El operador decide qué acción puntuar y confirma manualmente un KO
+        cuando corresponda. El combate termina por KO o al agotarse la última
+        ronda configurada. Los valores +1 a +6 son incrementos manuales: no
+        asignan automáticamente una técnica ni representan una edición de un
+        reglamento.
+      </p>
+      <p>
+        No incluye sensores, homologación WT, victorias por asalto, desempates,
+        gestión de torneos, cuentas ni conexiones entre dispositivos. Compartir
+        el enlace en otro equipo abre una sesión independiente.
+      </p>
+      <p>
+        La pestaña de control debe permanecer abierta. Al recargarla el reloj
+        queda pausado. Usa la segunda ventana en la misma sesión del navegador;
+        una ventana privada o un perfil distinto no comparte los datos.
+      </p>
+    </div>
+  </section>
+  <section class="guide-section" id="data">
+    <div>
+      <h2>
+        El navegador guarda.<br />
+        Tú conservas la copia.
+      </h2>
+    </div>
+    <div class="guide-prose">
+      <p>
+        Free conserva el combate, las últimas 120 acciones y hasta 10 resúmenes
+        nuevos en el almacenamiento local del sitio. Las acciones más antiguas
+        se retiran al llegar a 120. Los resúmenes no se borran automáticamente:
+        al llenarse el historial, exporta JSON y elimina los que elijas antes de
+        guardar otro.
+      </p>
+      <p>
+        El respaldo sigue siendo JSON con los datos del combate, sin informe PDF
+        ni CSV. Las copias nuevas usan el formato v5 para conservar el ganador
+        por KO; requieren esta versión o una posterior para restaurarse. También
+        se admiten las copias v4. Las copias anteriores válidas conservan sus
+        tiempos, rondas, impactos y hasta 80 resúmenes. Al preparar un combate
+        nuevo se utilizan los presets de Free; restaurar una copia no recorta
+        los registros anteriores.
+      </p>
+      <p>
+        Exporta JSON antes de borrar datos del navegador, cambiar de dominio o
+        trasladarte a otro equipo. Importar JSON valida el archivo y pide
+        confirmar antes de reemplazar los datos actuales. Solo acepta el formato
+        de esta alpha y archivos de hasta 5 MB.
+      </p>
+      <p>
+        Cada dirección guarda sus propios datos. Si cambias de dirección,
+        exporta primero tu copia JSON desde la que utilizabas e impórtala
+        después en la nueva. Mantén Control y Marcador en la misma dirección
+        para que compartan el combate.
+      </p>
+      <p>
+        ¿Utilizabas la dirección anterior?
+        <a
+          href="https://protector-and-scoring-system-pss-tkdrolando.vercel.app/?view=setup"
+          >Ábrela para exportar tu copia JSON</a
+        >
+        antes de trasladar el combate a esta dirección.
+      </p>
+      <p>
+        Los datos del prototipo v2/v3 se recuperan cuando son válidos: se
+        conservan el combate y los resúmenes compatibles. El deshacer y los
+        registros detallados del formato anterior no se migran; las claves
+        antiguas se mantienen en el navegador.
+      </p>
+      <p>
+        La aplicación no incorpora cuentas, analítica ni envío de los combates a
+        un servidor. Vercel recibe las solicitudes necesarias para servir la
+        demo. Cualquier persona con acceso a tu perfil del navegador puede ver
+        los datos locales.
+      </p>
+    </div>
+  </section>
+  <section class="guide-section" id="technology">
+    <div>
+      <h2>
+        La tecnología<br />
+        de la alpha actual.
+      </h2>
+    </div>
+    <div class="guide-prose">
+      <div class="tech-grid">
+        <div>
+          <strong>TypeScript estricto</strong
+          ><span>Lógica del combate tipada y separada de la vista.</span>
+        </div>
+        <div>
+          <strong>Vite + CSS</strong
+          ><span
+            >Compilación estática, tokens visuales y componentes nativos.</span
+          >
+        </div>
+        <div>
+          <strong>Web Locks + canales locales</strong
+          ><span
+            >Un operador por perfil del navegador. Pantalla externa de solo
+            lectura.</span
+          >
+        </div>
+        <div>
+          <strong>Vitest + Playwright</strong
+          ><span
+            >Reglas, respaldo, sincronización, navegador y accesibilidad
+            automatizada.</span
+          >
+        </div>
+        <div>
+          <strong>GitHub Actions + Vercel</strong
+          ><span
+            >Verificaciones reproducibles y despliegue en el proyecto
+            existente.</span
+          >
+        </div>
+        <div>
+          <strong>Node 24 LTS + npm</strong
+          ><span
+            >Herramientas de desarrollo con versiones fijadas en el
+            repositorio.</span
+          >
+        </div>
+      </div>
+      <p>
+        La alpha 0.1 publicada funciona en un navegador y todavía no utiliza
+        React, Go ni una base de datos. El diseño objetivo siguiente amplía
+        Octajang a torneos; sus funciones aún requieren implementación y
+        pruebas.
+      </p>
+    </div>
+  </section>
+  <section class="guide-section" id="target-stack">
+    <div>
+      <h2>
+        Un torneo completo.<br />
+        Dentro del recinto.
+      </h2>
+      <p class="planned-label">Diseño definido · Implementación pendiente</p>
+    </div>
+    <div class="guide-prose">
+      <p>
+        El producto al que evolucionará Octajang tendrá varias áreas, jueces y
+        pantallas conectados a la red local. Podrá operar sin Internet: los
+        jueces propondrán puntos y la mesa de cada área los confirmará.
+      </p>
+      <ol class="architecture-flow" aria-label="Flujo previsto de puntuación">
+        <li>
+          <strong>Jueces</strong
+          ><span>Envían propuestas del combate asignado.</span>
+        </li>
+        <li>
+          <strong>Mesa del área</strong
+          ><span>Confirma o rechaza cada propuesta.</span>
+        </li>
+        <li>
+          <strong>Servidor del recinto</strong
+          ><span>Valida, guarda y publica el estado oficial.</span>
+        </li>
+        <li>
+          <strong>Pantallas</strong
+          ><span>Muestran el resultado confirmado.</span>
+        </li>
+      </ol>
+      <div class="tech-grid">
+        <div>
+          <strong>React + TypeScript + Vite</strong
+          ><span
+            >Interfaz por roles, componentes compartidos y rutas con React
+            Router.</span
+          >
+        </div>
+        <div>
+          <strong>CSS con tokens + CSS Modules</strong
+          ><span
+            >Diseño consistente, componentes accesibles y estilos
+            acotados.</span
+          >
+        </div>
+        <div>
+          <strong>Go</strong
+          ><span
+            >Un servidor local para la interfaz, la API, los permisos y el reloj
+            oficial.</span
+          >
+        </div>
+        <div>
+          <strong>SQLite</strong
+          ><span
+            >Archivo transaccional del evento en la PC del servidor. Los
+            clientes acceden por la API.</span
+          >
+        </div>
+        <div>
+          <strong>HTTPS + WebSocket</strong
+          ><span
+            >Contratos, revisiones, confirmaciones y recuperación de conexión
+            por área.</span
+          >
+        </div>
+        <div>
+          <strong>Pruebas y operación</strong
+          ><span
+            >Concurrencia, duplicados, revocación, respaldo, restauración y
+            pruebas físicas.</span
+          >
+        </div>
+      </div>
+      <p>
+        Vercel seguirá alojando la demo pública. El servidor local servirá todos
+        los recursos del torneo, con sesiones y permisos propios; el archivo
+        SQLite nunca se compartirá por una carpeta de red.
+      </p>
+      <p>
+        El primer presupuesto técnico de validación será de cuatro áreas y 21
+        sesiones. Es una hipótesis para medir, no una capacidad ya demostrada.
+        Sensores, reglamentos automáticos y distribución local corresponden a
+        fases posteriores.
+      </p>
+      <p>
+        <a href="https://github.com/karatekah/octajang/blob/main/docs/stack.md"
+          >Leer las decisiones de stack ↗</a
+        >
+        ·
+        <a
+          href="https://github.com/karatekah/octajang/blob/main/docs/migration.md"
+          >Ver el plan de migración ↗</a
+        >
+      </p>
+    </div>
+  </section>
+  <section class="guide-section" id="roadmap">
+    <div>
+      <h2>Estado del proyecto</h2>
+    </div>
+    <ol class="guide-steps roadmap">
+      <li>
+        <strong>Alpha 0.1 · Publicada.</strong> Marcador de entrenamiento,
+        control desde un PC y pantalla externa. Mantener esta demo mientras
+        evoluciona el producto.
+      </li>
+      <li>
+        <strong>Frontend React · Planificado.</strong> Migrar vistas y
+        componentes, conservar los respaldos y comprobar los flujos y la
+        accesibilidad.
+      </li>
+      <li>
+        <strong>Servidor y un área LAN · Planificados.</strong> Go, SQLite,
+        contratos, sesiones y flujo de propuestas confirmadas por la mesa.
+        Probar desconexiones y restauración.
+      </li>
+      <li>
+        <strong>Varias áreas · Planificadas.</strong> Aislar combates,
+        asignaciones y colas. Medir la carga y operar con dispositivos físicos
+        en el recinto.
+      </li>
+      <li>
+        <strong>Beta de torneo · Pendiente.</strong> Acordar la edición del
+        reglamento, probar decisiones y resultados, y documentar una sesión
+        completa.
+      </li>
+      <li>
+        <strong>Sensores · Después.</strong> Investigar protocolo y calibración
+        con hardware real antes de anunciar integración PSS.
+      </li>
+    </ol>
+  </section>
+  <section class="guide-callout">
+    <h2>Haz una sesión corta de prueba.</h2>
+    <p>
+      Prepara dos atletas, puntúa, aplica una penalización, deshaz y comprueba
+      la pantalla externa. Exporta una copia al terminar.
+    </p>
+    <a href="./preparar.html" data-view-target="setup"
+      >Preparar un combate <span aria-hidden="true">↗</span></a
+    >
+  </section>
+</section>

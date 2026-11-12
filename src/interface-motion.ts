@@ -2,12 +2,14 @@ export function initInterfaceMotion(): void {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const running = new Set<Animation>();
   const visited = new Set<string>();
-  const ease = "cubic-bezier(0.16, 1, 0.3, 1)";
+  const ease = "cubic-bezier(0.22, 0.68, 0.3, 1)";
+  let guideObserver: IntersectionObserver | undefined;
+  const guideSections = new Set<HTMLElement>();
 
   function enter(
     target: Element,
     frames: Keyframe[],
-    duration = 280,
+    duration = 420,
     delay = 0,
     id = "interface-enter",
   ): void {
@@ -39,10 +41,37 @@ export function initInterfaceMotion(): void {
               { opacity: 0, transform: "translateY(8px)", filter: "blur(2px)" },
               { opacity: 1, transform: "none", filter: "blur(0px)" },
             ],
-        quiet ? 140 : 280,
-        quiet ? 0 : Math.min(index * 40, 160),
+        quiet ? 140 : 420,
+        quiet ? 0 : Math.min(index * 70, 210),
       );
     });
+  }
+
+  function revealGuide(target: HTMLElement): void {
+    target.classList.remove("motion-pending");
+    guideObserver?.unobserve(target);
+    enterGroup(target, ":scope > *");
+  }
+
+  function enterGuide(root: ParentNode): void {
+    enterGroup(root, ".guide-hero > *, .guide-nav > a");
+    if (reduced.matches || !("IntersectionObserver" in window)) return;
+    guideObserver ??= new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) revealGuide(entry.target as HTMLElement);
+        }
+      },
+      { rootMargin: "0px 0px -24px 0px" },
+    );
+    for (const section of root.querySelectorAll<HTMLElement>(
+      ".guide-section, .guide-callout",
+    )) {
+      guideSections.add(section);
+      if (section.getBoundingClientRect().top < innerHeight) continue;
+      section.classList.add("motion-pending");
+      guideObserver.observe(section);
+    }
   }
 
   function enterView(): void {
@@ -67,7 +96,7 @@ export function initInterfaceMotion(): void {
           },
           { opacity: 1, clipPath: "inset(0 0 0 0)", transform: "none" },
         ],
-        700,
+        1100,
         0,
         "hero-unveil",
       );
@@ -78,8 +107,8 @@ export function initInterfaceMotion(): void {
             { opacity: 0, scale: "0.76", translate: "0 16px" },
             { opacity: 1, scale: "1", translate: "0 0" },
           ],
-          600,
-          80 + index * 80,
+          900,
+          120 + index * 120,
           "sticker-arrive",
         );
       });
@@ -92,6 +121,8 @@ export function initInterfaceMotion(): void {
         panel,
         ".view-heading h1, .view-heading p, .workspace-stamp, .form-card, .form-actions, .saved-matches-panel",
       );
+    } else if (view === "guide") {
+      enterGuide(panel);
     } else {
       enterGroup(
         panel,
@@ -110,34 +141,6 @@ export function initInterfaceMotion(): void {
     attributes: true,
     attributeFilter: ["data-current-view"],
   });
-
-  let guideObserver: IntersectionObserver | undefined;
-  const guideSections = document.querySelectorAll<HTMLElement>(
-    ".guide-section, .guide-callout",
-  );
-  const revealGuide = (target: HTMLElement) => {
-    target.classList.remove("motion-pending");
-    guideObserver?.unobserve(target);
-    enterGroup(target, ":scope > *");
-  };
-  if (document.body.classList.contains("guide-page")) {
-    enterGroup(document, ".guide-hero > *, .guide-nav > a");
-    if (!reduced.matches && "IntersectionObserver" in window) {
-      guideObserver = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) revealGuide(entry.target as HTMLElement);
-          }
-        },
-        { rootMargin: "0px 0px -24px 0px" },
-      );
-      for (const section of guideSections) {
-        if (section.getBoundingClientRect().top < innerHeight) continue;
-        section.classList.add("motion-pending");
-        guideObserver.observe(section);
-      }
-    }
-  }
 
   document.addEventListener("focusin", (event) => {
     const focused = event.target as Element;

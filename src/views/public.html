@@ -1,0 +1,91 @@
+<section
+  class="view-panel public-view is-active"
+  data-view="public"
+  aria-label="Marcador para pantalla externa"
+  tabindex="-1"
+>
+  <div class="public-toolbar">
+    <span>Marcador · Solo lectura en la ventana externa</span>
+    <div>
+      <button class="operator-return" type="button" data-view-target="scoring">
+        Volver al control</button
+      ><button type="button" data-fullscreen="">
+        <span data-fullscreen-label="">Pantalla completa</span>
+        <span aria-hidden="true">⛶</span>
+      </button>
+    </div>
+  </div>
+  <section class="scoreboard public-board" aria-label="Marcador público">
+    <header class="event-bar">
+      <span class="board-tag">OCTAJANG</span
+      ><strong data-bind="eventName">Sesión de entrenamiento</strong
+      ><span class="manual-label">Free · Entrenamiento</span>
+    </header>
+    <div
+      class="match-result"
+      data-result=""
+      role="status"
+      tabindex="-1"
+      hidden=""
+    >
+      <span>Resultado final</span>
+      <strong data-bind="result"></strong>
+      <small data-bind="resultDetail"
+        >Por puntos acumulados · Entrenamiento y exhibición</small
+      >
+    </div>
+    <div class="score-grid">
+      <article class="fighter-panel blue-panel" aria-label="Marcador azul">
+        <div class="fighter-meta">
+          <span class="side-label"
+            >AZUL <span data-bind="blueCountry">USA</span></span
+          ><strong data-bind="blueName">Azul</strong>
+        </div>
+        <output
+          class="score-value"
+          data-bind="blueScore"
+          aria-label="Puntos azul"
+          aria-live="off"
+          >0</output
+        >
+        <div class="panel-foot">
+          <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span>
+        </div>
+      </article>
+      <section class="center-clock" aria-label="Tiempo y ronda">
+        <div class="time-state" data-bind="status">Preparado</div>
+        <output
+          class="clock-value"
+          data-bind="clock"
+          aria-label="Tiempo restante"
+          aria-live="off"
+          >02:00</output
+        >
+        <div class="round-block">
+          <span>RONDA</span
+          ><strong
+            ><span data-bind="round">1</span
+            ><small> / <span data-bind="totalRounds">3</span></small></strong
+          >
+        </div>
+      </section>
+      <article class="fighter-panel red-panel" aria-label="Marcador rojo">
+        <div class="fighter-meta">
+          <span class="side-label"
+            >ROJO <span data-bind="redCountry">USA</span></span
+          ><strong data-bind="redName">Rojo</strong>
+        </div>
+        <output
+          class="score-value"
+          data-bind="redScore"
+          aria-label="Puntos rojo"
+          aria-live="off"
+          >0</output
+        >
+        <div class="panel-foot">
+          <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span>
+        </div>
+      </article>
+    </div>
+  </section>
+</section>

@@ -4,6 +4,11 @@
   "installCommand": "npm ci",
   "buildCommand": "npm test && npm run build",
   "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/guide", "destination": "/guia", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",

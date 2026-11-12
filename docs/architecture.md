@@ -9,30 +9,31 @@ Operador con Web Lock
   → src/match.ts: acciones y snapshots planos
   → src/main.ts: representación y persistencia
   → localStorage (esquema v5) + BroadcastChannel
-  → ventana ?view=public: validación y representación, sin escritura
+  → ventana /marcador: validación y representación, sin escritura
 ```
 
 ## Módulos
 
-| Archivo                    | Responsabilidad                                                                           |
-| -------------------------- | ----------------------------------------------------------------------------------------- |
-| src/match.ts               | Tipos, puntuación, penalizaciones, archivo, deshacer, validación y migración              |
-| src/main.ts                | Eventos DOM, propiedad del operador, temporización, respaldo e intercambio entre ventanas |
-| index.html                 | Vistas semánticas: inicio, configuración, control y marcador                              |
-| css/styles.css             | Tokens, estados, tamaños adaptables, foco y movimiento reducido                           |
-| guide.html / css/guide.css | Guía pública de uso, límites y evolución                                                  |
-| tests                      | Invariantes del dominio y flujos de navegador                                             |
-| vercel.json / .github      | Compilación, cabeceras y comprobaciones                                                   |
+| Archivo                                                               | Responsabilidad                                                                           |
+| --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| src/match.ts                                                          | Tipos, puntuación, penalizaciones, archivo, deshacer, validación y migración              |
+| src/main.ts                                                           | Eventos DOM, propiedad del operador, temporización, respaldo e intercambio entre ventanas |
+| index.html / preparar.html / control.html / marcador.html / guia.html | Páginas independientes con el contenido inicial de su módulo                              |
+| src/views / src/pages.ts / src/routes.ts                              | Contenido por módulo, montaje, enlaces y rutas; navegación con History API                |
+| css/styles.css                                                        | Tokens, estados, tamaños adaptables, foco y movimiento reducido                           |
+| src/views/guide.html / css/guide.css                                  | Guía pública de uso, límites y evolución; guide.html redirige enlaces antiguos            |
+| tests                                                                 | Invariantes del dominio y flujos de navegador                                             |
+| vercel.json / .github                                                 | Compilación, cabeceras y comprobaciones                                                   |
 
 ## Reloj
 
 Al iniciar se guarda una referencia de `performance.now()` y el tiempo restante. Los callbacks calculan la diferencia transcurrida; su frecuencia no determina el tiempo descontado. Una pestaña en segundo plano puede recibir callbacks con retraso: al volver, el reloj calcula el tiempo correspondiente, pero la pantalla puede haber mostrado un valor anterior durante esa suspensión. No es un reloj distribuido ni una garantía de tiempo real.
 
-El operador publica aproximadamente una vez por segundo mientras corre el reloj y ante cada acción. Al recargar el operador, el tiempo guardado queda pausado. Al cerrar normalmente la página se intenta persistir el estado pausado; ante una caída puede perderse el último intervalo no guardado.
+El operador publica aproximadamente una vez por segundo mientras corre el reloj y ante cada acción. La navegación interna y Atrás/Adelante mantienen el motor y el reloj activos en la misma pestaña, también al visitar la Guía. Solo se monta el contenido del módulo actual. Al recargar el operador, el tiempo guardado queda pausado. Al cerrar normalmente la página se intenta persistir el estado pausado; ante una caída puede perderse el último intervalo no guardado.
 
 ## Propiedad y sincronización
 
-Web Locks concede un único operador por origen y perfil. Otra pestaña de control queda en lectura; para tomar el control debe cerrarse el operador anterior y recargarse. Una ventana pública nunca solicita el lock ni guarda el estado.
+Web Locks concede un único operador por origen y perfil. Otra pestaña de control queda en lectura; para tomar el control debe cerrarse el operador anterior y recargarse. Una ventana pública nunca solicita el lock ni guarda el estado. La Guía abierta directamente tampoco reserva ese lock; sus enlaces a módulos operativos cargan la página correspondiente.
 
 BroadcastChannel acelera las actualizaciones. El evento `storage` sirve como canal adicional. No cruzan equipos, perfiles, navegación privada separada ni dominios de preview/producción.
 

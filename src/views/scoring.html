@@ -1,0 +1,199 @@
+<section
+  class="view-panel is-active"
+  data-view="scoring"
+  aria-label="Control del combate"
+  tabindex="-1"
+>
+  <div class="view-heading control-heading">
+    <div>
+      <p class="section-label">Mesa de control</p>
+      <h1>Control del combate</h1>
+    </div>
+    <div class="presentation-actions">
+      <button
+        class="primary-action static-press"
+        type="button"
+        data-fullscreen=""
+        data-control-fullscreen=""
+      >
+        <svg
+          class="ui-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M8 3H3v5m13-5h5v5M3 16v5h5m8 0h5v-5"></path></svg
+        >Marcador a pantalla completa
+      </button>
+      <button class="display-action" type="button" data-open-public="">
+        <svg
+          class="ui-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="3" y="4" width="18" height="13" rx="2"></rect>
+          <path d="M8 21h8m-4-4v4"></path>
+        </svg>
+        Abrir pantalla externa <span aria-hidden="true">↗</span>
+      </button>
+    </div>
+  </div>
+  <section class="scoreboard compact-board" aria-label="Marcador de control">
+    <header class="event-bar">
+      <span class="board-tag"
+        ><span class="duo-mark" aria-hidden="true"></span> Octajang ·
+        ENTRENAMIENTO</span
+      ><strong data-bind="eventName">Sesión de entrenamiento</strong
+      ><span class="manual-label">Free · Puntuación manual</span>
+    </header>
+    <div
+      class="match-result"
+      data-result=""
+      role="status"
+      tabindex="-1"
+      hidden=""
+    >
+      <span>Resultado final</span>
+      <strong data-bind="result"></strong>
+      <small data-bind="resultDetail"
+        >Por puntos acumulados · Entrenamiento y exhibición</small
+      >
+    </div>
+    <div class="score-grid">
+      <article class="fighter-panel blue-panel" aria-label="Marcador azul">
+        <div class="fighter-meta">
+          <span class="side-label"
+            >AZUL <span data-bind="blueCountry">USA</span></span
+          ><strong data-bind="blueName">Azul</strong>
+        </div>
+        <output
+          class="score-value"
+          data-bind="blueScore"
+          aria-label="Puntos azul"
+          aria-live="off"
+          >0</output
+        >
+        <div class="panel-foot">
+          <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span>
+        </div>
+      </article>
+      <section class="center-clock" aria-label="Tiempo y ronda">
+        <div class="time-state" data-bind="status">Preparado</div>
+        <output
+          class="clock-value"
+          data-bind="clock"
+          aria-label="Tiempo restante"
+          aria-live="off"
+          >02:00</output
+        >
+        <div class="round-block">
+          <span>RONDA</span
+          ><strong
+            ><span data-bind="round">1</span
+            ><small> / <span data-bind="totalRounds">3</span></small></strong
+          >
+        </div>
+      </section>
+      <article class="fighter-panel red-panel" aria-label="Marcador rojo">
+        <div class="fighter-meta">
+          <span class="side-label"
+            >ROJO <span data-bind="redCountry">USA</span></span
+          ><strong data-bind="redName">Rojo</strong>
+        </div>
+        <output
+          class="score-value"
+          data-bind="redScore"
+          aria-label="Puntos rojo"
+          aria-live="off"
+          >0</output
+        >
+        <div class="panel-foot">
+          <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="operator-area" aria-label="Acciones del operador">
+    <div class="control-strip">
+      <button
+        id="startPause"
+        class="primary-action static-press"
+        type="button"
+        data-mutation=""
+      >
+        Iniciar · Shijak</button
+      ><button id="timeout" type="button" data-mutation="">
+        Tiempo técnico</button
+      ><button id="nextRound" type="button" data-mutation="">
+        Siguiente ronda</button
+      ><button id="undo" type="button" data-mutation="" disabled="">
+        Deshacer
+      </button>
+    </div>
+    <div class="operator-layout">
+      <section class="judge-side blue-judge" aria-label="Puntuación azul">
+        <header>
+          <span>AZUL</span><strong data-bind="blueName">Azul</strong>
+        </header>
+        <div class="score-buttons" data-side="blue"></div>
+      </section>
+      <section class="judge-side red-judge" aria-label="Puntuación roja">
+        <header>
+          <span>ROJO</span><strong data-bind="redName">Rojo</strong>
+        </header>
+        <div class="score-buttons" data-side="red"></div>
+      </section>
+      <details class="log-panel">
+        <summary>
+          <strong>Registro de acciones</strong
+          ><span><span data-bind="logCount">0</span> / 120</span>
+        </summary>
+        <ol
+          class="history-list"
+          data-log-list=""
+          aria-label="Acciones del combate"
+        ></ol>
+        <div class="log-footer">
+          <span data-bind="leader">Empate en puntos</span
+          ><button id="clearLog" type="button" data-mutation="">
+            Borrar registro
+          </button>
+        </div>
+      </details>
+    </div>
+    <details class="match-management log-panel">
+      <summary>
+        <strong>Gestión del combate</strong
+        ><span>Guardar, intercambiar o empezar de nuevo</span>
+      </summary>
+      <div class="secondary-controls">
+        <p>
+          Los botones +1 a +6 registran puntos decididos por el operador. No
+          aplican un reglamento automáticamente.
+        </p>
+        <div>
+          <button id="swapSides" type="button" data-mutation="">
+            Intercambiar lados</button
+          ><button id="saveMatch" type="button" data-mutation="">
+            Guardar resumen</button
+          ><button
+            id="resetMatch"
+            class="danger-action"
+            type="button"
+            data-mutation=""
+          >
+            Nuevo combate
+          </button>
+        </div>
+      </div>
+    </details>
+  </section>
+</section>

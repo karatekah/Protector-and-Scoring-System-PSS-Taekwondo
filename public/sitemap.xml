@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://octajang.vercel.app/</loc></url>
-  <url><loc>https://octajang.vercel.app/guide.html</loc></url>
+  <url><loc>https://octajang.vercel.app/preparar</loc></url>
+  <url><loc>https://octajang.vercel.app/control</loc></url>
+  <url><loc>https://octajang.vercel.app/marcador</loc></url>
+  <url><loc>https://octajang.vercel.app/guia</loc></url>
 </urlset>

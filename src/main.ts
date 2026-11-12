@@ -1,8 +1,12 @@
 import "../css/styles.css";
 import "../css/components.css";
+import "../css/guide.css";
 import "../css/arena.css";
 import "../css/workspace.css";
 import "../css/motion.css";
+import { all, find, mountView, pageUrl } from "./pages";
+import { paths, viewFromUrl } from "./routes";
+import type { View } from "./routes";
 import { initInterfaceMotion } from "./interface-motion";
 import { initLandingMotion } from "./landing-motion";
 import { initScoreboardDemo } from "./scoreboard-demo";
@@ -29,8 +33,10 @@ import type { Action, Config, Side, Status } from "./match";
 
 const STORAGE_KEY = "pss-taekwondo-match-v4";
 const LEGACY_KEYS = ["pss-taekwondo-match-v3", "pss-taekwondo-match-v2"];
-const publicOnly =
-  new URLSearchParams(location.search).get("view") === "public";
+const initialView = viewFromUrl(new URL(location.href));
+const publicOnly = initialView === "public";
+const readOnlyEntry = publicOnly || initialView === "guide";
+let homeMotionReady = false;
 const channel =
   "BroadcastChannel" in window
     ? new BroadcastChannel("pss-taekwondo-v4")
@@ -54,7 +60,7 @@ let staleDisplay = false;
 let returnToControl = false;
 
 function element<T extends HTMLElement = HTMLElement>(selector: string): T {
-  const result = document.querySelector<T>(selector);
+  const result = find<T>(selector);
   if (!result) throw new Error(`Falta el elemento ${selector}`);
   return result;
 }
@@ -84,7 +90,7 @@ function load(): void {
         );
       }
     }
-    if (!publicOnly) pauseLoadedState();
+    if (!readOnlyEntry) pauseLoadedState();
   } catch {
     warning(
       "No se pudieron leer los datos guardados. El almacenamiento anterior sigue intacto. Puedes importar una copia JSON; una nueva acción guardará un combate nuevo.",
@@ -191,21 +197,19 @@ function renderBindings(): void {
         : `Lidera ${m.blue.score > m.red.score ? c.blueName : c.redName}`,
   };
   for (const [key, value] of Object.entries(values)) {
-    document.querySelectorAll(`[data-bind="${key}"]`).forEach((el) => {
+    all(`[data-bind="${key}"]`).forEach((el) => {
       el.textContent = String(value);
     });
   }
-  document.querySelectorAll<HTMLElement>("[data-result]").forEach((panel) => {
+  all<HTMLElement>("[data-result]").forEach((panel) => {
     panel.hidden = result === null;
     panel.dataset.winner = result ?? "";
   });
 }
 function renderControls(): void {
-  document
-    .querySelectorAll<HTMLButtonElement>("[data-mutation]")
-    .forEach((button) => {
-      button.disabled = !operator;
-    });
+  all<HTMLButtonElement>("[data-mutation]").forEach((button) => {
+    button.disabled = !operator;
+  });
   element<HTMLButtonElement>("#startPause").disabled =
     !operator || state.match.remainingMs <= 0 || Boolean(state.match.koWinner);
   element("#startPause").textContent = state.match.running
@@ -219,15 +223,13 @@ function renderControls(): void {
     Boolean(state.match.koWinner);
   element<HTMLButtonElement>("#timeout").disabled =
     !operator || state.match.remainingMs <= 0 || Boolean(state.match.koWinner);
-  document
-    .querySelectorAll<HTMLButtonElement>(".score-action")
-    .forEach((button) => {
-      const side = button.dataset.side as Side;
-      button.disabled =
-        !operator ||
-        Boolean(state.match.koWinner) ||
-        (button.dataset.action === "deduct" && state.match[side].score === 0);
-    });
+  all<HTMLButtonElement>(".score-action").forEach((button) => {
+    const side = button.dataset.side as Side;
+    button.disabled =
+      !operator ||
+      Boolean(state.match.koWinner) ||
+      (button.dataset.action === "deduct" && state.match[side].score === 0);
+  });
   element<HTMLButtonElement>("#clearLog").disabled =
     !operator || state.history.length === 0;
   element("#operatorState").textContent = publicOnly
@@ -299,14 +301,12 @@ function updateDurationPresets(): void {
   const seconds = Number(
     element<HTMLInputElement>("#setupRoundDuration").value,
   );
-  document
-    .querySelectorAll<HTMLButtonElement>("[data-duration]")
-    .forEach((button) => {
-      button.setAttribute(
-        "aria-pressed",
-        String(seconds === Number(button.dataset.duration)),
-      );
-    });
+  all<HTMLButtonElement>("[data-duration]").forEach((button) => {
+    button.setAttribute(
+      "aria-pressed",
+      String(seconds === Number(button.dataset.duration)),
+    );
+  });
 }
 function setupForm(): void {
   const form = element<HTMLFormElement>("#matchSetupForm");
@@ -328,36 +328,66 @@ function canArchive(): boolean {
   );
   return false;
 }
-function showView(requested: string, focus = true): void {
-  const view = publicOnly
+function showView(
+  requested: string,
+  focus = true,
+  historyMode: "push" | "replace" | "none" = "push",
+  hash = "",
+): void {
+  const view: View = publicOnly
     ? "public"
-    : ["home", "setup", "scoring", "public"].includes(requested)
-      ? requested
+    : Object.hasOwn(paths, requested)
+      ? (requested as View)
       : "home";
+  if (document.fullscreenElement && view !== "public") {
+    returnToControl = false;
+    void document.exitFullscreen();
+  }
+  mountView(view);
   document.body.dataset.currentView = view;
-  document.querySelectorAll<HTMLElement>("[data-view]").forEach((panel) => {
-    panel.hidden = panel.dataset.view !== view;
-    panel.classList.toggle("is-active", !panel.hidden);
-  });
+  document.body.classList.toggle("guide-page", view === "guide");
   document
-    .querySelectorAll<HTMLButtonElement>(".tab-button[data-view-target]")
-    .forEach((button) => {
-      button.classList.toggle("is-active", button.dataset.viewTarget === view);
-      if (button.dataset.viewTarget === view)
-        button.setAttribute("aria-current", "page");
-      else button.removeAttribute("aria-current");
-    });
-  document.title =
-    view === "home"
-      ? "Octajang · Marcador de taekwondo y control de combates"
-      : `${{ setup: "Preparar combate", scoring: "Control", public: "Marcador" }[view]} · Octajang`;
+    .querySelector(".app-shell")
+    ?.classList.toggle("guide-shell", view === "guide");
+  all<HTMLElement>(".tab-button[data-view-target]").forEach((link) => {
+    const active = link.dataset.viewTarget === view;
+    link.classList.toggle("is-active", active);
+    if (active) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+  const titles: Record<View, string> = {
+    home: "Octajang · Marcador de taekwondo y control de combates",
+    setup: "Preparar combate · Octajang",
+    scoring: "Control · Octajang",
+    public: "Marcador · Octajang",
+    guide: "Guía de Octajang · Preparación, control y marcador",
+  };
+  document.title = titles[view];
+  all<HTMLMetaElement>(
+    'meta[property="og:title"], meta[name="twitter:title"]',
+  ).forEach((meta) => {
+    meta.content = titles[view];
+  });
+  const canonical = "https://octajang.vercel.app" + paths[view];
+  element<HTMLLinkElement>('link[rel="canonical"]').href = canonical;
+  element<HTMLMetaElement>('meta[property="og:url"]').content = canonical;
+  const url = pageUrl(view, hash);
+  if (historyMode === "replace") history.replaceState(null, "", url);
+  else if (historyMode === "push" && url.href !== location.href)
+    history.pushState(null, "", url);
   if (view === "setup") setupForm();
+  if (view === "home" && !homeMotionReady) {
+    initLandingMotion();
+    initScoreboardDemo();
+    homeMotionReady = true;
+  }
   if (focus) {
     element<HTMLElement>(`[data-view="${view}"]`).focus({
       preventScroll: true,
     });
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }
+  if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
 }
 async function togglePublicFullscreen(): Promise<void> {
   try {
@@ -401,50 +431,57 @@ function exportData(): void {
   );
 }
 function bind(): void {
-  document
-    .querySelectorAll<HTMLButtonElement>("[data-duration]")
-    .forEach((button) => {
-      button.addEventListener("click", () => {
-        if (!operator) return;
-        const seconds = Number(button.dataset.duration);
-        element<HTMLInputElement>("#setupRoundDuration").value =
-          String(seconds);
-        updateDurationPresets();
-      });
-    });
-  document
-    .querySelectorAll<HTMLElement>("[data-view-target]")
-    .forEach((button) => {
-      button.addEventListener("click", () =>
-        showView(button.dataset.viewTarget || "home"),
-      );
-    });
-  document.querySelectorAll("[data-open-public]").forEach((button) =>
+  window.addEventListener("popstate", () =>
+    showView(viewFromUrl(new URL(location.href)), false, "none", location.hash),
+  );
+  all<HTMLButtonElement>("[data-duration]").forEach((button) => {
     button.addEventListener("click", () => {
-      const url = new URL(location.href);
-      url.searchParams.set("view", "public");
+      if (!operator) return;
+      const seconds = Number(button.dataset.duration);
+      element<HTMLInputElement>("#setupRoundDuration").value = String(seconds);
+      updateDurationPresets();
+    });
+  });
+  all<HTMLElement>("[data-view-target]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      if (
+        event instanceof MouseEvent &&
+        (event.button !== 0 ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey)
+      )
+        return;
+      event.preventDefault();
+      const view = button.dataset.viewTarget as View;
+      const hash =
+        button instanceof HTMLAnchorElement ? new URL(button.href).hash : "";
+      if (readOnlyEntry) location.assign(pageUrl(view, hash).href);
+      else showView(view, true, "push", hash);
+    });
+  });
+  all("[data-open-public]").forEach((button) =>
+    button.addEventListener("click", () => {
+      const url = pageUrl("public");
       if (!window.open(url, "pss-public-scoreboard"))
         warning(
           "El navegador bloqueó la ventana. Permite las ventanas emergentes de este sitio e inténtalo otra vez.",
         );
     }),
   );
-  document
-    .querySelectorAll("[data-fullscreen]")
-    .forEach((button) =>
-      button.addEventListener("click", () => void togglePublicFullscreen()),
-    );
+  all("[data-fullscreen]").forEach((button) =>
+    button.addEventListener("click", () => void togglePublicFullscreen()),
+  );
   document.addEventListener("fullscreenchange", () => {
     const presenting =
       document.fullscreenElement === element('[data-view="public"]');
     document.body.classList.toggle("is-presenting", presenting);
-    document
-      .querySelectorAll<HTMLElement>("[data-fullscreen-label]")
-      .forEach((label) => {
-        label.textContent = presenting
-          ? "Salir de pantalla completa"
-          : "Pantalla completa";
-      });
+    all<HTMLElement>("[data-fullscreen-label]").forEach((label) => {
+      label.textContent = presenting
+        ? "Salir de pantalla completa"
+        : "Pantalla completa";
+    });
     if (!document.fullscreenElement && returnToControl) {
       returnToControl = false;
       showView("scoring");
@@ -664,72 +701,70 @@ function bind(): void {
   });
 }
 function createButtons(): void {
-  document
-    .querySelectorAll<HTMLElement>(".score-buttons")
-    .forEach((container) => {
-      const side = container.dataset.side as Side;
-      const adjustments = document.createElement("div");
-      adjustments.className = "score-adjustments";
-      const actions: { label: string; detail: string; action: Action }[] = [
-        ...[1, 2, 3, 4, 5, 6].map((points) => ({
-          label: `+${points}`,
-          detail: points === 1 ? "punto" : "puntos",
-          action: { type: "points" as const, points },
-        })),
-        { label: "−1", detail: "Corregir punto", action: { type: "deduct" } },
-        {
-          label: "Gam-jeom",
-          detail: "+1 para el rival",
-          action: { type: "gamjeom" },
-        },
-        { label: "KO", detail: "Gana por KO", action: { type: "ko" } },
-      ];
-      for (const { label, detail, action } of actions) {
-        const button = document.createElement("button"),
-          title = document.createElement("strong"),
-          small = document.createElement("small");
-        button.type = "button";
-        button.className = "score-action static-press";
-        if (action.type === "gamjeom") button.classList.add("penalty-action");
-        button.dataset.mutation = "";
-        button.dataset.side = side;
-        button.dataset.action = action.type;
-        button.setAttribute(
-          "aria-label",
-          `${action.type === "deduct" ? "Restar 1 punto" : `${label} ${detail}`} · ${side === "blue" ? "azul" : "rojo"}`,
-        );
-        title.textContent = label;
-        small.textContent = detail;
-        button.append(title, small);
-        button.addEventListener("click", () => {
-          if (!operator || state.match.koWinner) return;
-          const name = state.config[side === "blue" ? "blueName" : "redName"];
-          if (
-            action.type === "ko" &&
-            !window.confirm(
-              `¿Declarar ganador por KO a ${name} (${side === "blue" ? "azul" : "rojo"})? El reloj se detendrá y el combate quedará cerrado. Puedes corregirlo con Deshacer.`,
-            )
+  all<HTMLElement>(".score-buttons").forEach((container) => {
+    const side = container.dataset.side as Side;
+    const adjustments = document.createElement("div");
+    adjustments.className = "score-adjustments";
+    const actions: { label: string; detail: string; action: Action }[] = [
+      ...[1, 2, 3, 4, 5, 6].map((points) => ({
+        label: `+${points}`,
+        detail: points === 1 ? "punto" : "puntos",
+        action: { type: "points" as const, points },
+      })),
+      { label: "−1", detail: "Corregir punto", action: { type: "deduct" } },
+      {
+        label: "Gam-jeom",
+        detail: "+1 para el rival",
+        action: { type: "gamjeom" },
+      },
+      { label: "KO", detail: "Gana por KO", action: { type: "ko" } },
+    ];
+    for (const { label, detail, action } of actions) {
+      const button = document.createElement("button"),
+        title = document.createElement("strong"),
+        small = document.createElement("small");
+      button.type = "button";
+      button.className = "score-action static-press";
+      if (action.type === "gamjeom") button.classList.add("penalty-action");
+      button.dataset.mutation = "";
+      button.dataset.side = side;
+      button.dataset.action = action.type;
+      button.setAttribute(
+        "aria-label",
+        `${action.type === "deduct" ? "Restar 1 punto" : `${label} ${detail}`} · ${side === "blue" ? "azul" : "rojo"}`,
+      );
+      title.textContent = label;
+      small.textContent = detail;
+      button.append(title, small);
+      button.addEventListener("click", () => {
+        if (!operator || state.match.koWinner) return;
+        const name = state.config[side === "blue" ? "blueName" : "redName"];
+        if (
+          action.type === "ko" &&
+          !window.confirm(
+            `¿Declarar ganador por KO a ${name} (${side === "blue" ? "azul" : "rojo"})? El reloj se detendrá y el combate quedará cerrado. Puedes corregirlo con Deshacer.`,
           )
-            return;
-          change(
-            () => {
-              applyAction(state, side, action);
-              if (action.type === "ko") stopClock();
-            },
-            action.type === "ko"
-              ? `Combate finalizado. Ganador por KO: ${name}.`
-              : `${side === "blue" ? "Azul" : "Rojo"}: ${label}. ${detail}.`,
-          );
-          if (action.type === "ko")
-            element('[data-view="scoring"] [data-result]').focus({
-              preventScroll: true,
-            });
-        });
-        if (action.type === "points") container.append(button);
-        else adjustments.append(button);
-      }
-      container.append(adjustments);
-    });
+        )
+          return;
+        change(
+          () => {
+            applyAction(state, side, action);
+            if (action.type === "ko") stopClock();
+          },
+          action.type === "ko"
+            ? `Combate finalizado. Ganador por KO: ${name}.`
+            : `${side === "blue" ? "Azul" : "Rojo"}: ${label}. ${detail}.`,
+        );
+        if (action.type === "ko")
+          element('[data-view="scoring"] [data-result]').focus({
+            preventScroll: true,
+          });
+      });
+      if (action.type === "points") container.append(button);
+      else adjustments.append(button);
+    }
+    container.append(adjustments);
+  });
 }
 
 document.body.classList.toggle("public-window", publicOnly);
@@ -737,13 +772,9 @@ load();
 createButtons();
 bind();
 render();
-showView(new URLSearchParams(location.search).get("view") || "home", false);
+showView(initialView, false, "replace", location.hash);
 initInterfaceMotion();
-if (!publicOnly) {
-  initLandingMotion();
-  initScoreboardDemo();
-}
-if (!publicOnly) {
+if (!readOnlyEntry) {
   if (!navigator.locks)
     warning(
       "Este navegador no permite reservar un único operador. Abre la demo por HTTPS en Chrome, Edge o Firefox actualizado.",

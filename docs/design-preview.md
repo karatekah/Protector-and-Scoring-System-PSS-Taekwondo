@@ -32,9 +32,9 @@ La navegación utiliza cápsulas blancas con borde negro de 2 px y selección os
 
 Por solicitud posterior del usuario, la portada incorpora movimiento inspirado en [Slush](https://slush.app/). No se agregaron dependencias ni se modificó el dominio del combate.
 
-- Ribbon con dos grupos idénticos y un recorrido lineal de 32 segundos hasta −50 % del track. El segundo grupo ocupa la posición inicial al terminar cada ciclo; el ancho mínimo de cada grupo cubre el viewport.
-- Dobok, peto y sello de dos pantallas con flotación independiente: 6, 7 y 5.6 segundos, recorridos de 10–18 px y giro de 3–5 grados alrededor de la inclinación original.
-- Entradas al desplazarse mediante IntersectionObserver. Se prepara el contenido inicialmente bajo el viewport. Los bloques entran una sola vez, con opacidad, 12 px de desplazamiento y desenfoque de 4 px durante 300 ms, separados por 100 ms donde hay una secuencia.
+- Ribbon con dos grupos idénticos y un recorrido lineal de 42 segundos hasta −50 % del track. El segundo grupo ocupa la posición inicial al terminar cada ciclo; el ancho mínimo de cada grupo cubre el viewport.
+- Dobok, peto y sello de dos pantallas con flotación independiente: 8, 9 y 7.5 segundos, recorridos de 10–18 px y giro de 3–5 grados alrededor de la inclinación original.
+- Entradas al desplazarse mediante IntersectionObserver. Se prepara el contenido inicialmente bajo el viewport. Los bloques entran una sola vez, con opacidad, 12 px de desplazamiento y desenfoque de 4 px durante 450 ms, separados por 140 ms donde hay una secuencia.
 - Por indicación del usuario, el ribbon y los gráficos funcionan automáticamente sin botón de pausa.
 - Con prefers-reduced-motion, no se ejecutan desplazamientos ni ciclos y todos los contenidos son visibles. La preferencia también se respeta si cambia con la página abierta.
 - La flotación y el ribbon se pausan al salir del hero, ocultar la pestaña o cambiar a una vista operativa. La pantalla pública no inicializa este módulo. No hay listeners de scroll ni bucles JavaScript por frame.
@@ -43,7 +43,7 @@ Los bloques se revelan inmediatamente al recibir foco. Sin JavaScript, sin Inter
 
 ## Movimiento compartido
 
-El título OCTAJANG se descubre de izquierda a derecha durante 700 ms, conservando su texto y tipografía. Los tres gráficos llegan con opacidad, escala de 0.76 a 1 y 16 px de desplazamiento durante 600 ms; sus entradas se separan 80 ms y continúan con la flotación existente. La cabecera, el lema y las acciones tienen entradas breves con desenfoque de 2 px y desplazamiento de 8 px.
+El título OCTAJANG se descubre de izquierda a derecha durante 1100 ms, conservando su texto y tipografía. Los tres gráficos llegan con opacidad, escala de 0.76 a 1 y 16 px de desplazamiento durante 900 ms; sus entradas se separan 120 ms y continúan con la flotación existente. La cabecera, el lema y las acciones tienen entradas de 420 ms con desenfoque de 2 px y desplazamiento de 8 px.
 
 Preparación incorpora la misma entrada en títulos, sello y grupos del formulario. Control y Marcador usan únicamente una entrada de opacidad de 140 ms para sus grupos, una vez por vista durante la sesión de navegación. Los cambios de puntos y reloj mantienen su respuesta inmediata y sus teclas conservan la posición. Abrir un desplegable revela su contenido con opacidad durante 140 ms.
 
@@ -55,7 +55,7 @@ La Guía tiene entrada de cabecera, navegación y contenidos al recorrer sus sec
 
 La franja «En la mesa» agrupa atletas, resultado y reloj en una superficie azul muy clara (#edf3fa) de hasta 680 px. Azul y Rojo se acercan al resultado, con petos del mismo estilo que el hero y cifras en el color de cada lado. El amarillo cítrico (#fff08a) se concentra en el reloj. «Ir al control» queda fuera del panel, sobre la superficie blanca, igual que el título de la sesión. Los datos siguen vinculados a la sesión real del navegador. En móvil, los petos quedan sobre los nombres y el reloj ocupa una fila bajo el resultado; el botón conserva su propio espacio.
 
-Los petos de la sesión flotan 4 px y giran 3 grados en ciclos de 6 y 6.8 segundos. Solo se animan mientras la franja está visible, la pestaña está activa y la portada está abierta. Con movimiento reducido mantienen su inclinación estática.
+Los petos de la sesión flotan 4 px y giran 3 grados en ciclos de 8 y 9.2 segundos. Solo se animan mientras la franja está visible, la pestaña está activa y la portada está abierta. Con movimiento reducido mantienen su inclinación estática.
 
 «Probar la pantalla externa» es un botón de contorno negro, superficie blanca y sombra sólida, con icono de monitor y flecha en círculo azul. Conserva la apertura de la ventana pública real. Los pasos de inicio usan números circulares y el enlace al plan tiene contorno; el aviso de funciones futuras se distingue con una superficie oscura y borde lila. El hero y el cierre coral conservan su composición.
 
@@ -65,7 +65,7 @@ La demo mantiene cada marcador entre 0 y 16. Alterna sumas con dos ejemplos pedi
 
 src/scoreboard-demo.ts mantiene exclusivamente el estado efímero de la demostración. No importa el dominio, no usa almacenamiento ni envía mensajes a otras ventanas. Los segundos se calculan por tiempo monotónico transcurrido; el intervalo solo refresca la presentación. Los cambios de cifras no se anuncian cada segundo al lector de pantalla.
 
-Al sumar puntos, la demo muestra trazos de impacto alrededor del número del lado que puntúa y lo amplía brevemente a 1.08 durante 420 ms. Las correcciones conservan sus etiquetas sin activar ese efecto. El impacto se cancela al reiniciar el ciclo, ocultar la demo o activar movimiento reducido. Los puntajes y la etiqueta del cambio siguen disponibles como información estática.
+Al sumar puntos, la demo muestra trazos de impacto alrededor del número del lado que puntúa y lo amplía brevemente a 1.08 durante 550 ms. Las correcciones conservan sus etiquetas sin activar ese efecto. El impacto se cancela al reiniciar el ciclo, ocultar la demo o activar movimiento reducido. Los puntajes y la etiqueta del cambio siguen disponibles como información estática.
 
 ## Contraste de superficies sólidas
 
@@ -99,6 +99,6 @@ La presentación solicita pantalla completa sobre el elemento del marcador, que 
 
 ## Recursos originales
 
-El dobok y el peto del hero son SVG propios en index.html. El peto reutilizable de la sesión está en public/assets/hogu.svg. El fondo es una imagen original del cinturón azul sobre fondo opaco. Archivo final: public/assets/taekwondo-belt-sky.jpg, JPEG calidad 80, 1536 × 1024, 200 306 bytes. La ilustración anterior se conserva en docs/assets/taekwondo-kit-previous.jpg.
+El dobok y el peto del hero son SVG propios en src/views/home.html. El peto reutilizable de la sesión está en public/assets/hogu.svg. El fondo es una imagen original del cinturón azul sobre fondo opaco. Archivo final: public/assets/taekwondo-belt-sky.jpg, JPEG calidad 80, 1536 × 1024, 200 306 bytes. La ilustración anterior se conserva en docs/assets/taekwondo-kit-previous.jpg.
 
 Se revisaron color, tipografía, distribución, escritura y accesibilidad. No se añadieron dependencias. Las comprobaciones y sus límites se registran en [verificación](verification.md).

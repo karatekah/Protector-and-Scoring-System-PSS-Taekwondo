@@ -38,7 +38,7 @@ test("hero arrives as a sequence and buttons respond to hover and press", async 
       duration: animation.effect!.getTiming().duration,
     };
   });
-  expect(Number(title.duration)).toBeLessThanOrEqual(800);
+  expect(Number(title.duration)).toBeLessThanOrEqual(1400);
   expect(title.frames[0].clipPath).toContain("100%");
   await page.waitForFunction(() =>
     (window as MotionWindow).recordedMotion.every(
@@ -74,7 +74,7 @@ test("each module enters once and scoring targets stay still", async ({
         ).length,
     );
   await expect.poll(countCards).toBe(3);
-  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await page.getByRole("link", { name: "Control", exact: true }).click();
   const score = page.getByRole("button", {
     name: "+2 puntos · azul",
     exact: true,
@@ -88,7 +88,7 @@ test("each module enters once and scoring targets stay still", async ({
   ).toHaveText("2");
   expect((await score.boundingBox())!.y).toBe(before!.y);
   await page
-    .getByRole("button", { name: "Preparar combate", exact: true })
+    .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
   expect(await countCards()).toBe(3);
   const external = await context.newPage();
@@ -111,7 +111,7 @@ test("guide sections reveal on navigation and reduced motion removes spatial eff
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/guide.html");
+  await page.goto("/guia");
   const roadmap = page.locator("#roadmap");
   await expect(roadmap).toHaveClass(/motion-pending/);
   await page.getByRole("link", { name: "Plan", exact: true }).click();

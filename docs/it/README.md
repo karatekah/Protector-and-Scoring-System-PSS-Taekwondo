@@ -12,7 +12,7 @@ Un tabellone manuale di Taekwondo per allenamenti ed esibizioni. Un PC, un opera
 
 [![v0.1.0-alpha.1](https://img.shields.io/badge/release-v0.1.0--alpha.1-b62d20?style=flat-square)](https://github.com/karatekah/octajang/releases/tag/v0.1.0-alpha.1) [![CI](https://github.com/karatekah/octajang/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/karatekah/octajang/actions/workflows/ci.yml) [![Licenza GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-65665a?style=flat-square)](../../LICENSE) [![Demo web](https://img.shields.io/badge/demo-Vercel-25251f?style=flat-square)](https://octajang.vercel.app)
 
-[Prova l'alpha](https://octajang.vercel.app) · [Guida all'uso](https://octajang.vercel.app/guide.html) · [Documentazione](#documentazione) · [Roadmap](../roadmap.md) · [Segnala un problema](https://github.com/karatekah/octajang/issues)
+[Prova l'alpha](https://octajang.vercel.app) · [Guida all'uso](https://octajang.vercel.app/guia) · [Documentazione](#documentazione) · [Roadmap](../roadmap.md) · [Segnala un problema](https://github.com/karatekah/octajang/issues)
 
 </div>
 
@@ -82,7 +82,7 @@ Lo stack scelto comprende React / TypeScript / Vite, React Router, TanStack Quer
 
 | Esigenza                          | Guida                                                                                                                                          |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Usare il tabellone                | [Guida pubblica](https://octajang.vercel.app/guide.html) · [Ambito dell'alpha](../alpha.md)                                                    |
+| Usare il tabellone                | [Guida pubblica](https://octajang.vercel.app/guia) · [Ambito dell'alpha](../alpha.md)                                                          |
 | Comprendere il codice             | [Architettura attuale](../architecture.md) · [Decisione iniziale](../adr/0001-foundation.md)                                                   |
 | Esaminare la direzione dei tornei | [Stack obiettivo](../stack.md) · [Architettura LAN](../tournament-architecture.md) · [Migrazione](../migration.md) · [Roadmap](../roadmap.md)  |
 | Verificare qualità e design       | [Matrice di verifica](../verification.md) · [Revisione dell'interfaccia](../interface-review.md) · [Identità visiva e risorse](../branding.md) |

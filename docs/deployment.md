@@ -10,6 +10,10 @@ La marca y el repositorio se presentan como **Octajang** (`karatekah/octajang`).
 
 `vercel.json` especifica preset Vite, `npm ci`, `npm test && npm run build` y salida `dist/`. El build incluye tipos estrictos. El proyecto no necesita variables de entorno, base de datos ni secretos. Usar Node 24.x; el desarrollo está fijado en 24.22.1.
 
+Vite genera una página HTML para cada ruta: `/`, `/preparar`, `/control`, `/marcador` y `/guia`. Vercel sirve esos archivos con `cleanUrls: true` y retira la barra final con `trailingSlash: false`; no hay una reescritura general hacia `index.html`. Cada archivo incluye únicamente el contenido de su módulo y comparte los estilos y el motor del combate.
+
+La navegación interna usa History API para conservar el reloj y el operador en la misma pestaña. Los enlaces permiten abrir cada módulo directamente, en otra pestaña o después de recargar. Una recarga del operador conserva la pausa de seguridad. `/marcador` es de solo lectura; la Guía abierta directamente tampoco solicita el control ni escribe datos. Los enlaces anteriores `?view=...` se convierten a las rutas actuales y `/guide.html` conduce a `/guia`, conservando el fragmento de sección.
+
 Las cabeceras restringen scripts, estilos y conexiones al origen y deshabilitan cámara, micrófono y geolocalización. El CSP está pensado para producción estática; Vite dev utiliza su servidor habitual. Una herramienta de preview que inyecte scripts podría no ser compatible con el CSP de producción.
 
 ## Antes de publicar
@@ -17,7 +21,7 @@ Las cabeceras restringen scripts, estilos y conexiones al origen y deshabilitan 
 1. `npm ci`, `npm run check`, `npm run build`.
 2. `npx playwright install chromium firefox`, `npm run test:e2e`.
 3. Revisar el diff, notas de versión, alcance y pendientes.
-4. Enviar el commit a la rama conectada a Vercel. Comprobar el estado Vercel de ese SHA y abrir producción y `/guide.html`.
+4. Enviar el commit a la rama conectada a Vercel. Comprobar el estado Vercel de ese SHA, abrir las cinco rutas y recargar cada una. Comprobar también un enlace anterior y la ventana externa.
 
 GitHub Actions es un control separado. La integración de Vercel no espera necesariamente a que finalice Actions; el build de Vercel repite tipos y pruebas unitarias, pero no instala navegadores. El formato se revisa en CI sobre el checkout original: el builder de Vercel introduce archivos en `.vercel` y su copia de `vercel.json` no pasó Prettier. Por ello las pruebas de navegador y el formato deben aprobarse antes del envío, además de ejecutarse en CI.
 

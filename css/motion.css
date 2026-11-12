@@ -1,6 +1,12 @@
 :root {
   --motion-ease: cubic-bezier(0.2, 0, 0, 1);
 }
+#view-outlet {
+  display: contents;
+}
+.guide-page .session-line {
+  display: none;
+}
 
 a {
   transition:
@@ -27,7 +33,7 @@ summary {
   .guide-callout > a,
   .text-action {
     transition:
-      translate 150ms var(--motion-ease),
+      translate 200ms var(--motion-ease),
       scale 150ms ease-out,
       background-color 120ms ease-out,
       border-color 120ms ease-out,
@@ -37,8 +43,8 @@ summary {
   :is(button, a) > :is(.ui-icon, .external-arrow),
   .brand-symbol {
     transition:
-      translate 150ms var(--motion-ease),
-      rotate 150ms var(--motion-ease),
+      translate 200ms var(--motion-ease),
+      rotate 200ms var(--motion-ease),
       scale 150ms ease-out;
   }
   :is(.nav-link, .guide-nav a, .guide-callout > a, .text-action):active {
