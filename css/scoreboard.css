@@ -1,0 +1,468 @@
+.reference-board {
+  --reference-scale: 1;
+  --reference-white: #f4f4ff;
+  --reference-lime: #eaff00;
+  display: grid;
+  grid-template-rows: 12% 16% 72%;
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  aspect-ratio: 16 / 9;
+  color: var(--reference-white);
+  background: #0a0313;
+  border: 1px solid #111827;
+  border-radius: 0;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+.reference-board .event-bar {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 2.3fr 0.8fr;
+  gap: 0;
+  padding: 0 1.4cqw;
+  background: linear-gradient(100deg, #090b1a, #26020d 45%, #060714);
+  color: var(--reference-white);
+}
+.reference-board .board-tag {
+  display: flex;
+  align-items: center;
+  gap: calc(0.8cqw * var(--reference-scale));
+  color: var(--reference-white);
+  font: 400 calc(3.1cqw * var(--reference-scale))/1 var(--font-poster);
+  letter-spacing: 0;
+}
+.reference-board .board-tag img {
+  width: calc(4.6cqw * var(--reference-scale));
+  height: calc(4.6cqw * var(--reference-scale));
+  border-radius: 0;
+}
+.reference-board .event-bar > strong {
+  font-size: calc(2.6cqw * var(--reference-scale));
+  font-weight: 800;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+.reference-board .edition-tag {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: calc(2cqw * var(--reference-scale));
+  font-size: calc(3cqw * var(--reference-scale));
+  font-weight: 800;
+  line-height: 1;
+}
+.reference-board .edition-tag b {
+  padding: calc(0.25cqw * var(--reference-scale));
+  border: 2px solid #b6c5e5;
+  font-size: calc(2.8cqw * var(--reference-scale));
+  font-family: var(--font-display);
+}
+.reference-board .athlete-names {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.reference-board .athlete-name {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: calc(1.5cqw * var(--reference-scale));
+  padding: calc(0.8cqw * var(--reference-scale));
+  background: linear-gradient(90deg, #8b0a31, #680b26);
+}
+.reference-board .athlete-name.blue-name {
+  background: linear-gradient(90deg, #1009b1, #110273);
+}
+.reference-board .athlete-name strong {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: calc(3.85cqw * var(--reference-scale));
+  line-height: 1.15;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.reference-board .blue-name strong {
+  flex: 1;
+  text-align: center;
+}
+.reference-board .blue-name .country-flag {
+  order: 2;
+}
+.reference-board .country-flag {
+  display: block;
+  flex: 0 0 auto;
+  width: calc(9.4cqw * var(--reference-scale));
+  height: calc(6.3cqw * var(--reference-scale));
+  border: 1px solid #b6c5e5;
+  border-radius: calc(0.5cqw * var(--reference-scale));
+  overflow: hidden;
+}
+.reference-board .country-flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.reference-board .score-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.59fr) minmax(0, 1fr);
+  min-height: 0;
+  gap: 0;
+  padding: 0;
+}
+.reference-board .fighter-panel {
+  display: grid;
+  grid-template-rows: 13.5% 65% 21.5%;
+  container-type: normal;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  color: var(--reference-white);
+}
+.reference-board .red-panel {
+  background: #bb0017;
+}
+.reference-board .blue-panel {
+  background: #1000be;
+}
+.reference-board .nationality-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 0;
+  padding: 0 calc(2cqw * var(--reference-scale));
+  color: var(--reference-white);
+  background: linear-gradient(90deg, #600d33, #9a0024);
+}
+.reference-board .blue-panel .nationality-bar {
+  flex-direction: row-reverse;
+  background: linear-gradient(90deg, #10009b, #1901a8);
+}
+.reference-board .nationality-bar strong {
+  font-size: calc(4cqw * var(--reference-scale));
+  font-weight: 800;
+  line-height: 1;
+}
+.reference-board .reference-camera {
+  width: calc(5.4cqw * var(--reference-scale));
+  height: calc(4.6cqw * var(--reference-scale));
+  margin-inline: calc(8cqw * var(--reference-scale));
+  flex: 0 0 auto;
+}
+.reference-board .fighter-score {
+  display: grid;
+  place-items: center;
+  position: relative;
+  min-height: 0;
+  padding: 0;
+  background: linear-gradient(90deg, #b40018 0 25%, #ff060b 25% 100%);
+}
+.reference-board .blue-panel .fighter-score {
+  background: linear-gradient(90deg, #1608ff 0 75%, #0b00ba 75% 100%);
+}
+.reference-board .score-value {
+  display: block;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  color: var(--reference-white);
+  font: 700 calc(23cqw * var(--reference-scale) * var(--score-scale, 1))/0.95
+    var(--font-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  overflow-wrap: normal;
+  text-align: center;
+}
+.reference-board[data-leading="red"] .red-panel .score-value,
+.reference-board[data-leading="blue"] .blue-panel .score-value {
+  color: var(--reference-lime);
+}
+.reference-board .red-panel .score-value {
+  width: 75%;
+  margin-inline-start: 25%;
+}
+.reference-board .blue-panel .score-value {
+  width: 75%;
+  margin-inline-end: 25%;
+}
+.reference-board .hit-count {
+  display: grid;
+  justify-items: center;
+  position: absolute;
+  bottom: calc(0.5cqw * var(--reference-scale));
+  right: calc(1.8cqw * var(--reference-scale));
+  gap: calc(0.15cqw * var(--reference-scale));
+  color: var(--reference-white);
+  font-size: calc(1.5cqw * var(--reference-scale));
+  font-weight: 800;
+  line-height: 1.1;
+}
+.reference-board .hit-count strong {
+  font: 700 calc(3.7cqw * var(--reference-scale))/1 var(--font-display);
+}
+.reference-board .blue-panel .hit-count {
+  right: auto;
+  left: calc(1.8cqw * var(--reference-scale));
+}
+.reference-board .panel-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  flex-wrap: nowrap;
+  min-height: 0;
+  gap: calc(0.25cqw * var(--reference-scale));
+  padding: calc(0.4cqw * var(--reference-scale))
+    calc(1cqw * var(--reference-scale));
+  border: 0;
+  background: linear-gradient(90deg, #9d001d, #c40017);
+  color: var(--reference-white);
+  font-size: calc(1.65cqw * var(--reference-scale));
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+.reference-board .panel-foot b {
+  margin: 0 calc(2cqw * var(--reference-scale));
+  color: var(--reference-white);
+  font: 700 calc(4.7cqw * var(--reference-scale))/1 var(--font-display);
+}
+.reference-board .blue-panel .panel-foot {
+  align-items: end;
+  background: linear-gradient(90deg, #1300c0, #0a009c);
+}
+.reference-board .center-clock {
+  display: grid;
+  grid-template-rows: 28% 29% 43%;
+  min-height: 0;
+  padding: 0;
+  gap: 0;
+  align-content: normal;
+  container-type: normal;
+  color: var(--reference-white);
+  background: linear-gradient(#1a0523, #05040f);
+}
+.reference-board .bout-number {
+  display: grid;
+  align-content: center;
+  gap: calc(0.5cqw * var(--reference-scale));
+  font-size: calc(3.2cqw * var(--reference-scale));
+  font-weight: 800;
+  line-height: 1;
+}
+.reference-board .bout-number strong {
+  font-size: calc(5.2cqw * var(--reference-scale));
+}
+.reference-board .time-cluster {
+  position: relative;
+  min-height: 0;
+}
+.reference-board .clock-value {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: max(2px, calc(0.65cqw * var(--reference-scale))) solid
+    var(--reference-lime);
+  background: #151900;
+  color: var(--reference-lime);
+  font: 800 calc(9.5cqw * var(--reference-scale))/1 var(--font-body);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.reference-board .time-state {
+  display: none;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  padding: calc(0.6cqw * var(--reference-scale)) 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--reference-white);
+  background: transparent;
+  font-size: calc(2.8cqw * var(--reference-scale));
+  font-weight: 800;
+  line-height: 1;
+  z-index: 1;
+}
+body[data-match-status="paused"] .reference-board .time-state,
+body[data-match-status="timeout"] .reference-board .time-state {
+  display: block;
+}
+body[data-match-status="timeout"] .reference-board .time-state {
+  color: #111400;
+  background: var(--reference-lime);
+}
+.reference-board .round-block {
+  display: grid;
+  align-content: end;
+  justify-content: center;
+  gap: calc(1.1cqw * var(--reference-scale));
+  margin: 0;
+  padding: 0 0 calc(2.3cqw * var(--reference-scale));
+}
+.reference-board .round-block > span {
+  color: var(--reference-white);
+  font-size: calc(3.2cqw * var(--reference-scale));
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.reference-board .round-block > strong {
+  color: var(--reference-white);
+  font: 800 calc(4.8cqw * var(--reference-scale))/1 var(--font-body);
+}
+.reference-board .match-result {
+  position: absolute;
+  top: 45%;
+  left: 8%;
+  width: 84%;
+  padding: 2cqw;
+  border: 1px solid #111400;
+  background: var(--reference-lime);
+  color: #111400;
+  text-align: center;
+  z-index: 2;
+}
+.reference-board .match-result strong {
+  font-size: calc(3cqw * var(--reference-scale));
+}
+.reference-board .match-result small {
+  font-size: max(0.625rem, calc(1.3cqw * var(--reference-scale)));
+}
+.reference-board.compact-board {
+  --reference-scale: 0.385;
+  aspect-ratio: 5.3;
+}
+.reference-board.compact-board .clock-value {
+  font-size: calc(9.5cqw * var(--reference-scale));
+}
+.reference-board.compact-board .score-value {
+  font-size: calc(23cqw * var(--reference-scale) * var(--score-scale, 1));
+}
+
+.public-window .public-view:has(.reference-board) {
+  --toolbar-height: 64px;
+  min-height: 100dvh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  background: #030307;
+}
+.public-view:has(.reference-board) .public-toolbar {
+  width: 100%;
+  flex: 0 0 auto;
+  min-height: var(--toolbar-height, 64px);
+  padding: 10px 20px;
+  gap: 12px;
+  color: #c3ccda;
+  background: #080c14;
+}
+.public-view:has(.reference-board) .public-toolbar > span {
+  font-size: 0.75rem;
+}
+.public-view:has(.reference-board) .public-toolbar button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid #64748b;
+  border-radius: 999px;
+  color: #fff;
+  background: #151e2c;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.public-window .reference-board.public-board {
+  display: grid;
+  flex: 0 0 auto;
+  width: min(100%, calc((100dvh - var(--toolbar-height, 64px)) * 16 / 9));
+  min-height: 0;
+  height: auto;
+  margin: auto 0;
+  border: 1px solid #111827;
+  border-radius: 0;
+}
+.public-window .reference-board.public-board .score-grid {
+  flex: none;
+  min-height: 0;
+}
+.public-view:fullscreen:has(.reference-board) {
+  padding: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #030307;
+}
+.public-view:fullscreen:has(.reference-board) .public-toolbar {
+  display: flex;
+  position: absolute;
+  inset: 8px 8px auto auto;
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 160ms ease;
+}
+.public-view:fullscreen:has(.reference-board) .public-toolbar:hover,
+.public-view:fullscreen:has(.reference-board) .public-toolbar:focus-within {
+  opacity: 1;
+}
+.public-view:fullscreen:has(.reference-board) .public-toolbar > span,
+.public-view:fullscreen:has(.reference-board) .operator-return {
+  display: none;
+}
+.public-view:fullscreen .reference-board.public-board {
+  display: grid;
+  flex: none;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  aspect-ratio: auto;
+}
+.public-view:fullscreen .reference-board.public-board .score-grid {
+  flex: none;
+  min-height: 0;
+}
+.reference-board .board-maker {
+  font-size: max(8px, calc(1.25cqw * var(--reference-scale)));
+  color: var(--reference-white);
+}
+@media (hover: hover) {
+  .public-view:has(.reference-board) .public-toolbar button:hover {
+    color: #080c14;
+    background: #e8f2ff;
+    border-color: #e8f2ff;
+  }
+}
+@media (max-width: 700px) {
+  .reference-board.compact-board {
+    --reference-scale: 1;
+    aspect-ratio: 16 / 9;
+  }
+  .public-window .public-view:has(.reference-board) {
+    --toolbar-height: 96px;
+  }
+  .public-view:has(.reference-board) .public-toolbar {
+    padding: 8px 12px;
+  }
+  .public-view:has(.reference-board) .public-toolbar button {
+    font-size: 0.6875rem;
+    padding: 8px 10px;
+    gap: 6px;
+  }
+}

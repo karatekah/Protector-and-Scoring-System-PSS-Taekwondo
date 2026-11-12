@@ -20,7 +20,7 @@ A manual Taekwondo scoreboard for training and exhibitions. One PC, one operator
 
 Prepare the athletes, run the clock and record each decision. **Free 1.0** keeps scores across rounds and synchronizes a read-only scoreboard with another window in the same browser.
 
-**Free 1.0 is in preparation. The proposed scoreboard redesign and final release still require approval. After that release, its feature set stays fixed and new development continues in Pro.** [Free 1.0](docs/free-1.0.md).
+**Free 1.0 includes the approved competition-style scoreboard. Its feature set is fixed; new features continue in Pro.** [Free 1.0](docs/free-1.0.md).
 
 ## What you can use today
 

@@ -1,6 +1,6 @@
 # Stack objetivo de Octajang
 
-La evolución funcional descrita en este documento corresponde a Pro. Free 1.0 mantiene el [alcance cerrado](free-1.0.md) después de su aprobación y publicación.
+La evolución funcional descrita en este documento corresponde a Pro. Free 1.0 mantiene su [alcance cerrado](free-1.0.md).
 
 Estado: definido como dirección técnica; la implementación LAN está pendiente.
 

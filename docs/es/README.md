@@ -20,7 +20,7 @@ Un marcador manual de Taekwondo para entrenamiento y exhibición. Un PC, un oper
 
 Prepara los atletas, controla el reloj y registra cada decisión. La **versión Free 1.0** acumula puntos entre rondas y sincroniza un marcador de solo lectura con otra ventana del mismo navegador.
 
-**Free 1.0 está en preparación. La propuesta de rediseño del marcador y la versión final siguen pendientes de aprobación. Después del cierre se conserva su alcance y los nuevos desarrollos continúan en Pro.** [Free 1.0](../free-1.0.md).
+**Free 1.0 incluye el marcador de competición aprobado. Su alcance funcional queda fijo; las funciones nuevas continúan en Pro.** [Free 1.0](../free-1.0.md).
 
 ## Qué puedes usar hoy
 

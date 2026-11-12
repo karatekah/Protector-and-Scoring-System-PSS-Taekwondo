@@ -20,7 +20,7 @@ Un tabellone manuale di Taekwondo per allenamenti ed esibizioni. Un PC, un opera
 
 Prepara gli atleti, gestisci il cronometro e registra ogni decisione. La **versione Free 1.0** accumula i punti tra le riprese e sincronizza un tabellone in sola lettura con un'altra finestra dello stesso browser.
 
-**Free 1.0 è in preparazione. La proposta di restyling del tabellone e la versione finale restano in attesa di approvazione. Dopo il rilascio finale, le funzioni rimangono fisse e i nuovi sviluppi continuano in Pro.** [Free 1.0](../free-1.0.md).
+**Free 1.0 include il tabellone da competizione approvato. Le sue funzioni rimangono fisse; le nuove funzionalità continuano in Pro.** [Free 1.0](../free-1.0.md).
 
 ## Funzioni disponibili
 

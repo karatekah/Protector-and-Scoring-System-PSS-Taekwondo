@@ -4,11 +4,21 @@
 
 ## Evidencia automatizada
 
+### Cierre de Free 1.0 con el marcador aprobado
+
+Revisión del 2026-11-12: tipos, formato, catorce pruebas unitarias, build y 44 casos E2E completos en Chromium/Firefox aprobados. La base local ampliada conserva sus controles adicionales y pasó once pruebas unitarias, build y 40 casos E2E. El marcador usa los atletas, países, puntos y reloj reales; no incorpora nombres, categorías ni números de combate de muestra.
+
+Se comprobaron rojo a la izquierda en las pantallas y en los controles, líder amarillo y retirada del resaltado al empatar, países y banderas, KO, resultados al terminar las rondas, deshacer, respaldos v4/v5 y sincronización. Pantalla completa conserva la firma y permite salir mediante el botón que aparece al acercar el cursor o enfocarlo con el teclado. El cambio de presentación del reloj a `2:00` no modifica el tiempo guardado ni el formato JSON.
+
+La revisión visual cubrió 36 vistas de Free, la base local ampliada y el paquete de revisión entre 320 y 1440 px, más seis presentaciones a pantalla completa en Chromium/Firefox, sin desbordamiento ni errores de script. Se inspeccionaron capturas de Control y Marcador a 1440 px y 1920 × 1080. El paquete autónomo pasó selección, guardado y sincronización de banderas en ambos navegadores, sin recursos faltantes. Los 144 enlaces locales comprobados son válidos.
+
+Free 1.0 queda con alcance funcional cerrado; las funciones nuevas corresponden a Pro. No se realizó una sesión física con PC y dos monitores, ni pruebas nuevas en móvil físico, lector de pantalla o zoom nativo.
+
 ### Publicación de los cambios preparatorios
 
 Comprobación del 2026-11-12: instalación limpia con `npm ci`, tipos, formato, catorce pruebas unitarias, build y los 42 casos E2E completos en Chromium/Firefox aprobados. La publicación incorpora los selectores de país, banderas locales, botones +1/+2/+3/+4/+6, firma del proyecto y documentación preparatoria de Free 1.0.
 
-Se mantiene el diseño actual de Control y Marcador. El rediseño mostrado para revisión continúa separado y pendiente de aprobación; esta actualización no crea una etiqueta/release final ni congela Free. La base local ampliada y los archivos de revisión quedan fuera del repositorio publicado. Sigue pendiente la validación física con PC y dos monitores.
+En esa etapa se conservó el diseño anterior de Control y Marcador y no se creó una etiqueta/release final. La aprobación posterior del rediseño forma parte del cierre de Free 1.0. La base local ampliada y los archivos de revisión quedan fuera del repositorio publicado. Sigue pendiente la validación física con PC y dos monitores.
 
 ### Firma del proyecto
 
@@ -24,7 +34,7 @@ Los casos nuevos comprueban selección de país, bandera antes de guardar, confi
 
 Una revisión adicional cubrió Free, la base local ampliada y la propuesta del marcador en Chromium y Firefox: seis combinaciones de edición/navegador y dieciocho vistas de Preparación entre 320, 390 y 1440 px, sin desbordamiento horizontal. Las 250 banderas están presentes en cada compilación; las solicitudes observadas fueron del mismo origen y no hubo errores JavaScript. Axe no detectó infracciones dentro de su cobertura automatizada.
 
-El paquete y la presentación identifican la candidata como Free 1.0.0. El diseño final del marcador, la etiqueta, la release pública y el despliegue siguen pendientes de aprobación. El [alcance cerrado](free-1.0.md) se aplica después de aprobar y publicar la entrega. No se realizó una sesión física con PC y dos monitores.
+Esta revisión correspondió a la candidata Free 1.0.0, antes de aprobar el diseño final del marcador. El cierre posterior incorpora ese diseño y fija el [alcance de Free](free-1.0.md). No se realizó una sesión física con PC y dos monitores.
 
 ### Valores de los botones de puntuación
 

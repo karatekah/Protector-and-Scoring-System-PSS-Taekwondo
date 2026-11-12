@@ -133,7 +133,7 @@ test("demo loops every minute without controls and leaves the real match unchang
   ).toHaveText("0");
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("02:00");
+  ).toHaveText("2:00");
   await page.getByRole("link", { name: "Inicio", exact: true }).click();
   await demo.scrollIntoViewIfNeeded();
   await expect(status).toHaveText("En juego");

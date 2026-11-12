@@ -5,6 +5,7 @@ import "../css/arena.css";
 import "../css/workspace.css";
 import "../css/motion.css";
 import "../css/countries.css";
+import "../css/scoreboard.css";
 import { renderCountryFlags, setupCountryFields } from "./country-fields";
 import { all, find, mountView, pageUrl } from "./pages";
 import { paths, viewFromUrl } from "./routes";
@@ -179,6 +180,8 @@ function renderBindings(): void {
     blueScore: m.blue.score,
     redScore: m.red.score,
     blueGamjeom: m.blue.gamjeom,
+    blueHits: m.blue.hits,
+    redHits: m.red.hits,
     redGamjeom: m.red.gamjeom,
     round: m.round,
     clock: formatClock(m.remainingMs),
@@ -202,6 +205,37 @@ function renderBindings(): void {
     all(`[data-bind="${key}"]`).forEach((el) => {
       el.textContent = String(value);
     });
+  }
+  const leading =
+    result === "draw"
+      ? ""
+      : (result ??
+        (m.blue.score === m.red.score
+          ? ""
+          : m.blue.score > m.red.score
+            ? "blue"
+            : "red"));
+  all<HTMLElement>(".competition-board").forEach((board) => {
+    board.dataset.leading = leading;
+  });
+  all<HTMLElement>('.competition-board [data-bind="clock"]').forEach(
+    (clock) => {
+      clock.textContent = formatClock(m.remainingMs).replace(/^0(?=\d:)/, "");
+    },
+  );
+  all<HTMLElement>(".leader-indicator").forEach((label) => {
+    label.textContent = result === null ? "En ventaja" : "Ganador";
+    label.hidden = !label.closest(`.${leading || "none"}-panel`);
+  });
+  for (const side of ["blue", "red"] as const) {
+    all<HTMLElement>(`.competition-board [data-bind="${side}Score"]`).forEach(
+      (score) => {
+        score.style.setProperty(
+          "--score-scale",
+          String(Math.min(1, 2 / String(m[side].score).length)),
+        );
+      },
+    );
   }
   renderCountryFlags(state.config);
   all<HTMLElement>("[data-result]").forEach((panel) => {

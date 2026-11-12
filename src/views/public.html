@@ -15,98 +15,144 @@
       </button>
     </div>
   </div>
-  <section class="scoreboard public-board" aria-label="Marcador público">
+  <section
+    class="scoreboard public-board competition-board reference-board"
+    aria-label="Marcador público"
+  >
     <header class="event-bar">
       <span class="board-tag"
-        ><span class="board-brand"
+        ><img
+          src="./assets/octajang-mark.svg"
+          width="28"
+          height="28"
+          alt=""
+        /><span class="board-brand"
           >OCTAJANG<small class="board-maker">Made by Karatekah</small></span
         ></span
-      ><strong data-bind="eventName">Sesión de entrenamiento</strong
-      ><span class="manual-label">Free · Entrenamiento</span>
-    </header>
-    <div
-      class="match-result"
-      data-result=""
-      role="status"
-      tabindex="-1"
-      hidden=""
-    >
-      <span>Resultado final</span>
-      <strong data-bind="result"></strong>
-      <small data-bind="resultDetail"
-        >Por puntos acumulados · Entrenamiento y exhibición</small
       >
+      <strong data-bind="eventName">Sesión de entrenamiento</strong>
+      <span class="edition-tag">FREE <b>1.0</b></span>
+    </header>
+    <div class="athlete-names">
+      <div class="athlete-name red-name">
+        <img
+          class="country-flag"
+          data-country-flag="red"
+          src="./flags/us.svg"
+          alt=""
+          width="60"
+          height="40"
+        />
+        <strong data-bind="redName">Rojo</strong>
+      </div>
+      <div class="athlete-name blue-name">
+        <img
+          class="country-flag"
+          data-country-flag="blue"
+          src="./flags/us.svg"
+          alt=""
+          width="60"
+          height="40"
+        />
+        <strong data-bind="blueName">Azul</strong>
+      </div>
     </div>
     <div class="score-grid">
-      <article class="fighter-panel blue-panel" aria-label="Marcador azul">
-        <div class="fighter-meta">
-          <span class="side-label"
-            >AZUL
-            <span class="country-label"
-              ><img
-                data-country-flag="blue"
-                src="./flags/us.svg"
-                width="32"
-                height="24"
-                alt=""
-              /><span data-bind="blueCountry">USA</span></span
-            ></span
-          ><strong data-bind="blueName">Azul</strong>
+      <article class="fighter-panel red-panel" aria-label="Marcador rojo">
+        <div class="nationality-bar">
+          <strong data-bind="redCountry">USA</strong
+          ><svg
+            class="reference-camera"
+            viewBox="0 0 42 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="7" r="5" />
+            <circle cx="23" cy="7" r="5" />
+            <rect x="5" y="14" width="25" height="18" rx="3" />
+            <path d="m30 20 9-5v17l-9-5z" />
+          </svg>
         </div>
-        <output
-          class="score-value"
-          data-bind="blueScore"
-          aria-label="Puntos azul"
-          aria-live="off"
-          >0</output
-        >
+        <div class="fighter-score">
+          <output
+            class="score-value"
+            data-bind="redScore"
+            aria-label="Puntos rojo"
+            aria-live="off"
+            >0</output
+          >
+          <div class="hit-count" aria-label="Impactos conservados">
+            <strong data-bind="redHits">0</strong><span>HITS</span>
+          </div>
+          <span class="leader-indicator sr-only">En ventaja</span>
+        </div>
         <div class="panel-foot">
-          <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span>
+          <span>GAM-JEOM</span><b data-bind="redGamjeom">0</b>
         </div>
       </article>
-      <section class="center-clock" aria-label="Tiempo y ronda">
-        <div class="time-state" data-bind="status">Preparado</div>
-        <output
-          class="clock-value"
-          data-bind="clock"
-          aria-label="Tiempo restante"
-          aria-live="off"
-          >02:00</output
-        >
-        <div class="round-block">
-          <span>RONDA</span
-          ><strong
-            ><span data-bind="round">1</span
-            ><small> / <span data-bind="totalRounds">3</span></small></strong
+      <section class="center-clock" aria-label="Combate, tiempo y ronda">
+        <div class="bout-number">
+          <span>MATCH</span
+          ><strong aria-label="Combate sin número asignado">—</strong>
+        </div>
+        <div class="time-cluster">
+          <output
+            class="clock-value"
+            data-bind="clock"
+            aria-label="Tiempo restante"
+            aria-live="off"
+            >2:00</output
           >
+          <div class="time-state" data-bind="status">Preparado</div>
+        </div>
+        <div class="round-block">
+          <span>ROUND</span><strong data-bind="round">1</strong>
         </div>
       </section>
-      <article class="fighter-panel red-panel" aria-label="Marcador rojo">
-        <div class="fighter-meta">
-          <span class="side-label"
-            >ROJO
-            <span class="country-label"
-              ><img
-                data-country-flag="red"
-                src="./flags/us.svg"
-                width="32"
-                height="24"
-                alt=""
-              /><span data-bind="redCountry">USA</span></span
-            ></span
-          ><strong data-bind="redName">Rojo</strong>
+      <article class="fighter-panel blue-panel" aria-label="Marcador azul">
+        <div class="nationality-bar">
+          <strong data-bind="blueCountry">USA</strong
+          ><svg
+            class="reference-camera"
+            viewBox="0 0 42 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="7" r="5" />
+            <circle cx="23" cy="7" r="5" />
+            <rect x="5" y="14" width="25" height="18" rx="3" />
+            <path d="m30 20 9-5v17l-9-5z" />
+          </svg>
         </div>
-        <output
-          class="score-value"
-          data-bind="redScore"
-          aria-label="Puntos rojo"
-          aria-live="off"
-          >0</output
-        >
+        <div class="fighter-score">
+          <output
+            class="score-value"
+            data-bind="blueScore"
+            aria-label="Puntos azul"
+            aria-live="off"
+            >0</output
+          >
+          <div class="hit-count" aria-label="Impactos conservados">
+            <strong data-bind="blueHits">0</strong><span>HITS</span>
+          </div>
+          <span class="leader-indicator sr-only">En ventaja</span>
+        </div>
         <div class="panel-foot">
-          <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span>
+          <span>GAM-JEOM</span><b data-bind="blueGamjeom">0</b>
         </div>
       </article>
+    </div>
+    <div class="match-result" data-result role="status" tabindex="-1" hidden>
+      <span>Resultado final</span><strong data-bind="result"></strong
+      ><small data-bind="resultDetail">Por puntos acumulados</small>
     </div>
   </section>
 </section>

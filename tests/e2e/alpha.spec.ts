@@ -41,7 +41,7 @@ test("Octajang restores existing v4 data and transfers a backup to a new origin"
   ).toHaveText("7");
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("01:25");
+  ).toHaveText("1:25");
   await page
     .getByRole("link", { name: "Preparar combate", exact: true })
     .click();
@@ -79,7 +79,7 @@ test("Octajang restores existing v4 data and transfers a backup to a new origin"
   ).toHaveText("3");
   await expect(
     destination.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("01:25");
+  ).toHaveText("1:25");
   await destination.close();
 });
 
@@ -189,15 +189,15 @@ test("operator, public window, clock, scores, undo, persistence and ownership", 
   await page.clock.runFor(3100);
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("01:57");
+  ).toHaveText("1:57");
   await expect(
     publicPage.locator('[data-view="public"] [data-bind="clock"]'),
-  ).toHaveText("01:57");
+  ).toHaveText("1:57");
   await publicPage.reload();
   await page.clock.runFor(1100);
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("01:56");
+  ).toHaveText("1:56");
   await page
     .getByRole("button", { name: "Pausar · Kal-lyeo", exact: true })
     .click();
@@ -216,7 +216,7 @@ test("operator, public window, clock, scores, undo, persistence and ownership", 
   ).toHaveText("2");
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("01:56");
+  ).toHaveText("1:56");
   await expect(
     publicPage.getByRole("button", { name: "Iniciar · Shijak", exact: true }),
   ).not.toBeVisible();
@@ -366,7 +366,7 @@ test("Free presets, saved configuration and read-only session", async ({
     .click();
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("03:00");
+  ).toHaveText("3:00");
   await expect(page.getByRole("button", { name: /Impacto/ })).toHaveCount(0);
   await page
     .getByRole("link", { name: "Preparar combate", exact: true })
@@ -413,7 +413,7 @@ test("final result follows all rounds and corrections in control, display and JS
     await page.clock.fastForward(60_100);
     await expect(
       page.locator('[data-view="scoring"] [data-bind="clock"]'),
-    ).toHaveText("00:00");
+    ).toHaveText("0:00");
     if (round < 3) {
       await expect(result).toBeHidden();
       await page
@@ -539,7 +539,7 @@ test("Free preserves oversized legacy backups and requires an explicit deletion 
     .click();
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("02:00");
+  ).toHaveText("2:00");
   await page.getByText("Gestión del combate", { exact: true }).click();
   await page
     .getByRole("button", { name: "Guardar resumen", exact: true })

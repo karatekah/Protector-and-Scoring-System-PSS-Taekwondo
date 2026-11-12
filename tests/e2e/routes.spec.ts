@@ -53,7 +53,7 @@ test("guide navigation and browser history preserve the running match", async ({
     .click();
   await expect(page).toHaveURL(/\/guia$/);
   await page.clock.runFor(2000);
-  await expect(display.locator('[data-bind="clock"]')).toHaveText("01:56");
+  await expect(display.locator('[data-bind="clock"]')).toHaveText("1:56");
   await page.goBack();
   await expect(page).toHaveURL(/\/control$/);
   await expect(
@@ -65,7 +65,7 @@ test("guide navigation and browser history preserve the running match", async ({
   await page.clock.runFor(1000);
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("01:55");
+  ).toHaveText("1:55");
   await page.goForward();
   await expect(page).toHaveURL(/\/guia$/);
   await page.getByRole("link", { name: "Control", exact: true }).click();

@@ -1,14 +1,14 @@
 # Changelog
 
-## Sin publicar como nueva versión
+## 1.0.0 · 2026-11-12
 
-Preparación de Octajang Free 1.0.0. Selector de países con banderas SVG locales, conservación de códigos anteriores y actualización en Preparación, Control y Marcador. Se publican los cambios preparatorios con el marcador actual; la propuesta visual y la release final siguen pendientes de aprobación. Alcance cerrado y continuidad del desarrollo en Pro documentados en [Free 1.0](docs/free-1.0.md).
+Octajang Free 1.0.0 incorpora el marcador aprobado: rojo a la izquierda, azul a la derecha, nombres y banderas en cabecera, líder amarillo y reloj central. Control mantiene el mismo orden. Selector de países con banderas SVG locales y conservación de códigos anteriores. Firma «Made by Karatekah» en las páginas, pantallas y README. Alcance cerrado y continuidad del desarrollo en Pro documentados en [Free 1.0](docs/free-1.0.md).
 
 Corrección manual −1 por atleta, sin puntajes negativos ni cambios en el rival. KO manual con confirmación del ganador, cierre del reloj y de las acciones de puntuación, resultado en ambas pantallas y resúmenes, e intercambio de lados y deshacer consistentes.
 
 Los respaldos nuevos usan el esquema v5 para conservar el ganador por KO, incluido el historial reversible. Se restauran respaldos v4 y se mantiene la migración v2/v3. Los identificadores de almacenamiento y de operador permanecen; una versión anterior que solo admite v4 no puede importar las copias v5.
 
-Edición Free con presets de 1, 2 o 3 minutos y 1 o 3 rondas, diez resúmenes nuevos y respaldo JSON. Retirado el contador de impactos de la interfaz y de las acciones nuevas. Los respaldos anteriores conservan sus formatos, impactos y resúmenes; no se recortan al importar. Al llenarse el historial, el operador exporta y elimina los resúmenes que elija antes de guardar otro.
+Edición Free con presets de 1, 2 o 3 minutos y 1 o 3 rondas, diez resúmenes nuevos y respaldo JSON. Retirados los controles de impactos de las acciones nuevas; HITS muestra los datos conservados. Los respaldos anteriores conservan sus formatos, impactos y resúmenes; no se recortan al importar. Al llenarse el historial, el operador exporta y elimina los resúmenes que elija antes de guardar otro.
 
 Resultado final por puntos acumulados o empate al agotarse la última ronda. Control, pantalla externa y resúmenes muestran el mismo resultado, que se recalcula al corregir puntos o deshacer. Sin reglas automáticas de desempate.
 
