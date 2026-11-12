@@ -296,11 +296,11 @@
   line-height: 1;
   z-index: 1;
 }
-body[data-match-status="paused"] .reference-board .time-state,
-body[data-match-status="timeout"] .reference-board .time-state {
+body[data-match-status="paused"] .competition-board .time-state,
+body[data-match-status="timeout"] .competition-board .time-state {
   display: block;
 }
-body[data-match-status="timeout"] .reference-board .time-state {
+body[data-match-status="timeout"] .competition-board .time-state {
   color: #111400;
   background: var(--reference-lime);
 }
@@ -446,6 +446,38 @@ body[data-match-status="timeout"] .reference-board .time-state {
 .reference-board .board-maker {
   font-size: max(8px, calc(1.25cqw * var(--reference-scale)));
   color: var(--reference-white);
+}
+.reference-board.demo-screen {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.reference-board.demo-screen .time-state {
+  display: block;
+}
+.reference-board.demo-screen .panel-foot {
+  position: relative;
+}
+.reference-board .demo-action {
+  position: absolute;
+  right: 1.5cqw;
+  bottom: 1cqw;
+  font-size: max(8px, 1.7cqw);
+  line-height: 1.2;
+}
+.reference-board .demo-blue .demo-action {
+  right: auto;
+  left: 1.5cqw;
+}
+.reference-board .demo-impact {
+  inset: 10% 10% 10% 35%;
+  width: 55%;
+  height: 80%;
+  color: var(--reference-white);
+}
+.reference-board .demo-blue .demo-impact {
+  inset-inline: 10% 35%;
 }
 @media (hover: hover) {
   .public-view:has(.reference-board) .public-toolbar button:hover {

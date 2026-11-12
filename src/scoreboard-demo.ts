@@ -52,13 +52,19 @@ export function initScoreboardDemo(): void {
       redScore: String(scores.red),
       blueAction: actions.blue,
       redAction: actions.red,
-      clock: `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`,
+      clock: `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`,
       status:
         interval !== undefined && !reducedMotion.matches ? lastAction : "Demo",
     };
     for (const [key, value] of Object.entries(values)) {
       if (fields[key].textContent !== value) fields[key].textContent = value;
     }
+    screen!.dataset.leading =
+      scores.blue === scores.red
+        ? ""
+        : scores.blue > scores.red
+          ? "blue"
+          : "red";
   }
 
   function showSampleAction(): void {

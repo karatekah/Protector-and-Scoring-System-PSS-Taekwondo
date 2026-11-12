@@ -12,6 +12,9 @@ test("sample awards animate the scoring side and clear when motion is reduced", 
   });
   await page.goto("/");
   const demo = page.locator(".demo-screen");
+  await expect(demo).toHaveClass(/reference-board/);
+  await expect(demo.locator(".fighter-panel").first()).toHaveClass(/red-panel/);
+  await expect(page.locator(".display-demo figcaption")).toHaveCount(0);
   await demo.scrollIntoViewIfNeeded();
   await expect(demo.locator('[data-demo="status"]')).toHaveText("En juego");
   await demo.locator('[data-demo="redScore"]').evaluate((score) => {
@@ -27,6 +30,10 @@ test("sample awards animate the scoring side and clear when motion is reduced", 
   });
   await page.clock.runFor(1500);
   await expect(demo.locator('[data-demo="redScore"]')).toHaveText("3");
+  await expect(demo.locator('[data-demo="redScore"]')).toHaveCSS(
+    "color",
+    "rgb(234, 255, 0)",
+  );
   await expect
     .poll(() =>
       demo
@@ -110,7 +117,7 @@ test("demo loops every minute without controls and leaves the real match unchang
   await demo.scrollIntoViewIfNeeded();
   await expect(status).toHaveText("En juego");
   await page.clock.runFor(5000);
-  await expect(clock).toHaveText("00:55");
+  await expect(clock).toHaveText("0:55");
   expect(await total()).toBeGreaterThan(0);
   await expect(page.locator('.session-summary [data-bind="clock"]')).toHaveText(
     "02:00",
@@ -137,9 +144,9 @@ test("demo loops every minute without controls and leaves the real match unchang
   await page.getByRole("link", { name: "Inicio", exact: true }).click();
   await demo.scrollIntoViewIfNeeded();
   await expect(status).toHaveText("En juego");
-  await expect(clock).toHaveText("00:55");
+  await expect(clock).toHaveText("0:55");
   await page.clock.runFor(54000);
-  await expect(clock).toHaveText("00:01");
+  await expect(clock).toHaveText("0:01");
   const samples = await page.evaluate(
     () =>
       (
@@ -192,24 +199,24 @@ test("demo loops every minute without controls and leaves the real match unchang
   expect(correction).toBe(true);
   expect(transfer).toBe(true);
   await page.clock.runFor(1000);
-  await expect(clock).toHaveText("01:00");
+  await expect(clock).toHaveText("1:00");
   expect(await total()).toBe(0);
   await expect(status).toHaveText("En juego");
   await page.clock.runFor(2000);
   expect(await total()).toBeGreaterThan(0);
   await page.clock.fastForward(118000);
-  await expect(clock).toHaveText("01:00");
+  await expect(clock).toHaveText("1:00");
   expect(await total()).toBe(0);
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(status).toHaveText("Demo");
   await page.clock.runFor(5000);
-  await expect(clock).toHaveText("01:00");
+  await expect(clock).toHaveText("1:00");
   expect(await total()).toBe(0);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(status).toHaveText("En juego");
   await page.clock.runFor(2000);
-  await expect(clock).toHaveText("00:58");
+  await expect(clock).toHaveText("0:58");
   expect(await total()).toBeGreaterThan(0);
   expect(
     await page.evaluate(() => localStorage.getItem("pss-taekwondo-match-v4")),

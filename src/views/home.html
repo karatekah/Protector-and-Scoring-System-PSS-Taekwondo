@@ -178,74 +178,179 @@
       </button>
     </div>
     <figure class="display-demo" data-reveal="" data-reveal-delay="1">
-      <div
-        class="demo-screen"
-        role="group"
-        aria-label="Demostración del marcador, independiente de tu combate"
-        aria-live="off"
-      >
-        <div class="demo-event">
-          <img
-            src="./assets/octajang-mark.svg"
-            width="24"
-            height="24"
-            alt=""
-            aria-hidden="true"
-          /><span>Combate de muestra</span><span class="demo-badge">Demo</span>
-        </div>
-        <div class="demo-match">
-          <div class="demo-athlete demo-blue">
-            <span>Lado azul</span><strong>Azul</strong>
-            <div class="demo-score">
-              <b data-demo="blueScore">0</b>
-              <svg
-                class="demo-impact"
-                viewBox="0 0 100 100"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                aria-hidden="true"
-              >
-                <path
-                  d="M50 5v12m32-1-8 9m21 25H83m-1 33-8-9M50 95V83M18 83l8-9M5 50h12m1-34 8 9"
-                ></path>
-              </svg>
+      <div class="demo-monitor">
+        <section
+          class="demo-screen reference-board"
+          role="group"
+          aria-label="Demostración del marcador, independiente de tu combate"
+          aria-live="off"
+        >
+          <header class="event-bar">
+            <span class="board-tag"
+              ><img
+                src="./assets/octajang-mark.svg"
+                width="28"
+                height="28"
+                alt=""
+              /><span class="board-brand"
+                >OCTAJANG<small class="board-maker"
+                  >Made by Karatekah</small
+                ></span
+              ></span
+            >
+            <strong>Combate de muestra</strong>
+            <span class="edition-tag demo-badge">DEMO</span>
+          </header>
+          <div class="athlete-names">
+            <div class="athlete-name red-name">
+              <img
+                class="country-flag"
+                src="./flags/us.svg"
+                alt="Bandera de Estados Unidos"
+                width="60"
+                height="40"
+              />
+              <strong>Rojo</strong>
             </div>
-            <small data-demo="blueAction">&nbsp;</small>
-          </div>
-          <div class="demo-clock">
-            <span data-demo="status">Preparado</span
-            ><strong data-demo="clock">01:00</strong
-            ><span>Ronda <b>1</b> / <b>3</b></span>
-          </div>
-          <div class="demo-athlete demo-red">
-            <span>Lado rojo</span><strong>Rojo</strong>
-            <div class="demo-score">
-              <b data-demo="redScore">0</b>
-              <svg
-                class="demo-impact"
-                viewBox="0 0 100 100"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                aria-hidden="true"
-              >
-                <path
-                  d="M50 5v12m32-1-8 9m21 25H83m-1 33-8-9M50 95V83M18 83l8-9M5 50h12m1-34 8 9"
-                ></path>
-              </svg>
+            <div class="athlete-name blue-name">
+              <img
+                class="country-flag"
+                src="./flags/us.svg"
+                alt="Bandera de Estados Unidos"
+                width="60"
+                height="40"
+              />
+              <strong>Azul</strong>
             </div>
-            <small data-demo="redAction">&nbsp;</small>
           </div>
-        </div>
+          <div class="score-grid">
+            <article
+              class="fighter-panel red-panel demo-red"
+              aria-label="Marcador rojo"
+            >
+              <div class="nationality-bar">
+                <strong>USA</strong
+                ><svg
+                  class="reference-camera"
+                  viewBox="0 0 42 36"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="7" r="5" />
+                  <circle cx="23" cy="7" r="5" />
+                  <rect x="5" y="14" width="25" height="18" rx="3" />
+                  <path d="m30 20 9-5v17l-9-5z" />
+                </svg>
+              </div>
+              <div class="fighter-score">
+                <output
+                  class="score-value"
+                  data-demo="redScore"
+                  aria-label="Puntos rojo"
+                  aria-live="off"
+                  >0</output
+                >
+                <svg
+                  class="demo-impact"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M50 5v12m32-1-8 9m21 25H83m-1 33-8-9M50 95V83M18 83l8-9M5 50h12m1-34 8 9"
+                  ></path>
+                </svg>
+                <div class="hit-count" aria-label="Impactos conservados">
+                  <strong>0</strong><span>HITS</span>
+                </div>
+              </div>
+              <div class="panel-foot">
+                <span>GAM-JEOM</span><b>0</b>
+                <small class="demo-action" data-demo="redAction">&nbsp;</small>
+              </div>
+            </article>
+            <section class="center-clock" aria-label="Combate, tiempo y ronda">
+              <div class="bout-number">
+                <span>MATCH</span
+                ><strong aria-label="Combate sin número asignado">—</strong>
+              </div>
+              <div class="time-cluster">
+                <output
+                  class="clock-value"
+                  data-demo="clock"
+                  aria-label="Tiempo restante"
+                  aria-live="off"
+                  >1:00</output
+                >
+                <div class="time-state" data-demo="status">Demo</div>
+              </div>
+              <div class="round-block">
+                <span>ROUND</span><strong>1</strong>
+              </div>
+            </section>
+            <article
+              class="fighter-panel blue-panel demo-blue"
+              aria-label="Marcador azul"
+            >
+              <div class="nationality-bar">
+                <strong>USA</strong
+                ><svg
+                  class="reference-camera"
+                  viewBox="0 0 42 36"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="7" r="5" />
+                  <circle cx="23" cy="7" r="5" />
+                  <rect x="5" y="14" width="25" height="18" rx="3" />
+                  <path d="m30 20 9-5v17l-9-5z" />
+                </svg>
+              </div>
+              <div class="fighter-score">
+                <output
+                  class="score-value"
+                  data-demo="blueScore"
+                  aria-label="Puntos azul"
+                  aria-live="off"
+                  >0</output
+                >
+                <svg
+                  class="demo-impact"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M50 5v12m32-1-8 9m21 25H83m-1 33-8-9M50 95V83M18 83l8-9M5 50h12m1-34 8 9"
+                  ></path>
+                </svg>
+                <div class="hit-count" aria-label="Impactos conservados">
+                  <strong>0</strong><span>HITS</span>
+                </div>
+              </div>
+              <div class="panel-foot">
+                <span>GAM-JEOM</span><b>0</b>
+                <small class="demo-action" data-demo="blueAction">&nbsp;</small>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
       <div class="demo-stand" aria-hidden="true"></div>
-      <figcaption>
-        Demostración con puntos simulados. Tu combate real se controla desde la
-        mesa.
-      </figcaption>
     </figure>
   </section>
   <section class="getting-started" aria-labelledby="start-title">

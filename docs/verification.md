@@ -4,6 +4,12 @@
 
 ## Evidencia automatizada
 
+### Demo de portada alineada con el marcador actual
+
+Revisión del 2026-11-12: la pantalla de muestra utiliza los estilos del marcador actual, con rojo a la izquierda, azul a la derecha, banderas locales, nombres centrados, reloj central y líder amarillo. Se retiró el texto inferior y los estilos de la maqueta anterior. Conserva el ciclo automático de un minuto, límite de 16 puntos, correcciones, impacto y movimiento reducido. Los campos de la demo siguen separados del estado y del almacenamiento del combate.
+
+Tipos, formato, catorce pruebas unitarias, build y los 44 casos E2E de Chromium/Firefox aprobados en Free. La revisión visual de Free, la base local ampliada y el paquete autónomo cubrió 36 combinaciones entre 320 y 1920 px: proporción 16:9, nombres simétricos, banderas cargadas, ausencia del texto retirado y ningún desbordamiento, error de script ni recurso faltante. Se inspeccionaron capturas a 390 y 1440 px. La base local ampliada pasó tipos, formato, once pruebas unitarias, build y los seis casos de demo y accesibilidad. Dos casos de Firefox agotaron el tiempo durante la ejecución paralela y pasaron al repetirse aisladamente. La validación física con dos monitores sigue pendiente.
+
 ### Simetría de nombres y ajuste de banderas
 
 Corrección visual del 2026-11-12: ambos nombres se centran en áreas equivalentes y las banderas usan un marco 4:3 sin espacio lateral sobrante. La posición del texto se conserva cuando falta una bandera. El ajuste se comparte entre Control y Marcador y está aplicado también a la base local ampliada.

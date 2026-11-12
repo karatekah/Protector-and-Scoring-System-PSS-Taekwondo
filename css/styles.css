@@ -527,7 +527,7 @@ p {
 .display-demo {
   min-width: 0;
 }
-.demo-screen {
+.demo-monitor {
   padding: 12px;
   background: var(--board);
   border: 1px solid transparent;
@@ -537,89 +537,6 @@ p {
     0 24px 40px #25251f1f,
     0 3px 5px #25251f12;
   color: var(--surface);
-}
-.demo-event {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 10px 18px;
-  color: var(--board-muted);
-  font-size: 0.75rem;
-  line-height: 1.5;
-}
-.demo-event > img {
-  background: var(--surface);
-  border-radius: 3px;
-  padding: 3px;
-}
-.demo-event > span:first-of-type {
-  flex: 1;
-  min-width: 0;
-  text-align: center;
-  overflow-wrap: anywhere;
-}
-.demo-match {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1fr);
-  border-radius: 12px;
-  overflow: hidden;
-}
-.demo-athlete {
-  container-type: inline-size;
-  display: grid;
-  gap: 8px;
-  min-width: 0;
-  padding: 16px 12px;
-  text-align: center;
-  border-top: 3px solid transparent;
-}
-.demo-blue {
-  background: var(--competitor-blue-surface);
-  border-color: var(--blue);
-}
-.demo-red {
-  background: var(--competitor-red-surface);
-  border-color: var(--red);
-}
-.demo-athlete > span {
-  font-size: 0.75rem;
-  color: var(--board-muted);
-  line-height: 1.5;
-}
-.demo-athlete > strong {
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-.demo-score > b {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 48cqw, 6rem);
-  line-height: 1.2;
-  font-variant-numeric: tabular-nums;
-}
-.demo-clock {
-  container-type: inline-size;
-  display: grid;
-  align-content: center;
-  gap: 16px;
-  min-width: 0;
-  text-align: center;
-  padding: 12px 4px;
-}
-.demo-clock > span {
-  font-size: 0.75rem;
-  line-height: 1.5;
-  color: var(--board-muted);
-}
-.demo-clock > strong {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 38cqw, 3.5rem);
-  font-weight: 600;
-  line-height: 1;
-  color: var(--clock);
-  font-variant-numeric: tabular-nums;
 }
 .demo-stand {
   width: 35%;
@@ -636,14 +553,6 @@ p {
     0 85%,
     30% 80%
   );
-}
-.display-demo figcaption {
-  max-width: 48ch;
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.75rem;
-  line-height: 1.6;
-  margin: 20px auto 0;
 }
 .getting-started {
   display: grid;
@@ -1501,9 +1410,6 @@ fieldset {
     padding-inline: 32px;
     gap: 56px;
   }
-  .demo-event > span:last-child {
-    display: none;
-  }
 }
 @media (max-width: 760px) {
   .app-shell {
@@ -1567,21 +1473,9 @@ fieldset {
     width: 100%;
     margin-inline: auto;
   }
-  .demo-screen {
+  .demo-monitor {
     padding: 6px;
     border-radius: 10px;
-  }
-  .demo-event {
-    padding: 8px 6px 14px;
-  }
-  .demo-athlete {
-    padding: 12px 6px;
-  }
-  .demo-clock {
-    gap: 12px;
-  }
-  .demo-score > b {
-    font-size: clamp(2.5rem, 48cqw, 5rem);
   }
   .getting-started > div > p {
     max-width: none;
@@ -1741,21 +1635,6 @@ fieldset {
   .session-score {
     font-size: 2.5rem;
   }
-  .demo-event {
-    font-size: 0.75rem;
-  }
-  .demo-event > img {
-    display: none;
-  }
-  .demo-athlete > strong {
-    font-size: 0.75rem;
-  }
-  .demo-clock > span {
-    font-size: 0.75rem;
-  }
-  .demo-clock {
-    gap: 10px;
-  }
   .project-horizon {
     margin-inline: -16px;
     padding-inline: 16px;
@@ -1814,7 +1693,7 @@ fieldset {
   .setup-grid,
   .judge-side,
   .log-panel,
-  .demo-screen {
+  .demo-monitor {
     border: 1px solid CanvasText;
   }
   button:focus-visible,

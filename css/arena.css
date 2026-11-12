@@ -567,34 +567,11 @@ body:not([data-current-view="home"]) .arena-ribbon {
 .feature-disclosure > summary {
   font-weight: 800;
 }
-.demo-screen {
+.demo-monitor {
   border: 2px solid var(--ink);
   box-shadow:
     0 14px 0 #08090b1a,
     0 24px 30px #08090b12;
-}
-.demo-screen .demo-event .demo-badge {
-  display: inline-flex;
-  padding: 3px 8px;
-  border: 1px solid #ffffff59;
-  border-radius: 999px;
-  color: #fff;
-  font-weight: 750;
-  font-size: 0.625rem;
-  text-transform: uppercase;
-}
-.demo-athlete > small {
-  min-height: 20px;
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 650;
-  line-height: 20px;
-}
-.demo-score {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-width: 0;
 }
 .demo-impact {
   position: absolute;
@@ -607,9 +584,6 @@ body:not([data-current-view="home"]) .arena-ribbon {
 }
 .demo-red .demo-impact {
   color: var(--competitor-red-label);
-}
-.display-demo figcaption {
-  margin-top: 12px;
 }
 .getting-started {
   padding: 64px;
@@ -1277,9 +1251,6 @@ button.primary-action {
     width: 18px;
     height: 18px;
     flex: none;
-  }
-  .demo-event {
-    padding-inline: 4px;
   }
   .session-resume {
     gap: 14px;
