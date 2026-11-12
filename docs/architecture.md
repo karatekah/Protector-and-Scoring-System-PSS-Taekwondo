@@ -38,7 +38,11 @@ BroadcastChannel acelera las actualizaciones. El evento `storage` sirve como can
 
 ## Esquema y límites
 
-`pss-taekwondo-match-v4` guarda configuración, combate, 120 acciones y hasta 80 resúmenes. Cada acción reversible captura solo configuración y combate. Cada resumen guarda registros sin snapshots anteriores.
+`pss-taekwondo-match-v4` guarda configuración, combate y 120 acciones. Free permite guardar hasta 10 resúmenes sin retirar automáticamente los anteriores: `archive` devuelve `false` al llenarse. La eliminación de resúmenes requiere confirmación. Cada acción reversible captura solo configuración y combate. Cada resumen guarda registros sin snapshots anteriores.
+
+`parseState` mantiene la compatibilidad de lectura de hasta 80 resúmenes, impactos y formatos anteriores. `parseFreeConfig` valida los nuevos combates: 1 o 3 rondas y 60, 120 o 180 segundos. `freeConfig` propone un formato compatible para el siguiente combate sin modificar el actual ni los registros restaurados.
+
+`matchResult` deriva el resultado de los puntajes cuando la última ronda ha terminado con tiempo cero. Control, pantalla externa y resúmenes comparten esta función; un empate permanece como empate. No se almacena un ganador duplicado que pueda quedar desactualizado después de corregir o deshacer puntos. El respaldo JSON conserva el esquema v4 y los datos necesarios para reconstruir el resultado.
 
 Octajang conserva los identificadores de almacenamiento, canal, lock y ventana de la alpha para mantener compatibilidad en el mismo origen. El nombre del archivo exportado cambia a `octajang-combates-AAAA-MM-DD.json`; su esquema v4 sigue siendo compatible. Un dominio distinto tiene su propio almacenamiento: exportar desde la dirección anterior e importar en la nueva, sin mezclar ventanas de orígenes distintos.
 

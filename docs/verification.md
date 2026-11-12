@@ -4,6 +4,16 @@
 
 ## Evidencia automatizada
 
+### Edición Free y resultado final
+
+Revisión local del 2026-11-11, previa a la publicación. `npm ci` terminó sin vulnerabilidades; tipos, formato, siete pruebas unitarias y build aprobados. Los 20 casos E2E pasaron en Chromium y Firefox. Después de ajustar el espacio del resultado en pantalla completa, se repitieron y aprobaron los cuatro casos de presentación y resultado final en ambos navegadores.
+
+La cobertura nueva comprueba los presets de 60/120/180 segundos y 1/3 rondas, el bloqueo de formatos nuevos fuera de esos valores, el límite de diez resúmenes sin eliminación automática y la restauración de formatos anteriores. Una copia con doce resúmenes, cinco rondas, 90 segundos e impactos conserva los datos en la exportación JSON; guardar permanece bloqueado hasta que el operador elimina explícitamente los resúmenes elegidos. La prueba unitaria conserva también una copia de 80 resúmenes. Otra pestaña de lectura no puede eliminarlos.
+
+El resultado aparece solo al agotarse la última ronda; se comprueban ganador azul, ganador rojo, empate, correcciones y deshacer. La ventana pública refleja el mismo resultado, que se conserva al guardar, exportar, importar y recargar. El avance acelerado del reloj detectó que un callback tardío podía omitir la publicación terminal si coincidía con el último segundo publicado; ahora siempre se publica el fin de ronda.
+
+Se inspeccionaron Preparación y los resultados de Control/Marcador a 320, 390 y 1366/1440 px: nueve casos sin desbordamiento horizontal ni errores JavaScript. Axe no detectó infracciones en su cobertura automatizada sobre el resultado final. Se corrigió un desbordamiento del campo oculto de importación causado por el ancho de los campos visibles. A 1920 × 1080, el marcador con resultado cabe completo dentro de Fullscreen API, sin desplazamiento vertical. No equivale a una prueba física con dos monitores; lectores de pantalla y zoom nativo siguen pendientes.
+
 ### Identidad Octajang y compatibilidad
 
 Tipos, formato, cuatro pruebas unitarias y build aprobados. Los 16 flujos E2E de Chromium/Firefox pasaron con un worker. El nuevo flujo parte de datos v4 bajo la clave original, conserva nombres, puntos y reloj, exporta un archivo `octajang-combates-…json` y lo importa en otro origen con almacenamiento inicialmente vacío. La prueba detectó que los campos de preparación no se refrescaban al importar; se corrigió la actualización del formulario tras la restauración validada. El dominio y el esquema v4 permanecen intactos.

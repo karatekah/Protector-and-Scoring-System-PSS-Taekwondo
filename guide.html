@@ -107,7 +107,7 @@
           <ol class="guide-steps">
             <li>
               <strong>Prepara la sesión.</strong> Introduce el evento, los
-              competidores, de 1 a 5 rondas y una duración entre 00:10 y 09:59.
+              competidores, 1 o 3 rondas y una duración de 1, 2 o 3 minutos.
               Guardar abre el control.
             </li>
             <li>
@@ -121,13 +121,15 @@
             <li>
               <strong>Dirige el combate.</strong> Inicia o pausa el reloj.
               Registra de +1 a +6 puntos por decisión manual. Gam-jeom suma una
-              penalización al atleta y un punto al rival; Impacto registra sin
-              sumar puntos.
+              penalización al atleta y un punto al rival.
             </li>
             <li>
               <strong>Continúa o corrige.</strong> Siguiente ronda conserva los
               puntos acumulados. Deshacer revierte la última acción disponible y
-              pausa el reloj sin devolver el tiempo transcurrido.
+              pausa el reloj sin devolver el tiempo transcurrido. Al agotarse la
+              última ronda, Control y Marcador muestran al ganador por puntos
+              acumulados o un empate. Las correcciones posteriores actualizan
+              ese resultado.
             </li>
             <li>
               <strong>Guarda y respalda.</strong> Abre Gestión del combate para
@@ -147,14 +149,14 @@
           <div class="guide-prose">
             <p>
               La alpha ofrece puntuación manual, reloj, rondas, penalizaciones,
-              impactos, deshacer, resúmenes, respaldo JSON y una pantalla
-              externa de solo lectura.
+              resultado final por puntos acumulados, deshacer, resúmenes,
+              respaldo JSON y una pantalla externa de solo lectura.
             </p>
             <p>
-              El operador decide qué acción puntuar y cuándo terminar el
-              combate. Los valores +1 a +6 son incrementos manuales: no asignan
-              automáticamente una técnica ni representan una edición de un
-              reglamento.
+              El operador decide qué acción puntuar. El combate termina al
+              agotarse la última ronda configurada. Los valores +1 a +6 son
+              incrementos manuales: no asignan automáticamente una técnica ni
+              representan una edición de un reglamento.
             </p>
             <p>
               No incluye sensores, homologación WT, victorias por asalto,
@@ -179,9 +181,18 @@
           </div>
           <div class="guide-prose">
             <p>
-              El combate, las últimas 120 acciones y hasta 80 resúmenes se
-              guardan en el almacenamiento local del sitio. Al alcanzar cada
-              límite, se retiran primero los registros más antiguos.
+              Free conserva el combate, las últimas 120 acciones y hasta 10
+              resúmenes nuevos en el almacenamiento local del sitio. Las
+              acciones más antiguas se retiran al llegar a 120. Los resúmenes no
+              se borran automáticamente: al llenarse el historial, exporta JSON
+              y elimina los que elijas antes de guardar otro.
+            </p>
+            <p>
+              El respaldo sigue siendo JSON con los datos del combate, sin
+              informe PDF ni CSV. Las copias anteriores válidas conservan sus
+              tiempos, rondas, impactos y hasta 80 resúmenes. Al preparar un
+              combate nuevo se utilizan los presets de Free; restaurar una copia
+              no recorta los registros anteriores.
             </p>
             <p>
               Exporta JSON antes de borrar datos del navegador, cambiar de

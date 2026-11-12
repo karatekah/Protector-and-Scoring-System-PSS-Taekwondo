@@ -2,6 +2,10 @@
 
 ## Sin publicar como nueva versión
 
+Edición Free con presets de 1, 2 o 3 minutos y 1 o 3 rondas, diez resúmenes nuevos y respaldo JSON. Retirado el contador de impactos de la interfaz y de las acciones nuevas. Los respaldos anteriores conservan sus formatos, impactos y resúmenes; no se recortan al importar. Al llenarse el historial, el operador exporta y elimina los resúmenes que elija antes de guardar otro.
+
+Resultado final por puntos acumulados o empate al agotarse la última ronda. Control, pantalla externa y resúmenes muestran el mismo resultado, que se recalcula al corregir puntos o deshacer. Sin reglas automáticas de desempate.
+
 Octajang es la nueva marca: símbolo octogonal azul/rojo, cartel y cabeceras adaptados, guía, tres README y recursos de presentación actualizados. Metadatos de enlaces, URL canónica y sitemap para la dirección de producción. Los respaldos v4 y los identificadores internos conservan su compatibilidad. Se mantiene el mismo proyecto de Vercel y se conserva el acceso a la dirección anterior para exportar datos.
 
 La importación de respaldos actualiza ahora los campos de preparación con los datos restaurados. El pie de página admite el nombre largo con texto ampliado. Se incorpora una prueba de recuperación v4 y traslado por JSON entre orígenes.

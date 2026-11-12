@@ -5,6 +5,7 @@ release/
 playwright-report/
 test-results/
 *.local
+/pro.local/
 .env
 .env.*
 !.env.example

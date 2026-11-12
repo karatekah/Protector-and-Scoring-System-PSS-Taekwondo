@@ -1155,8 +1155,8 @@ fieldset {
   font-size: 0.75rem;
   font-weight: 500;
 }
-.score-action:nth-last-child(-n + 2) {
-  grid-column: span 3;
+.score-action.penalty-action {
+  grid-column: 1 / -1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1170,7 +1170,7 @@ fieldset {
 .red-judge .score-action {
   background: var(--competitor-red-soft);
 }
-.score-action:nth-last-child(-n + 2) {
+.score-action.penalty-action {
   background: var(--surface);
   border-color: var(--line);
 }
@@ -1178,20 +1178,17 @@ fieldset {
   .score-buttons {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .score-action:nth-last-child(-n + 2) {
-    grid-column: span 3;
-  }
 }
 @container (min-width: 330px) and (max-width: 450px) {
   .score-buttons {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
-  .score-action:nth-last-child(-n + 2) {
+  .score-action.penalty-action {
     flex-wrap: wrap;
     gap: 2px;
   }
 }
-.score-action:nth-last-child(-n + 2) strong {
+.score-action.penalty-action strong {
   font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 700;

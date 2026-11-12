@@ -86,26 +86,6 @@
     0 1px 1px #ffffff26 inset,
     0 2px 4px #25251f1a;
 }
-.duration-fields {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 8px minmax(0, 1fr);
-  gap: 8px;
-}
-.duration-fields label {
-  font-size: var(--text-small);
-  font-weight: 550;
-}
-.duration-fields > span {
-  align-self: end;
-  padding-bottom: 12px;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 700;
-}
-.duration-fields input {
-  min-height: 44px;
-  font-variant-numeric: tabular-nums;
-}
 @media (hover: hover) {
   .feature-disclosure > summary:hover {
     color: var(--accent);

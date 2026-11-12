@@ -44,9 +44,12 @@ export interface State extends Snapshot {
   history: Entry[];
   savedMatches: SavedMatch[];
 }
-export type Action =
-  { type: "points"; points: number } | { type: "gamjeom" } | { type: "hit" };
+export type Action = { type: "points"; points: number } | { type: "gamjeom" };
 export const HISTORY_LIMIT = 120;
+export const FREE_DURATIONS: readonly number[] = [60, 120, 180];
+export const FREE_ROUNDS: readonly number[] = [1, 3];
+export const FREE_ARCHIVE_LIMIT = 10;
+// Older backups remain readable without truncating their saved matches.
 export const ARCHIVE_LIMIT = 80;
 export const defaultConfig: Config = {
   eventName: "Sesión de entrenamiento",
@@ -113,9 +116,6 @@ export function applyAction(state: State, side: Side, action: Action): void {
       `${name}: Gam-jeom. +1 para ${opponent === "blue" ? "azul" : "rojo"}.`,
       before,
     );
-  } else if (action.type === "hit") {
-    state.match[side].hits += 1;
-    record(state, `${name}: impacto sin punto.`, before);
   } else {
     state.match[side].score += action.points;
     record(
@@ -146,17 +146,58 @@ export function remainingTime(
 ): number {
   return Math.max(0, startMs - Math.max(0, now - startedAt));
 }
-export function archive(state: State): void {
+export function matchResult(state: Snapshot): Side | "draw" | null {
+  const { match, config } = state;
+  if (
+    match.round !== config.totalRounds ||
+    match.remainingMs !== 0 ||
+    match.running ||
+    match.status !== "ended"
+  )
+    return null;
+  return match.blue.score === match.red.score
+    ? "draw"
+    : match.blue.score > match.red.score
+      ? "blue"
+      : "red";
+}
+export function resultLabel(state: Snapshot): string {
+  const result = matchResult(state);
+  return result === null
+    ? "Combate sin finalizar"
+    : result === "draw"
+      ? "Empate en puntos"
+      : `Ganador: ${state.config[result === "blue" ? "blueName" : "redName"]}`;
+}
+export function freeConfig(config: Config): Config {
+  return {
+    ...config,
+    roundDuration: FREE_DURATIONS.includes(config.roundDuration)
+      ? config.roundDuration
+      : defaultConfig.roundDuration,
+    totalRounds: FREE_ROUNDS.includes(config.totalRounds)
+      ? config.totalRounds
+      : defaultConfig.totalRounds,
+  };
+}
+export function parseFreeConfig(input: unknown): Config {
+  const config = parseConfig(input);
+  if (
+    !FREE_DURATIONS.includes(config.roundDuration) ||
+    !FREE_ROUNDS.includes(config.totalRounds)
+  )
+    throw new Error("Free permite 1 o 3 rondas de 1, 2 o 3 minutos.");
+  return config;
+}
+export function archive(state: State): boolean {
+  if (state.savedMatches.length >= FREE_ARCHIVE_LIMIT) return false;
   state.savedMatches.unshift({
     ...snapshot(state),
     id: crypto.randomUUID(),
     savedAt: new Date().toISOString(),
     history: state.history.map(({ before: _before, ...entry }) => entry),
   });
-  state.savedMatches.length = Math.min(
-    state.savedMatches.length,
-    ARCHIVE_LIMIT,
-  );
+  return true;
 }
 
 function object(value: unknown): Record<string, unknown> {

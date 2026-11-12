@@ -9,16 +9,21 @@ import {
   archive,
   createState,
   defaultConfig,
+  FREE_ARCHIVE_LIMIT,
   formatClock,
+  freeConfig,
   freshMatch,
+  matchResult,
   migrateLegacy,
+  parseFreeConfig,
   parseState,
   record,
   remainingTime,
+  resultLabel,
   snapshot,
   undo,
 } from "./match";
-import type { Action, Side, Status } from "./match";
+import type { Action, Config, Side, Status } from "./match";
 
 const STORAGE_KEY = "pss-taekwondo-match-v4";
 const LEGACY_KEYS = ["pss-taekwondo-match-v3", "pss-taekwondo-match-v2"];
@@ -108,7 +113,9 @@ function updateClock(): void {
     stopClock();
     state.match.status = "ended";
     notify(
-      "Ronda terminada. Revisa el marcador y continúa cuando corresponda.",
+      matchResult(state) === null
+        ? "Ronda terminada. Revisa el marcador y continúa cuando corresponda."
+        : `Combate finalizado. ${resultLabel(state)}. Resultado por puntos acumulados.`,
     );
   }
 }
@@ -142,7 +149,7 @@ function toggleClock(): void {
         updateClock();
         renderBindings();
         const second = Math.ceil(state.match.remainingMs / 1000);
-        if (second !== lastSecond) {
+        if (second !== lastSecond || !state.match.running) {
           lastSecond = second;
           publish();
         }
@@ -154,6 +161,7 @@ function toggleClock(): void {
 function renderBindings(): void {
   const m = state.match,
     c = state.config;
+  const result = matchResult(state);
   document.body.dataset.matchStatus = m.status;
   const values: Record<string, string | number> = {
     ...c,
@@ -162,13 +170,16 @@ function renderBindings(): void {
     redScore: m.red.score,
     blueGamjeom: m.blue.gamjeom,
     redGamjeom: m.red.gamjeom,
-    blueHits: m.blue.hits,
-    redHits: m.red.hits,
     round: m.round,
     clock: formatClock(m.remainingMs),
-    status: statusLabels[m.status],
+    status: result === null ? statusLabels[m.status] : "Combate finalizado",
+    result: resultLabel(state),
     logCount: state.history.length,
     savedMatchCount: state.savedMatches.length,
+    archiveInfo:
+      state.savedMatches.length > FREE_ARCHIVE_LIMIT
+        ? `${state.savedMatches.length} resúmenes anteriores conservados. Free permite guardar nuevos cuando queden menos de 10.`
+        : `${state.savedMatches.length} de 10 resúmenes en este navegador.`,
     leader:
       m.blue.score === m.red.score
         ? "Empate en puntos"
@@ -179,6 +190,10 @@ function renderBindings(): void {
       el.textContent = String(value);
     });
   }
+  document.querySelectorAll<HTMLElement>("[data-result]").forEach((panel) => {
+    panel.hidden = result === null;
+    panel.dataset.winner = result ?? "";
+  });
 }
 function renderControls(): void {
   document
@@ -195,6 +210,8 @@ function renderControls(): void {
     !operator || !state.history[0]?.before;
   element<HTMLButtonElement>("#nextRound").disabled =
     !operator || state.match.round >= state.config.totalRounds;
+  element<HTMLButtonElement>("#timeout").disabled =
+    !operator || state.match.remainingMs <= 0;
   element<HTMLButtonElement>("#clearLog").disabled =
     !operator || state.history.length === 0;
   element("#operatorState").textContent = publicOnly
@@ -236,15 +253,36 @@ function render(): void {
       title = document.createElement("strong"),
       detail = document.createElement("span");
     title.textContent = `${match.config.blueName} ${match.match.blue.score} — ${match.match.red.score} ${match.config.redName}`;
-    detail.textContent = `${match.config.eventName} · ${new Date(match.savedAt).toLocaleString("es-PE")} · Resumen de entrenamiento`;
-    li.append(title, detail);
+    detail.textContent = `${match.config.eventName} · ${new Date(match.savedAt).toLocaleString("es-PE")} · ${resultLabel(match)}`;
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.dataset.mutation = "";
+    remove.textContent = "Eliminar resumen";
+    remove.disabled = !operator;
+    remove.setAttribute("aria-label", `Eliminar resumen: ${title.textContent}`);
+    remove.addEventListener("click", () => {
+      if (
+        !operator ||
+        !window.confirm(
+          "¿Eliminar este resumen? Exporta primero el JSON si necesitas conservarlo. El combate actual no se modifica.",
+        )
+      )
+        return;
+      change(() => {
+        state.savedMatches = state.savedMatches.filter(
+          (saved) => saved !== match,
+        );
+        warning("");
+      }, "Resumen eliminado. El combate actual se conservó.");
+    });
+    li.append(title, detail, remove);
     saved.append(li);
   }
 }
 function updateDurationPresets(): void {
-  const seconds =
-    Number(element<HTMLInputElement>("#setupRoundMinutes").value) * 60 +
-    Number(element<HTMLInputElement>("#setupRoundSeconds").value);
+  const seconds = Number(
+    element<HTMLInputElement>("#setupRoundDuration").value,
+  );
   document
     .querySelectorAll<HTMLButtonElement>("[data-duration]")
     .forEach((button) => {
@@ -256,17 +294,23 @@ function updateDurationPresets(): void {
 }
 function setupForm(): void {
   const form = element<HTMLFormElement>("#matchSetupForm");
-  for (const [key, value] of Object.entries(state.config)) {
+  const config = freeConfig(state.config);
+  for (const [key, value] of Object.entries(config)) {
     const field = form.elements.namedItem(key);
-    if (field instanceof HTMLInputElement) field.value = String(value);
+    if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement)
+      field.value = String(value);
   }
-  element<HTMLInputElement>("#setupRoundMinutes").value = String(
-    Math.floor(state.config.roundDuration / 60),
-  );
-  element<HTMLInputElement>("#setupRoundSeconds").value = String(
-    state.config.roundDuration % 60,
-  );
+  element("#legacyConfigNote").hidden =
+    config.roundDuration === state.config.roundDuration &&
+    config.totalRounds === state.config.totalRounds;
   updateDurationPresets();
+}
+function canArchive(): boolean {
+  if (state.savedMatches.length < FREE_ARCHIVE_LIMIT) return true;
+  warning(
+    "El historial de Free está lleno. En Preparar combate, exporta tu JSON y elimina los resúmenes que elijas hasta dejar menos de 10. El combate y los resúmenes actuales se conservan.",
+  );
+  return false;
 }
 function showView(requested: string, focus = true): void {
   const view = publicOnly
@@ -347,13 +391,8 @@ function bind(): void {
       button.addEventListener("click", () => {
         if (!operator) return;
         const seconds = Number(button.dataset.duration);
-        element<HTMLInputElement>("#setupRoundMinutes").value = String(
-          Math.floor(seconds / 60),
-        );
-        element<HTMLInputElement>("#setupRoundSeconds").value = String(
-          seconds % 60,
-        );
-        element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity("");
+        element<HTMLInputElement>("#setupRoundDuration").value =
+          String(seconds);
         updateDurationPresets();
       });
     });
@@ -440,12 +479,15 @@ function bind(): void {
   );
   element("#saveMatch").addEventListener("click", () =>
     change(() => {
-      archive(state);
-    }, "Resumen guardado en este navegador. Exporta JSON para conservar una copia externa."),
+      if (canArchive() && archive(state))
+        notify(
+          "Resumen guardado en este navegador. Exporta JSON para conservar una copia externa.",
+        );
+    }),
   );
   element("#resetMatch").addEventListener("click", () => {
+    if (!operator || !canArchive()) return;
     if (
-      !operator ||
       !window.confirm(
         "¿Preparar un combate nuevo? Se guardará un resumen del actual y se reiniciarán el reloj y los puntos.",
       )
@@ -454,6 +496,7 @@ function bind(): void {
     change(() => {
       stopClock();
       archive(state);
+      state.config = freeConfig(state.config);
       state.match = freshMatch(state.config.roundDuration);
       state.history = [];
     }, "Combate anterior guardado. Nuevo combate preparado.");
@@ -512,19 +555,34 @@ function bind(): void {
       if (!operator) return;
       const form = event.currentTarget as HTMLFormElement,
         data = new FormData(form);
-      const minutes = Number(data.get("roundMinutes")),
-        seconds = Number(data.get("roundSeconds"));
-      if (minutes * 60 + seconds < 10) {
-        element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity(
-          "La ronda debe durar al menos 10 segundos.",
+      const value = (name: string, fallback: string) =>
+        String(data.get(name) || "").trim() || fallback;
+      let config: Config;
+      try {
+        config = parseFreeConfig({
+          eventName: value("eventName", defaultConfig.eventName),
+          totalRounds: Number(data.get("totalRounds")),
+          roundDuration: Number(data.get("roundDuration")),
+          blueName: value("blueName", "Azul"),
+          redName: value("redName", "Rojo"),
+          blueCountry: value("blueCountry", "PER").toUpperCase(),
+          redCountry: value("redCountry", "PER").toUpperCase(),
+        });
+      } catch {
+        warning(
+          "Free permite 1 o 3 rondas de 1, 2 o 3 minutos. Revisa la configuración antes de guardar.",
         );
-        form.reportValidity();
         return;
       }
+      const hasMatch = Boolean(
+        state.history.length ||
+        state.match.blue.score ||
+        state.match.red.score ||
+        state.match.status !== "ready",
+      );
+      if (hasMatch && !canArchive()) return;
       if (
-        (state.history.length ||
-          state.match.blue.score ||
-          state.match.red.score) &&
+        hasMatch &&
         !window.confirm(
           "La configuración preparará un combate nuevo y guardará un resumen del actual. ¿Continuar?",
         )
@@ -532,37 +590,14 @@ function bind(): void {
         return;
       change(() => {
         stopClock();
-        if (
-          state.history.length ||
-          state.match.blue.score ||
-          state.match.red.score
-        )
-          archive(state);
-        const value = (name: string, fallback: string) =>
-          String(data.get(name) || "").trim() || fallback;
-        state.config = {
-          eventName: value("eventName", defaultConfig.eventName),
-          totalRounds: Number(data.get("totalRounds")),
-          roundDuration: minutes * 60 + seconds,
-          blueName: value("blueName", "Azul"),
-          redName: value("redName", "Rojo"),
-          blueCountry: value("blueCountry", "PER").toUpperCase(),
-          redCountry: value("redCountry", "PER").toUpperCase(),
-        };
+        if (hasMatch) archive(state);
+        state.config = config;
         state.match = freshMatch(state.config.roundDuration);
         state.history = [];
       }, "Combate preparado. Inicia el reloj desde el panel de control.");
       showView("scoring");
     },
   );
-  element("#setupRoundSeconds").addEventListener("input", () => {
-    element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity("");
-    updateDurationPresets();
-  });
-  element("#setupRoundMinutes").addEventListener("input", () => {
-    element<HTMLInputElement>("#setupRoundSeconds").setCustomValidity("");
-    updateDurationPresets();
-  });
   const receive = (input: unknown) => {
     if (operator) return;
     try {
@@ -618,7 +653,6 @@ function createButtons(): void {
           detail: "+1 para el rival",
           action: { type: "gamjeom" },
         },
-        { label: "Impacto", detail: "Sin punto", action: { type: "hit" } },
       ];
       for (const { label, detail, action } of actions) {
         const button = document.createElement("button"),
@@ -626,6 +660,7 @@ function createButtons(): void {
           small = document.createElement("small");
         button.type = "button";
         button.className = "score-action static-press";
+        if (action.type === "gamjeom") button.classList.add("penalty-action");
         button.dataset.mutation = "";
         button.setAttribute(
           "aria-label",
@@ -672,7 +707,7 @@ if (!publicOnly) {
           return;
         }
         operator = true;
-        renderControls();
+        render();
         await new Promise<void>((resolve) =>
           window.addEventListener("pagehide", () => resolve(), { once: true }),
         );

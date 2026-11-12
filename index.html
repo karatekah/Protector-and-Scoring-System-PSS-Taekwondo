@@ -506,15 +506,11 @@
                 /></label>
                 <div class="format-controls">
                   <label
-                    >Rondas<input
-                      name="totalRounds"
-                      type="number"
-                      min="1"
-                      max="5"
-                      step="1"
-                      required
-                      value="3"
-                  /></label>
+                    >Rondas<select name="totalRounds" required>
+                      <option value="1">1</option>
+                      <option value="3" selected>3</option>
+                    </select></label
+                  >
                   <div class="duration-control">
                     <span class="duration-label" id="duration-label"
                       >Duración por ronda</span
@@ -535,15 +531,6 @@
                       </button>
                       <button
                         type="button"
-                        data-duration="90"
-                        data-mutation
-                        aria-pressed="false"
-                        aria-label="1:30 por ronda"
-                      >
-                        1:30
-                      </button>
-                      <button
-                        type="button"
                         data-duration="120"
                         data-mutation
                         aria-pressed="true"
@@ -551,35 +538,30 @@
                       >
                         2:00
                       </button>
+                      <button
+                        type="button"
+                        data-duration="180"
+                        data-mutation
+                        aria-pressed="false"
+                        aria-label="3:00 por ronda"
+                      >
+                        3:00
+                      </button>
                     </div>
-                    <div class="duration-fields">
-                      <label
-                        >Minutos<input
-                          id="setupRoundMinutes"
-                          name="roundMinutes"
-                          type="number"
-                          min="0"
-                          max="9"
-                          step="1"
-                          required
-                          value="2" /></label
-                      ><span aria-hidden="true">:</span
-                      ><label
-                        >Segundos<input
-                          id="setupRoundSeconds"
-                          name="roundSeconds"
-                          type="number"
-                          min="0"
-                          max="59"
-                          step="1"
-                          required
-                          value="0"
-                      /></label>
-                    </div>
+                    <input
+                      id="setupRoundDuration"
+                      name="roundDuration"
+                      type="hidden"
+                      value="120"
+                    />
                   </div>
                 </div>
                 <p class="field-help">
-                  De 1 a 5 rondas · Entre 00:10 y 09:59 por ronda.
+                  Free · 1 o 3 rondas de 1, 2 o 3 minutos.
+                </p>
+                <p id="legacyConfigNote" class="field-help" hidden>
+                  Tu combate anterior conserva su formato. Estos ajustes se
+                  aplicarán al preparar uno nuevo.
                 </p>
               </section>
               <section class="form-card blue-form">
@@ -660,9 +642,12 @@
             <header>
               <div>
                 <h2 id="archiveTitle">Resúmenes guardados</h2>
-                <p>
-                  <span data-bind="savedMatchCount">0</span> de hasta 80
-                  combates en este navegador.
+                <p data-bind="archiveInfo">
+                  0 de 10 resúmenes en este navegador.
+                </p>
+                <p class="field-help">
+                  Al llenarse, exporta el JSON y elimina los resúmenes que
+                  elijas para liberar espacio.
                 </p>
               </div>
               <div class="backup-actions">
@@ -740,8 +725,13 @@
                 ><span class="duo-mark" aria-hidden="true"></span> Octajang ·
                 ENTRENAMIENTO</span
               ><strong data-bind="eventName">Sesión de entrenamiento</strong
-              ><span class="manual-label">Puntuación manual</span>
+              ><span class="manual-label">Free · Puntuación manual</span>
             </header>
+            <div class="match-result" data-result role="status" hidden>
+              <span>Resultado final</span>
+              <strong data-bind="result"></strong>
+              <small>Por puntos acumulados · Entrenamiento y exhibición</small>
+            </div>
             <div class="score-grid">
               <article
                 class="fighter-panel blue-panel"
@@ -760,8 +750,7 @@
                   >0</output
                 >
                 <div class="panel-foot">
-                  <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span
-                  ><span>IMPACTOS <b data-bind="blueHits">0</b></span>
+                  <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span>
                 </div>
               </article>
               <section class="center-clock" aria-label="Tiempo y ronda">
@@ -800,8 +789,7 @@
                   >0</output
                 >
                 <div class="panel-foot">
-                  <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span
-                  ><span>IMPACTOS <b data-bind="redHits">0</b></span>
+                  <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span>
                 </div>
               </article>
             </div>
@@ -917,8 +905,13 @@
             <header class="event-bar">
               <span class="board-tag">OCTAJANG</span
               ><strong data-bind="eventName">Sesión de entrenamiento</strong
-              ><span class="manual-label">Entrenamiento · Alpha</span>
+              ><span class="manual-label">Free · Entrenamiento</span>
             </header>
+            <div class="match-result" data-result role="status" hidden>
+              <span>Resultado final</span>
+              <strong data-bind="result"></strong>
+              <small>Por puntos acumulados · Entrenamiento y exhibición</small>
+            </div>
             <div class="score-grid">
               <article
                 class="fighter-panel blue-panel"
@@ -937,8 +930,7 @@
                   >0</output
                 >
                 <div class="panel-foot">
-                  <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span
-                  ><span>IMPACTOS <b data-bind="blueHits">0</b></span>
+                  <span>GAM-JEOM <b data-bind="blueGamjeom">0</b></span>
                 </div>
               </article>
               <section class="center-clock" aria-label="Tiempo y ronda">
@@ -977,8 +969,7 @@
                   >0</output
                 >
                 <div class="panel-foot">
-                  <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span
-                  ><span>IMPACTOS <b data-bind="redHits">0</b></span>
+                  <span>GAM-JEOM <b data-bind="redGamjeom">0</b></span>
                 </div>
               </article>
             </div>
@@ -987,7 +978,7 @@
       </main>
       <footer class="app-footer">
         <span class="footer-signature"
-          ><strong>Octajang</strong> Taekwondo / Alpha 0.1</span
+          ><strong>Octajang</strong> Taekwondo / Free · Alpha 0.1</span
         ><span>Un PC. Un operador. Dos pantallas.</span
         ><a
           href="https://github.com/karatekah/octajang/issues"

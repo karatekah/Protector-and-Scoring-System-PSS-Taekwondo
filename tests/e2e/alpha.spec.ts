@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { readFile } from "node:fs/promises";
+import { createState, snapshot } from "../../src/match";
 
 test("Octajang restores existing v4 data and transfers a backup to a new origin", async ({
   page,
@@ -333,7 +335,7 @@ test("keyboard flow, reduced motion, reflow and automated accessibility", async 
   );
 });
 
-test("duration presets, manual entry, saved configuration and read-only session", async ({
+test("Free presets, saved configuration and read-only session", async ({
   page,
   context,
 }) => {
@@ -342,31 +344,219 @@ test("duration presets, manual entry, saved configuration and read-only session"
     .getByRole("button", { name: "Preparar un combate", exact: true })
     .click();
   const preset = page.getByRole("button", {
-    name: "1:30 por ronda",
+    name: "3:00 por ronda",
     exact: true,
   });
   await preset.click();
-  await expect(page.locator("#setupRoundMinutes")).toHaveValue("1");
-  await expect(page.locator("#setupRoundSeconds")).toHaveValue("30");
-  await page.locator("#setupRoundSeconds").fill("45");
-  await expect(preset).toHaveAttribute("aria-pressed", "false");
-  await preset.click();
+  await expect(page.locator("[data-duration]")).toHaveCount(3);
+  await expect(page.locator("#setupRoundDuration")).toHaveValue("180");
+  await expect(
+    page.locator('[name="roundMinutes"], [name="roundSeconds"]'),
+  ).toHaveCount(0);
+  expect(
+    await page
+      .locator('[name="totalRounds"] option')
+      .evaluateAll((options) =>
+        options.map((option) => (option as HTMLOptionElement).value),
+      ),
+  ).toEqual(["1", "3"]);
+  await page
+    .getByRole("combobox", { name: "Rondas", exact: true })
+    .selectOption("1");
   await page
     .getByRole("button", { name: "Guardar y abrir control", exact: true })
     .click();
   await expect(
     page.locator('[data-view="scoring"] [data-bind="clock"]'),
-  ).toHaveText("01:30");
+  ).toHaveText("03:00");
+  await expect(page.getByRole("button", { name: /Impacto/ })).toHaveCount(0);
   await page
     .getByRole("button", { name: "Preparar combate", exact: true })
     .click();
   await expect(preset).toHaveAttribute("aria-pressed", "true");
+  await expect(
+    page.getByRole("combobox", { name: "Rondas", exact: true }),
+  ).toHaveValue("1");
   const observer = await context.newPage();
   await observer.goto("/");
   await observer
     .getByRole("button", { name: "Preparar combate", exact: true })
     .click();
   await expect(
-    observer.getByRole("button", { name: "1:30 por ronda", exact: true }),
+    observer.getByRole("button", { name: "3:00 por ronda", exact: true }),
   ).toBeDisabled();
+  await expect(
+    observer.getByRole("combobox", { name: "Rondas", exact: true }),
+  ).toBeDisabled();
+});
+
+test("final result follows all rounds and corrections in control, display and JSON summaries", async ({
+  page,
+  context,
+}) => {
+  await page.clock.install();
+  await page.goto("/?view=setup");
+  await page
+    .getByRole("button", { name: "1:00 por ronda", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Guardar y abrir control", exact: true })
+    .click();
+  const result = page.locator('[data-view="scoring"] [data-result]');
+  const external = await context.newPage();
+  await external.goto("/?view=public");
+  await page
+    .getByRole("button", { name: "+3 puntos · azul", exact: true })
+    .click();
+  for (let round = 1; round <= 3; round++) {
+    await page
+      .getByRole("button", { name: "Iniciar · Shijak", exact: true })
+      .click();
+    await page.clock.fastForward(60_100);
+    await expect(
+      page.locator('[data-view="scoring"] [data-bind="clock"]'),
+    ).toHaveText("00:00");
+    if (round < 3) {
+      await expect(result).toBeHidden();
+      await page
+        .getByRole("button", { name: "Siguiente ronda", exact: true })
+        .click();
+    }
+  }
+  await expect(result).toContainText("Ganador: Azul");
+  await expect(external.locator("[data-result]:visible")).toContainText(
+    "Ganador: Azul",
+  );
+  await page
+    .getByRole("button", { name: "+3 puntos · rojo", exact: true })
+    .click();
+  await expect(result).toContainText("Empate en puntos");
+  await page.getByRole("button", { name: "Deshacer", exact: true }).click();
+  await expect(result).toContainText("Ganador: Azul");
+  await page
+    .getByRole("button", { name: "+4 puntos · rojo", exact: true })
+    .click();
+  await expect(external.locator("[data-result]:visible")).toContainText(
+    "Ganador: Rojo",
+  );
+  await page.getByText("Gestión del combate", { exact: true }).click();
+  await page
+    .getByRole("button", { name: "Guardar resumen", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Preparar combate", exact: true })
+    .click();
+  await expect(page.locator("[data-saved-match-list]")).toContainText(
+    "Ganador: Rojo",
+  );
+  const downloading = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Exportar JSON" }).click();
+  const backup = await downloading;
+  const file = await backup.path();
+  if (!file) throw new Error("Missing backup");
+  page.once("dialog", (dialog) => dialog.accept());
+  await page.locator("#importFile").setInputFiles(file);
+  await page.getByRole("button", { name: "Control", exact: true }).click();
+  await expect(result).toContainText("Ganador: Rojo");
+  await page.reload();
+  await expect(result).toContainText("Ganador: Rojo");
+  await external.setViewportSize({ width: 1920, height: 1080 });
+  await external
+    .getByRole("button", { name: "Pantalla completa", exact: true })
+    .click();
+  await expect(external.locator("body")).toHaveClass(/is-presenting/);
+  expect(
+    await external
+      .locator(".public-board")
+      .evaluate((board) => board.getBoundingClientRect().bottom <= innerHeight),
+  ).toBe(true);
+  await expect(external.locator("[data-result]:visible")).toContainText(
+    "Ganador: Rojo",
+  );
+});
+
+test("Free preserves oversized legacy backups and requires an explicit deletion to free archive space", async ({
+  page,
+  context,
+}) => {
+  const existing = createState();
+  existing.config.roundDuration = 90;
+  existing.config.totalRounds = 5;
+  existing.match.blue.score = 7;
+  existing.match.blue.hits = 2;
+  existing.match.status = "paused";
+  existing.match.remainingMs = 45_000;
+  existing.savedMatches = Array.from({ length: 12 }, (_, i) => ({
+    ...snapshot(existing),
+    id: String(i),
+    savedAt: new Date().toISOString(),
+    history: [],
+  }));
+  await page.goto("/?view=setup");
+  await expect(page.locator("#operatorState")).toContainText("Operador activo");
+  page.once("dialog", (dialog) => dialog.accept());
+  await page.locator("#importFile").setInputFiles({
+    name: "legacy.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify(existing)),
+  });
+  await expect(page.locator("#legacyConfigNote")).toBeVisible();
+  await expect(page.locator("[data-saved-match-list] > li")).toHaveCount(12);
+  await expect(page.locator("#setupRoundDuration")).toHaveValue("120");
+  await page
+    .getByRole("button", { name: "Guardar y abrir control", exact: true })
+    .click();
+  await expect(page.locator("#warning")).toContainText(
+    "historial de Free está lleno",
+  );
+  await expect(page.locator("body")).toHaveAttribute(
+    "data-current-view",
+    "setup",
+  );
+  const downloading = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Exportar JSON" }).click();
+  const path = await (await downloading).path();
+  if (!path) throw new Error("Missing backup");
+  const data = JSON.parse(await readFile(path, "utf8"));
+  expect(data.config.roundDuration).toBe(90);
+  expect(data.config.totalRounds).toBe(5);
+  expect(data.match.blue.hits).toBe(2);
+  expect(data.savedMatches).toHaveLength(12);
+  const observer = await context.newPage();
+  await observer.goto("/?view=setup");
+  await expect(
+    observer.getByRole("button", { name: /^Eliminar resumen:/ }).first(),
+  ).toBeDisabled();
+  await observer.close();
+  for (let i = 0; i < 3; i++) {
+    page.once("dialog", (dialog) => dialog.accept());
+    await page
+      .getByRole("button", { name: /^Eliminar resumen:/ })
+      .first()
+      .click();
+  }
+  page.once("dialog", (dialog) => dialog.accept());
+  await page
+    .getByRole("button", { name: "Guardar y abrir control", exact: true })
+    .click();
+  await expect(
+    page.locator('[data-view="scoring"] [data-bind="clock"]'),
+  ).toHaveText("02:00");
+  await page.getByText("Gestión del combate", { exact: true }).click();
+  await page
+    .getByRole("button", { name: "Guardar resumen", exact: true })
+    .click();
+  await expect(page.locator("#warning")).toContainText(
+    "historial de Free está lleno",
+  );
+  await page
+    .getByRole("button", { name: "Nuevo combate", exact: true })
+    .click();
+  await expect(page.locator("#warning")).toContainText(
+    "historial de Free está lleno",
+  );
+  await page
+    .getByRole("button", { name: "Preparar combate", exact: true })
+    .click();
+  await expect(page.locator("[data-saved-match-list] > li")).toHaveCount(10);
 });

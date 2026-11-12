@@ -10,12 +10,14 @@ Una persona controla un combate de entrenamiento o exhibición desde un PC. El p
 
 ## Incluido
 
-- Evento y dos atletas con nombre y país; 1–5 rondas, 10–599 segundos.
-- Incrementos manuales +1 a +6, penalización Gam-jeom e impactos sin punto.
+- Free: evento y dos atletas con nombre y país; 1 o 3 rondas de 1, 2 o 3 minutos, sin edición manual de duración.
+- Incrementos manuales +1 a +6 y penalización Gam-jeom.
+- Ganador por puntos acumulados o empate al agotarse la última ronda; las correcciones actualizan el resultado. No es un reglamento automático de competición.
 - Inicio, pausa, tiempo técnico y siguiente ronda; el operador decide cuándo avanzar.
 - Intercambio de lados, deshacer disponible, archivo y nuevo combate.
 - Pantalla externa de solo lectura, pantalla completa y un operador por navegador.
 - Guardado local, exportación/importación JSON validada y migración compatible del prototipo.
+- Hasta 10 resúmenes nuevos, con eliminación explícita para liberar espacio y sin recorte automático. Los respaldos anteriores admitidos conservan hasta 80 resúmenes, impactos y configuración; los presets se aplican a los combates nuevos.
 - Interfaz adaptable, navegación por teclado, movimiento reducido y guía pública.
 
 ## Fuera del alcance acordado
