@@ -4,6 +4,8 @@ import "../css/guide.css";
 import "../css/arena.css";
 import "../css/workspace.css";
 import "../css/motion.css";
+import "../css/countries.css";
+import { renderCountryFlags, setupCountryFields } from "./country-fields";
 import { all, find, mountView, pageUrl } from "./pages";
 import { paths, viewFromUrl } from "./routes";
 import type { View } from "./routes";
@@ -201,6 +203,7 @@ function renderBindings(): void {
       el.textContent = String(value);
     });
   }
+  renderCountryFlags(state.config);
   all<HTMLElement>("[data-result]").forEach((panel) => {
     panel.hidden = result === null;
     panel.dataset.winner = result ?? "";
@@ -309,6 +312,7 @@ function updateDurationPresets(): void {
   });
 }
 function setupForm(): void {
+  setupCountryFields(state.config);
   const form = element<HTMLFormElement>("#matchSetupForm");
   const config = freeConfig(state.config);
   for (const [key, value] of Object.entries(config)) {
@@ -598,7 +602,7 @@ function bind(): void {
         warning("");
       } catch {
         warning(
-          "No se pudo importar el archivo. Usa una copia JSON de Octajang alpha 0.1 de hasta 5 MB. Los datos actuales se conservaron.",
+          "No se pudo importar el archivo. Usa una copia JSON de Octajang de hasta 5 MB. Los datos actuales se conservaron.",
         );
       } finally {
         input.value = "";
@@ -706,7 +710,7 @@ function createButtons(): void {
     const adjustments = document.createElement("div");
     adjustments.className = "score-adjustments";
     const actions: { label: string; detail: string; action: Action }[] = [
-      ...[1, 2, 3, 4, 5, 6].map((points) => ({
+      ...[1, 2, 3, 4, 6].map((points) => ({
         label: `+${points}`,
         detail: points === 1 ? "punto" : "puntos",
         action: { type: "points" as const, points },
@@ -769,6 +773,7 @@ function createButtons(): void {
 
 document.body.classList.toggle("public-window", publicOnly);
 load();
+setupCountryFields(state.config);
 createButtons();
 bind();
 render();

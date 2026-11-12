@@ -1,5 +1,7 @@
 # Plan de migración del stack
 
+La evolución funcional descrita en este documento corresponde a Pro. Free 1.0 mantiene el [alcance cerrado](free-1.0.md) después de su aprobación y publicación.
+
 La alpha 0.1 sigue siendo la demo de entrenamiento publicada. La migración hacia torneos se divide en entregas que conservan datos y separan capacidades comprobadas de diseño pendiente.
 
 | Etapa                  | Entrega concreta                                                                                                                    | Condición de salida                                                                          |

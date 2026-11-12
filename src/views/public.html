@@ -17,7 +17,10 @@
   </div>
   <section class="scoreboard public-board" aria-label="Marcador público">
     <header class="event-bar">
-      <span class="board-tag">OCTAJANG</span
+      <span class="board-tag"
+        ><span class="board-brand"
+          >OCTAJANG<small class="board-maker">Made by Karatekah</small></span
+        ></span
       ><strong data-bind="eventName">Sesión de entrenamiento</strong
       ><span class="manual-label">Free · Entrenamiento</span>
     </header>
@@ -38,7 +41,16 @@
       <article class="fighter-panel blue-panel" aria-label="Marcador azul">
         <div class="fighter-meta">
           <span class="side-label"
-            >AZUL <span data-bind="blueCountry">USA</span></span
+            >AZUL
+            <span class="country-label"
+              ><img
+                data-country-flag="blue"
+                src="./flags/us.svg"
+                width="32"
+                height="24"
+                alt=""
+              /><span data-bind="blueCountry">USA</span></span
+            ></span
           ><strong data-bind="blueName">Azul</strong>
         </div>
         <output
@@ -72,7 +84,16 @@
       <article class="fighter-panel red-panel" aria-label="Marcador rojo">
         <div class="fighter-meta">
           <span class="side-label"
-            >ROJO <span data-bind="redCountry">USA</span></span
+            >ROJO
+            <span class="country-label"
+              ><img
+                data-country-flag="red"
+                src="./flags/us.svg"
+                width="32"
+                height="24"
+                alt=""
+              /><span data-bind="redCountry">USA</span></span
+            ></span
           ><strong data-bind="redName">Rojo</strong>
         </div>
         <output

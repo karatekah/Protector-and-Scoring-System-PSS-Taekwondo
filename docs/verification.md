@@ -1,8 +1,36 @@
-# Verificación de la alpha
+# Verificación de Octajang
 
 Última revisión: 2026-11-12. Entorno local: Windows, Node 24.22.1 y npm 11.19.1.
 
 ## Evidencia automatizada
+
+### Publicación de los cambios preparatorios
+
+Comprobación del 2026-11-12: instalación limpia con `npm ci`, tipos, formato, catorce pruebas unitarias, build y los 42 casos E2E completos en Chromium/Firefox aprobados. La publicación incorpora los selectores de país, banderas locales, botones +1/+2/+3/+4/+6, firma del proyecto y documentación preparatoria de Free 1.0.
+
+Se mantiene el diseño actual de Control y Marcador. El rediseño mostrado para revisión continúa separado y pendiente de aprobación; esta actualización no crea una etiqueta/release final ni congela Free. La base local ampliada y los archivos de revisión quedan fuera del repositorio publicado. Sigue pendiente la validación física con PC y dos monitores.
+
+### Firma del proyecto
+
+Revisión local del 2026-11-12: «Made by Karatekah» aparece en los pies de las cinco páginas, en la marca del marcador y del control, y en los tres README. Los documentos HTML y el paquete identifican a Karatekah como autor. La pantalla pública conserva la firma al entrar en pantalla completa.
+
+Tipos, formato y build aprobados. Se revisaron Free, la base local ampliada y la propuesta visual: 36 vistas en Chromium/Firefox, seis presentaciones a pantalla completa y comparación de la posición de los controles con y sin la firma a 1366 × 768. No hubo desbordamiento horizontal, errores de script ni desplazamiento adicional de las teclas de puntuación. No se repitió la suite funcional completa para esta incorporación de texto y estilos.
+
+### Países, banderas y preparación de Free 1.0
+
+Revisión local del 2026-11-12: tipos, formato, catorce pruebas unitarias, build y 42 casos E2E de Chromium/Firefox aprobados en Free. La base local ampliada pasó once pruebas unitarias, build y los cuatro casos de navegador específicos de países. Se conservan el esquema v5 y las claves anteriores de almacenamiento.
+
+Los casos nuevos comprueban selección de país, bandera antes de guardar, confirmación en Control y Marcador, sincronización, intercambio de lados, deshacer, recarga y conservación de códigos anteriores no reconocidos. Se comprobó el alias GRE con su bandera y se mantuvo XYZ sin sustituirlo ni asignarle una imagen incorrecta.
+
+Una revisión adicional cubrió Free, la base local ampliada y la propuesta del marcador en Chromium y Firefox: seis combinaciones de edición/navegador y dieciocho vistas de Preparación entre 320, 390 y 1440 px, sin desbordamiento horizontal. Las 250 banderas están presentes en cada compilación; las solicitudes observadas fueron del mismo origen y no hubo errores JavaScript. Axe no detectó infracciones dentro de su cobertura automatizada.
+
+El paquete y la presentación identifican la candidata como Free 1.0.0. El diseño final del marcador, la etiqueta, la release pública y el despliegue siguen pendientes de aprobación. El [alcance cerrado](free-1.0.md) se aplica después de aprobar y publicar la entrega. No se realizó una sesión física con PC y dos monitores.
+
+### Valores de los botones de puntuación
+
+Revisión local del 2026-11-12: los dos lados ofrecen +1, +2, +3, +4 y +6; se retiró +5 y se ajustó la fila a cinco columnas cuando hay espacio. Tipos, formato, doce pruebas unitarias, build y 38 casos E2E de Chromium/Firefox aprobados. La guía y los README enumeran los mismos valores.
+
+Una comprobación específica en Chromium y Firefox verificó cada incremento en ambos lados, −1, Gam-jeom, deshacer y sincronización con la pantalla externa en Free, la base local ampliada y el paquete de vista previa. El ajuste final de columnas se comprobó a 320, 390 y 1440 px sin desbordamiento horizontal. Se conservaron el dominio, los datos existentes, los respaldos y el KO manual. No se realizó una sesión física con dos monitores.
 
 ### Páginas independientes y movimiento más pausado
 

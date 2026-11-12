@@ -7,3 +7,5 @@ test-results
 package-lock.json
 LICENSE
 *.local
+
+public/flags/

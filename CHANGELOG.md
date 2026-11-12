@@ -2,6 +2,8 @@
 
 ## Sin publicar como nueva versión
 
+Preparación de Octajang Free 1.0.0. Selector de países con banderas SVG locales, conservación de códigos anteriores y actualización en Preparación, Control y Marcador. Se publican los cambios preparatorios con el marcador actual; la propuesta visual y la release final siguen pendientes de aprobación. Alcance cerrado y continuidad del desarrollo en Pro documentados en [Free 1.0](docs/free-1.0.md).
+
 Corrección manual −1 por atleta, sin puntajes negativos ni cambios en el rival. KO manual con confirmación del ganador, cierre del reloj y de las acciones de puntuación, resultado en ambas pantallas y resúmenes, e intercambio de lados y deshacer consistentes.
 
 Los respaldos nuevos usan el esquema v5 para conservar el ganador por KO, incluido el historial reversible. Se restauran respaldos v4 y se mantiene la migración v2/v3. Los identificadores de almacenamiento y de operador permanecen; una versión anterior que solo admite v4 no puede importar las copias v5.

@@ -1,0 +1,41 @@
+.country-select {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.country-select select {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+.country-select img {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 33px;
+  object-fit: contain;
+  border: 1px solid #08090b33;
+  border-radius: 3px;
+  background: #fff;
+}
+.country-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.country-label img {
+  width: 32px;
+  height: 24px;
+  object-fit: contain;
+  border: 1px solid #ffffff40;
+  border-radius: 2px;
+}
+@media (max-width: 480px) {
+  .country-label {
+    gap: 4px;
+  }
+  .country-label img {
+    width: 24px;
+    height: 18px;
+  }
+}

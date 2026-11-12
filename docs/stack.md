@@ -1,5 +1,7 @@
 # Stack objetivo de Octajang
 
+La evolución funcional descrita en este documento corresponde a Pro. Free 1.0 mantiene el [alcance cerrado](free-1.0.md) después de su aprobación y publicación.
+
 Estado: definido como dirección técnica; la implementación LAN está pendiente.
 
 Esta reformulación amplía el producto más allá de la alpha de entrenamiento. Conserva su demo pública y establece una arquitectura para torneos que funcione dentro del recinto sin Internet.

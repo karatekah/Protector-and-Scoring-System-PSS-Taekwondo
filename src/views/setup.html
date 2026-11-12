@@ -115,18 +115,23 @@
             autocomplete="off"
         /></label>
         <label
-          >País del competidor azul<input
-            name="blueCountry"
-            type="text"
-            maxlength="3"
-            minlength="3"
-            pattern="[A-Za-z]{3}"
-            required=""
-            value="USA"
-            aria-describedby="blueCountryHelp"
-        /></label>
+          >País del competidor azul<span class="country-select"
+            ><select
+              name="blueCountry"
+              required
+              aria-describedby="blueCountryHelp"
+            >
+              <option value="USA" selected>Estados Unidos</option></select
+            ><img
+              data-setup-country-flag="blue"
+              aria-hidden="true"
+              src="./flags/us.svg"
+              width="44"
+              height="33"
+              alt="Bandera de Estados Unidos" /></span
+        ></label>
         <p id="blueCountryHelp" class="field-help">
-          Código de tres letras, por ejemplo USA.
+          La bandera se muestra al elegir el país.
         </p>
       </section>
       <section class="form-card red-form">
@@ -146,18 +151,23 @@
             autocomplete="off"
         /></label>
         <label
-          >País del competidor rojo<input
-            name="redCountry"
-            type="text"
-            maxlength="3"
-            minlength="3"
-            pattern="[A-Za-z]{3}"
-            required=""
-            value="USA"
-            aria-describedby="redCountryHelp"
-        /></label>
+          >País del competidor rojo<span class="country-select"
+            ><select
+              name="redCountry"
+              required
+              aria-describedby="redCountryHelp"
+            >
+              <option value="USA" selected>Estados Unidos</option></select
+            ><img
+              data-setup-country-flag="red"
+              aria-hidden="true"
+              src="./flags/us.svg"
+              width="44"
+              height="33"
+              alt="Bandera de Estados Unidos" /></span
+        ></label>
         <p id="redCountryHelp" class="field-help">
-          Código de tres letras, por ejemplo USA.
+          La bandera se muestra al elegir el país.
         </p>
       </section>
       <div class="form-actions">

@@ -789,3 +789,28 @@ body[data-current-view="scoring"]:not(.public-window) .app-header {
     padding-inline: 14px;
   }
 }
+
+.maker-credit {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: 650;
+  white-space: nowrap;
+  text-underline-offset: 3px;
+}
+.board-brand {
+  display: inline-block;
+}
+.board-maker {
+  display: block;
+  color: #d2dded;
+  font: 600 0.625rem/1.2 var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.compact-board:not(.reference-board) .event-bar:has(.board-maker) {
+  padding-block: 7px;
+}
