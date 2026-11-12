@@ -140,7 +140,7 @@ function toggleClock(): void {
     if (state.match.running) {
       stopClock();
       state.match.status = "paused";
-    } else if (state.match.remainingMs > 0) {
+    } else if (state.match.remainingMs > 0 && !state.match.koWinner) {
       startMs = state.match.remainingMs;
       startedAt = performance.now();
       state.match.running = true;
@@ -174,6 +174,9 @@ function renderBindings(): void {
     clock: formatClock(m.remainingMs),
     status: result === null ? statusLabels[m.status] : "Combate finalizado",
     result: resultLabel(state),
+    resultDetail: m.koWinner
+      ? "KO confirmado por la mesa · Entrenamiento y exhibición"
+      : "Por puntos acumulados · Entrenamiento y exhibición",
     logCount: state.history.length,
     savedMatchCount: state.savedMatches.length,
     archiveInfo:
@@ -202,16 +205,27 @@ function renderControls(): void {
       button.disabled = !operator;
     });
   element<HTMLButtonElement>("#startPause").disabled =
-    !operator || state.match.remainingMs <= 0;
+    !operator || state.match.remainingMs <= 0 || Boolean(state.match.koWinner);
   element("#startPause").textContent = state.match.running
     ? "Pausar · Kal-lyeo"
     : "Iniciar · Shijak";
   element<HTMLButtonElement>("#undo").disabled =
     !operator || !state.history[0]?.before;
   element<HTMLButtonElement>("#nextRound").disabled =
-    !operator || state.match.round >= state.config.totalRounds;
+    !operator ||
+    state.match.round >= state.config.totalRounds ||
+    Boolean(state.match.koWinner);
   element<HTMLButtonElement>("#timeout").disabled =
-    !operator || state.match.remainingMs <= 0;
+    !operator || state.match.remainingMs <= 0 || Boolean(state.match.koWinner);
+  document
+    .querySelectorAll<HTMLButtonElement>(".score-action")
+    .forEach((button) => {
+      const side = button.dataset.side as Side;
+      button.disabled =
+        !operator ||
+        Boolean(state.match.koWinner) ||
+        (button.dataset.action === "deduct" && state.match[side].score === 0);
+    });
   element<HTMLButtonElement>("#clearLog").disabled =
     !operator || state.history.length === 0;
   element("#operatorState").textContent = publicOnly
@@ -437,6 +451,7 @@ function bind(): void {
   element("#startPause").addEventListener("click", toggleClock);
   element("#timeout").addEventListener("click", () =>
     change(() => {
+      if (state.match.koWinner) return;
       stopClock();
       state.match.status = "timeout";
     }, "Tiempo técnico. El reloj está detenido."),
@@ -449,7 +464,8 @@ function bind(): void {
   );
   element("#nextRound").addEventListener("click", () =>
     change(() => {
-      if (state.match.round >= state.config.totalRounds) return;
+      if (state.match.round >= state.config.totalRounds || state.match.koWinner)
+        return;
       const before = snapshot(state);
       stopClock();
       state.match.round += 1;
@@ -466,6 +482,8 @@ function bind(): void {
     change(() => {
       const before = snapshot(state);
       [state.match.blue, state.match.red] = [state.match.red, state.match.blue];
+      if (state.match.koWinner)
+        state.match.koWinner = state.match.koWinner === "blue" ? "red" : "blue";
       [state.config.blueName, state.config.redName] = [
         state.config.redName,
         state.config.blueName,
@@ -642,17 +660,21 @@ function createButtons(): void {
     .querySelectorAll<HTMLElement>(".score-buttons")
     .forEach((container) => {
       const side = container.dataset.side as Side;
+      const adjustments = document.createElement("div");
+      adjustments.className = "score-adjustments";
       const actions: { label: string; detail: string; action: Action }[] = [
         ...[1, 2, 3, 4, 5, 6].map((points) => ({
           label: `+${points}`,
           detail: points === 1 ? "punto" : "puntos",
           action: { type: "points" as const, points },
         })),
+        { label: "−1", detail: "Corregir punto", action: { type: "deduct" } },
         {
           label: "Gam-jeom",
           detail: "+1 para el rival",
           action: { type: "gamjeom" },
         },
+        { label: "KO", detail: "Gana por KO", action: { type: "ko" } },
       ];
       for (const { label, detail, action } of actions) {
         const button = document.createElement("button"),
@@ -662,21 +684,39 @@ function createButtons(): void {
         button.className = "score-action static-press";
         if (action.type === "gamjeom") button.classList.add("penalty-action");
         button.dataset.mutation = "";
+        button.dataset.side = side;
+        button.dataset.action = action.type;
         button.setAttribute(
           "aria-label",
-          `${label} ${detail} · ${side === "blue" ? "azul" : "rojo"}`,
+          `${action.type === "deduct" ? "Restar 1 punto" : `${label} ${detail}`} · ${side === "blue" ? "azul" : "rojo"}`,
         );
         title.textContent = label;
         small.textContent = detail;
         button.append(title, small);
-        button.addEventListener("click", () =>
+        button.addEventListener("click", () => {
+          if (!operator || state.match.koWinner) return;
+          const name = state.config[side === "blue" ? "blueName" : "redName"];
+          if (
+            action.type === "ko" &&
+            !window.confirm(
+              `¿Declarar ganador por KO a ${name} (${side === "blue" ? "azul" : "rojo"})? El reloj se detendrá y el combate quedará cerrado. Puedes corregirlo con Deshacer.`,
+            )
+          )
+            return;
           change(
-            () => applyAction(state, side, action),
-            `${side === "blue" ? "Azul" : "Rojo"}: ${label}. ${detail}.`,
-          ),
-        );
-        container.append(button);
+            () => {
+              applyAction(state, side, action);
+              if (action.type === "ko") stopClock();
+            },
+            action.type === "ko"
+              ? `Combate finalizado. Ganador por KO: ${name}.`
+              : `${side === "blue" ? "Azul" : "Rojo"}: ${label}. ${detail}.`,
+          );
+        });
+        if (action.type === "points") container.append(button);
+        else adjustments.append(button);
       }
+      container.append(adjustments);
     });
 }
 

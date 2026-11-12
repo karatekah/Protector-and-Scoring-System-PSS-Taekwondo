@@ -23,8 +23,8 @@ Prepara gli atleti, gestisci il cronometro e registra ogni decisione. L'**alpha 
 ## Funzioni disponibili
 
 - **Configurazione Free.** Evento, due atleti, codici paese, 1 o 3 riprese e durate fisse di 1, 2 o 3 minuti.
-- **Punteggio manuale.** Aggiungi da 1 a 6 punti; Gam-jeom registra una penalità e assegna un punto all'avversario.
-- **Risultato finale.** Vincitore per punti accumulati o pareggio al termine dell'ultima ripresa, visibile su entrambi gli schermi e nei riepiloghi. Le correzioni aggiornano il risultato.
+- **Punteggio manuale.** Aggiungi da 1 a 6 punti o correggi con −1 senza scendere sotto zero; Gam-jeom registra una penalità e assegna un punto all'avversario.
+- **Risultato finale.** Vincitore per punti accumulati o pareggio al termine dell'ultima ripresa. Un KO manuale, dopo conferma, dichiara vincitore l'atleta selezionato, ferma il cronometro e chiude il punteggio. Entrambi gli schermi e i riepiloghi mostrano il risultato; Annulla permette di correggere un KO assegnato per errore.
 - **Controllo dell'operatore.** Avvio, pausa, timeout tecnico, ripresa successiva, scambio dei lati e annullamento dell'ultima azione disponibile.
 - **Tabellone sul secondo schermo.** Apri una finestra in sola lettura, spostala sull'altro monitor e attiva lo schermo intero. Un blocco del browser mantiene un solo operatore al controllo.
 - **Registri locali.** Salva i riepiloghi ed esporta o ripristina una copia JSON convalidata.
@@ -74,6 +74,7 @@ Lo stack scelto comprende React / TypeScript / Vite, React Router, TanStack Quer
 - Fino a **120 azioni per incontro** e **10 nuovi riepiloghi** in Free. Le azioni più vecchie vengono rimosse; per liberare spazio nei riepiloghi occorre esportare JSON ed eliminarli esplicitamente.
 - Le copie precedenti compatibili conservano formati personalizzati, impatti e fino a 80 riepiloghi. I preset Free si applicano ai nuovi incontri; l'importazione non riduce i registri precedenti.
 - L'importazione JSON accetta il formato supportato dall'alpha, fino a **5 MB**, e richiede conferma prima di sostituire i dati.
+- Le nuove copie usano **v5** per conservare i KO. Le copie v4 restano leggibili; v5 richiede questa versione o una successiva per il ripristino.
 - Vengono recuperati lo stato dell'incontro e i riepiloghi v2/v3 compatibili; la cronologia dettagliata e gli snapshot per l'annullamento non vengono migrati. Le chiavi di archiviazione originali rimangono.
 - I dati appartengono al profilo corrente del browser. Esporta una copia prima di cancellare i dati del sito, cambiare profilo o dominio; non è disponibile un backup nel cloud.
 

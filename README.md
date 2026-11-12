@@ -23,8 +23,8 @@ Prepare the athletes, run the clock and record each decision. The **experimental
 ## What you can use today
 
 - **Free match setup.** Event, two athletes, country codes, 1 or 3 rounds and fixed 1-, 2- or 3-minute durations.
-- **Manual scoring.** Add 1–6 points; Gam-jeom adds a penalty and a point to the opponent.
-- **Final result.** The last round ends with a winner by accumulated points or a draw, shown on both screens and saved summaries. Corrections update the result.
+- **Manual scoring.** Add 1–6 points or correct with −1 without going below zero; Gam-jeom adds a penalty and a point to the opponent.
+- **Final result.** The last round ends with a winner by accumulated points or a draw. Confirm a manual KO to declare the selected athlete the winner, stop the clock and close scoring. Both screens and summaries show the result; undo can correct a mistaken KO.
 - **Operator control.** Start, pause, technical timeout, next round, swap sides and undo the latest available action.
 - **Second-screen scoreboard.** Open a read-only window, move it to another monitor and use fullscreen. A browser lock keeps a single operator in control.
 - **Local records.** Keep match summaries and export or restore a validated JSON backup.
@@ -74,6 +74,7 @@ The selected target stack is React / TypeScript / Vite, React Router, TanStack Q
 - Up to **120 actions per match** and **10 new saved summaries** in Free. Old actions expire first; summaries require explicit deletion after exporting JSON to make room.
 - Older supported backups retain custom formats, impact counts and up to 80 summaries. Free presets apply to new matches; importing does not trim previous records.
 - JSON imports accept the alpha's supported format, up to **5 MB**, and require confirmation before replacing current data.
+- New backups use **v5** to preserve KO decisions. Existing v4 backups remain readable; v5 requires the current version or later to restore.
 - Compatible v2/v3 match state and summaries are recovered; their detailed action history and undo snapshots are not migrated. Original storage keys remain.
 - Match data belongs to the current browser profile. Export a backup before clearing site data, switching profiles or changing domains; there is no cloud backup.
 

@@ -11,8 +11,9 @@ Una persona controla un combate de entrenamiento o exhibición desde un PC. El p
 ## Incluido
 
 - Free: evento y dos atletas con nombre y país; 1 o 3 rondas de 1, 2 o 3 minutos, sin edición manual de duración.
-- Incrementos manuales +1 a +6 y penalización Gam-jeom.
+- Incrementos manuales +1 a +6, corrección −1 sin negativos y penalización Gam-jeom.
 - Ganador por puntos acumulados o empate al agotarse la última ronda; las correcciones actualizan el resultado. No es un reglamento automático de competición.
+- KO manual con confirmación del ganador: detiene el reloj, cierra la puntuación y muestra el resultado en ambas pantallas y resúmenes. Deshacer permite corregirlo sin devolver tiempo.
 - Inicio, pausa, tiempo técnico y siguiente ronda; el operador decide cuándo avanzar.
 - Intercambio de lados, deshacer disponible, archivo y nuevo combate.
 - Pantalla externa de solo lectura, pantalla completa y un operador por navegador.

@@ -2,6 +2,10 @@
 
 ## Sin publicar como nueva versión
 
+Corrección manual −1 por atleta, sin puntajes negativos ni cambios en el rival. KO manual con confirmación del ganador, cierre del reloj y de las acciones de puntuación, resultado en ambas pantallas y resúmenes, e intercambio de lados y deshacer consistentes.
+
+Los respaldos nuevos usan el esquema v5 para conservar el ganador por KO, incluido el historial reversible. Se restauran respaldos v4 y se mantiene la migración v2/v3. Los identificadores de almacenamiento y de operador permanecen; una versión anterior que solo admite v4 no puede importar las copias v5.
+
 Edición Free con presets de 1, 2 o 3 minutos y 1 o 3 rondas, diez resúmenes nuevos y respaldo JSON. Retirado el contador de impactos de la interfaz y de las acciones nuevas. Los respaldos anteriores conservan sus formatos, impactos y resúmenes; no se recortan al importar. Al llenarse el historial, el operador exporta y elimina los resúmenes que elija antes de guardar otro.
 
 Resultado final por puntos acumulados o empate al agotarse la última ronda. Control, pantalla externa y resúmenes muestran el mismo resultado, que se recalcula al corregir puntos o deshacer. Sin reglas automáticas de desempate.

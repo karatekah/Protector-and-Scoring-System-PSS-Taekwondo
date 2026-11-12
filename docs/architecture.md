@@ -8,7 +8,7 @@ La alpha es una aplicación estática servida por Vercel. Cada navegador mantien
 Operador con Web Lock
   → src/match.ts: acciones y snapshots planos
   → src/main.ts: representación y persistencia
-  → localStorage v4 + BroadcastChannel
+  → localStorage (esquema v5) + BroadcastChannel
   → ventana ?view=public: validación y representación, sin escritura
 ```
 
@@ -42,9 +42,11 @@ BroadcastChannel acelera las actualizaciones. El evento `storage` sirve como can
 
 `parseState` mantiene la compatibilidad de lectura de hasta 80 resúmenes, impactos y formatos anteriores. `parseFreeConfig` valida los nuevos combates: 1 o 3 rondas y 60, 120 o 180 segundos. `freeConfig` propone un formato compatible para el siguiente combate sin modificar el actual ni los registros restaurados.
 
-`matchResult` deriva el resultado de los puntajes cuando la última ronda ha terminado con tiempo cero. Control, pantalla externa y resúmenes comparten esta función; un empate permanece como empate. No se almacena un ganador duplicado que pueda quedar desactualizado después de corregir o deshacer puntos. El respaldo JSON conserva el esquema v4 y los datos necesarios para reconstruir el resultado.
+`matchResult` deriva el resultado de los puntajes cuando la última ronda ha terminado con tiempo cero; un empate permanece como empate. El campo opcional `match.koWinner` representa una decisión manual de KO y prevalece sobre puntos y ronda. Solo admite `blue` o `red`, con el reloj detenido y estado `ended`. Los snapshots de deshacer y los resúmenes validan el mismo campo. Deshacer el KO reabre el combate en pausa sin restaurar tiempo; intercambiar los lados conserva la identidad del ganador. La puntuación, el inicio del reloj, el tiempo técnico y el avance de ronda quedan bloqueados hasta deshacer el KO.
 
-Octajang conserva los identificadores de almacenamiento, canal, lock y ventana de la alpha para mantener compatibilidad en el mismo origen. El nombre del archivo exportado cambia a `octajang-combates-AAAA-MM-DD.json`; su esquema v4 sigue siendo compatible. Un dominio distinto tiene su propio almacenamiento: exportar desde la dirección anterior e importar en la nueva, sin mezclar ventanas de orígenes distintos.
+Control, pantalla externa y resúmenes comparten el cálculo del resultado. El esquema v5 evita que un lector anterior interprete silenciosamente un KO como un resultado por puntos: `parseState` acepta v4 y v5 y devuelve v5, mientras que la migración v2/v3 sigue disponible. Los respaldos nuevos exportan v5; el formato anterior sigue siendo recuperable.
+
+Octajang conserva los identificadores de almacenamiento, canal, lock y ventana de la alpha para mantener una sola autoridad en el mismo origen. La clave `pss-taekwondo-match-v4` se mantiene aunque su contenido pase a v5. El archivo exportado se llama `octajang-combates-AAAA-MM-DD.json`. Tras actualizar, todas las ventanas deben usar el build actual; los lectores anteriores rechazan v5. Un dominio distinto tiene su propio almacenamiento: exportar desde la dirección anterior e importar en la nueva, sin mezclar ventanas de orígenes distintos.
 
 JSON se valida estructuralmente y por límites numéricos antes de restaurar. La importación admite hasta 5 MB. La escritura puede fallar por cuota o política del navegador; se muestra un aviso y se ofrece exportación. Los datos del navegador no son secretos cifrados.
 

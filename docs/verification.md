@@ -4,6 +4,14 @@
 
 ## Evidencia automatizada
 
+### Corrección −1 y KO manual
+
+Revisión del 2026-11-11: tipos, formato, diez pruebas unitarias, build y 22 casos E2E en Chromium/Firefox aprobados. −1 solo corrige el lado seleccionado y se deshabilita en cero; no modifica penalizaciones ni al rival. KO requiere confirmar explícitamente al ganador, detiene el reloj y bloquea puntuación, tiempo técnico e inicio/avance de ronda hasta deshacerlo. Cancelar la confirmación no cierra el combate.
+
+La cobertura verifica un ganador por KO con menos puntos y en la primera ronda, ambos lados en dominio, conservación del tiempo al deshacer, propietario único, pantalla externa, intercambio de lados y su deshacer, guardado de resúmenes, JSON v5, restauración, recarga y nuevo combate. `parseState` recupera v4 y rechaza decisiones KO inválidas o con reloj activo, también dentro de resúmenes y snapshots reversibles. Las pruebas previas de fin normal, empate y recuperación v2/v3 siguen pasando.
+
+Se inspeccionó el control a 1366 y 390 px y se midió a 1366/768/390/320 px: sin desbordamiento horizontal, texto de botones sin recorte y altura mínima de 44 px. Axe no detectó infracciones dentro de su cobertura sobre el estado KO. La pantalla pública con KO cabe a 1920 × 1080 en Fullscreen API. No hubo errores JavaScript durante el recorrido. La sesión física de dos monitores, móvil físico y lector de pantalla siguen pendientes; esta revisión no retira por sí sola la condición experimental.
+
 ### Barra de desplazamiento
 
 Refinamiento del 2026-11-11 en los estilos compartidos de portada, preparación, control, marcador y guía. En escritorio con ratón, el carril se integra con el fondo y el deslizador usa azul grisáceo. Chromium presenta un carril de 12 px, un deslizador redondeado de 6 px y sin botones de flecha. Firefox dispone del estilo estándar `thin`. Las reglas no se aplican a punteros táctiles ni al modo de colores forzados; las barras internas conservan su comportamiento nativo.

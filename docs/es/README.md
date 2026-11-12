@@ -23,8 +23,8 @@ Prepara los atletas, controla el reloj y registra cada decisión. La **alpha web
 ## Qué puedes usar hoy
 
 - **Configuración Free.** Evento, dos atletas, códigos de país, 1 o 3 rondas y tiempos fijos de 1, 2 o 3 minutos.
-- **Puntuación manual.** Suma de 1 a 6 puntos; Gam-jeom añade una penalización y un punto al rival.
-- **Resultado final.** Ganador por puntos acumulados o empate al terminar la última ronda, visible en ambas pantallas y en los resúmenes. Las correcciones actualizan el resultado.
+- **Puntuación manual.** Suma de 1 a 6 puntos o corrección −1 sin bajar de cero; Gam-jeom añade una penalización y un punto al rival.
+- **Resultado final.** Ganador por puntos acumulados o empate al terminar la última ronda. Un KO manual, tras confirmar, declara ganador al atleta seleccionado, detiene el reloj y cierra la puntuación. Ambas pantallas y los resúmenes muestran el resultado; Deshacer permite corregir un KO marcado por error.
 - **Control del operador.** Inicio, pausa, tiempo técnico, siguiente ronda, intercambio de lados y deshacer la última acción disponible.
 - **Marcador en segunda pantalla.** Abre una ventana de solo lectura, muévela al otro monitor y activa pantalla completa. Un bloqueo del navegador mantiene un único operador.
 - **Registros locales.** Guarda resúmenes y exporta o restaura una copia JSON validada.
@@ -74,6 +74,7 @@ El stack objetivo es React / TypeScript / Vite, React Router, TanStack Query, un
 - Hasta **120 acciones por combate** y **10 resúmenes nuevos** en Free. Las acciones antiguas se retiran primero; los resúmenes se eliminan explícitamente, después de exportar JSON, para liberar espacio.
 - Los respaldos anteriores compatibles conservan formatos personalizados, impactos y hasta 80 resúmenes. Los presets de Free se aplican a combates nuevos; importar no recorta los registros anteriores.
 - La importación JSON admite el formato soportado por la alpha, hasta **5 MB**, y pide confirmar antes de reemplazar los datos.
+- Las copias nuevas usan **v5** para conservar los KO. Las copias v4 siguen siendo recuperables; para restaurar v5 se necesita esta versión o una posterior.
 - Se recuperan el combate y los resúmenes compatibles v2/v3; su registro detallado y los snapshots para deshacer no se migran. Las claves de almacenamiento originales se conservan.
 - Los datos pertenecen al perfil actual del navegador. Exporta una copia antes de borrar datos del sitio, cambiar de perfil o de dominio; no hay respaldo en la nube.
 

@@ -121,7 +121,11 @@
             <li>
               <strong>Dirige el combate.</strong> Inicia o pausa el reloj.
               Registra de +1 a +6 puntos por decisión manual. Gam-jeom suma una
-              penalización al atleta y un punto al rival.
+              penalización al atleta y un punto al rival. −1 corrige un punto
+              del atleta seleccionado, sin bajar de cero ni cambiar al rival.
+              «KO · Gana por KO» declara ganador a ese atleta tras confirmar,
+              detiene el reloj y cierra el combate. Deshacer permite corregir un
+              KO marcado por error y deja el reloj pausado.
             </li>
             <li>
               <strong>Continúa o corrige.</strong> Siguiente ronda conserva los
@@ -153,10 +157,11 @@
               respaldo JSON y una pantalla externa de solo lectura.
             </p>
             <p>
-              El operador decide qué acción puntuar. El combate termina al
-              agotarse la última ronda configurada. Los valores +1 a +6 son
-              incrementos manuales: no asignan automáticamente una técnica ni
-              representan una edición de un reglamento.
+              El operador decide qué acción puntuar y confirma manualmente un KO
+              cuando corresponda. El combate termina por KO o al agotarse la
+              última ronda configurada. Los valores +1 a +6 son incrementos
+              manuales: no asignan automáticamente una técnica ni representan
+              una edición de un reglamento.
             </p>
             <p>
               No incluye sensores, homologación WT, victorias por asalto,
@@ -189,10 +194,13 @@
             </p>
             <p>
               El respaldo sigue siendo JSON con los datos del combate, sin
-              informe PDF ni CSV. Las copias anteriores válidas conservan sus
-              tiempos, rondas, impactos y hasta 80 resúmenes. Al preparar un
-              combate nuevo se utilizan los presets de Free; restaurar una copia
-              no recorta los registros anteriores.
+              informe PDF ni CSV. Las copias nuevas usan el formato v5 para
+              conservar el ganador por KO; requieren esta versión o una
+              posterior para restaurarse. También se admiten las copias v4. Las
+              copias anteriores válidas conservan sus tiempos, rondas, impactos
+              y hasta 80 resúmenes. Al preparar un combate nuevo se utilizan los
+              presets de Free; restaurar una copia no recorta los registros
+              anteriores.
             </p>
             <p>
               Exporta JSON antes de borrar datos del navegador, cambiar de

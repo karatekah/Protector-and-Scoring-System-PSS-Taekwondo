@@ -21,6 +21,7 @@ export interface Match {
   remainingMs: number;
   running: boolean;
   status: Status;
+  koWinner?: Side;
 }
 export interface Snapshot {
   config: Config;
@@ -40,11 +41,15 @@ export interface SavedMatch extends Snapshot {
   history: Omit<Entry, "before">[];
 }
 export interface State extends Snapshot {
-  schemaVersion: 4;
+  schemaVersion: 5;
   history: Entry[];
   savedMatches: SavedMatch[];
 }
-export type Action = { type: "points"; points: number } | { type: "gamjeom" };
+export type Action =
+  | { type: "points"; points: number }
+  | { type: "gamjeom" }
+  | { type: "deduct" }
+  | { type: "ko" };
 export const HISTORY_LIMIT = 120;
 export const FREE_DURATIONS: readonly number[] = [60, 120, 180];
 export const FREE_ROUNDS: readonly number[] = [1, 3];
@@ -63,7 +68,7 @@ export const defaultConfig: Config = {
 
 export function createState(): State {
   return {
-    schemaVersion: 4,
+    schemaVersion: 5,
     config: { ...defaultConfig },
     match: freshMatch(120),
     history: [],
@@ -99,15 +104,26 @@ export function record(state: State, summary: string, before?: Snapshot): void {
   state.history.length = Math.min(state.history.length, HISTORY_LIMIT);
 }
 export function applyAction(state: State, side: Side, action: Action): void {
+  if (state.match.koWinner)
+    throw new Error("Deshaz el KO antes de modificar la puntuación.");
   if (
     action.type === "points" &&
     (!Number.isInteger(action.points) || action.points < 1 || action.points > 6)
   ) {
     throw new Error("Puntuación fuera del rango de entrenamiento.");
   }
+  if (action.type === "deduct" && state.match[side].score === 0) return;
   const before = snapshot(state);
   const name = state.config[side === "blue" ? "blueName" : "redName"];
-  if (action.type === "gamjeom") {
+  if (action.type === "ko") {
+    state.match.koWinner = side;
+    state.match.running = false;
+    state.match.status = "ended";
+    record(state, `${name}: ganador por KO. Combate finalizado.`, before);
+  } else if (action.type === "deduct") {
+    state.match[side].score -= 1;
+    record(state, `${name}: −1 punto. Corrección manual.`, before);
+  } else if (action.type === "gamjeom") {
     const opponent = side === "blue" ? "red" : "blue";
     state.match[side].gamjeom += 1;
     state.match[opponent].score += 1;
@@ -135,7 +151,8 @@ export function undo(state: State): boolean {
   // Undoing a score must not restore time elapsed since that score.
   state.match.remainingMs = Math.min(currentTime, state.match.remainingMs);
   state.match.running = false;
-  state.match.status = state.match.remainingMs > 0 ? "paused" : "ended";
+  state.match.status =
+    state.match.koWinner || state.match.remainingMs === 0 ? "ended" : "paused";
   state.history.shift();
   return true;
 }
@@ -148,6 +165,7 @@ export function remainingTime(
 }
 export function matchResult(state: Snapshot): Side | "draw" | null {
   const { match, config } = state;
+  if (match.koWinner) return match.koWinner;
   if (
     match.round !== config.totalRounds ||
     match.remainingMs !== 0 ||
@@ -167,7 +185,7 @@ export function resultLabel(state: Snapshot): string {
     ? "Combate sin finalizar"
     : result === "draw"
       ? "Empate en puntos"
-      : `Ganador: ${state.config[result === "blue" ? "blueName" : "redName"]}`;
+      : `Ganador${state.match.koWinner ? " por KO" : ""}: ${state.config[result === "blue" ? "blueName" : "redName"]}`;
 }
 export function freeConfig(config: Config): Config {
   return {
@@ -252,6 +270,14 @@ function parseSnapshot(input: unknown, legacy = false): Snapshot {
     (!statuses.includes(m.status as Status) || typeof m.running !== "boolean")
   )
     throw new Error("Estado inválido.");
+  if (
+    !legacy &&
+    m.koWinner !== undefined &&
+    ((m.koWinner !== "blue" && m.koWinner !== "red") ||
+      m.running !== false ||
+      m.status !== "ended")
+  )
+    throw new Error("Resultado por KO inválido.");
   return {
     config,
     match: {
@@ -263,6 +289,9 @@ function parseSnapshot(input: unknown, legacy = false): Snapshot {
         : integer(m.remainingMs, 0, 599_000),
       running: !legacy && m.running === true,
       status: legacy ? "paused" : (m.status as Status),
+      ...(!legacy && m.koWinner !== undefined
+        ? { koWinner: m.koWinner as Side }
+        : {}),
     },
   };
 }
@@ -279,7 +308,7 @@ function parseEntry(value: unknown, withUndo: boolean): Entry {
 }
 export function parseState(input: unknown): State {
   const s = object(input);
-  if (s.schemaVersion !== 4)
+  if (s.schemaVersion !== 4 && s.schemaVersion !== 5)
     throw new Error("Versión de archivo no compatible.");
   if (
     !Array.isArray(s.history) ||
@@ -290,7 +319,7 @@ export function parseState(input: unknown): State {
     throw new Error("Historial inválido.");
   }
   return {
-    schemaVersion: 4,
+    schemaVersion: 5,
     ...parseSnapshot(s),
     history: s.history.map((e) => parseEntry(e, true)),
     savedMatches: s.savedMatches.map((value) => {
@@ -343,5 +372,5 @@ export function migrateLegacy(input: unknown): State {
       }
     }
   }
-  return { schemaVersion: 4, ...current, history: [], savedMatches };
+  return { schemaVersion: 5, ...current, history: [], savedMatches };
 }
