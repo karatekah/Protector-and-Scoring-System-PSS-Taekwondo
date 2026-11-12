@@ -270,8 +270,16 @@
             >
               <div class="athlete-preview">
                 <span class="blue-label"
-                  ><span class="side-label">Azul</span
-                  ><strong data-bind="blueName">Azul</strong></span
+                  ><svg
+                    class="session-hogu"
+                    viewBox="0 0 120 140"
+                    aria-hidden="true"
+                  >
+                    <use href="/assets/hogu.svg#hogu" /></svg
+                  ><span class="session-name"
+                    ><span class="side-label">Azul</span
+                    ><strong data-bind="blueName">Azul</strong></span
+                  ></span
                 >
                 <span class="session-score" aria-label="Puntos actuales"
                   ><b data-bind="blueScore">0</b
@@ -279,8 +287,16 @@
                   ><b data-bind="redScore">0</b></span
                 >
                 <span class="red-label"
-                  ><span class="side-label">Rojo</span
-                  ><strong data-bind="redName">Rojo</strong></span
+                  ><svg
+                    class="session-hogu"
+                    viewBox="0 0 120 140"
+                    aria-hidden="true"
+                  >
+                    <use href="/assets/hogu.svg#hogu" /></svg
+                  ><span class="session-name"
+                    ><span class="side-label">Rojo</span
+                    ><strong data-bind="redName">Rojo</strong></span
+                  ></span
                 >
               </div>
               <div class="session-time">
@@ -310,7 +326,7 @@
               </h2>
               <p>
                 La mesa ve los controles. El público ve el combate. Dos vistas
-                del mismo marcador, sin perder de vista lo que importa.
+                del mismo marcador.
               </p>
               <div class="feature-accordions">
                 <details class="feature-disclosure" open>
@@ -368,8 +384,23 @@
                 </div>
                 <div class="demo-match">
                   <div class="demo-athlete demo-blue">
-                    <span>Lado azul</span><strong>Azul</strong
-                    ><b data-demo="blueScore">0</b>
+                    <span>Lado azul</span><strong>Azul</strong>
+                    <div class="demo-score">
+                      <b data-demo="blueScore">0</b>
+                      <svg
+                        class="demo-impact"
+                        viewBox="0 0 100 100"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M50 5v12m32-1-8 9m21 25H83m-1 33-8-9M50 95V83M18 83l8-9M5 50h12m1-34 8 9"
+                        />
+                      </svg>
+                    </div>
                     <small data-demo="blueAction">&nbsp;</small>
                   </div>
                   <div class="demo-clock">
@@ -378,8 +409,23 @@
                     ><span>Ronda <b>1</b> / <b>3</b></span>
                   </div>
                   <div class="demo-athlete demo-red">
-                    <span>Lado rojo</span><strong>Rojo</strong
-                    ><b data-demo="redScore">0</b>
+                    <span>Lado rojo</span><strong>Rojo</strong>
+                    <div class="demo-score">
+                      <b data-demo="redScore">0</b>
+                      <svg
+                        class="demo-impact"
+                        viewBox="0 0 100 100"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M50 5v12m32-1-8 9m21 25H83m-1 33-8-9M50 95V83M18 83l8-9M5 50h12m1-34 8 9"
+                        />
+                      </svg>
+                    </div>
                     <small data-demo="redAction">&nbsp;</small>
                   </div>
                 </div>
@@ -401,9 +447,7 @@
                 <span class="workflow-number" aria-hidden="true">1</span>
                 <div>
                   <h3>Prepara a los atletas.</h3>
-                  <p>
-                    Nombres, países, rondas y duración. La mesa empieza aquí.
-                  </p>
+                  <p>Nombres, países, rondas y duración.</p>
                 </div>
               </li>
               <li data-reveal data-reveal-delay="1">
@@ -588,11 +632,11 @@
                     minlength="3"
                     pattern="[A-Za-z]{3}"
                     required
-                    value="PER"
+                    value="USA"
                     aria-describedby="blueCountryHelp"
                 /></label>
                 <p id="blueCountryHelp" class="field-help">
-                  Código de tres letras, por ejemplo PER.
+                  Código de tres letras, por ejemplo USA.
                 </p>
               </section>
               <section class="form-card red-form">
@@ -619,18 +663,16 @@
                     minlength="3"
                     pattern="[A-Za-z]{3}"
                     required
-                    value="PER"
+                    value="USA"
                     aria-describedby="redCountryHelp"
                 /></label>
                 <p id="redCountryHelp" class="field-help">
-                  Código de tres letras, por ejemplo PER.
+                  Código de tres letras, por ejemplo USA.
                 </p>
               </section>
               <div class="form-actions">
                 <p>
-                  Todo listo para la mesa.<span
-                    >Podrás corregir los puntos con Deshacer.</span
-                  >
+                  <span>Podrás corregir los puntos con Deshacer.</span>
                 </p>
                 <button class="primary-action" type="submit">
                   Guardar y abrir control
@@ -747,7 +789,7 @@
               >
                 <div class="fighter-meta">
                   <span class="side-label"
-                    >AZUL <span data-bind="blueCountry">PER</span></span
+                    >AZUL <span data-bind="blueCountry">USA</span></span
                   ><strong data-bind="blueName">Azul</strong>
                 </div>
                 <output
@@ -786,7 +828,7 @@
               >
                 <div class="fighter-meta">
                   <span class="side-label"
-                    >ROJO <span data-bind="redCountry">PER</span></span
+                    >ROJO <span data-bind="redCountry">USA</span></span
                   ><strong data-bind="redName">Rojo</strong>
                 </div>
                 <output
@@ -935,7 +977,7 @@
               >
                 <div class="fighter-meta">
                   <span class="side-label"
-                    >AZUL <span data-bind="blueCountry">PER</span></span
+                    >AZUL <span data-bind="blueCountry">USA</span></span
                   ><strong data-bind="blueName">Azul</strong>
                 </div>
                 <output
@@ -974,7 +1016,7 @@
               >
                 <div class="fighter-meta">
                   <span class="side-label"
-                    >ROJO <span data-bind="redCountry">PER</span></span
+                    >ROJO <span data-bind="redCountry">USA</span></span
                   ><strong data-bind="redName">Rojo</strong>
                 </div>
                 <output

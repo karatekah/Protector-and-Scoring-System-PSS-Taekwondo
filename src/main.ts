@@ -583,8 +583,14 @@ function bind(): void {
           roundDuration: Number(data.get("roundDuration")),
           blueName: value("blueName", "Azul"),
           redName: value("redName", "Rojo"),
-          blueCountry: value("blueCountry", "PER").toUpperCase(),
-          redCountry: value("redCountry", "PER").toUpperCase(),
+          blueCountry: value(
+            "blueCountry",
+            defaultConfig.blueCountry,
+          ).toUpperCase(),
+          redCountry: value(
+            "redCountry",
+            defaultConfig.redCountry,
+          ).toUpperCase(),
         });
       } catch {
         warning(

@@ -1,5 +1,54 @@
 ﻿import { expect, test } from "@playwright/test";
 
+test("sample awards animate the scoring side and clear when motion is reduced", async ({
+  page,
+}) => {
+  const fixedTime = new Date("2026-11-04T12:00:00Z");
+  await page.clock.install({ time: fixedTime });
+  await page.clock.pauseAt(new Date(fixedTime.getTime() + 1000));
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.addInitScript(() => {
+    Math.random = () => 0.99;
+  });
+  await page.goto("/");
+  const demo = page.locator(".demo-screen");
+  await demo.scrollIntoViewIfNeeded();
+  await expect(demo.locator('[data-demo="status"]')).toHaveText("En juego");
+  await demo.locator('[data-demo="redScore"]').evaluate((score) => {
+    new MutationObserver((_records, observer) => {
+      for (const element of [score, score.nextElementSibling!]) {
+        for (const animation of element.getAnimations()) {
+          animation.pause();
+          animation.currentTime = 84;
+        }
+      }
+      observer.disconnect();
+    }).observe(score, { childList: true });
+  });
+  await page.clock.runFor(1500);
+  await expect(demo.locator('[data-demo="redScore"]')).toHaveText("3");
+  await expect
+    .poll(() =>
+      demo
+        .locator(".demo-red .demo-impact")
+        .evaluate((el) => el.getAnimations().length),
+    )
+    .toBe(1);
+  expect(
+    await demo
+      .locator(".demo-blue .demo-impact")
+      .evaluate((el) => el.getAnimations().length),
+  ).toBe(0);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(demo.locator('[data-demo="status"]')).toHaveText("Demo");
+  expect(
+    await demo
+      .locator(".demo-impact")
+      .evaluateAll((els) => els.flatMap((el) => el.getAnimations()).length),
+  ).toBe(0);
+  await expect(demo.locator('[data-demo="redAction"]')).toHaveText("+3 puntos");
+});
+
 test("demo loops every minute without controls and leaves the real match unchanged", async ({
   page,
 }) => {

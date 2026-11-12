@@ -18,6 +18,32 @@ export function initScoreboardDemo(): void {
   let lastAction = "En juego";
   let visible = false;
   let interval: number | undefined;
+  const impacts: Animation[] = [];
+
+  function clearImpact(): void {
+    impacts.splice(0).forEach((animation) => animation.cancel());
+  }
+
+  function showImpact(side: "blue" | "red"): void {
+    if (reducedMotion.matches) return;
+    const burst = screen!.querySelector<SVGElement>(
+      `.demo-${side} .demo-impact`,
+    )!;
+    impacts.push(
+      fields[`${side}Score`].animate(
+        [{ scale: "1" }, { scale: "1.08", offset: 0.25 }, { scale: "1" }],
+        { duration: 420, easing: "cubic-bezier(0.2, 0, 0, 1)" },
+      ),
+      burst.animate(
+        [
+          { opacity: 0, scale: "0.65" },
+          { opacity: 1, scale: "0.85", offset: 0.2 },
+          { opacity: 0, scale: "1.15" },
+        ],
+        { duration: 420, easing: "ease-out" },
+      ),
+    );
+  }
 
   function render(): void {
     const seconds = Math.ceil((60000 - elapsed) / 1000);
@@ -36,6 +62,7 @@ export function initScoreboardDemo(): void {
   }
 
   function showSampleAction(): void {
+    clearImpact();
     let side: "blue" | "red" = Math.random() < 0.5 ? "blue" : "red";
     let rival: "blue" | "red" = side === "blue" ? "red" : "blue";
     const kind = actionIndex++ % 6;
@@ -67,6 +94,7 @@ export function initScoreboardDemo(): void {
       scores[side] += points;
       actions[side] = `+${points} ${points === 1 ? "punto" : "puntos"}`;
       lastAction = "En juego";
+      showImpact(side);
     } else {
       scores[side]--;
       actions[side] = "−1 punto";
@@ -79,6 +107,7 @@ export function initScoreboardDemo(): void {
     elapsed += Math.max(0, now - lastTick);
     lastTick = now;
     if (elapsed >= 60000) {
+      clearImpact();
       elapsed %= 60000;
       scores.blue = scores.red = 0;
       actions.blue = actions.red = "\u00a0";
@@ -107,6 +136,7 @@ export function initScoreboardDemo(): void {
       clearInterval(interval);
       interval = undefined;
     }
+    if (!canPlay) clearImpact();
     render();
   }
 

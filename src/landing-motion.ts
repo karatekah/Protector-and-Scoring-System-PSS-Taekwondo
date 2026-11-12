@@ -1,5 +1,6 @@
 export function initLandingMotion(): void {
   const hero = document.querySelector<HTMLElement>(".arena-hero");
+  const session = document.querySelector<HTMLElement>(".session-summary");
   if (!hero) return;
 
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -7,6 +8,7 @@ export function initLandingMotion(): void {
     ".home-view [data-reveal]",
   );
   let heroVisible = true;
+  let sessionVisible = false;
   let revealObserver: IntersectionObserver | undefined;
 
   const reveal = (target: HTMLElement) => {
@@ -19,17 +21,25 @@ export function initLandingMotion(): void {
       "landing-motion-active",
       heroVisible && !document.hidden,
     );
+    document.body.classList.toggle(
+      "session-motion-active",
+      sessionVisible && !document.hidden,
+    );
   };
   const updatePreference = () => {
     if (reducedMotion.matches) revealAll();
   };
 
   if ("IntersectionObserver" in window) {
-    const heroObserver = new IntersectionObserver(([entry]) => {
-      heroVisible = entry.isIntersecting;
+    const heroObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === hero) heroVisible = entry.isIntersecting;
+        else sessionVisible = entry.isIntersecting;
+      }
       updateVisibility();
     });
     heroObserver.observe(hero);
+    if (session) heroObserver.observe(session);
 
     revealObserver = new IntersectionObserver(
       (entries) => {

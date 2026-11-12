@@ -98,6 +98,18 @@ body {
   .arena-sticker {
     animation: sticker-drift 6s ease-in-out infinite paused;
   }
+  .session-hogu {
+    --drift-y: -4px;
+    --drift-angle: 3deg;
+    animation: sticker-drift 6s ease-in-out infinite paused;
+  }
+  .red-label .session-hogu {
+    animation-delay: -2s;
+    animation-duration: 6.8s;
+  }
+  [data-current-view="home"].session-motion-active .session-hogu {
+    animation-play-state: running;
+  }
   .sticker-dobok {
     --drift-x: 4px;
     --drift-y: -14px;
@@ -385,16 +397,17 @@ body:not([data-current-view="home"]) .arena-ribbon {
   line-height: 1.6;
 }
 .session-summary {
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr) auto;
-  gap: 20px;
-  padding: 12px;
+  grid-template-columns: minmax(160px, 1fr) minmax(0, 680px) auto;
+  gap: 24px;
+  padding: 20px;
   border: 0;
   border-radius: 28px;
   background: #fff;
   margin-bottom: 16px;
 }
 .session-event {
-  padding: 12px 20px;
+  grid-column: auto;
+  padding: 8px 12px;
 }
 .session-event > span {
   display: flex;
@@ -415,36 +428,76 @@ body:not([data-current-view="home"]) .arena-ribbon {
 .session-match {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 20px;
+  gap: 24px;
   align-items: center;
   min-width: 0;
-  padding: 18px 20px;
-  border: 1px solid var(--highlight-border);
+  padding: 16px 20px;
+  border: 0;
   border-radius: 20px;
-  background: var(--highlight-surface);
+  background: var(--surface-soft);
 }
 .session-match .athlete-preview {
   width: 100%;
-  max-width: 360px;
-  justify-self: center;
-  gap: 14px;
+  gap: 12px;
+}
+.session-match .athlete-preview > :is(.blue-label, .red-label) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
 }
 .session-match .athlete-preview > .blue-label {
   text-align: end;
 }
 .session-match .athlete-preview > .red-label {
+  flex-direction: row-reverse;
   text-align: start;
 }
+.session-name {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.session-name .side-label {
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.session-name > strong {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.session-hogu {
+  flex: none;
+  width: 52px;
+  height: 61px;
+  rotate: -12deg;
+  color: var(--blue);
+  pointer-events: none;
+}
+.red-label .session-hogu {
+  rotate: 12deg;
+  color: var(--red);
+}
 .session-match .session-score {
-  padding: 10px 14px;
-  border: 1px solid var(--highlight-border);
-  border-radius: 14px;
-  background: #fff;
+  gap: 6px;
+  padding: 0;
+  font-size: 3.25rem;
+}
+.session-score > [data-bind="blueScore"] {
+  color: var(--blue-dark);
+}
+.session-score > [data-bind="redScore"] {
+  color: var(--red-dark);
+}
+.session-score > span {
+  font-size: 0.7em;
 }
 .session-match .session-time {
-  padding: 12px 16px;
+  padding: 12px 14px;
   border-radius: 14px;
-  background: #fff;
+  background: var(--highlight-surface);
+  color: var(--ink);
 }
 .session-resume {
   justify-self: end;
@@ -536,6 +589,24 @@ body:not([data-current-view="home"]) .arena-ribbon {
   font-size: 0.75rem;
   font-weight: 650;
   line-height: 20px;
+}
+.demo-score {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+}
+.demo-impact {
+  position: absolute;
+  inset: -15% -10%;
+  width: 120%;
+  height: 130%;
+  opacity: 0;
+  color: var(--competitor-blue-label);
+  pointer-events: none;
+}
+.demo-red .demo-impact {
+  color: var(--competitor-red-label);
 }
 .display-demo figcaption {
   margin-top: 12px;
@@ -847,7 +918,15 @@ button.primary-action {
 @media (max-width: 1120px) {
   .session-summary {
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8px;
+    gap: 16px;
+  }
+  .session-match {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .session-summary > .session-resume {
+    grid-column: 2;
+    grid-row: 1;
   }
   .app-shell {
     padding-inline: 16px;
@@ -990,9 +1069,23 @@ button.primary-action {
   }
   .session-match {
     grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
+    gap: 12px;
     padding: 16px;
     border-radius: 16px;
+  }
+  .session-match .athlete-preview {
+    grid-column: auto;
+  }
+  .session-match .athlete-preview > :is(.blue-label, .red-label) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .session-summary > .session-resume {
+    grid-column: auto;
+    grid-row: 3;
+    justify-self: stretch;
   }
   .session-match .session-time {
     display: flex;
@@ -1152,9 +1245,21 @@ button.primary-action {
     gap: 12px;
   }
   .session-match .session-score {
-    padding: 8px 10px;
-    gap: 6px;
-    font-size: 2.25rem;
+    gap: 4px;
+    font-size: 2.75rem;
+  }
+  .session-match .athlete-preview {
+    gap: 8px;
+  }
+  .session-hogu {
+    width: 40px;
+    height: 47px;
+  }
+  .session-name .side-label {
+    font-size: 0.8125rem;
+  }
+  .session-name > strong {
+    font-size: 0.8125rem;
   }
   .session-match .session-time {
     padding: 10px 12px;

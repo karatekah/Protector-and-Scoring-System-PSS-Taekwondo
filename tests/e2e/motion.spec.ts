@@ -44,6 +44,12 @@ test("landing motion loops automatically, reveals once and respects reduced moti
   await expect
     .poll(() => track.evaluate((el) => el.getAnimations()[0]?.playState))
     .toBe("paused");
+  const session = page.locator(".session-summary");
+  const hogu = session.locator(".session-hogu").first();
+  await session.scrollIntoViewIfNeeded();
+  await expect
+    .poll(() => hogu.evaluate((el) => el.getAnimations()[0]?.playState))
+    .toBe("running");
   await page.evaluate(() => scrollTo(0, 0));
   await expect
     .poll(() => track.evaluate((el) => el.getAnimations()[0]?.playState))
@@ -51,6 +57,7 @@ test("landing motion loops automatically, reveals once and respects reduced moti
   await expect(pending).toHaveClass(/is-revealed/);
 
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(hogu).toHaveCSS("animation-name", "none");
   await expect(page.locator("[data-reveal]:not(.is-revealed)")).toHaveCount(0);
   await expect(track).toHaveCSS("animation-name", "none");
   await expect(page.locator(".sticker-dobok")).toHaveCSS(

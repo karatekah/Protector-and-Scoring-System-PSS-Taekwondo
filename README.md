@@ -119,4 +119,4 @@ The [verification matrix](docs/verification.md) separates automated coverage fro
 
 ---
 
-Code is licensed under [GNU GPL v3](LICENSE). Local font licenses are preserved in [public/fonts](public/fonts); the origin of the generated illustration and original mark is documented in [visual identity](docs/design-preview.md).
+Code is licensed under [GNU GPL v3](LICENSE). Local font licenses are preserved in [public/fonts](public/fonts). See [visual identity and graphic assets](docs/design-preview.md).

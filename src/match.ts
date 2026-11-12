@@ -61,9 +61,9 @@ export const defaultConfig: Config = {
   totalRounds: 3,
   roundDuration: 120,
   blueName: "Azul",
-  blueCountry: "PER",
+  blueCountry: "USA",
   redName: "Rojo",
-  redCountry: "PER",
+  redCountry: "USA",
 };
 
 export function createState(): State {

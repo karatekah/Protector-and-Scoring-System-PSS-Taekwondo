@@ -119,4 +119,4 @@ La [matriz de verificación](../verification.md) distingue pruebas automatizadas
 
 ---
 
-El código utiliza [GNU GPL v3](../../LICENSE). Las licencias de las fuentes locales se conservan en [public/fonts](../../public/fonts); el origen de la ilustración generada y de la marca original está documentado en [identidad visual](../design-preview.md).
+El código utiliza [GNU GPL v3](../../LICENSE). Las licencias de las fuentes locales se conservan en [public/fonts](../../public/fonts). Consulta la [identidad visual y los recursos gráficos](../design-preview.md).

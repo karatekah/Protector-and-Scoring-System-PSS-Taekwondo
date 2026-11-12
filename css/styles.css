@@ -593,7 +593,7 @@ p {
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
-.demo-athlete > b {
+.demo-score > b {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 48cqw, 6rem);
   line-height: 1.2;
@@ -1580,7 +1580,7 @@ fieldset {
   .demo-clock {
     gap: 12px;
   }
-  .demo-athlete > b {
+  .demo-score > b {
     font-size: clamp(2.5rem, 48cqw, 5rem);
   }
   .getting-started > div > p {

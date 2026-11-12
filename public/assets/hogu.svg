@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="hogu" viewBox="0 0 120 140" fill="none" stroke="#08090b" stroke-width="3" stroke-linejoin="round">
+    <path fill="#fff" d="m29 13 16-6 7 24h16l7-24 16 6-5 43 16 15-9 49q-33 19-66 0l-9-49 16-15Z"/>
+    <path fill="currentColor" d="m34 21 9-4 5 24h24l5-24 9 4-7 37 15 17-8 40q-26 15-52 0l-8-40 15-17Z"/>
+    <path d="M60 44v75M41 67h38M35 91h50" stroke-opacity=".3"/>
+    <path d="m31 72 7 4-8 5 8 5-7 4m58-18-7 4 8 5-8 5 7 4" stroke="#fff" stroke-width="4"/>
+  </symbol>
+</svg>

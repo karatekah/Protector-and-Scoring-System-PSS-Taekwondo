@@ -4,6 +4,18 @@
 
 ## Evidencia automatizada
 
+### Sesión compacta y respuesta de la demo
+
+Revisión local del 2026-11-11: tipos, formato, diez pruebas unitarias, build y 24 casos E2E en Chromium/Firefox aprobados. La demo activa el impacto solo al sumar puntos, lo retira al activar movimiento reducido y conserva su estado independiente del combate. Las pruebas de puntuación, correcciones, KO, pantalla externa, respaldos y fin de combate siguen pasando.
+
+Se midió la franja de sesión a 320/390/768/1024/1120/1440/1920 px en Chromium y Firefox: catorce casos sin desbordamiento horizontal ni errores de JavaScript. Se comprobaron nombres largos y cifras de tres dígitos a 320 px, además de inspeccionar capturas de escritorio, móvil y un fotograma del impacto. Los petos solo se animan dentro de la zona visible y respetan movimiento reducido. Los contrastes medidos están en [diseño](design-preview.md). La prueba física con dos monitores, móvil físico y lector de pantalla sigue pendiente.
+
+### Revisión de textos
+
+Revisión local del 2026-11-11: tipos, formato, diez pruebas unitarias y build aprobados. Se acortaron tres textos de portada y preparación, se cambió el título de estado en la guía y se ajustó el pie de los README en inglés, español e italiano, conservando licencias y enlaces.
+
+Se comprobaron portada, preparación y guía a 320, 390 y 1440 px en Chromium: nueve vistas sin desbordamiento horizontal, errores de JavaScript ni solicitudes externas en el paquete de vista previa. Se inspeccionaron capturas de escritorio y móvil y se validaron 127 enlaces locales de documentación. No se repitió la suite E2E completa para estos cambios de texto; las verificaciones físicas siguen pendientes.
+
 ### Corrección −1 y KO manual
 
 Revisión del 2026-11-11: tipos, formato, diez pruebas unitarias, build y 22 casos E2E en Chromium/Firefox aprobados. −1 solo corrige el lado seleccionado y se deshabilita en cero; no modifica penalizaciones ni al rival. KO requiere confirmar explícitamente al ganador, detiene el reloj y bloquea puntuación, tiempo técnico e inicio/avance de ronda hasta deshacerlo. Cancelar la confirmación no cierra el combate.

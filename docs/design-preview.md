@@ -21,7 +21,7 @@ La idea dominante es un cartel Octajang dentro del recorrido del cinturón. El r
 | Blanco                | #ffffff           | Navegación, formularios y superficies de lectura                        |
 | Lila                  | #e9d2ff           | Franja de identificación; sección de presentación ligeramente más clara |
 | Coral                 | #ff795e           | Invitación final                                                        |
-| Resaltado de sesión   | #fff08a           | Fondo de resultado, atletas y reloj de la sesión                        |
+| Resaltado de sesión   | #fff08a           | Fondo del reloj de la sesión                                            |
 | Azul / rojo de atleta | #1265d0 / #c92c3f | Identificación de los dos lados del combate                             |
 
 Anton se utiliza exclusivamente en el gran Octajang y numeración de cartel. Manrope mantiene la lectura y los controles; Barlow Condensed conserva las cifras del marcador. Las tres familias se sirven localmente. Anton procede de [Google Fonts](https://fonts.google.com/specimen/Anton); su licencia [SIL OFL](https://raw.githubusercontent.com/google/fonts/main/ofl/anton/OFL.txt) se conserva en public/fonts/anton-LICENSE.txt.
@@ -43,7 +43,9 @@ Los bloques se revelan inmediatamente al recibir foco. Sin JavaScript, sin Inter
 
 ## Sesión y demostración del marcador
 
-La franja «En la mesa» reserva un panel amarillo cítrico (#fff08a) exclusivamente para Azul, resultado, Rojo, reloj y ronda. Azul y Rojo se alinean hacia el resultado, en un grupo de hasta 360 px y con 14 px de separación entre columnas. «Ir al control» queda fuera de ese fondo, sobre la superficie blanca, igual que el título de la sesión. Las cifras y el tiempo tienen superficies blancas; la acción principal usa negro. Los datos siguen vinculados a la sesión real del navegador. En móvil se apilan los datos y el botón se mantiene fuera del panel.
+La franja «En la mesa» agrupa atletas, resultado y reloj en una superficie azul muy clara (#edf3fa) de hasta 680 px. Azul y Rojo se acercan al resultado, con petos del mismo estilo que el hero y cifras en el color de cada lado. El amarillo cítrico (#fff08a) se concentra en el reloj. «Ir al control» queda fuera del panel, sobre la superficie blanca, igual que el título de la sesión. Los datos siguen vinculados a la sesión real del navegador. En móvil, los petos quedan sobre los nombres y el reloj ocupa una fila bajo el resultado; el botón conserva su propio espacio.
+
+Los petos de la sesión flotan 4 px y giran 3 grados en ciclos de 6 y 6.8 segundos. Solo se animan mientras la franja está visible, la pestaña está activa y la portada está abierta. Con movimiento reducido mantienen su inclinación estática.
 
 «Probar la pantalla externa» es un botón de contorno negro, superficie blanca y sombra sólida, con icono de monitor y flecha en círculo azul. Conserva la apertura de la ventana pública real. Los pasos de inicio usan números circulares y el enlace al plan tiene contorno; el aviso de funciones futuras se distingue con una superficie oscura y borde lila. El hero y el cierre coral conservan su composición.
 
@@ -52,6 +54,8 @@ El monitor de presentación muestra «Combate de muestra» y una insignia Demo, 
 La demo mantiene cada marcador entre 0 y 16. Alterna sumas con dos ejemplos pedidos: corrección de −1 a un lado y ajuste de −1 a un lado / +1 al rival. El lado se elige al azar entre los que admiten la operación; las etiquetas muestran el cambio efectivo y nunca se resta por debajo de cero. Los estados «Corrección» y «Ajuste» distinguen ambos casos. El límite y esos ejemplos se aplican únicamente al monitor ilustrativo: no representan un reglamento oficial ni cambian las acciones de puntuación del combate real.
 
 src/scoreboard-demo.ts mantiene exclusivamente el estado efímero de la demostración. No importa el dominio, no usa almacenamiento ni envía mensajes a otras ventanas. Los segundos se calculan por tiempo monotónico transcurrido; el intervalo solo refresca la presentación. Los cambios de cifras no se anuncian cada segundo al lector de pantalla.
+
+Al sumar puntos, la demo muestra trazos de impacto alrededor del número del lado que puntúa y lo amplía brevemente a 1.08 durante 420 ms. Las correcciones conservan sus etiquetas sin activar ese efecto. El impacto se cancela al reiniciar el ciclo, ocultar la demo o activar movimiento reducido. Los puntajes y la etiqueta del cambio siguen disponibles como información estática.
 
 ## Contraste de superficies sólidas
 
@@ -63,8 +67,9 @@ Luminancia relativa sRGB. Estos pares no certifican todos los píxeles de la ima
 | Negro / lila                              | 14.35:1   |
 | Negro / coral                             | 7.73:1    |
 | Negro / resaltado de sesión #fff08a       | 17.15:1   |
-| Azul #114c9a / resaltado de sesión        | 7.16:1    |
-| Rojo #962030 / resaltado de sesión        | 7.10:1    |
+| Azul #114c9a / panel de sesión #edf3fa    | 7.45:1    |
+| Rojo #962030 / panel de sesión #edf3fa    | 7.38:1    |
+| Secundario #536174 / reloj #fff08a        | 5.43:1    |
 | Secundario #536174 / panel #f3f7fc        | 5.86:1    |
 | Secundario #536174 / presentación #efdefd | 4.97:1    |
 | Blanco / azul de atleta                   | 5.53:1    |
@@ -84,6 +89,6 @@ La presentación solicita pantalla completa sobre el elemento del marcador, que 
 
 ## Recursos originales
 
-El dobok y el peto son SVG propios en index.html. El fondo es una imagen original del cinturón azul sobre fondo opaco. Archivo final: public/assets/taekwondo-belt-sky.jpg, JPEG calidad 80, 1536 × 1024, 200 306 bytes. La ilustración anterior se conserva en docs/assets/taekwondo-kit-previous.jpg.
+El dobok y el peto del hero son SVG propios en index.html. El peto reutilizable de la sesión está en public/assets/hogu.svg. El fondo es una imagen original del cinturón azul sobre fondo opaco. Archivo final: public/assets/taekwondo-belt-sky.jpg, JPEG calidad 80, 1536 × 1024, 200 306 bytes. La ilustración anterior se conserva en docs/assets/taekwondo-kit-previous.jpg.
 
 Se revisaron color, tipografía, distribución, escritura y accesibilidad. No se añadieron dependencias. Las comprobaciones y sus límites se registran en [verificación](verification.md).

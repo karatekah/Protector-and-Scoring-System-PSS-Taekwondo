@@ -119,4 +119,4 @@ La [matrice di verifica](../verification.md) distingue la copertura automatizzat
 
 ---
 
-Il codice usa [GNU GPL v3](../../LICENSE). Le licenze dei font locali sono conservate in [public/fonts](../../public/fonts); l'origine dell'illustrazione generata e del marchio originale è documentata nell'[identità visiva](../design-preview.md).
+Il codice usa [GNU GPL v3](../../LICENSE). Le licenze dei font locali sono conservate in [public/fonts](../../public/fonts). Consulta [identità visiva e risorse grafiche](../design-preview.md).
