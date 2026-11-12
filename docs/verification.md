@@ -4,6 +4,14 @@
 
 ## Evidencia automatizada
 
+### Barra de desplazamiento
+
+Refinamiento del 2026-11-11 en los estilos compartidos de portada, preparación, control, marcador y guía. En escritorio con ratón, el carril se integra con el fondo y el deslizador usa azul grisáceo. Chromium presenta un carril de 12 px, un deslizador redondeado de 6 px y sin botones de flecha. Firefox dispone del estilo estándar `thin`. Las reglas no se aplican a punteros táctiles ni al modo de colores forzados; las barras internas conservan su comportamiento nativo.
+
+Tipos, formato, siete pruebas unitarias y build aprobados. Se comprobaron las cinco vistas en Chromium y Firefox a 1440 px sin desbordamiento horizontal, y la portada a 320 px en ambos. La rueda y el teclado desplazan la página; también se verificó el arrastre de la barra en Chromium. La emulación táctil conserva los estilos nativos y la de alto contraste retira los colores personalizados. El paquete de vista previa carga sin solicitudes externas ni errores y conserva el flujo de preparación, puntuación y ganador final.
+
+La inspección visual de la barra se realizó en Chromium. Firefox automatizado oculta las barras incluso en una página mínima con `scrollbar-width: thin`, por lo que su apariencia nativa queda pendiente de revisión manual. No se repitió la suite E2E completa para este cambio de CSS. Móvil físico y lector de pantalla siguen pendientes.
+
 ### Edición Free y resultado final
 
 Revisión local del 2026-11-11, previa a la publicación. `npm ci` terminó sin vulnerabilidades; tipos, formato, siete pruebas unitarias y build aprobados. Los 20 casos E2E pasaron en Chromium y Firefox. Después de ajustar el espacio del resultado en pantalla completa, se repitieron y aprobaron los cuatro casos de presentación y resultado final en ambos navegadores.
