@@ -4,6 +4,12 @@
 
 ## Evidencia automatizada
 
+### Simetría de nombres y ajuste de banderas
+
+Corrección visual del 2026-11-12: ambos nombres se centran en áreas equivalentes y las banderas usan un marco 4:3 sin espacio lateral sobrante. La posición del texto se conserva cuando falta una bandera. El ajuste se comparte entre Control y Marcador y está aplicado también a la base local ampliada.
+
+Tipos, formato, build, catorce pruebas unitarias en Free y once en la base local ampliada aprobados. Pasaron los seis casos E2E específicos de países y marcador en Chromium/Firefox. La revisión adicional midió 60 vistas de ambas bases y el paquete de revisión a 320, 390, 768, 1440 y 1920 px, más seis pantallas completas. Se comprobaron centros, márgenes reflejados, proporciones de las imágenes, nombres largos y banderas ausentes, sin desbordamiento ni errores de script. Se inspeccionaron capturas de escritorio y móvil. No se repitió localmente la suite funcional completa para este ajuste exclusivo de CSS; no se realizó una prueba física con dos monitores.
+
 ### Cierre de Free 1.0 con el marcador aprobado
 
 Revisión del 2026-11-12: tipos, formato, catorce pruebas unitarias, build y 44 casos E2E completos en Chromium/Firefox aprobados. La base local ampliada conserva sus controles adicionales y pasó once pruebas unitarias, build y 40 casos E2E. El marcador usa los atletas, países, puntos y reloj reales; no incorpora nombres, categorías ni números de combate de muestra.

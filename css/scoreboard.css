@@ -66,7 +66,9 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .reference-board .athlete-name {
-  display: flex;
+  --flag-width: calc(8.4cqw * var(--reference-scale));
+  display: grid;
+  grid-template-columns: var(--flag-width) minmax(0, 1fr) var(--flag-width);
   align-items: center;
   min-width: 0;
   gap: calc(1.5cqw * var(--reference-scale));
@@ -77,6 +79,7 @@
   background: linear-gradient(90deg, #1009b1, #110273);
 }
 .reference-board .athlete-name strong {
+  grid-area: 1 / 2;
   min-width: 0;
   overflow: hidden;
   white-space: nowrap;
@@ -85,20 +88,22 @@
   line-height: 1.15;
   font-weight: 800;
   text-transform: uppercase;
-}
-.reference-board .blue-name strong {
-  flex: 1;
   text-align: center;
 }
+.reference-board .red-name .country-flag {
+  grid-area: 1 / 1;
+}
 .reference-board .blue-name .country-flag {
-  order: 2;
+  grid-area: 1 / 3;
 }
 .reference-board .country-flag {
   display: block;
-  flex: 0 0 auto;
-  width: calc(9.4cqw * var(--reference-scale));
+  width: var(--flag-width);
   height: calc(6.3cqw * var(--reference-scale));
-  border: 1px solid #b6c5e5;
+  object-fit: contain;
+  border: 0;
+  outline: 1px solid #ffffff1a;
+  outline-offset: -1px;
   border-radius: calc(0.5cqw * var(--reference-scale));
   overflow: hidden;
 }
