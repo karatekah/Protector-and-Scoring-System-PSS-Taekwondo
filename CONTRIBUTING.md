@@ -4,6 +4,8 @@ Lee [el alcance](docs/alpha.md) y [la decisión de stack](docs/adr/0001-foundati
 
 Usa Node 24.22.1, npm 11 y `npm ci`. Mantén lógica pura en `src/match.ts`, entrada/salida en `src/main.ts` y estilos en CSS con tokens existentes.
 
+La pantalla pública es de solo lectura: no escribe almacenamiento ni reserva el control del operador. El reloj utiliza tiempo monotónico transcurrido. Valida los datos locales e importados antes de reemplazar el estado; los snapshots de deshacer no contienen historial ni resúmenes archivados.
+
 Antes de enviar cambios ejecuta `npm run check`, `npm run build` y `npm run test:e2e`. Instala Chromium/Firefox de Playwright cuando sea necesario. Añade una prueba pequeña para lógica de puntuación, tiempo, almacenamiento o sincronización que cambies.
 
 Un PR debe explicar el problema, el comportamiento resultante, las comprobaciones ejecutadas y cualquier límite pendiente. No presentes una comprobación manual pendiente como aprobada.

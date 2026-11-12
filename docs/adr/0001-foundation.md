@@ -2,7 +2,7 @@
 
 Estado: aceptada. Fecha: 2026-11-02.
 
-Vigencia: describe la alpha 0.1 publicada. La dirección del producto se amplió después a torneos en LAN en [ADR 0002](0002-tournament-lan.md), con React, servidor Go y SQLite. La decisión original sobre cuatro vistas locales no excluye esa evolución.
+Vigencia: registra la decisión inicial de la alpha 0.1. Las funciones actuales de Free, incluido el resultado por puntos y el KO manual, se describen en [el alcance vigente](../alpha.md). La dirección del producto se amplió después a torneos en LAN en [ADR 0002](0002-tournament-lan.md), con React, servidor Go y SQLite. La decisión original sobre cuatro vistas locales no excluye esa evolución.
 
 ## Contexto
 
@@ -29,7 +29,7 @@ La infraestructura de la alpha es estática. `vercel.json` fija compilación, sa
 
 ## Consecuencias
 
-Se conserva el flujo y el historial compatible del prototipo, con límites explícitos. La alpha no determina ganadores, victorias por asalto ni desempates. Los incrementos +1 a +6 son herramientas manuales.
+Se conserva el flujo y el historial compatible del prototipo, con límites explícitos. La primera entrega no determinaba ganadores. Free incorporó después el ganador por puntos acumulados o empate al finalizar las rondas, la corrección −1 y el KO confirmado por el operador. Las victorias por asalto y los desempates reglamentarios siguen fuera de alcance. Los incrementos +1 a +6 son herramientas manuales.
 
 Si el alcance cambia a red, se diseñará un servidor autoritativo con secuencias, deduplicación y roles. Si cambia a sensores, se documentarán protocolo y calibración con hardware real. Ninguno de estos componentes se instala anticipadamente.
 

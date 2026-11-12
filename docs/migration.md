@@ -2,19 +2,19 @@
 
 La alpha 0.1 sigue siendo la demo de entrenamiento publicada. La migración hacia torneos se divide en entregas que conservan datos y separan capacidades comprobadas de diseño pendiente.
 
-| Etapa                  | Entrega concreta                                                                                                                       | Condición de salida                                                                          |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| 0 · Reformulación      | Stack, ADR 0002, autoridad, permisos, protocolo, fallos y backlog                                                                      | Requisitos de producto documentados; cada tecnología tiene una responsabilidad               |
-| 1 · Frontend React     | Migrar las cuatro vistas a componentes, añadir rutas y pruebas de interacción, conservar el perfil de entrenamiento y los respaldos v4 | Los flujos actuales pasan; la ventana pública sigue en lectura y se preservan los datos      |
-| 2 · Servidor y archivo | Go, SQLite, migraciones, contratos HTTP, perfiles de reglas y copia/restauración                                                       | Comandos y revisiones transaccionales; pruebas reales de caída y restauración                |
-| 3 · Un área en LAN     | Mesa, jueces proponentes y marcador en varios dispositivos; TLS, emparejamiento y recuperación                                         | La mesa confirma; duplicados, revocación y desconexiones pasan pruebas de integración        |
-| 4 · Varias áreas       | Asignaciones, cola de combates y aislamiento; objetivo inicial de validación de cuatro áreas                                           | 21 sesiones simuladas y sesión física del recinto, con resultados medidos                    |
-| 5 · Beta de torneo     | Edición de reglamento acordada, decisiones arbitrales, resultados y prueba de operación completa                                       | Casos revisados por responsable deportivo; soporte, recuperación y límites publicados        |
-| 6 · Sensores           | Investigación de protocolo, adaptador y calibración con equipos reales                                                                 | Evidencia de hardware; las capacidades y la eventual homologación se documentan con sustento |
+| Etapa                  | Entrega concreta                                                                                                                    | Condición de salida                                                                          |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 0 · Reformulación      | Stack, ADR 0002, autoridad, permisos, protocolo, fallos y backlog                                                                   | Requisitos de producto documentados; cada tecnología tiene una responsabilidad               |
+| 1 · Frontend React     | Migrar las cuatro vistas a componentes, añadir rutas y pruebas de interacción, conservar el perfil de entrenamiento y sus respaldos | Los flujos actuales pasan; la ventana pública sigue en lectura y se preservan los datos      |
+| 2 · Servidor y archivo | Go, SQLite, migraciones, contratos HTTP, perfiles de reglas y copia/restauración                                                    | Comandos y revisiones transaccionales; pruebas reales de caída y restauración                |
+| 3 · Un área en LAN     | Mesa, jueces proponentes y marcador en varios dispositivos; TLS, emparejamiento y recuperación                                      | La mesa confirma; duplicados, revocación y desconexiones pasan pruebas de integración        |
+| 4 · Varias áreas       | Asignaciones, cola de combates y aislamiento; objetivo inicial de validación de cuatro áreas                                        | 21 sesiones simuladas y sesión física del recinto, con resultados medidos                    |
+| 5 · Beta de torneo     | Edición de reglamento acordada, decisiones arbitrales, resultados y prueba de operación completa                                    | Casos revisados por responsable deportivo; soporte, recuperación y límites publicados        |
+| 6 · Sensores           | Investigación de protocolo, adaptador y calibración con equipos reales                                                              | Evidencia de hardware; las capacidades y la eventual homologación se documentan con sustento |
 
 ## Primer backlog implementable
 
-1. Añadir React y rutas preservando el dominio de entrenamiento y la clave de almacenamiento v4.
+1. Añadir React y rutas preservando el dominio de entrenamiento, la clave de almacenamiento existente y los respaldos v4/v5.
 2. Extraer Scoreboard, Clock, ScoreControls, MatchSetup y Archive como componentes compartidos con etiquetas y foco existentes.
 3. Separar estado, almacenamiento y canales de la representación. Mantener un único operador de la demo.
 4. Añadir ESLint y React Testing Library donde aporten cobertura de comportamiento; conservar Playwright/axe.
@@ -24,7 +24,7 @@ La alpha 0.1 sigue siendo la demo de entrenamiento publicada. La migración haci
 
 ## Migración de datos
 
-Los respaldos v4 de entrenamiento se conservan y se validan. Importarlos en el futuro servidor creará registros identificados como entrenamiento; no los convierte en resultados oficiales ni asigna jueces retroactivamente.
+Los respaldos v4 y v5 de entrenamiento se conservan y se validan, incluidas las decisiones manuales de KO en v5. Importarlos en el futuro servidor creará registros identificados como entrenamiento; no los convierte en resultados oficiales ni asigna jueces retroactivamente.
 
 Cada cambio de esquema tendrá migración versionada, copia previa y una prueba de actualización desde el formato soportado. Se documentará si el rollback del binario requiere restaurar una copia; no se promete downgrade automático del esquema.
 

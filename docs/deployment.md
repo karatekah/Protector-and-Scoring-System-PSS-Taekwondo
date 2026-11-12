@@ -27,4 +27,4 @@ Comprobar que producción muestra `v0.1.0-alpha.1`, carga recursos sin errores, 
 
 Si falla la publicación, revisar los logs del despliegue. Corregir mediante un nuevo commit. Para revertir un cambio publicado, usar un revert del commit o promover el despliegue previo desde Vercel si se tiene acceso. No reescribir main.
 
-El rollback de código no convierte automáticamente datos v4 a v3. Las claves antiguas se conservan; exportar JSON antes de modificar datos para diagnóstico.
+El rollback de código no convierte automáticamente datos v5 a formatos anteriores. Antes de volver a un build anterior, exporta JSON y comprueba qué formatos admite: un lector que solo acepta v4 no puede restaurar v5 ni conservar su decisión de KO. Las claves de almacenamiento se mantienen; no abras un control antiguo sobre los datos actualizados.

@@ -22,6 +22,6 @@ La captura de README está en docs/assets/octajang-preview.jpg y la imagen de en
 
 ## Compatibilidad
 
-La marca visible y los archivos exportados usan Octajang. Los identificadores existentes de almacenamiento v4, claves v2/v3, canal local, lock y ventana pública se conservan para que el cambio de marca sea compatible en el mismo origen. El formato JSON continúa en schemaVersion 4.
+La marca visible y los archivos exportados usan Octajang. Los identificadores existentes de almacenamiento v4, claves v2/v3, canal local, lock y ventana pública se conservan para que el cambio de marca sea compatible en el mismo origen. El formato actual de respaldo es schemaVersion 5 para conservar las decisiones de KO; los respaldos v4 siguen siendo recuperables y se mantiene la migración de v2/v3.
 
 Cambiar de dominio crea un origen de almacenamiento distinto. El procedimiento es exportar JSON desde la dirección utilizada, abrir la nueva e importar la copia. Control y Marcador deben permanecer en el mismo origen. La guía conserva un acceso a la dirección anterior para realizar la exportación.
