@@ -2,6 +2,8 @@ import "../css/styles.css";
 import "../css/components.css";
 import "../css/arena.css";
 import "../css/workspace.css";
+import "../css/motion.css";
+import { initInterfaceMotion } from "./interface-motion";
 import { initLandingMotion } from "./landing-motion";
 import { initScoreboardDemo } from "./scoreboard-demo";
 import {
@@ -736,6 +738,7 @@ createButtons();
 bind();
 render();
 showView(new URLSearchParams(location.search).get("view") || "home", false);
+initInterfaceMotion();
 if (!publicOnly) {
   initLandingMotion();
   initScoreboardDemo();

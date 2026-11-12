@@ -1,0 +1,83 @@
+:root {
+  --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+a {
+  transition:
+    color 120ms ease-out,
+    text-decoration-color 120ms ease-out;
+}
+button,
+.nav-link,
+.guide-nav a,
+.guide-callout > a,
+.text-action,
+summary {
+  transition:
+    background-color 120ms ease-out,
+    border-color 120ms ease-out,
+    color 120ms ease-out,
+    box-shadow 150ms ease-out;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button:not(.static-press),
+  .nav-link,
+  .guide-nav a,
+  .guide-callout > a,
+  .text-action {
+    transition:
+      translate 150ms var(--motion-ease),
+      scale 150ms ease-out,
+      background-color 120ms ease-out,
+      border-color 120ms ease-out,
+      color 120ms ease-out,
+      box-shadow 150ms ease-out;
+  }
+  :is(button, a) > :is(.ui-icon, .external-arrow),
+  .brand-symbol {
+    transition:
+      translate 150ms var(--motion-ease),
+      rotate 150ms var(--motion-ease),
+      scale 150ms ease-out;
+  }
+  :is(.nav-link, .guide-nav a, .guide-callout > a, .text-action):active {
+    scale: 0.96;
+  }
+  .guide-page .motion-pending {
+    opacity: 0;
+  }
+  .guide-page .motion-pending:focus-within {
+    opacity: 1;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    button:not(:disabled):not(.static-press):not(.score-action):hover,
+    .nav-link:hover,
+    .guide-nav a:hover,
+    .guide-callout > a:hover,
+    .text-action:hover {
+      translate: 0 -2px;
+      box-shadow: 0 3px 8px #08090b14;
+    }
+    :is(button:not(:disabled), a):hover > .ui-icon {
+      rotate: -4deg;
+    }
+    :is(button:not(:disabled), a):hover > .external-arrow {
+      translate: 2px -2px;
+    }
+    .brand-lockup:hover .brand-symbol {
+      rotate: -6deg;
+      scale: 1.04;
+    }
+  }
+  button:not(:disabled):not(.static-press):not(.score-action):active {
+    translate: 0 0;
+    scale: 0.96;
+    box-shadow: 0 1px 2px #08090b14 inset;
+  }
+}
+
+button.static-press:not(:disabled):active,
+.score-action:not(:disabled):active {
+  box-shadow: 0 2px 4px #08090b26 inset;
+}

@@ -34,12 +34,22 @@ Por solicitud posterior del usuario, la portada incorpora movimiento inspirado e
 
 - Ribbon con dos grupos idénticos y un recorrido lineal de 32 segundos hasta −50 % del track. El segundo grupo ocupa la posición inicial al terminar cada ciclo; el ancho mínimo de cada grupo cubre el viewport.
 - Dobok, peto y sello de dos pantallas con flotación independiente: 6, 7 y 5.6 segundos, recorridos de 10–18 px y giro de 3–5 grados alrededor de la inclinación original.
-- Entradas al desplazarse mediante IntersectionObserver. Solo se prepara el contenido inicialmente bajo el viewport; título y acciones del hero se ven desde el primer render. Los bloques entran una sola vez, con opacidad, 12 px de desplazamiento y desenfoque de 4 px durante 300 ms, separados por 100 ms donde hay una secuencia.
+- Entradas al desplazarse mediante IntersectionObserver. Se prepara el contenido inicialmente bajo el viewport. Los bloques entran una sola vez, con opacidad, 12 px de desplazamiento y desenfoque de 4 px durante 300 ms, separados por 100 ms donde hay una secuencia.
 - Por indicación del usuario, el ribbon y los gráficos funcionan automáticamente sin botón de pausa.
 - Con prefers-reduced-motion, no se ejecutan desplazamientos ni ciclos y todos los contenidos son visibles. La preferencia también se respeta si cambia con la página abierta.
 - La flotación y el ribbon se pausan al salir del hero, ocultar la pestaña o cambiar a una vista operativa. La pantalla pública no inicializa este módulo. No hay listeners de scroll ni bucles JavaScript por frame.
 
 Los bloques se revelan inmediatamente al recibir foco. Sin JavaScript, sin IntersectionObserver o con movimiento reducido, el contenido continúa visible. No se animan los puntos, el reloj ni las teclas de puntuación de las vistas operativas. El código vive en src/landing-motion.ts y en css/arena.css.
+
+## Movimiento compartido
+
+El título OCTAJANG se descubre de izquierda a derecha durante 700 ms, conservando su texto y tipografía. Los tres gráficos llegan con opacidad, escala de 0.76 a 1 y 16 px de desplazamiento durante 600 ms; sus entradas se separan 80 ms y continúan con la flotación existente. La cabecera, el lema y las acciones tienen entradas breves con desenfoque de 2 px y desplazamiento de 8 px.
+
+Preparación incorpora la misma entrada en títulos, sello y grupos del formulario. Control y Marcador usan únicamente una entrada de opacidad de 140 ms para sus grupos, una vez por vista durante la sesión de navegación. Los cambios de puntos y reloj mantienen su respuesta inmediata y sus teclas conservan la posición. Abrir un desplegable revela su contenido con opacidad durante 140 ms.
+
+Botones, enlaces de navegación e iconos comparten transiciones reversibles. Con ratón, los botones de uso ocasional suben 2 px, las flechas avanzan y los iconos giran ligeramente. Pulsar reduce el botón a 0.96 durante 150 ms; las teclas de puntuación y el reloj responden mediante color y sombra interior, sin desplazarse ni escalar. El hover se limita a punteros compatibles para evitar estados persistentes en pantallas táctiles.
+
+La Guía tiene entrada de cabecera, navegación y contenidos al recorrer sus secciones. Con movimiento reducido, las entradas usan solo opacidad durante 100 ms y se retiran los desplazamientos, giros y ciclos. Un cambio de preferencia cancela las entradas que siguen activas. Recibir foco muestra el contenido inmediatamente; no se bloquean acciones mientras se animan. La implementación compartida está en src/interface-motion.ts y css/motion.css, sin nuevas dependencias.
 
 ## Sesión y demostración del marcador
 

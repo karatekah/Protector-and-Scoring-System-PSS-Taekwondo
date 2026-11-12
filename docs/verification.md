@@ -4,6 +4,14 @@
 
 ## Evidencia automatizada
 
+### Movimiento compartido de la interfaz
+
+Revisión del 2026-11-12: tipos, formato, diez pruebas unitarias, build y 30 casos E2E en Chromium/Firefox aprobados. Se comprueban la entrada del título y los tres gráficos, la reacción al hover y la pulsación, la entrada única de cada vista, la estabilidad de las teclas de puntuación, la pantalla pública y las secciones de la Guía. Con movimiento reducido, las entradas no incluyen desplazamiento, escala, desenfoque ni recorte.
+
+Se midieron Inicio, Preparación, Control, Marcador y Guía a 320/390/768/1440 px en Chromium y Firefox: 40 casos sin desbordamiento horizontal. La revisión adicional de axe en las cinco vistas con movimiento normal no encontró infracciones dentro de su cobertura. No hubo errores de JavaScript ni recursos fallidos. Se inspeccionaron capturas de escritorio y móvil y la entrada del hero a velocidad 0.1; la emulación táctil comprobó navegación sin activar el hover de ratón.
+
+Las pruebas de puntuación, reloj, KO, respaldo, operador único y pantalla completa siguen pasando. Los datos y los controles mantienen su lógica anterior. La revisión automatizada no sustituye móvil físico, lector de pantalla ni una sesión física de dos monitores.
+
 ### Política del firewall del alojamiento
 
 Revisión del 2026-11-12 sobre el proyecto existente de Vercel, en plan Hobby. Se publicó la regla de 300 solicitudes por IP y región en ventanas fijas de 60 segundos, con respuesta 429. El estado activo muestra el WAF habilitado, una regla válida y ningún borrador pendiente; las protecciones del sistema siguen activas. La regla leída desde Vercel coincide con la política versionada.
