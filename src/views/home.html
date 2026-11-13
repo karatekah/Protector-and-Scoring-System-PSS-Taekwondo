@@ -17,7 +17,25 @@
     <div class="arena-center">
       <div class="arena-title-wrap">
         <h1 id="hero-title">
-          OCTAJANG<span class="sr-only"> · Marcador de taekwondo</span>
+          <span class="hero-word" aria-hidden="true"
+            ><span class="hero-letter-mask"
+              ><span class="hero-letter">O</span></span
+            ><span class="hero-letter-mask"
+              ><span class="hero-letter">C</span></span
+            ><span class="hero-letter-mask"
+              ><span class="hero-letter">T</span></span
+            ><span class="hero-letter-mask"
+              ><span class="hero-letter">A</span></span
+            ><span class="hero-letter-mask"
+              ><span class="hero-letter">J</span></span
+            ><span class="hero-letter-mask"
+              ><span class="hero-letter">A</span></span
+            ><span class="hero-letter-mask"
+              ><span class="hero-letter">N</span></span
+            ><span class="hero-letter-mask"
+              ><span class="hero-letter">G</span></span
+            ></span
+          ><span class="sr-only">OCTAJANG · Marcador de taekwondo</span>
         </h1>
         <svg
           class="arena-sticker sticker-dobok"
@@ -127,7 +145,12 @@
       </p>
     </div>
   </section>
-  <section class="session-summary" aria-label="Sesión actual" data-reveal="">
+  <section
+    class="session-summary"
+    aria-label="Sesión actual"
+    data-reveal=""
+    data-reveal-from="left"
+  >
     <div class="session-event">
       <span>En la mesa</span
       ><strong data-bind="eventName">Sesión de entrenamiento</strong>
@@ -172,7 +195,7 @@
     id="project-focus"
     aria-labelledby="project-title"
   >
-    <div class="story-copy" data-reveal="">
+    <div class="story-copy" data-reveal="" data-reveal-from="left">
       <h2 id="project-title">Un lado para dirigir.<br />Otro para seguirlo.</h2>
       <p>
         La mesa ve los controles. El público ve el combate. Dos vistas del mismo
@@ -209,7 +232,12 @@
         <span class="external-arrow" aria-hidden="true">↗</span>
       </button>
     </div>
-    <figure class="display-demo" data-reveal="" data-reveal-delay="1">
+    <figure
+      class="display-demo"
+      data-reveal=""
+      data-reveal-from="right"
+      data-reveal-delay="1"
+    >
       <div class="demo-monitor">
         <section
           class="demo-screen reference-board"
@@ -386,26 +414,26 @@
     </figure>
   </section>
   <section class="getting-started" aria-labelledby="start-title">
-    <div data-reveal="">
+    <div data-reveal="" data-reveal-from="left">
       <h2 id="start-title">Del saludo<br />al último punto.</h2>
       <p>Una sesión de entrenamiento, en tres pasos.</p>
     </div>
     <ol class="workflow-list">
-      <li data-reveal="">
+      <li data-reveal="" data-reveal-from="right">
         <span class="workflow-number" aria-hidden="true">1</span>
         <div>
           <h3>Prepara a los atletas.</h3>
           <p>Nombres, países, rondas y duración.</p>
         </div>
       </li>
-      <li data-reveal="" data-reveal-delay="1">
+      <li data-reveal="" data-reveal-from="right" data-reveal-delay="1">
         <span class="workflow-number" aria-hidden="true">2</span>
         <div>
           <h3>Dirige el combate.</h3>
           <p>Inicia el reloj, registra puntos y usa Deshacer para corregir.</p>
         </div>
       </li>
-      <li data-reveal="" data-reveal-delay="2">
+      <li data-reveal="" data-reveal-from="right" data-reveal-delay="2">
         <span class="workflow-number" aria-hidden="true">3</span>
         <div>
           <h3>Llévalo a la pantalla.</h3>
@@ -418,11 +446,16 @@
     </ol>
   </section>
   <section class="project-horizon" aria-labelledby="horizon-title">
-    <div data-reveal="">
+    <div data-reveal="" data-reveal-from="left">
       <span class="horizon-label">El siguiente paso de Octajang</span>
       <h2 id="horizon-title">Hoy, entrenamiento.<br />Después, torneos.</h2>
     </div>
-    <div class="horizon-copy" data-reveal="" data-reveal-delay="1">
+    <div
+      class="horizon-copy"
+      data-reveal=""
+      data-reveal-from="right"
+      data-reveal-delay="1"
+    >
       <p>
         Free permite preparar, puntuar y guardar un combate manual. El plan de
         torneos contempla varias áreas y jueces en la red local del recinto.
@@ -442,6 +475,7 @@
     class="closing-invitation"
     aria-label="Empezar una sesión"
     data-reveal=""
+    data-reveal-from="right"
   >
     <p>Prepara el siguiente<br />combate.</p>
     <button type="button" data-view-target="setup">

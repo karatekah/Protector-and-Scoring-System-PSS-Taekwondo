@@ -43,13 +43,15 @@ Los bloques se revelan inmediatamente al recibir foco. Sin JavaScript, sin Inter
 
 ## Movimiento compartido
 
-El título OCTAJANG se descubre de izquierda a derecha durante 1100 ms, conservando su texto y tipografía. Los siete gráficos llegan con opacidad, escala de 0.76 a 1 y 16 px de desplazamiento durante 900 ms; sus entradas se separan 120 ms y continúan con la flotación existente. La cabecera, el lema y las acciones tienen entradas de 420 ms con desenfoque de 2 px y desplazamiento de 8 px.
+El título OCTAJANG aparece letra a letra con un barrido vertical y un asentamiento final. Cada letra tarda 2100 ms, con 110 ms de separación; la secuencia completa dura 2870 ms. Los siete gráficos llegan desde su lado durante 1600 ms, con escala, giro y opacidad, antes de continuar su flotación. La cabecera, el lema y las acciones entran lateralmente durante 800 ms. Se conservan los tamaños y espacios de la composición aprobada, sin forzar el hero a caber en una sola pantalla.
+
+Las secciones de portada entran desde su lado durante 950 ms: texto a la izquierda y monitor a la derecha. Cada bloque aparece una vez por carga; recargar inicia una nueva secuencia. Un archivo de arranque evita mostrar el título completo antes de animarlo y libera el contenido tras 2500 ms si el módulo principal no termina de cargar. Sin scripts, la portada se muestra directamente.
 
 Preparación incorpora la misma entrada en títulos, sello y grupos del formulario. Control y Marcador usan únicamente una entrada de opacidad de 140 ms para sus grupos, una vez por vista durante la sesión de navegación. Los cambios de puntos y reloj mantienen su respuesta inmediata y sus teclas conservan la posición. Abrir un desplegable revela su contenido con opacidad durante 140 ms.
 
 Botones, enlaces de navegación e iconos comparten transiciones reversibles. Con ratón, los botones de uso ocasional suben 2 px, las flechas avanzan y los iconos giran ligeramente. Pulsar reduce el botón a 0.96 durante 150 ms; las teclas de puntuación y el reloj responden mediante color y sombra interior, sin desplazarse ni escalar. El hover se limita a punteros compatibles para evitar estados persistentes en pantallas táctiles.
 
-La Guía tiene entrada de cabecera, navegación y contenidos al recorrer sus secciones. Con movimiento reducido, las entradas usan solo opacidad durante 100 ms y se retiran los desplazamientos, giros y ciclos. Un cambio de preferencia cancela las entradas que siguen activas. Recibir foco muestra el contenido inmediatamente; no se bloquean acciones mientras se animan. La implementación compartida está en src/interface-motion.ts y css/motion.css, sin nuevas dependencias.
+La Guía tiene entrada de cabecera, navegación y contenidos al recorrer sus secciones. Con movimiento reducido, las entradas usan solo opacidad durante 100 ms y se retiran los desplazamientos, giros y ciclos. Un cambio de preferencia cancela las entradas que siguen activas. Recibir foco muestra el contenido inmediatamente; no se bloquean acciones mientras se animan. La implementación compartida está en src/interface-motion.ts, css/motion.css y css/motion-entrances.css, sin nuevas dependencias.
 
 ## Sesión y demostración del marcador
 

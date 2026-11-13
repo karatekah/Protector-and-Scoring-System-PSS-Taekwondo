@@ -4,6 +4,16 @@
 
 ## Evidencia automatizada
 
+### Entradas laterales y título más pausado
+
+Revisión del 2026-11-12: OCTAJANG aparece letra a letra durante 2870 ms; cada letra utiliza 2100 ms y 110 ms de separación. Los siete gráficos entran durante 1600 ms y las secciones de portada se revelan desde su lado durante 950 ms. Se conservan tamaños y espacios del hero, sin ajustar su composición para encajarla en la altura de pantalla.
+
+Free pasó tipos, formato, catorce pruebas unitarias, build y los 48 casos E2E completos en Chromium/Firefox. La base local ampliada pasó once pruebas unitarias, tipos, formato, build y sus 44 casos E2E completos. La cobertura nueva comprueba tiempos, título accesible, contenido visible sin scripts, recuperación si el módulo principal queda pendiente, direcciones opuestas y foco. Se conservan las comprobaciones de puntuación, reloj, respaldos, operador único, pantalla externa, pantalla completa y movimiento reducido.
+
+La ejecución inicial detectó clics que no completaban la navegación: el foco del ratón cancelaba una entrada y desplazaba el enlace antes de soltar el botón. Se corrigió la distinción entre foco durante una pulsación y foco por teclado. La regresión mantiene un enlace a mitad de su entrada y comprueba que el clic abre Control. Después de esa corrección pasó la suite completa, sin aumentar tiempos de espera ni retirar aserciones.
+
+La revisión visual cubrió 42 combinaciones de Free, la base ampliada y el paquete autónomo entre 320 y 1920 px, con cuatro fases de flotación. No hubo solapamientos con título o acciones, recursos faltantes, desbordamiento horizontal ni errores de script. Se inspeccionaron capturas a 390 y 1440 px. La validación física con dos monitores, móvil físico, lector de pantalla y zoom nativo sigue pendiente.
+
 ### Equipamiento animado en la portada
 
 Revisión del 2026-11-12: casco de combate, empeineras, peto azul y octógono se incorporan a los tres gráficos existentes. Comparten contornos y colores, entrada escalonada y flotación. Los tamaños y recorridos se reducen en móvil; los adornos no reciben foco ni interceptan pulsaciones, y se detienen con movimiento reducido o al ocultar la portada.

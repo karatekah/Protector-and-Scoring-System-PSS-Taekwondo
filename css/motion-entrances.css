@@ -1,0 +1,70 @@
+.hero-word {
+  display: inline-flex;
+}
+.hero-letter-mask {
+  display: inline-block;
+  overflow: clip;
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+.hero-letter {
+  display: inline-block;
+  transform-origin: 50% 85%;
+}
+.home-view,
+[data-view="setup"],
+.guide-page #content {
+  overflow-x: clip;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion-boot="pending"]
+    :is(
+      .app-header,
+      .hero-word,
+      .arena-sticker,
+      .arena-tagline,
+      .arena-actions,
+      .arena-scope
+    ) {
+    opacity: 0;
+  }
+  html[data-motion-boot="pending"]
+    .arena-center:focus-within
+    :is(
+      .hero-word,
+      .arena-sticker,
+      .arena-tagline,
+      .arena-actions,
+      .arena-scope
+    ),
+  html[data-motion-boot="pending"] .app-header:focus-within {
+    opacity: 1;
+  }
+  [data-current-view="home"] .reveal-pending {
+    opacity: 0;
+    transform: translateX(var(--reveal-x, -72px));
+    filter: blur(4px);
+  }
+  [data-current-view="home"] .reveal-pending.is-revealed {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition-duration: 950ms;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-current-view="home"] .reveal-pending:focus-within {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  [data-current-view="home"] .reveal-pending {
+    transform: translateX(var(--reveal-x-mobile, -36px));
+  }
+  [data-current-view="home"] .reveal-pending.is-revealed,
+  [data-current-view="home"] .reveal-pending:focus-within {
+    transform: none;
+  }
+}

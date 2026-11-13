@@ -2,7 +2,8 @@ export function initInterfaceMotion(): void {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const running = new Set<Animation>();
   const visited = new Set<string>();
-  const ease = "cubic-bezier(0.22, 0.68, 0.3, 1)";
+  const ease = "cubic-bezier(0.16, 1, 0.3, 1)";
+  let pointerDown = false;
   let guideObserver: IntersectionObserver | undefined;
   const guideSections = new Set<HTMLElement>();
 
@@ -19,7 +20,10 @@ export function initInterfaceMotion(): void {
       {
         duration: reduced.matches ? 100 : duration,
         delay: reduced.matches ? 0 : delay,
-        easing: ease,
+        easing:
+          id === "hero-letter-arrive"
+            ? "cubic-bezier(0.22, 0.61, 0.36, 1)"
+            : ease,
         fill: "backwards",
       },
     );
@@ -33,16 +37,31 @@ export function initInterfaceMotion(): void {
 
   function enterGroup(root: ParentNode, selector: string, quiet = false): void {
     root.querySelectorAll(selector).forEach((target, index) => {
+      const bounds = target.getBoundingClientRect();
+      const center = bounds.left + bounds.width / 2;
+      const direction =
+        Math.abs(center - innerWidth / 2) < 32
+          ? index % 2 === 0
+            ? -1
+            : 1
+          : center < innerWidth / 2
+            ? -1
+            : 1;
+      const distance = innerWidth <= 760 ? 28 : 56;
       enter(
         target,
         quiet
           ? [{ opacity: 0.65 }, { opacity: 1 }]
           : [
-              { opacity: 0, transform: "translateY(8px)", filter: "blur(2px)" },
+              {
+                opacity: 0,
+                transform: `translateX(${direction * distance}px)`,
+                filter: "blur(3px)",
+              },
               { opacity: 1, transform: "none", filter: "blur(0px)" },
             ],
-        quiet ? 140 : 420,
-        quiet ? 0 : Math.min(index * 70, 210),
+        quiet ? 140 : 800,
+        quiet ? 0 : Math.min(index * 90, 270),
       );
     });
   }
@@ -85,30 +104,47 @@ export function initInterfaceMotion(): void {
     const panel = document.querySelector(`[data-view="${view}"]`);
     if (!panel) return;
     if (view === "home") {
-      const title = panel.querySelector("#hero-title")!;
-      enter(
-        title,
-        [
-          {
-            opacity: 0,
-            clipPath: "inset(0 100% 0 0)",
-            transform: "translateY(12px)",
-          },
-          { opacity: 1, clipPath: "inset(0 0 0 0)", transform: "none" },
-        ],
-        1100,
-        0,
-        "hero-unveil",
-      );
+      panel.querySelectorAll(".hero-letter").forEach((letter, index) => {
+        enter(
+          letter,
+          [
+            {
+              opacity: 0,
+              transform: "translateY(115%) scaleY(1.28)",
+              clipPath: "inset(0 0 100% 0)",
+            },
+            {
+              opacity: 1,
+              transform: "translateY(-3%) scaleY(0.98)",
+              clipPath: "inset(0 0 0 0)",
+              offset: 0.78,
+            },
+            { opacity: 1, transform: "none", clipPath: "inset(0 0 0 0)" },
+          ],
+          2100,
+          index * 110,
+          "hero-letter-arrive",
+        );
+      });
       panel.querySelectorAll(".arena-sticker").forEach((target, index) => {
+        const bounds = target.getBoundingClientRect();
+        const direction =
+          bounds.left + bounds.width / 2 < innerWidth / 2 ? -1 : 1;
+        const distance = innerWidth <= 760 ? 44 : 88;
+        const angle = parseFloat(getComputedStyle(target).rotate) || 0;
         enter(
           target,
           [
-            { opacity: 0, scale: "0.76", translate: "0 16px" },
-            { opacity: 1, scale: "1", translate: "0 0" },
+            {
+              opacity: 0,
+              scale: "0.68",
+              translate: `${direction * distance}px 24px`,
+              rotate: `${angle + direction * 12}deg`,
+            },
+            { opacity: 1, scale: "1", translate: "0 0", rotate: `${angle}deg` },
           ],
-          900,
-          120 + index * 120,
+          1600,
+          260 + index * 110,
           "sticker-arrive",
         );
       });
@@ -142,7 +178,12 @@ export function initInterfaceMotion(): void {
     attributeFilter: ["data-current-view"],
   });
 
+  document.addEventListener("pointerdown", () => (pointerDown = true), true);
+  for (const event of ["pointerup", "pointercancel", "keydown"]) {
+    document.addEventListener(event, () => (pointerDown = false), true);
+  }
   document.addEventListener("focusin", (event) => {
+    if (pointerDown) return;
     const focused = event.target as Element;
     const pending = focused.closest<HTMLElement>(".motion-pending");
     if (pending) revealGuide(pending);
@@ -173,4 +214,5 @@ export function initInterfaceMotion(): void {
         guideObserver?.unobserve(section);
       });
   });
+  delete document.documentElement.dataset.motionBoot;
 }

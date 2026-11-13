@@ -30,6 +30,12 @@ export function initLandingMotion(): void {
     if (reducedMotion.matches) revealAll();
   };
 
+  for (const target of targets) {
+    const direction = target.dataset.revealFrom === "right" ? 1 : -1;
+    target.style.setProperty("--reveal-x", `${direction * 72}px`);
+    target.style.setProperty("--reveal-x-mobile", `${direction * 36}px`);
+  }
+
   if ("IntersectionObserver" in window) {
     const heroObserver = new IntersectionObserver((entries) => {
       for (const entry of entries) {
