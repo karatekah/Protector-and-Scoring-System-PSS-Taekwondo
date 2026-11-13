@@ -33,7 +33,7 @@ La navegación utiliza cápsulas blancas con borde negro de 2 px y selección os
 Por solicitud posterior del usuario, la portada incorpora movimiento inspirado en [Slush](https://slush.app/). No se agregaron dependencias ni se modificó el dominio del combate.
 
 - Ribbon con dos grupos idénticos y un recorrido lineal de 42 segundos hasta −50 % del track. El segundo grupo ocupa la posición inicial al terminar cada ciclo; el ancho mínimo de cada grupo cubre el viewport.
-- Siete gráficos alrededor del cartel: dobok, petos rojo y azul, casco, empeineras, octógono y sello de dos pantallas. Sus ciclos independientes duran entre 7.5 y 11 segundos, con recorridos verticales de 8–18 px en escritorio. En móvil se reducen a 5 px y 2 grados de giro.
+- Siete gráficos alrededor del cartel: dobok, petos rojo y azul, casco, empeineras, octógono y marcador. El marcador sustituye al sello de dos pantallas y utiliza rojo a la izquierda, azul a la derecha y reloj amarillo, con el mismo contorno de los demás gráficos. Sus ciclos independientes duran entre 7.5 y 11 segundos, con recorridos verticales de 8–18 px en escritorio. En móvil se reducen a 5 px y 2 grados de giro.
 - Entradas al desplazarse mediante IntersectionObserver. Se prepara el contenido inicialmente bajo el viewport. Los bloques entran una sola vez, con opacidad, 12 px de desplazamiento y desenfoque de 4 px durante 450 ms, separados por 140 ms donde hay una secuencia.
 - Por indicación del usuario, el ribbon y los gráficos funcionan automáticamente sin botón de pausa.
 - Con prefers-reduced-motion, no se ejecutan desplazamientos ni ciclos y todos los contenidos son visibles. La preferencia también se respeta si cambia con la página abierta.
@@ -44,6 +44,8 @@ Los bloques se revelan inmediatamente al recibir foco. Sin JavaScript, sin Inter
 ## Movimiento compartido
 
 El título OCTAJANG aparece letra a letra con un barrido vertical y un asentamiento final. Cada letra tarda 2100 ms, con 110 ms de separación; la secuencia completa dura 2870 ms. Los siete gráficos llegan desde su lado durante 1600 ms, con escala, giro y opacidad, antes de continuar su flotación. La cabecera, el lema y las acciones entran lateralmente durante 800 ms. Se conservan los tamaños y espacios de la composición aprobada, sin forzar el hero a caber en una sola pantalla.
+
+Tras completar la última letra, el título espera 200 ms y realiza un único pulso de 2400 ms: su opacidad baja de 1 a 0.68 y vuelve a 1, sin desaparecer ni cambiar de tamaño. Se omite con movimiento reducido. Las entradas se pausan cuando la pestaña está oculta y continúan al volver. Antes de iniciar el hero se espera la fuente Anton hasta 2000 ms; si no llega, el título permanece fijo y visible, sin desaparecer cuando finalmente cargue. Los controles enfocados conservan su posición y visibilidad durante esa espera.
 
 Las secciones de portada entran desde su lado durante 950 ms: texto a la izquierda y monitor a la derecha. Cada bloque aparece una vez por carga; recargar inicia una nueva secuencia. Un archivo de arranque evita mostrar el título completo antes de animarlo y libera el contenido tras 2500 ms si el módulo principal no termina de cargar. Sin scripts, la portada se muestra directamente.
 
@@ -101,6 +103,6 @@ La presentación solicita pantalla completa sobre el elemento del marcador, que 
 
 ## Recursos originales
 
-El dobok y el peto rojo del hero son SVG propios en src/views/home.html. El peto azul reutiliza public/assets/hogu.svg, también utilizado en la sesión. El casco, las empeineras y el octógono comparten el recurso public/assets/equipment.svg. Sus tamaños, posiciones y variantes móviles se definen en css/equipment.css. El fondo es una imagen original del cinturón azul sobre fondo opaco. Archivo final: public/assets/taekwondo-belt-sky.jpg, JPEG calidad 80, 1536 × 1024, 200 306 bytes. La ilustración anterior se conserva en docs/assets/taekwondo-kit-previous.jpg.
+El dobok y el peto rojo del hero son SVG propios en src/views/home.html. El peto azul reutiliza public/assets/hogu.svg, también utilizado en la sesión. El marcador, el casco, las empeineras y el octógono comparten el recurso public/assets/equipment.svg. Sus tamaños, posiciones y variantes móviles se definen en css/equipment.css. El fondo es una imagen original del cinturón azul sobre fondo opaco. Archivo final: public/assets/taekwondo-belt-sky.jpg, JPEG calidad 80, 1536 × 1024, 200 306 bytes. La ilustración anterior se conserva en docs/assets/taekwondo-kit-previous.jpg.
 
 Se revisaron color, tipografía, distribución, escritura y accesibilidad. No se añadieron dependencias. Las comprobaciones y sus límites se registran en [verificación](verification.md).

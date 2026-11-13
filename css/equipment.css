@@ -12,16 +12,10 @@
   inset-block-start: 18px;
   inset-block-end: auto;
 }
-.sticker-screen {
-  width: clamp(76px, 6.7vw, 96px);
+.sticker-scoreboard {
+  width: clamp(88px, 8.1vw, 116px);
   inset-inline-start: 8%;
   inset-block-end: 0;
-}
-.sticker-screen > b {
-  font-size: clamp(2.25rem, 4.2vw, 3.75rem);
-}
-.sticker-screen > span {
-  font-size: 0.625rem;
 }
 .sticker-headguard {
   --drift-x: 3px;
@@ -98,16 +92,10 @@
     inset-block-start: 5px;
     inset-block-end: auto;
   }
-  .sticker-screen {
-    width: 54px;
+  .sticker-scoreboard {
+    width: 66px;
     inset-inline-start: 3%;
     inset-block-end: 0;
-  }
-  .sticker-screen > b {
-    font-size: 1.75rem;
-  }
-  .sticker-screen > span {
-    font-size: 0.5rem;
   }
   .sticker-octagon {
     width: 58px;

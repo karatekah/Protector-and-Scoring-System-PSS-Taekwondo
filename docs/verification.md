@@ -4,6 +4,22 @@
 
 ## Evidencia automatizada
 
+### Icono del marcador en el hero
+
+Revisión local del 2026-11-12: el sello de «2 pantallas» se sustituye por un marcador vectorial con rojo a la izquierda, azul a la derecha y reloj amarillo. Comparte el contorno, borde blanco y flotación de los otros gráficos. Se retiraron los estilos del círculo y de su texto. Free, la base local ampliada y el paquete autónomo utilizan el mismo símbolo local.
+
+Tipos, formato, build y catorce pruebas unitarias aprobados en Free; once en la base ampliada. La revisión visual cubrió 42 combinaciones entre 320 y 1920 px y cuatro fases de flotación, sin solapamientos con el título o las acciones, desbordamiento horizontal, recursos faltantes ni errores de script. Se inspeccionaron capturas con viewports de 390 y 1440 px y un detalle del icono. Los dos casos de entrada del hero y pulso pasaron en Chromium/Firefox. No se repitió la suite funcional completa ni se realizaron pruebas nuevas en móvil físico para este ajuste de dibujo y CSS.
+
+### Pulso del título y recuperación de la entrada
+
+Revisión local del 2026-11-12: se reprodujeron dos causas de la entrada poco perceptible. Una carga con la pestaña oculta omitía las ocho letras sin recuperarlas al volver; una fuente demorada podía llegar cuando la secuencia ya había terminado. La entrada ahora espera Anton con un límite de dos segundos y se pausa en segundo plano. Si la fuente no llega a tiempo, el título queda visible sin una desaparición tardía. Los controles enfocados siguen visibles y estables.
+
+Después de la última letra se ejecuta un único pulso de 2400 ms, con 200 ms de separación y opacidad mínima de 0.68. No cambia dimensiones ni posición, no se repite durante la navegación interna y se omite con movimiento reducido. La recarga inicia una nueva secuencia.
+
+Free pasó tipos, formato, catorce pruebas unitarias, build y los 54 casos E2E completos en Chromium/Firefox. La base local ampliada pasó tipos, formato, once pruebas unitarias, build y 18 casos de movimiento; no se repitió su suite funcional completa. Los casos específicos cubren carga oculta mediante visibilidad simulada, pausa y reanudación, fuente demorada, salida de seguridad, foco durante la espera y movimiento reducido. La prueba de pausa espera que el navegador confirme Animation.ready antes de comparar tiempos.
+
+La revisión visual del paquete autónomo comprobó tres cargas consecutivas y tres fases del pulso con velocidad configurada a 0.1, manteniendo las dimensiones del título. Se inspeccionaron capturas a 390 y 1440 px y una grabación a velocidad normal, sin desbordamiento móvil, errores de script ni recursos faltantes. Continúan pendientes móvil físico, lector de pantalla y la sesión física con dos monitores.
+
 ### Entradas laterales y título más pausado
 
 Revisión del 2026-11-12: OCTAJANG aparece letra a letra durante 2870 ms; cada letra utiliza 2100 ms y 110 ms de separación. Los siete gráficos entran durante 1600 ms y las secciones de portada se revelan desde su lado durante 950 ms. Se conservan tamaños y espacios del hero, sin ajustar su composición para encajarla en la altura de pantalla.

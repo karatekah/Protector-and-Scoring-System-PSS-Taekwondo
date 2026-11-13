@@ -17,6 +17,19 @@
   overflow-x: clip;
 }
 @media (prefers-reduced-motion: no-preference) {
+  [data-hero-entry="pending"]
+    :is(
+      .hero-word,
+      .arena-sticker,
+      .arena-tagline,
+      .arena-actions,
+      .arena-scope
+    ) {
+    opacity: 0;
+  }
+  [data-hero-entry="pending"] .arena-actions:focus-within {
+    opacity: 1;
+  }
   html[data-motion-boot="pending"]
     :is(
       .app-header,

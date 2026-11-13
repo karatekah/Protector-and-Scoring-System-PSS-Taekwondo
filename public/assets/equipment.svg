@@ -1,4 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="scoreboard" viewBox="0 0 160 140" fill="none" stroke="#08090b" stroke-width="3" stroke-linejoin="round">
+    <path fill="#fff" d="M14 7h132l9 9v83l-9 9H14l-9-9V16Z"/>
+    <rect x="12" y="15" width="136" height="85" rx="5" fill="#08090b"/>
+    <path fill="#c92c3f" stroke="none" d="M17 21h46v10H17Z"/>
+    <path fill="#1265d0" stroke="none" d="M97 21h46v10H97Z"/>
+    <path fill="#ed4a38" stroke="none" d="M17 34h46v59H17Z"/>
+    <path fill="#3689ea" stroke="none" d="M97 34h46v59H97Z"/>
+    <path d="M25 26h30m50 0h30" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+    <g stroke="#fff" stroke-width="6">
+      <ellipse cx="40" cy="60" rx="10" ry="15"/>
+      <ellipse cx="120" cy="60" rx="10" ry="15"/>
+    </g>
+    <rect x="65" y="44" width="30" height="20" rx="2" fill="#eaff00" stroke="none"/>
+    <path d="M71 49v10m11-10h4v10h-4Zm8 0h3v10h-3Z" stroke-width="2"/>
+    <path d="M77 51v1m0 5v1" stroke-width="2" stroke-linecap="round"/>
+    <path d="M77 73h5v10m-7 0h10" stroke="#fff" stroke-width="3"/>
+    <path fill="#fff" d="M70 108h20l7 15H63Z"/>
+    <path d="M48 127h64" stroke-width="5" stroke-linecap="round"/>
+  </symbol>
   <symbol id="headguard" viewBox="0 0 120 140" fill="none" stroke="#08090b" stroke-width="3" stroke-linejoin="round">
     <path fill="#fff" d="M60 7C34 7 20 24 20 48v6L9 59v29l11 6 10 25 15 12h30l15-12 10-25 11-6V59l-11-5v-6C100 24 86 7 60 7Z"/>
     <path fill="#ed4a38" d="M60 15c-21 0-32 15-32 35v11l-11 4v19l10 6 10 24 11 9h24l11-9 10-24 10-6V65l-11-4V50c0-20-11-35-32-35Z"/>

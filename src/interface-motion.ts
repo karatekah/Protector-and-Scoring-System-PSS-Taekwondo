@@ -4,6 +4,11 @@ export function initInterfaceMotion(): void {
   const visited = new Set<string>();
   const ease = "cubic-bezier(0.16, 1, 0.3, 1)";
   let pointerDown = false;
+  let homeFont: "idle" | "pending" | "ready" | "failed" = document.fonts.check(
+    "1em Anton",
+  )
+    ? "ready"
+    : "idle";
   let guideObserver: IntersectionObserver | undefined;
   const guideSections = new Set<HTMLElement>();
 
@@ -13,8 +18,12 @@ export function initInterfaceMotion(): void {
     duration = 420,
     delay = 0,
     id = "interface-enter",
-  ): void {
-    if (document.hidden || !target.getClientRects().length) return;
+  ): Animation | undefined {
+    if (
+      !target.getClientRects().length ||
+      target.contains(document.activeElement)
+    )
+      return;
     const animation = target.animate(
       reduced.matches ? [{ opacity: 0.65 }, { opacity: 1 }] : frames,
       {
@@ -23,16 +32,20 @@ export function initInterfaceMotion(): void {
         easing:
           id === "hero-letter-arrive"
             ? "cubic-bezier(0.22, 0.61, 0.36, 1)"
-            : ease,
+            : id === "hero-title-pulse"
+              ? "ease-in-out"
+              : ease,
         fill: "backwards",
       },
     );
     animation.id = id;
+    if (document.hidden) animation.pause();
     running.add(animation);
     void animation.finished.then(
       () => running.delete(animation),
       () => running.delete(animation),
     );
+    return animation;
   }
 
   function enterGroup(root: ParentNode, selector: string, quiet = false): void {
@@ -100,12 +113,36 @@ export function initInterfaceMotion(): void {
     }
     const view = document.body.dataset.currentView;
     if (!view || visited.has(view)) return;
-    visited.add(view);
     const panel = document.querySelector(`[data-view="${view}"]`);
     if (!panel) return;
+    if (view === "home" && !reduced.matches) {
+      if (homeFont === "idle") {
+        homeFont = "pending";
+        panel.setAttribute("data-hero-entry", "pending");
+        let timeout: number;
+        void Promise.race([
+          document.fonts.load("1em Anton", "OCTAJANG").then(
+            () => "ready" as const,
+            () => "failed" as const,
+          ),
+          new Promise<"failed">((resolve) => {
+            timeout = window.setTimeout(() => resolve("failed"), 2000);
+          }),
+        ]).then((status) => {
+          clearTimeout(timeout);
+          homeFont = status;
+          panel.removeAttribute("data-hero-entry");
+          enterView();
+        });
+      }
+      if (homeFont === "pending") return;
+    }
+    visited.add(view);
     if (view === "home") {
+      const letters: Animation[] = [];
       panel.querySelectorAll(".hero-letter").forEach((letter, index) => {
-        enter(
+        if (homeFont === "failed" && !reduced.matches) return;
+        const animation = enter(
           letter,
           [
             {
@@ -125,7 +162,22 @@ export function initInterfaceMotion(): void {
           index * 110,
           "hero-letter-arrive",
         );
+        if (animation) letters.push(animation);
       });
+      void Promise.all(letters.map((animation) => animation.finished)).then(
+        () => {
+          const word = panel.querySelector(".hero-word");
+          if (!word || !letters.length || reduced.matches) return;
+          enter(
+            word,
+            [{ opacity: 1 }, { opacity: 0.68 }, { opacity: 1 }],
+            2400,
+            200,
+            "hero-title-pulse",
+          );
+        },
+        () => {},
+      );
       panel.querySelectorAll(".arena-sticker").forEach((target, index) => {
         const bounds = target.getBoundingClientRect();
         const direction =
@@ -177,6 +229,12 @@ export function initInterfaceMotion(): void {
     attributes: true,
     attributeFilter: ["data-current-view"],
   });
+  document.addEventListener("visibilitychange", () => {
+    for (const animation of running) {
+      if (document.hidden) animation.pause();
+      else animation.play();
+    }
+  });
 
   document.addEventListener("pointerdown", () => (pointerDown = true), true);
   for (const event of ["pointerup", "pointercancel", "keydown"]) {
@@ -213,6 +271,7 @@ export function initInterfaceMotion(): void {
         section.classList.remove("motion-pending");
         guideObserver?.unobserve(section);
       });
+    enterView();
   });
   delete document.documentElement.dataset.motionBoot;
 }

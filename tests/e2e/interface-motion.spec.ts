@@ -1,12 +1,21 @@
 import { expect, test } from "@playwright/test";
 
-type MotionWindow = Window & { recordedMotion: Animation[] };
+type MotionWindow = Window & {
+  recordedMotion: Animation[];
+  heroFontStates: boolean[];
+  heroHidden: boolean;
+};
 
 test.beforeEach(async ({ context }) => {
   await context.addInitScript(() => {
     (window as MotionWindow).recordedMotion = [];
+    (window as MotionWindow).heroFontStates = [];
     const original = Element.prototype.animate;
     Element.prototype.animate = function (frames, options) {
+      if (this.matches(".hero-letter"))
+        (window as MotionWindow).heroFontStates.push(
+          document.fonts.check("1em Anton"),
+        );
       const animation = original.call(this, frames, options);
       (window as MotionWindow).recordedMotion.push(animation);
       return animation;
@@ -48,6 +57,30 @@ test("hero arrives as a sequence and buttons respond to hover and press", async 
   expect(letters[0].frames[0].transform).toContain("115%");
   expect(letters[0].frames[0].clipPath).toContain("100%");
   expect(letters[7].delay + Number(letters[7].duration)).toBe(2870);
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          (window as MotionWindow).recordedMotion.filter(
+            (a) => a.id === "hero-title-pulse",
+          ).length,
+      ),
+    )
+    .toBe(1);
+  const pulse = await page.evaluate(() => {
+    const animation = (window as MotionWindow).recordedMotion.find(
+      (a) => a.id === "hero-title-pulse",
+    )!;
+    return {
+      frames: (animation.effect as KeyframeEffect).getKeyframes(),
+      ...animation.effect!.getTiming(),
+    };
+  });
+  expect(pulse.duration).toBe(2400);
+  expect(pulse.delay).toBe(200);
+  expect(pulse.frames.map((frame) => Number(frame.opacity))).toEqual([
+    1, 0.68, 1,
+  ]);
   await page.waitForFunction(() =>
     (window as MotionWindow).recordedMotion.every(
       (a) => a.playState === "finished" || a.playState === "idle",
@@ -66,6 +99,151 @@ test("hero arrives as a sequence and buttons respond to hover and press", async 
     "data-current-view",
     "setup",
   );
+});
+
+test("a hidden load preserves the entrance and pauses the closing pulse", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.addInitScript(() => {
+    (window as MotionWindow).heroHidden = true;
+    Object.defineProperty(document, "hidden", {
+      configurable: true,
+      get: () => (window as MotionWindow).heroHidden,
+    });
+  });
+  await page.goto("/");
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          (window as MotionWindow).recordedMotion.filter(
+            (a) => a.id === "hero-letter-arrive" && a.playState === "paused",
+          ).length,
+      ),
+    )
+    .toBe(8);
+  await page.evaluate(() => {
+    (window as MotionWindow).heroHidden = false;
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  await page.waitForFunction(() =>
+    (window as MotionWindow).recordedMotion.some(
+      (a) => a.id === "hero-title-pulse",
+    ),
+  );
+  const pausedTime = await page.evaluate(async () => {
+    (window as MotionWindow).heroHidden = true;
+    document.dispatchEvent(new Event("visibilitychange"));
+    const pulse = (window as MotionWindow).recordedMotion.find(
+      (a) => a.id === "hero-title-pulse",
+    )!;
+    await pulse.ready;
+    return pulse.currentTime;
+  });
+  await page.waitForTimeout(200);
+  expect(
+    await page.evaluate(
+      () =>
+        (window as MotionWindow).recordedMotion.find(
+          (a) => a.id === "hero-title-pulse",
+        )!.currentTime,
+    ),
+  ).toBe(pausedTime);
+  await page.evaluate(() => {
+    (window as MotionWindow).heroHidden = false;
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator(".hero-word")).toHaveCSS("opacity", "1");
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        (window as MotionWindow).recordedMotion.every(
+          (a) => a.playState === "idle" || a.playState === "finished",
+        ),
+      ),
+    )
+    .toBe(true);
+});
+
+test("the title waits for its font before entering", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/fonts/anton-latin.woff2", async (route) => {
+    await gate;
+    await route.continue();
+  });
+  try {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await expect(page.locator('[data-view="home"]')).toHaveAttribute(
+      "data-hero-entry",
+      "pending",
+    );
+    expect(
+      await page.evaluate(() => (window as MotionWindow).heroFontStates),
+    ).toEqual([]);
+    await expect(page.locator(".hero-word")).toHaveCSS("opacity", "0");
+    const action = page.getByRole("button", {
+      name: "Preparar un combate",
+      exact: true,
+    });
+    await action.focus();
+    await expect(page.locator(".arena-actions")).toHaveCSS("opacity", "1");
+  } finally {
+    release();
+  }
+  await expect
+    .poll(() => page.evaluate(() => (window as MotionWindow).heroFontStates))
+    .toEqual(Array(8).fill(true));
+  await expect(page.locator('[data-view="home"]')).not.toHaveAttribute(
+    "data-hero-entry",
+    "pending",
+  );
+  await expect(
+    page.getByRole("button", { name: "Preparar un combate", exact: true }),
+  ).toHaveCSS("opacity", "1");
+});
+
+test("a stalled font leaves the title visible without a late disappearance", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/fonts/anton-latin.woff2", async (route) => {
+    await gate;
+    await route.continue();
+  });
+  try {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await expect(page.locator('[data-view="home"]')).toHaveAttribute(
+      "data-hero-entry",
+      "pending",
+    );
+    await expect(page.locator('[data-view="home"]')).not.toHaveAttribute(
+      "data-hero-entry",
+      "pending",
+    );
+    await expect(page.locator(".hero-word")).toHaveCSS("opacity", "1");
+  } finally {
+    release();
+  }
+  await page.evaluate(() => document.fonts.ready);
+  expect(
+    await page.evaluate(
+      () =>
+        (window as MotionWindow).recordedMotion.filter((a) =>
+          ["hero-letter-arrive", "hero-title-pulse"].includes(a.id),
+        ).length,
+    ),
+  ).toBe(0);
+  await expect(page.locator(".hero-word")).toHaveCSS("opacity", "1");
 });
 
 test("startup avoids a flash and releases content if the main script stalls", async ({
